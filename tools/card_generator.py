@@ -248,9 +248,19 @@ def generate_all_cards(output_dir: Optional[Path] = None) -> None:
     print(f"  - 2 event back designs in /event_backs")
 
 
-def generate_print_sheet(cards_per_row: int = 3, cards_per_col: int = 3) -> str:
-    """Generate a print sheet with multiple cards for A4/Letter printing."""
-    traits, _, _ = load_data()
+def generate_print_sheets(output_dir: Optional[Path] = None) -> None:
+    """Generate print sheets for all cards (A4/Letter, 3x3 grid per sheet)."""
+    if output_dir is None:
+        output_dir = Path(__file__).parent.parent / "generated_cards" / "print_sheets"
+    
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    traits, events, _ = load_data()
+    trait_lookup = {t["id"]: t["name"] for t in traits["traits"]}
+    
+    cards_per_row = 3
+    cards_per_col = 3
+    cards_per_sheet = cards_per_row * cards_per_col
     
     card_width = 250
     card_height = 350
@@ -259,38 +269,68 @@ def generate_print_sheet(cards_per_row: int = 3, cards_per_col: int = 3) -> str:
     sheet_width = cards_per_row * (card_width + margin) + margin
     sheet_height = cards_per_col * (card_height + margin) + margin
     
-    svg_header = f'''<?xml version="1.0" encoding="UTF-8"?>
+    def create_sheet(cards: list, sheet_name: str) -> None:
+        svg_header = f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {sheet_width} {sheet_height}" width="{sheet_width}" height="{sheet_height}">
   <rect width="{sheet_width}" height="{sheet_height}" fill="#ffffff"/>
 '''
-    
-    svg_footer = "</svg>"
-    
-    cards_content = []
-    for i, trait in enumerate(traits["traits"][:cards_per_row * cards_per_col]):
-        row = i // cards_per_row
-        col = i % cards_per_row
-        x = margin + col * (card_width + margin)
-        y = margin + row * (card_height + margin)
+        cards_content = []
+        for i, card_svg in enumerate(cards):
+            row = i // cards_per_row
+            col = i % cards_per_row
+            x = margin + col * (card_width + margin)
+            y = margin + row * (card_height + margin)
+            
+            inner = card_svg.split("<svg")[1].split(">", 1)[1].rsplit("</svg>", 1)[0]
+            cards_content.append(f'<g transform="translate({x}, {y})">{inner}</g>')
         
-        card_svg = generate_trait_card_svg(trait)
-        inner_content = card_svg.split("<svg")[1].split(">", 1)[1].rsplit("</svg>", 1)[0]
-        
-        cards_content.append(f'<g transform="translate({x}, {y})">{inner_content}</g>')
+        with open(output_dir / sheet_name, "w") as f:
+            f.write(svg_header + "\n".join(cards_content) + "</svg>")
     
-    return svg_header + "\n".join(cards_content) + svg_footer
+    trait_cards = [generate_trait_card_svg(t, trait_lookup) for t in traits["traits"]]
+    for i in range(0, len(trait_cards), cards_per_sheet):
+        sheet_num = i // cards_per_sheet + 1
+        batch = trait_cards[i:i + cards_per_sheet]
+        create_sheet(batch, f"traits_sheet_{sheet_num:02d}.svg")
+    
+    event_cards = [generate_event_card_svg(e) for e in events["events"]]
+    for i in range(0, len(event_cards), cards_per_sheet):
+        sheet_num = i // cards_per_sheet + 1
+        batch = event_cards[i:i + cards_per_sheet]
+        create_sheet(batch, f"events_sheet_{sheet_num:02d}.svg")
+    
+    assets_dir = Path(__file__).parent.parent / "assets" / "cards"
+    extinction_back = assets_dir / "event_back_extinction.svg"
+    other_back = assets_dir / "event_back_other.svg"
+    
+    if extinction_back.exists() and other_back.exists():
+        with open(extinction_back) as f:
+            ext_svg = f.read()
+        with open(other_back) as f:
+            other_svg = f.read()
+        
+        ext_cards = [ext_svg] * 7
+        other_cards = [other_svg] * 9
+        create_sheet(ext_cards + other_cards[:2], "event_backs_sheet_01.svg")
+        create_sheet(other_cards[2:], "event_backs_sheet_02.svg")
+    
+    num_trait_sheets = (len(trait_cards) + cards_per_sheet - 1) // cards_per_sheet
+    num_event_sheets = (len(event_cards) + cards_per_sheet - 1) // cards_per_sheet
+    
+    print(f"Print sheets generated in: {output_dir}")
+    print(f"  - {num_trait_sheets} trait sheets ({len(trait_cards)} cards)")
+    print(f"  - {num_event_sheets} event sheets ({len(event_cards)} cards)")
+    print(f"  - 2 event back sheets (for double-sided printing)")
 
 
 if __name__ == "__main__":
     import sys
     
-    if len(sys.argv) > 1 and sys.argv[1] == "--sheet":
-        sheet = generate_print_sheet()
-        output = Path(__file__).parent.parent / "generated_cards" / "print_sheet.svg"
-        output.parent.mkdir(exist_ok=True)
-        with open(output, "w") as f:
-            f.write(sheet)
-        print(f"Print sheet generated: {output}")
+    if len(sys.argv) > 1 and sys.argv[1] == "--sheets":
+        generate_all_cards()
+        generate_print_sheets()
+    elif len(sys.argv) > 1 and sys.argv[1] == "--print-only":
+        generate_print_sheets()
     else:
         generate_all_cards()
 

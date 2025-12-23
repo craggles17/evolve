@@ -8,14 +8,14 @@
 ## Components
 
 ### Per Player
-- 1 Personal Lineage Board
+- 1 Personal Lineage Board (with 12 era columns)
 - 12 Creature Markers (wooden tokens or meeples)
 - 10 Allele Tokens
 
 ### Shared
 - 1 Central Era Board
 - 12 Era Trait Decks (color-coded, 10 cards per player per deck)
-- 12 Event Cards (pre-sorted by era)
+- 18 Event Cards (shuffled deck with visible backs)
 - 19-37 Hexagonal Biome Tiles
 - 2 Standard d6 dice
 
@@ -26,12 +26,40 @@
 1. **Place the Central Era Board** in the center of the table
 2. **Arrange Hex Tiles** in the starting layout (see Era Board for configuration)
 3. **Sort Era Decks** by color and place face-down near the board
-4. **Place Event Cards** in their slots on the Era Board (or face-down in era order)
+4. **Shuffle Event Deck:**
+   - Shuffle all 18 event cards face-down
+   - Place the deck where all players can see the BACKS
+   - **RED BACK (skull)** = Extinction event - danger ahead!
+   - **GREEN BACK (question mark)** = Positive or neutral event
 5. **Each Player Takes:**
    - 1 Personal Lineage Board
    - 12 Creature Markers in their color
    - Starting Alleles: Roll 2d6, this is your starting allele pool
 6. **Place Starting Markers:** Each player places 3 markers on any Shallow Marine or Ocean tile
+
+---
+
+## Personal Lineage Board
+
+Your lineage board has **12 era columns** (one per geological era):
+
+```
+| Era 0    | Era 1     | Era 2    | ... | Era 11     |
+| Cambrian | Ordovician| Silurian |     | Quaternary |
+|----------|-----------|----------|-----|------------|
+| [slot]   | [slot]    | [slot]   |     | [slot]     |
+| [slot]   | [slot]    | [slot]   |     | [slot]     |
+| [slot]   | [slot]    | [slot]   |     | [slot]     |
+```
+
+When you play a trait, place it in the **current era's column**. This tracks your evolutionary timeline and shows when you acquired each adaptation.
+
+The right panel tracks:
+- **Creature Markers** (12 total)
+- **Alleles** (current currency)
+- **Total Complexity** (sum of trait values)
+- **Active Tags** (for biomes and extinction checks)
+- **Fecundity Bonus** (allele income modifier)
 
 ---
 
@@ -41,7 +69,7 @@ The game progresses through 12 eras. Each era follows this sequence:
 
 ### Phase 1: Allele Roll
 All players simultaneously roll 2d6 and add:
-- **Population Tier:** 1-3 markers on board = +0, 4-6 = +1, 7+ = +2
+- **Population Tier:** 1-3 markers on board = +0, 4-6 = +1, 7-9 = +2, 10+ = +3
 - **Tile Control:** +1 per tile you control
 - **Fecundity Bonus:** As indicated by your traits
 
@@ -59,7 +87,7 @@ In turn order, players may play any number of trait cards from hand:
 1. Check **Era Window** - Current era must be within Min-Max range
 2. Check **Hard Prerequisites** - Must have all required traits already
 3. Pay **Allele Cost** (reduced by soft prerequisites)
-4. Place card on your Lineage Board, connected to prerequisites
+4. Place card in the **current era's column** on your Lineage Board
 5. Gain the trait's tags and abilities
 
 **Soft Prerequisite Discounts:**
@@ -96,11 +124,19 @@ Roll 1d6 for the entire tile grid:
 - Any markers on flipped tiles remain (but must check if still valid)
 
 ### Phase 7: Event Resolution
-Reveal and resolve the current era's event card:
+**Reveal the top event card** from the shuffled deck.
 
-**Positive Events:** Apply bonus effects as stated
+**Event Types:**
 
-**Neutral Events:** Apply effects as stated
+| Card Back | Event Type | Effect |
+|-----------|------------|--------|
+| 🔴 Red/Skull | Extinction | Survival check for all players |
+| 🟢 Green/? | Positive | Bonus effect as stated |
+| 🟢 Green/? | Neutral | Environmental change as stated |
+
+**Positive Events:** Apply bonus effects as stated on the card.
+
+**Neutral Events:** Apply effects as stated on the card.
 
 **Extinction Events:** Resolve for each player:
 1. **SAFE Check:** Do you have ANY tag in the SAFE list?
@@ -108,11 +144,28 @@ Reveal and resolve the current era's event card:
 2. **DOOMED Check:** Do you have ANY tag in the DOOMED list?
    - YES → Lose half your markers (round up losses). Keep at least 1.
 3. **NEUTRAL Check:** If neither SAFE nor DOOMED:
-   - Roll 1d6. Need 4+ to survive (5+ for End-Permian)
+   - Roll 1d6. Need 4+ to survive (5+ for "The Great Dying")
    - Fail = Lose half your markers
+
+**After resolution:** Place the event card in a discard pile. The "REAL EXAMPLES" section on each card shows when this type of event actually happened on Earth!
 
 ### Phase 8: Advance
 Move the era marker to the next era. Begin the next era's Phase 1.
+
+---
+
+## Event Card Strategy
+
+**The event deck is shuffled**, so you don't know exactly when extinctions will hit. But you CAN see the card backs!
+
+**Reading the Event Deck:**
+- Count the **RED backs** visible - that's how many extinctions remain
+- If the next card is RED, prepare your survival tags!
+- If the next card is GREEN, you might risk a more aggressive strategy
+
+**Building for Survival:**
+- Acquire [Burrowing], [Small], [Freshwater], or [Deep-Sea] - these appear on many SAFE lists
+- Avoid over-investing in [Reef-Dependent], [Tropical], or [Large] - often DOOMED
 
 ---
 
@@ -148,14 +201,48 @@ Tile Bonus = 3 points × number of tiles you control
 | TRAIT: Tetrapod Limbs            |  ← Trait name
 +----------------------------------+
 | COST: 4 Alleles                  |  ← Base cost
-| PREREQS: Lungs ━━, Lobed Fins ┅┅ |  ← ━━ = Hard, ┅┅ = Soft
+| PREREQS: Lungs ━, Lobed Fins ┅   |  ← ━ = Hard, ┅ = Soft
 +----------------------------------+
 | COMPLEXITY: +3                   |  ← Victory points
 | TAGS: [Terrestrial] [Mobile]     |  ← For biomes & extinction
 +----------------------------------+
-| GRANTS: Claim land tiles         |  ← Special abilities
+| GRANTS: TILES: Occupy land.      |  ← Special abilities
+| FOUNDATION: Required for amniotes|
 +----------------------------------+
 | [Clade: Tetrapoda]               |  ← Phylogenetic placement
++----------------------------------+
+```
+
+**Grants Format:**
+- `TILES:` - What biomes you can occupy
+- `COMPETITION:` - Bonuses in tile control
+- `ALLELES:` - Income modifiers
+- `SURVIVAL:` - Extinction benefits
+- `FOUNDATION:` - Unlocks other traits
+
+---
+
+## Event Card Anatomy
+
+```
++----------------------------------+
+| ★ EXTINCTION ★                   |  ← Event type header
++----------------------------------+
+| ICE AGE                          |  ← Generic event name
++----------------------------------+
+| SAFE (survive):                  |
+| [Freshwater] [Deep-Sea]          |  ← Tags that auto-survive
+| [Warm-Blooded] [Burrowing]       |
++----------------------------------+
+| DOOMED (lose half):              |
+| [Tropical] [Shallow-Marine]      |  ← Tags that suffer losses
+| [Cold-Vulnerable]                |
++----------------------------------+
+| NEUTRAL: Roll d6, need 4+        |  ← Everyone else rolls
++----------------------------------+
+| REAL EXAMPLES:                   |  ← When this happened on Earth
+| • End-Ordovician (~445 MYA)      |
+| • Pleistocene (~2.6 MYA)         |
 +----------------------------------+
 ```
 
@@ -204,15 +291,22 @@ Use this information to compete for tiles or avoid their strategy!
 ### The Crocodile Strategy
 - Acquire basic Archosaur traits
 - Get [Burrowing] + [Aquatic] early
-- Focus on population, not complexity
-- Survive every extinction
-- Win through sheer numbers
+- Add Osteoderms and Crocodilian Body Plan
+- Focus on population AND complexity
+- Survive nearly every extinction
+- Control Swamp and Coast tiles
 
 ### The Bird Strategy
 - Long trait chain: Archosaur → Hollow Bones → Feathers → Flight
 - High complexity payoff
 - Excellent mobility (any tile)
-- K-Pg survivor
+- K-Pg survivor (with [Avian] tag)
+
+### The Mammal Strategy
+- Synapsid skull → Endothermy → Fur → Mammary Glands
+- Live Birth + Placenta for protected offspring
+- Strong against Ice Ages with [Warm-Blooded]
+- High complexity late game
 
 ### The Generalist Strategy
 - Spread markers across many biomes
@@ -230,18 +324,23 @@ Use this information to compete for tiles or avoid their strategy!
 
 ### Allele Income
 ```
-2d6 + Pop Tier (0/+1/+2) + Tiles Controlled + Fecundity Bonus
+2d6 + Pop Tier (0/+1/+2/+3) + Tiles Controlled + Fecundity Bonus
 ```
 
 ### Population Tiers
 - 1-3 markers: +0
 - 4-6 markers: +1
-- 7+ markers: +2
+- 7-9 markers: +2
+- 10+ markers: +3
 
 ### Extinction Resolution
 1. SAFE tag? → Survive
 2. DOOMED tag? → Lose half (min 1 survivor)
-3. Neither? → Roll d6, need 4+ (5+ End-Permian)
+3. Neither? → Roll d6, need 4+ (5+ for Great Dying)
+
+### Event Back Colors
+- 🔴 **RED/SKULL** = Extinction coming - prepare!
+- 🟢 **GREEN/?** = Positive or neutral event
 
 ### Scoring
 ```
@@ -251,4 +350,3 @@ Population × Complexity + (Tiles × 3)
 ---
 
 *For scientific explanations of all rules, see the Companion Book.*
-

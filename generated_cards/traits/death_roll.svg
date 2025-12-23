@@ -19,7 +19,7 @@
   <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Triassic to Quaternary)</text>
   
   <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">CROCODILIAN BODY PLAN</text>
+  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">DEATH ROLL</text>
   
   <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
   <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
@@ -27,22 +27,22 @@
   
   <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
   <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Upright Posture ━</tspan><tspan x="185" dy="12" fill="#888">Osteoderms ┅</tspan></text>
+  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Crocodilian Body Plan ━</tspan><tspan x="185" dy="12" fill="#888">Jaws ┅</tspan></text>
   
   <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +4</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Aquatic] [Terrestrial] [Archosaur]...</text>
+  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +3</text>
+  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Predator] [Aquatic] [Archosaur]</text>
   
   <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">TILES: Occupy BOTH land AND aquatic (unique)</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +3 ambush on Swamp/Coast</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE all extinctions except ice.</text>
+  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +3 vs [Large] prey</text>
+  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">Can displace any organism on Swamp/Freshwa...</text>
+  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc"></text>
   
   <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
   <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Crocodilians are 'living fossils' - body plan unchanged</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666"> for 200+ million years</text>
+  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Crocodilians spin rapidly to dismember large prey - uni</text>
+  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">que hunting technique req...</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
   <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Crocodilia]</text>
