@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#c0392b" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#c0392b" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">★ EXTINCTION EVENT ★</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#c0392b" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">END-ORDOVICIAN ICE AGE</text>
+  
+  
+  <rect x="10" y="100" width="230" height="60" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive automatically)</text>
+  <text x="125" y="138" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle">[Freshwater] [Deep-Sea] [Terrestrial]</text>
+  
+  <rect x="10" y="165" width="230" height="55" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="125" y="183" font-family="Arial" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half markers)</text>
+  <text x="125" y="203" font-family="Arial" font-size="8" fill="#c0392b" text-anchor="middle">[Shallow-Marine] [Reef-Dependent] [Tropical]</text>
+  
+  <rect x="10" y="225" width="230" height="30" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
+  <text x="125" y="244" font-family="Arial" font-size="9" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need 4+</text>
+  
+  <rect x="10" y="265" width="230" height="75" fill="#0a0505" stroke="#555" rx="5"/>
+  <text x="125" y="283" font-family="Arial" font-size="9" fill="#888" text-anchor="middle" font-style="italic">SCIENCE:</text>
+  <text x="20" y="300" font-family="Arial" font-size="7" fill="#666">The End-Ordovician extinction (~445 MYA) was caused by </text>
+  <text x="20" y="312" font-family="Arial" font-size="7" fill="#666">rapid glaciation as Gondwana moved over the South Pole.</text>
+  <text x="20" y="324" font-family="Arial" font-size="7" fill="#666"> Sea levels dropped 50-100m, destroying shallow marine </text>
+</svg>

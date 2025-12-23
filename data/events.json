@@ -1,11 +1,11 @@
 {
   "meta": {
-    "version": "1.0",
-    "description": "Event cards for each era - one predetermined event per era"
+    "version": "1.1",
+    "description": "Event cards - shuffled deck, one revealed per era. Card backs show if extinction or not."
   },
   "events": [
     {
-      "era": 0,
+      "id": "great_oxygenation",
       "name": "Great Oxygenation",
       "type": "positive",
       "description": "Oxygen levels rise dramatically, enabling larger body sizes and more active metabolism.",
@@ -16,7 +16,7 @@
       "neutral_roll": null
     },
     {
-      "era": 1,
+      "id": "ice_age_ordovician",
       "name": "End-Ordovician Ice Age",
       "type": "extinction",
       "description": "Glaciation causes sea levels to drop dramatically. 85% of marine species go extinct.",
@@ -27,7 +27,7 @@
       "neutral_roll": 4
     },
     {
-      "era": 2,
+      "id": "ozone_layer",
       "name": "Ozone Layer Forms",
       "type": "positive",
       "description": "The ozone layer stabilizes, reducing UV radiation and making land habitable.",
@@ -38,7 +38,7 @@
       "neutral_roll": null
     },
     {
-      "era": 3,
+      "id": "devonian_crisis",
       "name": "Late Devonian Crisis",
       "type": "extinction",
       "description": "Multiple extinction pulses devastate marine life. 75% of species eliminated over 20 million years.",
@@ -49,7 +49,7 @@
       "neutral_roll": 4
     },
     {
-      "era": 4,
+      "id": "oxygen_spike",
       "name": "Carboniferous Oxygen Spike",
       "type": "positive",
       "description": "Oxygen reaches 35% - the highest ever. Giant insects and amphibians thrive.",
@@ -60,18 +60,18 @@
       "neutral_roll": null
     },
     {
-      "era": 5,
+      "id": "great_dying",
       "name": "The Great Dying",
       "type": "extinction",
       "description": "End-Permian mass extinction. 96% of marine species and 70% of land species eliminated. The worst extinction ever.",
-      "effect": "Binary extinction check - HARDEST",
+      "effect": "Binary extinction check - HARDEST (need 5+ on d6)",
       "science": "The End-Permian extinction (~252 MYA) was caused by Siberian Traps volcanism releasing CO2 and methane, causing global warming, ocean acidification, and anoxia. Recovery took 10 million years.",
       "safe_tags": ["Burrowing", "Freshwater", "Small", "Deep-Sea"],
       "doomed_tags": ["Reef-Dependent", "Marine-Only", "Large", "Shallow-Marine"],
       "neutral_roll": 5
     },
     {
-      "era": 6,
+      "id": "triassic_volcanism",
       "name": "End-Triassic Volcanism",
       "type": "extinction",
       "description": "Central Atlantic Magmatic Province eruptions cause mass extinction. 80% of species eliminated.",
@@ -82,7 +82,7 @@
       "neutral_roll": 4
     },
     {
-      "era": 7,
+      "id": "pangaea_breakup",
       "name": "Pangaea Breakup",
       "type": "neutral",
       "description": "The supercontinent fragments, creating new oceans and isolated landmasses.",
@@ -93,7 +93,7 @@
       "neutral_roll": null
     },
     {
-      "era": 8,
+      "id": "kpg_impact",
       "name": "K-Pg Asteroid Impact",
       "type": "extinction",
       "description": "Chicxulub asteroid strikes Earth. Non-avian dinosaurs go extinct. 76% of species eliminated.",
@@ -104,7 +104,7 @@
       "neutral_roll": 4
     },
     {
-      "era": 9,
+      "id": "mammal_radiation",
       "name": "Mammalian Radiation",
       "type": "positive",
       "description": "With dinosaurs gone, mammals diversify explosively into vacated niches.",
@@ -115,7 +115,7 @@
       "neutral_roll": null
     },
     {
-      "era": 10,
+      "id": "grassland_expansion",
       "name": "Grassland Expansion",
       "type": "neutral",
       "description": "Grasslands spread across continents, replacing forests. Grazing mammals diversify.",
@@ -126,7 +126,7 @@
       "neutral_roll": null
     },
     {
-      "era": 11,
+      "id": "pleistocene_ice",
       "name": "Pleistocene Ice Ages",
       "type": "extinction",
       "description": "Glacial cycles cause repeated habitat contraction. Megafauna go extinct.",
@@ -138,4 +138,3 @@
     }
   ]
 }
-

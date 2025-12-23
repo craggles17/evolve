@@ -145,19 +145,28 @@ def generate_event_card_svg(event: dict) -> str:
     doomed_tags = " ".join(f"[{t}]" for t in event.get("doomed_tags", [])[:4])
     neutral_roll = event.get("neutral_roll", 4)
     
+    effect_text = event.get("effect", "")[:50]
+    description = event.get("description", "")[:70]
+    
     extinction_section = ""
     if is_extinction:
         extinction_section = f'''
-  <rect x="10" y="130" width="230" height="70" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
-  <text x="125" y="148" font-family="Arial" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive automatically)</text>
-  <text x="125" y="170" font-family="Arial" font-size="9" fill="#27ae60" text-anchor="middle">{safe_tags}</text>
+  <rect x="10" y="100" width="230" height="60" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive automatically)</text>
+  <text x="125" y="138" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle">{safe_tags}</text>
   
-  <rect x="10" y="205" width="230" height="60" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
-  <text x="125" y="223" font-family="Arial" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half population)</text>
-  <text x="125" y="245" font-family="Arial" font-size="9" fill="#c0392b" text-anchor="middle">{doomed_tags}</text>
+  <rect x="10" y="165" width="230" height="55" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="125" y="183" font-family="Arial" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half markers)</text>
+  <text x="125" y="203" font-family="Arial" font-size="8" fill="#c0392b" text-anchor="middle">{doomed_tags}</text>
   
-  <rect x="10" y="270" width="230" height="35" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
-  <text x="125" y="292" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need {neutral_roll}+</text>'''
+  <rect x="10" y="225" width="230" height="30" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
+  <text x="125" y="244" font-family="Arial" font-size="9" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need {neutral_roll}+</text>'''
+    else:
+        extinction_section = f'''
+  <rect x="10" y="100" width="230" height="80" fill="#0a0a15" stroke="#555" rx="5"/>
+  <text x="125" y="120" font-family="Arial" font-size="10" fill="#ccc" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="140" font-family="Arial" font-size="9" fill="#aaa" text-anchor="middle">{effect_text}</text>
+  <text x="125" y="160" font-family="Arial" font-size="8" fill="#888" text-anchor="middle" font-style="italic">{description[:40]}</text>'''
     
     svg = f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
@@ -170,13 +179,13 @@ def generate_event_card_svg(event: dict) -> str:
   <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="{border_color}" rx="5"/>
   <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">{event["name"].upper()}</text>
   
-  <rect x="10" y="100" width="230" height="25" fill="#0a0505" stroke="#555" rx="5"/>
-  <text x="125" y="117" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">Era {event["era"]}</text>
-  
   {extinction_section}
   
-  <rect x="10" y="310" width="230" height="30" fill="#0a0505" stroke="#555" rx="5"/>
-  <text x="125" y="328" font-family="Arial" font-size="7" fill="#666" text-anchor="middle" font-style="italic">{event.get("science", "")[:60]}</text>
+  <rect x="10" y="265" width="230" height="75" fill="#0a0505" stroke="#555" rx="5"/>
+  <text x="125" y="283" font-family="Arial" font-size="9" fill="#888" text-anchor="middle" font-style="italic">SCIENCE:</text>
+  <text x="20" y="300" font-family="Arial" font-size="7" fill="#666">{event.get("science", "")[:55]}</text>
+  <text x="20" y="312" font-family="Arial" font-size="7" fill="#666">{event.get("science", "")[55:110]}</text>
+  <text x="20" y="324" font-family="Arial" font-size="7" fill="#666">{event.get("science", "")[110:165]}</text>
 </svg>'''
     
     return svg
@@ -205,13 +214,26 @@ def generate_all_cards(output_dir: Optional[Path] = None) -> None:
     print(f"Generating {len(events['events'])} event cards...")
     for event in events["events"]:
         svg = generate_event_card_svg(event)
-        filepath = output_dir / "events" / f"era_{event['era']}_{event['name'].lower().replace(' ', '_')}.svg"
+        event_id = event.get("id", event["name"].lower().replace(" ", "_").replace("-", "_"))
+        filepath = output_dir / "events" / f"{event_id}.svg"
         with open(filepath, "w") as f:
             f.write(svg)
+    
+    (output_dir / "event_backs").mkdir(exist_ok=True)
+    assets_dir = Path(__file__).parent.parent / "assets" / "cards"
+    
+    import shutil
+    extinction_back = assets_dir / "event_back_extinction.svg"
+    other_back = assets_dir / "event_back_other.svg"
+    if extinction_back.exists():
+        shutil.copy(extinction_back, output_dir / "event_backs" / "extinction_back.svg")
+    if other_back.exists():
+        shutil.copy(other_back, output_dir / "event_backs" / "other_back.svg")
     
     print(f"\nCards generated in: {output_dir}")
     print(f"  - {len(traits['traits'])} trait cards in /traits")
     print(f"  - {len(events['events'])} event cards in /events")
+    print(f"  - 2 event back designs in /event_backs")
 
 
 def generate_print_sheet(cards_per_row: int = 3, cards_per_col: int = 3) -> str:

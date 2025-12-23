@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
+  <defs>
+    <linearGradient id="extinctionBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4a0000"/>
+      <stop offset="50%" style="stop-color:#8b0000"/>
+      <stop offset="100%" style="stop-color:#4a0000"/>
+    </linearGradient>
+    <radialGradient id="glowRed" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#000000;stop-opacity:0"/>
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="250" height="350" fill="url(#extinctionBg)" rx="15"/>
+  
+  <!-- Border -->
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#ff4444" stroke-width="3" rx="12"/>
+  <rect x="10" y="10" width="230" height="330" fill="none" stroke="#880000" stroke-width="1" rx="10"/>
+  
+  <!-- Danger glow -->
+  <ellipse cx="125" cy="175" rx="100" ry="100" fill="url(#glowRed)"/>
+  
+  <!-- Skull icon -->
+  <g transform="translate(125, 140)" filter="url(#shadow)">
+    <!-- Skull outline -->
+    <ellipse cx="0" cy="-20" rx="45" ry="40" fill="#1a0000" stroke="#ff4444" stroke-width="2"/>
+    <!-- Jaw -->
+    <path d="M-30,15 Q0,45 30,15" fill="none" stroke="#ff4444" stroke-width="2"/>
+    <!-- Left eye socket -->
+    <ellipse cx="-18" cy="-25" rx="12" ry="14" fill="#ff4444"/>
+    <!-- Right eye socket -->
+    <ellipse cx="18" cy="-25" rx="12" ry="14" fill="#ff4444"/>
+    <!-- Nose hole -->
+    <path d="M0,-5 L-6,8 L6,8 Z" fill="#ff4444"/>
+    <!-- Teeth -->
+    <line x1="-20" y1="15" x2="-20" y2="25" stroke="#ff4444" stroke-width="3"/>
+    <line x1="-10" y1="17" x2="-10" y2="27" stroke="#ff4444" stroke-width="3"/>
+    <line x1="0" y1="18" x2="0" y2="28" stroke="#ff4444" stroke-width="3"/>
+    <line x1="10" y1="17" x2="10" y2="27" stroke="#ff4444" stroke-width="3"/>
+    <line x1="20" y1="15" x2="20" y2="25" stroke="#ff4444" stroke-width="3"/>
+  </g>
+  
+  <!-- Warning text -->
+  <text x="125" y="230" font-family="Impact, Arial Black, sans-serif" font-size="28" fill="#ff4444" text-anchor="middle" filter="url(#shadow)">EXTINCTION</text>
+  <text x="125" y="255" font-family="Arial, sans-serif" font-size="14" fill="#cc0000" text-anchor="middle">EVENT</text>
+  
+  <!-- Warning stripes at bottom -->
+  <g transform="translate(25, 290)">
+    <rect x="0" y="0" width="200" height="30" fill="#1a0000" rx="5"/>
+    <line x1="10" y1="5" x2="25" y2="25" stroke="#ff4444" stroke-width="4"/>
+    <line x1="30" y1="5" x2="45" y2="25" stroke="#ff4444" stroke-width="4"/>
+    <line x1="50" y1="5" x2="65" y2="25" stroke="#ff4444" stroke-width="4"/>
+    <line x1="70" y1="5" x2="85" y2="25" stroke="#ff4444" stroke-width="4"/>
+    <line x1="90" y1="5" x2="105" y2="25" stroke="#ff4444" stroke-width="4"/>
+    <line x1="110" y1="5" x2="125" y2="25" stroke="#ff4444" stroke-width="4"/>
+    <line x1="130" y1="5" x2="145" y2="25" stroke="#ff4444" stroke-width="4"/>
+    <line x1="150" y1="5" x2="165" y2="25" stroke="#ff4444" stroke-width="4"/>
+    <line x1="170" y1="5" x2="185" y2="25" stroke="#ff4444" stroke-width="4"/>
+  </g>
+  
+  <!-- Top decoration -->
+  <text x="125" y="45" font-family="Georgia, serif" font-size="18" fill="#ff4444" text-anchor="middle" font-style="italic">☠ DANGER ☠</text>
+</svg>
+
