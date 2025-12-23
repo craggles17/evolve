@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">NEUTRAL EVENT</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">GRASSLAND EXPANSION</text>
+  
+  <rect x="10" y="100" width="230" height="25" fill="#0a0505" stroke="#555" rx="5"/>
+  <text x="125" y="117" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">Era 10</text>
+  
+  
+  
+  <rect x="10" y="310" width="230" height="30" fill="#0a0505" stroke="#555" rx="5"/>
+  <text x="125" y="328" font-family="Arial" font-size="7" fill="#666" text-anchor="middle" font-style="italic">Grasslands expanded dramatically in the Miocene (~15 MYA) as</text>
+</svg>
