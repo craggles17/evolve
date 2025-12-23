@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">BIOME TRANSITION</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Convert 2 Forest tiles to Grassland OR vice vers</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">One ecosystem type gradually replaces another across large a</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Grassland expansion (~15 MYA) - Miocene dryin</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Rainforest spread (~55 MYA) - PETM warmth</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Biome shifts occur when climate changes or new dominant</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> species evolve. Grasslands replaced forests as CO2 dro</text>
+</svg>

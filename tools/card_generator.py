@@ -139,34 +139,43 @@ def generate_trait_card_svg(trait: dict, trait_lookup: dict = None) -> str:
 def generate_event_card_svg(event: dict) -> str:
     """Generate SVG for a single event card."""
     is_extinction = event["type"] == "extinction"
-    border_color = "#c0392b" if is_extinction else "#27ae60" if event["type"] == "positive" else "#3498db"
+    is_positive = event["type"] == "positive"
+    border_color = "#c0392b" if is_extinction else "#27ae60" if is_positive else "#3498db"
     
     safe_tags = " ".join(f"[{t}]" for t in event.get("safe_tags", [])[:4])
     doomed_tags = " ".join(f"[{t}]" for t in event.get("doomed_tags", [])[:4])
     neutral_roll = event.get("neutral_roll", 4)
     
-    effect_text = event.get("effect", "")[:50]
-    description = event.get("description", "")[:70]
+    effect_text = event.get("effect", "")[:48]
+    description = event.get("description", "")[:60]
     
-    extinction_section = ""
+    real_examples = event.get("real_examples", [])
+    example1 = real_examples[0][:45] if len(real_examples) > 0 else ""
+    example2 = real_examples[1][:45] if len(real_examples) > 1 else ""
+    
+    main_section = ""
     if is_extinction:
-        extinction_section = f'''
-  <rect x="10" y="100" width="230" height="60" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
-  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive automatically)</text>
-  <text x="125" y="138" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle">{safe_tags}</text>
+        main_section = f'''
+  <rect x="10" y="100" width="230" height="50" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
+  <text x="125" y="115" font-family="Arial" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive)</text>
+  <text x="125" y="132" font-family="Arial" font-size="7" fill="#27ae60" text-anchor="middle">{safe_tags}</text>
   
-  <rect x="10" y="165" width="230" height="55" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
-  <text x="125" y="183" font-family="Arial" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half markers)</text>
-  <text x="125" y="203" font-family="Arial" font-size="8" fill="#c0392b" text-anchor="middle">{doomed_tags}</text>
+  <rect x="10" y="155" width="230" height="50" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="125" y="170" font-family="Arial" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half)</text>
+  <text x="125" y="187" font-family="Arial" font-size="7" fill="#c0392b" text-anchor="middle">{doomed_tags}</text>
   
-  <rect x="10" y="225" width="230" height="30" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
-  <text x="125" y="244" font-family="Arial" font-size="9" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need {neutral_roll}+</text>'''
+  <rect x="10" y="210" width="230" height="25" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
+  <text x="125" y="227" font-family="Arial" font-size="9" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need {neutral_roll}+</text>'''
     else:
-        extinction_section = f'''
-  <rect x="10" y="100" width="230" height="80" fill="#0a0a15" stroke="#555" rx="5"/>
-  <text x="125" y="120" font-family="Arial" font-size="10" fill="#ccc" text-anchor="middle" font-weight="bold">EFFECT:</text>
-  <text x="125" y="140" font-family="Arial" font-size="9" fill="#aaa" text-anchor="middle">{effect_text}</text>
-  <text x="125" y="160" font-family="Arial" font-size="8" fill="#888" text-anchor="middle" font-style="italic">{description[:40]}</text>'''
+        main_section = f'''
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="{border_color}" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="{border_color}" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">{effect_text}</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">{description}</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>'''
+    
+    examples_y = 245 if is_extinction else 185
     
     svg = f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
@@ -174,18 +183,21 @@ def generate_event_card_svg(event: dict) -> str:
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="{border_color}" stroke-width="3" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="{border_color}" rx="8"/>
-  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">{"★ EXTINCTION EVENT ★" if is_extinction else event["type"].upper() + " EVENT"}</text>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">{"★ EXTINCTION ★" if is_extinction else "✦ " + event["type"].upper() + " ✦"}</text>
   
   <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="{border_color}" rx="5"/>
   <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">{event["name"].upper()}</text>
   
-  {extinction_section}
+  {main_section}
   
-  <rect x="10" y="265" width="230" height="75" fill="#0a0505" stroke="#555" rx="5"/>
-  <text x="125" y="283" font-family="Arial" font-size="9" fill="#888" text-anchor="middle" font-style="italic">SCIENCE:</text>
-  <text x="20" y="300" font-family="Arial" font-size="7" fill="#666">{event.get("science", "")[:55]}</text>
-  <text x="20" y="312" font-family="Arial" font-size="7" fill="#666">{event.get("science", "")[55:110]}</text>
-  <text x="20" y="324" font-family="Arial" font-size="7" fill="#666">{event.get("science", "")[110:165]}</text>
+  <rect x="10" y="{examples_y}" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="{examples_y + 15}" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="{examples_y + 30}" font-family="Arial" font-size="7" fill="#bb88dd">• {example1}</text>
+  <text x="20" y="{examples_y + 42}" font-family="Arial" font-size="7" fill="#bb88dd">• {example2}</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">{event.get("science", "")[:55]}</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">{event.get("science", "")[55:110]}</text>
 </svg>'''
     
     return svg

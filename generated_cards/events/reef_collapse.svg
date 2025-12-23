@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#c0392b" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#c0392b" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">★ EXTINCTION ★</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#c0392b" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">REEF COLLAPSE</text>
+  
+  
+  <rect x="10" y="100" width="230" height="50" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
+  <text x="125" y="115" font-family="Arial" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive)</text>
+  <text x="125" y="132" font-family="Arial" font-size="7" fill="#27ae60" text-anchor="middle">[Terrestrial] [Deep-Sea] [Freshwater] [Pelagic]</text>
+  
+  <rect x="10" y="155" width="230" height="50" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="125" y="170" font-family="Arial" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half)</text>
+  <text x="125" y="187" font-family="Arial" font-size="7" fill="#c0392b" text-anchor="middle">[Reef-Dependent] [Shallow-Marine] [Tropical]</text>
+  
+  <rect x="10" y="210" width="230" height="25" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
+  <text x="125" y="227" font-family="Arial" font-size="9" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need 4+</text>
+  
+  <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Late Devonian (~372 MYA) - Reef gap of 100 MY</text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Triassic (~201 MYA) - Scleractinian crisi</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Reefs are sensitive to temperature, pH, and sediment. R</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">eef gaps in fossil record last 5-10 million years after</text>
+</svg>
