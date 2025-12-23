@@ -124,6 +124,21 @@ def generate_event_card_svg(event: dict) -> str:
     
     safe_tags = " ".join(f"[{t}]" for t in event.get("safe_tags", [])[:4])
     doomed_tags = " ".join(f"[{t}]" for t in event.get("doomed_tags", [])[:4])
+    neutral_roll = event.get("neutral_roll", 4)
+    
+    extinction_section = ""
+    if is_extinction:
+        extinction_section = f'''
+  <rect x="10" y="130" width="230" height="70" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
+  <text x="125" y="148" font-family="Arial" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive automatically)</text>
+  <text x="125" y="170" font-family="Arial" font-size="9" fill="#27ae60" text-anchor="middle">{safe_tags}</text>
+  
+  <rect x="10" y="205" width="230" height="60" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="125" y="223" font-family="Arial" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half population)</text>
+  <text x="125" y="245" font-family="Arial" font-size="9" fill="#c0392b" text-anchor="middle">{doomed_tags}</text>
+  
+  <rect x="10" y="270" width="230" height="35" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
+  <text x="125" y="292" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need {neutral_roll}+</text>'''
     
     svg = f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
@@ -139,18 +154,7 @@ def generate_event_card_svg(event: dict) -> str:
   <rect x="10" y="100" width="230" height="25" fill="#0a0505" stroke="#555" rx="5"/>
   <text x="125" y="117" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">Era {event["era"]}</text>
   
-  {"" if not is_extinction else f'''
-  <rect x="10" y="130" width="230" height="70" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
-  <text x="125" y="148" font-family="Arial" font-size="11" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive automatically)</text>
-  <text x="125" y="170" font-family="Arial" font-size="9" fill="#27ae60" text-anchor="middle">{safe_tags}</text>
-  
-  <rect x="10" y="205" width="230" height="60" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
-  <text x="125" y="223" font-family="Arial" font-size="11" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half population)</text>
-  <text x="125" y="245" font-family="Arial" font-size="9" fill="#c0392b" text-anchor="middle">{doomed_tags}</text>
-  
-  <rect x="10" y="270" width="230" height="35" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
-  <text x="125" y="292" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need {event.get("neutral_roll", 4)}+</text>
-  '''}
+  {extinction_section}
   
   <rect x="10" y="310" width="230" height="30" fill="#0a0505" stroke="#555" rx="5"/>
   <text x="125" y="328" font-family="Arial" font-size="7" fill="#666" text-anchor="middle" font-style="italic">{event.get("science", "")[:60]}</text>
