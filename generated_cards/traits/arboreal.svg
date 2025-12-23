@@ -27,20 +27,22 @@
   
   <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
   <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Tetrapod Limbs ━━</tspan></text>
+  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Tetrapod Limbs ━</tspan><tspan x="185" dy="12" fill="#888">Small Size ┅</tspan></text>
   
   <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
   <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +2</text>
   <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Arboreal] [Terrestrial]</text>
   
-  <rect x="10" y="190" width="230" height="55" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="208" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="225" font-family="Arial" font-size="9" fill="#ccc">Bonus on forest tiles</text>
+  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">TILES: +2 on Forest</text>
+  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">Escape ground predators</text>
+  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc">FOUNDATION: Primate path.</text>
   
-  <rect x="10" y="250" width="230" height="60" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="268" font-family="Arial" font-size="9" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="285" font-family="Arial" font-size="7" fill="#666">Tree-dwelling requires grasping limbs and enhanced</text>
-  <text x="20" y="298" font-family="Arial" font-size="7" fill="#666"> spatial awareness</text>
+  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Tree-dwelling requires grasping limbs and enhanced spat</text>
+  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">ial awareness</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
   <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Various]</text>

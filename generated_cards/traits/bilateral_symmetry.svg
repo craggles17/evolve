@@ -33,14 +33,16 @@
   <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +1</text>
   <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Bilateria]</text>
   
-  <rect x="10" y="190" width="230" height="55" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="208" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="225" font-family="Arial" font-size="9" fill="#ccc">Foundation for most animal body plans</text>
+  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">FOUNDATION: Required for most traits</text>
+  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">Enables directed movement.</text>
+  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc"></text>
   
-  <rect x="10" y="250" width="230" height="60" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="268" font-family="Arial" font-size="9" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="285" font-family="Arial" font-size="7" fill="#666">Bilateral symmetry emerged ~555 MYA, enabling dire</text>
-  <text x="20" y="298" font-family="Arial" font-size="7" fill="#666">cted movement and cephalizatio...</text>
+  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Bilateral symmetry emerged ~555 MYA, enabling directed </text>
+  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">movement and cephalizatio...</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
   <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Bilateria]</text>

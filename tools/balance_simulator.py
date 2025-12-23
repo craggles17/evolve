@@ -215,7 +215,7 @@ def specialist_strategy(player: Player, available: list[Trait], alleles: int, tr
     clade_paths = {
         "Mammalia": ["synapsid_skull", "endothermy", "fur", "mammary_glands", "live_birth", "placenta"],
         "Aves": ["diapsid_skull", "archosaur_posture", "hollow_bones", "feathers", "flight"],
-        "Crocodilia": ["diapsid_skull", "archosaur_posture", "crocodilian_form", "burrowing"],
+        "Crocodilia": ["diapsid_skull", "archosaur_posture", "osteoderms", "crocodilian_form", "scales_reptilian", "burrowing"],
         "Insecta": ["segmentation", "exoskeleton", "six_legs", "insect_flight", "metamorphosis"]
     }
     

@@ -41,32 +41,43 @@ def load_data():
     return traits, events, decks
 
 
-def generate_trait_card_svg(trait: dict, trait_names: dict = None) -> str:
+def generate_trait_card_svg(trait: dict, trait_lookup: dict = None) -> str:
     """Generate SVG for a single trait card."""
-    if trait_names is None:
-        trait_names = {}
-    
     era_min = trait["era_min"]
     era_max = trait["era_max"]
     era_color = DECK_COLORS.get(era_min, {"color": "#333"})["color"]
     
+    trait_lookup = trait_lookup or {}
+    
+    def get_name(trait_id):
+        """Convert trait ID to display name."""
+        if trait_id in trait_lookup:
+            return trait_lookup[trait_id]
+        return trait_id.replace("_", " ").title()
+    
     hard_prereqs = trait.get("hard_prereqs", [])
     soft_prereqs = trait.get("soft_prereqs", [])
     
-    def get_name(trait_id):
-        return trait_names.get(trait_id, trait_id.replace("_", " ").title())
-    
     prereq_lines = []
     for p in hard_prereqs[:2]:
-        prereq_lines.append(f'<tspan x="185" dy="12" fill="#e94560">{get_name(p)} ━━</tspan>')
+        prereq_lines.append(f'<tspan x="185" dy="12" fill="#e94560">{get_name(p)} ━</tspan>')
     for p in soft_prereqs[:2]:
-        prereq_lines.append(f'<tspan x="185" dy="12" fill="#888">{get_name(p)} ┅┅</tspan>')
+        prereq_lines.append(f'<tspan x="185" dy="12" fill="#888">{get_name(p)} ┅</tspan>')
     
     prereq_text = "".join(prereq_lines) if prereq_lines else '<tspan x="185" dy="12" fill="#666">None</tspan>'
     
     tags_display = " ".join(f"[{t}]" for t in trait["tags"][:3])
     if len(trait["tags"]) > 3:
         tags_display += "..."
+    
+    grants = trait.get("grants", "")
+    grants_lines = []
+    for part in grants.split(". "):
+        if len(part) > 45:
+            grants_lines.append(part[:42] + "...")
+        else:
+            grants_lines.append(part)
+    grants_lines = grants_lines[:3]
     
     science_text = trait.get("science", "")[:80]
     if len(trait.get("science", "")) > 80:
@@ -107,14 +118,16 @@ def generate_trait_card_svg(trait: dict, trait_names: dict = None) -> str:
   <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +{trait["complexity"]}</text>
   <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">{tags_display}</text>
   
-  <rect x="10" y="190" width="230" height="55" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="208" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="225" font-family="Arial" font-size="9" fill="#ccc">{trait.get("grants", "")[:40]}</text>
+  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">{grants_lines[0] if grants_lines else ""}</text>
+  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">{grants_lines[1] if len(grants_lines) > 1 else ""}</text>
+  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc">{grants_lines[2] if len(grants_lines) > 2 else ""}</text>
   
-  <rect x="10" y="250" width="230" height="60" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="268" font-family="Arial" font-size="9" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="285" font-family="Arial" font-size="7" fill="#666">{science_text[:50]}</text>
-  <text x="20" y="298" font-family="Arial" font-size="7" fill="#666">{science_text[50:100] if len(science_text) > 50 else ""}</text>
+  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">{science_text[:55]}</text>
+  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">{science_text[55:] if len(science_text) > 55 else ""}</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
   <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: {trait.get("clade", "Various")}]</text>
@@ -180,12 +193,11 @@ def generate_all_cards(output_dir: Optional[Path] = None) -> None:
     
     traits, events, _ = load_data()
     
-    # Build trait ID -> name lookup
-    trait_names = {t["id"]: t["name"] for t in traits["traits"]}
+    trait_lookup = {t["id"]: t["name"] for t in traits["traits"]}
     
     print(f"Generating {len(traits['traits'])} trait cards...")
     for trait in traits["traits"]:
-        svg = generate_trait_card_svg(trait, trait_names)
+        svg = generate_trait_card_svg(trait, trait_lookup)
         filepath = output_dir / "traits" / f"{trait['id']}.svg"
         with open(filepath, "w") as f:
             f.write(svg)
