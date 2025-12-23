@@ -41,8 +41,11 @@ def load_data():
     return traits, events, decks
 
 
-def generate_trait_card_svg(trait: dict) -> str:
+def generate_trait_card_svg(trait: dict, trait_names: dict = None) -> str:
     """Generate SVG for a single trait card."""
+    if trait_names is None:
+        trait_names = {}
+    
     era_min = trait["era_min"]
     era_max = trait["era_max"]
     era_color = DECK_COLORS.get(era_min, {"color": "#333"})["color"]
@@ -50,11 +53,14 @@ def generate_trait_card_svg(trait: dict) -> str:
     hard_prereqs = trait.get("hard_prereqs", [])
     soft_prereqs = trait.get("soft_prereqs", [])
     
+    def get_name(trait_id):
+        return trait_names.get(trait_id, trait_id.replace("_", " ").title())
+    
     prereq_lines = []
     for p in hard_prereqs[:2]:
-        prereq_lines.append(f'<tspan x="185" dy="12" fill="#e94560">{p} ━━</tspan>')
+        prereq_lines.append(f'<tspan x="185" dy="12" fill="#e94560">{get_name(p)} ━━</tspan>')
     for p in soft_prereqs[:2]:
-        prereq_lines.append(f'<tspan x="185" dy="12" fill="#888">{p} ┅┅</tspan>')
+        prereq_lines.append(f'<tspan x="185" dy="12" fill="#888">{get_name(p)} ┅┅</tspan>')
     
     prereq_text = "".join(prereq_lines) if prereq_lines else '<tspan x="185" dy="12" fill="#666">None</tspan>'
     
@@ -174,9 +180,12 @@ def generate_all_cards(output_dir: Optional[Path] = None) -> None:
     
     traits, events, _ = load_data()
     
+    # Build trait ID -> name lookup
+    trait_names = {t["id"]: t["name"] for t in traits["traits"]}
+    
     print(f"Generating {len(traits['traits'])} trait cards...")
     for trait in traits["traits"]:
-        svg = generate_trait_card_svg(trait)
+        svg = generate_trait_card_svg(trait, trait_names)
         filepath = output_dir / "traits" / f"{trait['id']}.svg"
         with open(filepath, "w") as f:
             f.write(svg)
