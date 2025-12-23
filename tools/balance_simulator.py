@@ -33,7 +33,6 @@ class Trait:
 
 @dataclass 
 class Event:
-    era: int
     name: str
     event_type: str
     safe_tags: list[str]
@@ -111,12 +110,11 @@ def load_game_data() -> tuple[dict[str, Trait], list[Event]]:
     events = []
     for e in events_data["events"]:
         events.append(Event(
-            era=e["era"],
             name=e["name"],
             event_type=e["type"],
-            safe_tags=e["safe_tags"],
-            doomed_tags=e["doomed_tags"],
-            neutral_roll=e["neutral_roll"]
+            safe_tags=e.get("safe_tags", []),
+            doomed_tags=e.get("doomed_tags", []),
+            neutral_roll=e.get("neutral_roll")
         ))
     
     return traits, events
@@ -242,7 +240,11 @@ def specialist_strategy(player: Player, available: list[Trait], alleles: int, tr
 
 def simulate_game(num_players: int = 4, verbose: bool = False) -> dict:
     """Simulate a complete game."""
-    trait_db, events = load_game_data()
+    trait_db, all_events = load_game_data()
+    
+    shuffled_events = all_events.copy()
+    random.shuffle(shuffled_events)
+    events = shuffled_events[:12]
     
     strategies = ["generalist", "Mammalia", "Aves", "Crocodilia"]
     players = []
