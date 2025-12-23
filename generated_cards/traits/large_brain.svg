@@ -27,7 +27,7 @@
   
   <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
   <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">mammary_glands ━━</tspan><tspan x="185" dy="12" fill="#888">opposable_digits ┅┅</tspan></text>
+  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Mammary Glands ━━</tspan><tspan x="185" dy="12" fill="#888">Opposable Digits ┅┅</tspan></text>
   
   <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
   <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +6</text>

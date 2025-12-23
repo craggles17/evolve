@@ -27,7 +27,7 @@
   
   <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
   <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">endothermy ━━</tspan></text>
+  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Endothermy ━━</tspan><tspan x="185" dy="12" fill="#888">Synapsid Skull ┅┅</tspan></text>
   
   <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
   <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +2</text>
@@ -35,7 +35,7 @@
   
   <rect x="10" y="190" width="230" height="55" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="20" y="208" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="225" font-family="Arial" font-size="9" fill="#ccc">Insulation, reduces heat loss</text>
+  <text x="20" y="225" font-family="Arial" font-size="9" fill="#ccc">-1 cost to Endothermy. +1 competition in</text>
   
   <rect x="10" y="250" width="230" height="60" fill="#0a0a15" stroke="#888" rx="5"/>
   <text x="20" y="268" font-family="Arial" font-size="9" fill="#888" font-style="italic">SCIENCE:</text>

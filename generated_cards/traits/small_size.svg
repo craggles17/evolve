@@ -35,7 +35,7 @@
   
   <rect x="10" y="190" width="230" height="55" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="20" y="208" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="225" font-family="Arial" font-size="9" fill="#ccc">Less food needed, SAFE during extinction</text>
+  <text x="20" y="225" font-family="Arial" font-size="9" fill="#ccc">SAFE from most extinctions. -1 cost to B</text>
   
   <rect x="10" y="250" width="230" height="60" fill="#0a0a15" stroke="#888" rx="5"/>
   <text x="20" y="268" font-family="Arial" font-size="9" fill="#888" font-style="italic">SCIENCE:</text>
