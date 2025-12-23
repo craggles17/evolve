@@ -1,0 +1,359 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Phylogenetic tree structure for trait prerequisites and organism matching"
+  },
+  "tree": {
+    "Metazoa": {
+      "era_origin": 0,
+      "description": "Multicellular animals",
+      "children": {
+        "Porifera": {
+          "era_origin": 0,
+          "description": "Sponges - no true tissues",
+          "children": {}
+        },
+        "Eumetazoa": {
+          "era_origin": 0,
+          "description": "Animals with true tissues",
+          "children": {
+            "Cnidaria": {
+              "era_origin": 0,
+              "description": "Jellyfish, coral, anemones - radial symmetry",
+              "children": {}
+            },
+            "Bilateria": {
+              "era_origin": 0,
+              "description": "Bilateral symmetry",
+              "required_traits": ["bilateral_symmetry"],
+              "children": {
+                "Protostomia": {
+                  "era_origin": 0,
+                  "description": "Mouth-first development",
+                  "children": {
+                    "Ecdysozoa": {
+                      "era_origin": 0,
+                      "description": "Molting animals",
+                      "children": {
+                        "Arthropoda": {
+                          "era_origin": 0,
+                          "description": "Jointed legs, exoskeleton",
+                          "required_traits": ["exoskeleton", "segmentation"],
+                          "children": {
+                            "Trilobita": {
+                              "era_origin": 0,
+                              "era_extinct": 5,
+                              "description": "Trilobites - extinct after Permian",
+                              "required_traits": ["trilobite_eyes"],
+                              "children": {}
+                            },
+                            "Chelicerata": {
+                              "era_origin": 1,
+                              "description": "Spiders, scorpions, horseshoe crabs",
+                              "children": {}
+                            },
+                            "Crustacea": {
+                              "era_origin": 0,
+                              "description": "Crabs, lobsters, shrimp",
+                              "children": {}
+                            },
+                            "Hexapoda": {
+                              "era_origin": 3,
+                              "description": "Insects - six legs",
+                              "required_traits": ["six_legs"],
+                              "children": {
+                                "Pterygota": {
+                                  "era_origin": 4,
+                                  "description": "Winged insects",
+                                  "required_traits": ["insect_flight"],
+                                  "children": {
+                                    "Holometabola": {
+                                      "era_origin": 4,
+                                      "description": "Complete metamorphosis",
+                                      "required_traits": ["metamorphosis"],
+                                      "children": {
+                                        "Hymenoptera": {
+                                          "era_origin": 6,
+                                          "description": "Bees, wasps, ants",
+                                          "children": {}
+                                        },
+                                        "Coleoptera": {
+                                          "era_origin": 5,
+                                          "description": "Beetles",
+                                          "children": {}
+                                        },
+                                        "Lepidoptera": {
+                                          "era_origin": 7,
+                                          "description": "Butterflies, moths",
+                                          "children": {}
+                                        },
+                                        "Diptera": {
+                                          "era_origin": 6,
+                                          "description": "Flies, mosquitoes",
+                                          "children": {}
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "Lophotrochozoa": {
+                      "era_origin": 0,
+                      "description": "Includes mollusks, annelids",
+                      "children": {
+                        "Mollusca": {
+                          "era_origin": 0,
+                          "description": "Mollusks - soft body, often shelled",
+                          "required_traits": ["shell"],
+                          "children": {
+                            "Gastropoda": {
+                              "era_origin": 0,
+                              "description": "Snails, slugs",
+                              "children": {}
+                            },
+                            "Bivalvia": {
+                              "era_origin": 0,
+                              "description": "Clams, mussels, oysters",
+                              "children": {}
+                            },
+                            "Cephalopoda": {
+                              "era_origin": 0,
+                              "description": "Octopi, squid, nautilus",
+                              "children": {}
+                            }
+                          }
+                        },
+                        "Annelida": {
+                          "era_origin": 0,
+                          "description": "Segmented worms",
+                          "required_traits": ["segmentation"],
+                          "children": {}
+                        }
+                      }
+                    }
+                  }
+                },
+                "Deuterostomia": {
+                  "era_origin": 0,
+                  "description": "Anus-first development",
+                  "children": {
+                    "Echinodermata": {
+                      "era_origin": 0,
+                      "description": "Starfish, sea urchins - radial adult symmetry",
+                      "children": {}
+                    },
+                    "Chordata": {
+                      "era_origin": 0,
+                      "description": "Notochord, dorsal nerve cord",
+                      "required_traits": ["notochord"],
+                      "children": {
+                        "Vertebrata": {
+                          "era_origin": 0,
+                          "description": "Vertebral column",
+                          "required_traits": ["vertebral_column"],
+                          "children": {
+                            "Agnatha": {
+                              "era_origin": 0,
+                              "description": "Jawless fish - hagfish, lampreys",
+                              "children": {}
+                            },
+                            "Gnathostomata": {
+                              "era_origin": 1,
+                              "description": "Jawed vertebrates",
+                              "required_traits": ["jaws"],
+                              "children": {
+                                "Chondrichthyes": {
+                                  "era_origin": 1,
+                                  "description": "Cartilaginous fish - sharks, rays",
+                                  "required_traits": ["cartilage_skeleton"],
+                                  "children": {}
+                                },
+                                "Osteichthyes": {
+                                  "era_origin": 1,
+                                  "description": "Bony fish",
+                                  "required_traits": ["bony_skeleton"],
+                                  "children": {
+                                    "Actinopterygii": {
+                                      "era_origin": 1,
+                                      "description": "Ray-finned fish",
+                                      "required_traits": ["swim_bladder"],
+                                      "children": {}
+                                    },
+                                    "Sarcopterygii": {
+                                      "era_origin": 2,
+                                      "description": "Lobe-finned fish",
+                                      "required_traits": ["lobed_fins"],
+                                      "children": {
+                                        "Tetrapoda": {
+                                          "era_origin": 3,
+                                          "description": "Four-limbed vertebrates",
+                                          "required_traits": ["tetrapod_limbs", "lungs"],
+                                          "children": {
+                                            "Amphibia": {
+                                              "era_origin": 3,
+                                              "description": "Amphibians - moist skin, aquatic eggs",
+                                              "required_traits": ["moist_skin"],
+                                              "children": {}
+                                            },
+                                            "Amniota": {
+                                              "era_origin": 4,
+                                              "description": "Amniotic egg - fully terrestrial",
+                                              "required_traits": ["amniotic_egg"],
+                                              "children": {
+                                                "Synapsida": {
+                                                  "era_origin": 4,
+                                                  "description": "Mammal-line - single temporal fenestra",
+                                                  "required_traits": ["synapsid_skull"],
+                                                  "children": {
+                                                    "Therapsida": {
+                                                      "era_origin": 5,
+                                                      "description": "Advanced mammal-like reptiles",
+                                                      "children": {
+                                                        "Mammalia": {
+                                                          "era_origin": 6,
+                                                          "description": "Mammals - fur, mammary glands",
+                                                          "required_traits": ["fur", "mammary_glands", "endothermy"],
+                                                          "children": {
+                                                            "Monotremata": {
+                                                              "era_origin": 6,
+                                                              "description": "Egg-laying mammals",
+                                                              "children": {}
+                                                            },
+                                                            "Theria": {
+                                                              "era_origin": 6,
+                                                              "description": "Live-bearing mammals",
+                                                              "required_traits": ["live_birth"],
+                                                              "children": {
+                                                                "Metatheria": {
+                                                                  "era_origin": 8,
+                                                                  "description": "Marsupials",
+                                                                  "children": {}
+                                                                },
+                                                                "Eutheria": {
+                                                                  "era_origin": 8,
+                                                                  "description": "Placental mammals",
+                                                                  "required_traits": ["placenta"],
+                                                                  "children": {
+                                                                    "Primates": {
+                                                                      "era_origin": 9,
+                                                                      "description": "Primates",
+                                                                      "required_traits": ["arboreal", "opposable_digits"],
+                                                                      "children": {}
+                                                                    },
+                                                                    "Chiroptera": {
+                                                                      "era_origin": 9,
+                                                                      "description": "Bats",
+                                                                      "required_traits": ["flight", "echolocation"],
+                                                                      "children": {}
+                                                                    },
+                                                                    "Carnivora": {
+                                                                      "era_origin": 9,
+                                                                      "description": "Carnivores",
+                                                                      "children": {}
+                                                                    },
+                                                                    "Cetartiodactyla": {
+                                                                      "era_origin": 9,
+                                                                      "description": "Whales, dolphins, ungulates",
+                                                                      "children": {}
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "Sauropsida": {
+                                                  "era_origin": 4,
+                                                  "description": "Reptile-line",
+                                                  "required_traits": ["diapsid_skull", "scales_reptilian"],
+                                                  "children": {
+                                                    "Lepidosauria": {
+                                                      "era_origin": 5,
+                                                      "description": "Lizards, snakes, tuatara",
+                                                      "children": {}
+                                                    },
+                                                    "Archosauria": {
+                                                      "era_origin": 5,
+                                                      "description": "Ruling reptiles",
+                                                      "required_traits": ["archosaur_posture"],
+                                                      "children": {
+                                                        "Crocodilia": {
+                                                          "era_origin": 6,
+                                                          "description": "Crocodiles, alligators",
+                                                          "required_traits": ["crocodilian_form"],
+                                                          "children": {}
+                                                        },
+                                                        "Pterosauria": {
+                                                          "era_origin": 6,
+                                                          "era_extinct": 8,
+                                                          "description": "Flying reptiles - extinct",
+                                                          "children": {}
+                                                        },
+                                                        "Dinosauria": {
+                                                          "era_origin": 6,
+                                                          "description": "Dinosaurs",
+                                                          "children": {
+                                                            "Ornithischia": {
+                                                              "era_origin": 6,
+                                                              "era_extinct": 8,
+                                                              "description": "Bird-hipped dinosaurs - extinct",
+                                                              "children": {}
+                                                            },
+                                                            "Saurischia": {
+                                                              "era_origin": 6,
+                                                              "description": "Lizard-hipped dinosaurs",
+                                                              "children": {
+                                                                "Theropoda": {
+                                                                  "era_origin": 6,
+                                                                  "description": "Bipedal carnivores",
+                                                                  "children": {
+                                                                    "Aves": {
+                                                                      "era_origin": 7,
+                                                                      "description": "Birds",
+                                                                      "required_traits": ["feathers", "hollow_bones", "flight"],
+                                                                      "children": {}
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

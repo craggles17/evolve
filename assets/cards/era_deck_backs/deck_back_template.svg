@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+  Era Deck Back Template
+  Color-coded by era for strategic reads
+  
+  Era Colors:
+  0 - Cambrian: #1a237e (Deep Blue)
+  1 - Ordovician: #00695c (Teal)
+  2 - Silurian: #2e7d32 (Sea Green)
+  3 - Devonian: #33691e (Forest Green)
+  4 - Carboniferous: #1b5e20 (Dark Green)
+  5 - Permian: #4e342e (Brown)
+  6 - Triassic: #e65100 (Orange)
+  7 - Jurassic: #b71c1c (Red)
+  8 - Cretaceous: #4a148c (Purple)
+  9 - Paleogene: #ad1457 (Pink)
+  10 - Neogene: #f9a825 (Yellow)
+  11 - Quaternary: #eceff1 (White)
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
+  <defs>
+    <linearGradient id="eraColor" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#33691e"/>
+      <stop offset="50%" style="stop-color:#2e7d32"/>
+      <stop offset="100%" style="stop-color:#1b5e20"/>
+    </linearGradient>
+    <pattern id="dnaPattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M20,0 Q30,10 20,20 Q10,30 20,40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+      <path d="M0,20 Q10,10 20,20 Q30,30 40,20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/>
+    </pattern>
+  </defs>
+  
+  <!-- Card Background with Era Color -->
+  <rect width="250" height="350" fill="url(#eraColor)" rx="15"/>
+  
+  <!-- DNA Pattern Overlay -->
+  <rect width="250" height="350" fill="url(#dnaPattern)" rx="15"/>
+  
+  <!-- Card Border -->
+  <rect x="8" y="8" width="234" height="334" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="2" rx="12"/>
+  <rect x="15" y="15" width="220" height="320" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1" rx="10"/>
+  
+  <!-- Central Icon Area -->
+  <circle cx="125" cy="150" r="60" fill="rgba(0,0,0,0.3)" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+  
+  <!-- Stylized evolution symbol -->
+  <g transform="translate(125, 150)">
+    <!-- DNA helix simplified -->
+    <ellipse cx="0" cy="-30" rx="25" ry="8" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+    <ellipse cx="0" cy="-15" rx="20" ry="6" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+    <ellipse cx="0" cy="0" rx="25" ry="8" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+    <ellipse cx="0" cy="15" rx="20" ry="6" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+    <ellipse cx="0" cy="30" rx="25" ry="8" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2"/>
+  </g>
+  
+  <!-- Era Label -->
+  <rect x="50" y="230" width="150" height="35" fill="rgba(0,0,0,0.4)" rx="8"/>
+  <text x="125" y="253" font-family="Georgia, serif" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">DEVONIAN</text>
+  
+  <!-- Era Number -->
+  <circle cx="125" cy="290" r="20" fill="rgba(0,0,0,0.4)" stroke="rgba(255,255,255,0.4)" stroke-width="1"/>
+  <text x="125" y="296" font-family="Arial, sans-serif" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">3</text>
+  
+  <!-- MYA indicator -->
+  <text x="125" y="320" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.6)" text-anchor="middle">419-359 MYA</text>
+  
+  <!-- Game Title (top) -->
+  <text x="125" y="45" font-family="Georgia, serif" font-size="11" fill="rgba(255,255,255,0.7)" text-anchor="middle">DAMN NATURE</text>
+  <text x="125" y="60" font-family="Georgia, serif" font-size="11" fill="rgba(255,255,255,0.7)" text-anchor="middle">YOU SCARY</text>
+</svg>
+

@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Hexagonal biome tiles for the game board",
+    "tile_count": 37,
+    "flip_rule": "Roll 1d6 at era start. Tiles with matching or lower flip number AND meeting era requirement flip to new tile from stack."
+  },
+  "biome_types": {
+    "ocean": {
+      "name": "Open Ocean",
+      "color": "#1a5f7a",
+      "required_tags": ["Aquatic"],
+      "bonus_tags": ["Marine-Only", "Deep-Sea"],
+      "description": "Deep open water far from shore"
+    },
+    "shallow_marine": {
+      "name": "Shallow Sea",
+      "color": "#3498db",
+      "required_tags": ["Aquatic"],
+      "bonus_tags": ["Marine-Only", "Shallow-Marine"],
+      "description": "Coastal waters, continental shelves"
+    },
+    "reef": {
+      "name": "Coral Reef",
+      "color": "#e91e63",
+      "required_tags": ["Aquatic"],
+      "bonus_tags": ["Reef-Dependent"],
+      "description": "Diverse reef ecosystem - fragile"
+    },
+    "coast": {
+      "name": "Coastline",
+      "color": "#f39c12",
+      "required_tags": [],
+      "bonus_tags": ["Aquatic", "Terrestrial"],
+      "description": "Transition zone between land and sea"
+    },
+    "freshwater": {
+      "name": "Freshwater",
+      "color": "#00bcd4",
+      "required_tags": ["Aquatic"],
+      "bonus_tags": ["Freshwater"],
+      "description": "Rivers, lakes, and wetlands"
+    },
+    "swamp": {
+      "name": "Swamp",
+      "color": "#4a5d23",
+      "required_tags": [],
+      "bonus_tags": ["Aquatic", "Terrestrial", "Amphibian"],
+      "description": "Wetland with trees and standing water"
+    },
+    "forest": {
+      "name": "Forest",
+      "color": "#27ae60",
+      "required_tags": ["Terrestrial"],
+      "bonus_tags": ["Arboreal"],
+      "description": "Dense woodland habitat"
+    },
+    "grassland": {
+      "name": "Grassland",
+      "color": "#f1c40f",
+      "required_tags": ["Terrestrial"],
+      "bonus_tags": ["Mobile"],
+      "description": "Open plains and savannas"
+    },
+    "desert": {
+      "name": "Desert",
+      "color": "#e67e22",
+      "required_tags": ["Terrestrial"],
+      "bonus_tags": ["Burrowing", "Cold-Resistant"],
+      "description": "Arid environment with extreme temperatures"
+    },
+    "mountain": {
+      "name": "Mountain",
+      "color": "#7f8c8d",
+      "required_tags": ["Terrestrial"],
+      "bonus_tags": ["Aerial", "Cold-Resistant"],
+      "description": "High altitude, harsh conditions"
+    },
+    "ice": {
+      "name": "Ice Sheet",
+      "color": "#ecf0f1",
+      "required_tags": ["Cold-Resistant"],
+      "bonus_tags": ["Warm-Blooded", "Burrowing"],
+      "description": "Glacial environment"
+    }
+  },
+  "tiles": [
+    {"id": 1, "biome": "ocean", "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 2, "biome": "ocean", "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 3, "biome": "ocean", "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 4, "biome": "ocean", "era_lock": 0, "flip_number": 5, "stable": false},
+    {"id": 5, "biome": "shallow_marine", "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 6, "biome": "shallow_marine", "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 7, "biome": "shallow_marine", "era_lock": 0, "flip_number": 5, "stable": false},
+    {"id": 8, "biome": "shallow_marine", "era_lock": 0, "flip_number": 3, "stable": false},
+    {"id": 9, "biome": "reef", "era_lock": 1, "flip_number": 3, "stable": false},
+    {"id": 10, "biome": "reef", "era_lock": 1, "flip_number": 3, "stable": false},
+    {"id": 11, "biome": "reef", "era_lock": 1, "flip_number": 2, "stable": false},
+    {"id": 12, "biome": "coast", "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 13, "biome": "coast", "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 14, "biome": "coast", "era_lock": 0, "flip_number": 5, "stable": false},
+    {"id": 15, "biome": "coast", "era_lock": 2, "flip_number": 4, "stable": false},
+    {"id": 16, "biome": "freshwater", "era_lock": 2, "flip_number": 5, "stable": false},
+    {"id": 17, "biome": "freshwater", "era_lock": 2, "flip_number": 5, "stable": false},
+    {"id": 18, "biome": "freshwater", "era_lock": 2, "flip_number": 4, "stable": false},
+    {"id": 19, "biome": "swamp", "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 20, "biome": "swamp", "era_lock": 3, "flip_number": 3, "stable": false},
+    {"id": 21, "biome": "swamp", "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 22, "biome": "swamp", "era_lock": 4, "flip_number": 5, "stable": false},
+    {"id": 23, "biome": "forest", "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 24, "biome": "forest", "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 25, "biome": "forest", "era_lock": 3, "flip_number": 3, "stable": false},
+    {"id": 26, "biome": "forest", "era_lock": 4, "flip_number": 5, "stable": false},
+    {"id": 27, "biome": "forest", "era_lock": 4, "flip_number": 4, "stable": false},
+    {"id": 28, "biome": "grassland", "era_lock": 9, "flip_number": 5, "stable": false},
+    {"id": 29, "biome": "grassland", "era_lock": 9, "flip_number": 4, "stable": false},
+    {"id": 30, "biome": "grassland", "era_lock": 10, "flip_number": 5, "stable": false},
+    {"id": 31, "biome": "desert", "era_lock": 5, "flip_number": 5, "stable": false},
+    {"id": 32, "biome": "desert", "era_lock": 5, "flip_number": 6, "stable": true},
+    {"id": 33, "biome": "desert", "era_lock": 6, "flip_number": 5, "stable": false},
+    {"id": 34, "biome": "mountain", "era_lock": 4, "flip_number": 6, "stable": true},
+    {"id": 35, "biome": "mountain", "era_lock": 4, "flip_number": 6, "stable": true},
+    {"id": 36, "biome": "mountain", "era_lock": 7, "flip_number": 5, "stable": false},
+    {"id": 37, "biome": "ice", "era_lock": 11, "flip_number": 4, "stable": false}
+  ],
+  "flip_transitions": {
+    "ocean": ["ocean", "shallow_marine", "coast"],
+    "shallow_marine": ["shallow_marine", "reef", "coast", "ocean"],
+    "reef": ["reef", "shallow_marine", "ocean"],
+    "coast": ["coast", "swamp", "shallow_marine", "freshwater"],
+    "freshwater": ["freshwater", "swamp", "coast", "forest"],
+    "swamp": ["swamp", "forest", "freshwater", "grassland"],
+    "forest": ["forest", "grassland", "swamp", "mountain"],
+    "grassland": ["grassland", "desert", "forest"],
+    "desert": ["desert", "grassland", "mountain"],
+    "mountain": ["mountain", "ice", "forest", "grassland"],
+    "ice": ["ice", "mountain", "ocean"]
+  },
+  "starting_layout": {
+    "description": "Standard 19-hex layout for 2-4 players",
+    "hex_count": 19,
+    "initial_biomes": {
+      "center": "shallow_marine",
+      "ring_1": ["ocean", "shallow_marine", "shallow_marine", "coast", "coast", "shallow_marine"],
+      "ring_2": ["ocean", "ocean", "shallow_marine", "shallow_marine", "reef", "coast", "coast", "coast", "shallow_marine", "ocean", "ocean", "shallow_marine"]
+    }
+  }
+}
+

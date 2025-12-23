@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
+  <defs>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#33691e"/>
+      <stop offset="100%" style="stop-color:#1b5e20"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Card Background -->
+  <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
+  
+  <!-- Card Border -->
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
+  
+  <!-- Era Window Banner -->
+  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="28" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 3-8</text>
+  <text x="125" y="40" font-family="Arial, sans-serif" font-size="8" fill="#aaa" text-anchor="middle">(Devonian to Cretaceous)</text>
+  
+  <!-- Trait Name -->
+  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
+  <text x="125" y="76" font-family="Georgia, serif" font-size="18" fill="#fff" text-anchor="middle" font-weight="bold">TETRAPOD LIMBS</text>
+  
+  <!-- Cost and Prereqs Section -->
+  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" stroke-width="1" rx="5"/>
+  <text x="65" y="112" font-family="Arial, sans-serif" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
+  <text x="65" y="135" font-family="Arial, sans-serif" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">4</text>
+  
+  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" stroke-width="1" rx="5"/>
+  <text x="185" y="112" font-family="Arial, sans-serif" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
+  <text x="185" y="128" font-family="Arial, sans-serif" font-size="9" fill="#ccc" text-anchor="middle">Lungs ━━</text>
+  <text x="185" y="140" font-family="Arial, sans-serif" font-size="9" fill="#888" text-anchor="middle">Lobed Fins ┅┅</text>
+  
+  <!-- Stats Section -->
+  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" stroke-width="1" rx="5"/>
+  <text x="70" y="172" font-family="Arial, sans-serif" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY</text>
+  <text x="70" y="182" font-family="Arial, sans-serif" font-size="14" fill="#9b59b6" text-anchor="middle" font-weight="bold">+3</text>
+  
+  <line x1="125" y1="155" x2="125" y2="180" stroke="#3a3a5a" stroke-width="1"/>
+  
+  <text x="185" y="166" font-family="Arial, sans-serif" font-size="10" fill="#3498db" text-anchor="middle">TAGS</text>
+  <text x="185" y="180" font-family="Arial, sans-serif" font-size="8" fill="#3498db" text-anchor="middle">[Terrestrial] [Mobile]</text>
+  
+  <!-- Grants Section -->
+  <rect x="10" y="190" width="230" height="55" fill="#0a0a15" stroke="#27ae60" stroke-width="1" rx="5"/>
+  <text x="20" y="208" font-family="Arial, sans-serif" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="222" font-family="Arial, sans-serif" font-size="9" fill="#ccc">• Walk on land tiles</text>
+  <text x="20" y="234" font-family="Arial, sans-serif" font-size="9" fill="#ccc">• Occupy terrestrial biomes</text>
+  
+  <!-- Science Section -->
+  <rect x="10" y="250" width="230" height="60" fill="#0a0a15" stroke="#888" stroke-width="1" rx="5"/>
+  <text x="20" y="268" font-family="Arial, sans-serif" font-size="9" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="282" font-family="Arial, sans-serif" font-size="8" fill="#666">"First tetrapods like Tiktaalik (~375 MYA)</text>
+  <text x="20" y="293" font-family="Arial, sans-serif" font-size="8" fill="#666">bridged fish and amphibian body plans.</text>
+  <text x="20" y="304" font-family="Arial, sans-serif" font-size="8" fill="#666">Cost = Mass × Distance / Efficiency"</text>
+  
+  <!-- Clade Footer -->
+  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
+  <text x="125" y="332" font-family="Arial, sans-serif" font-size="10" fill="#888" text-anchor="middle">[Clade: Tetrapoda]</text>
+  
+  <!-- Legend for prereq lines -->
+  <!-- ━━ = HARD (required), ┅┅ = SOFT (cost reducer) -->
+</svg>
+

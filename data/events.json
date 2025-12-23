@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Event cards for each era - one predetermined event per era"
+  },
+  "events": [
+    {
+      "era": 0,
+      "name": "Great Oxygenation",
+      "type": "positive",
+      "description": "Oxygen levels rise dramatically, enabling larger body sizes and more active metabolism.",
+      "effect": "All players gain +2 alleles this era",
+      "science": "The Cambrian oxygen spike (~540 MYA) coincided with the Cambrian Explosion. Atmospheric O2 rose to ~15%, enabling larger organisms with higher metabolic demands.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null
+    },
+    {
+      "era": 1,
+      "name": "End-Ordovician Ice Age",
+      "type": "extinction",
+      "description": "Glaciation causes sea levels to drop dramatically. 85% of marine species go extinct.",
+      "effect": "Binary extinction check",
+      "science": "The End-Ordovician extinction (~445 MYA) was caused by rapid glaciation as Gondwana moved over the South Pole. Sea levels dropped 50-100m, destroying shallow marine habitats.",
+      "safe_tags": ["Freshwater", "Deep-Sea", "Terrestrial"],
+      "doomed_tags": ["Shallow-Marine", "Reef-Dependent", "Tropical"],
+      "neutral_roll": 4
+    },
+    {
+      "era": 2,
+      "name": "Ozone Layer Forms",
+      "type": "positive",
+      "description": "The ozone layer stabilizes, reducing UV radiation and making land habitable.",
+      "effect": "Terrestrial tiles now available. Players with [Terrestrial] traits gain +1 allele",
+      "science": "By the Silurian (~420 MYA), the ozone layer had formed sufficiently to block lethal UV radiation, enabling the colonization of land by plants and eventually animals.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null
+    },
+    {
+      "era": 3,
+      "name": "Late Devonian Crisis",
+      "type": "extinction",
+      "description": "Multiple extinction pulses devastate marine life. 75% of species eliminated over 20 million years.",
+      "effect": "Binary extinction check",
+      "science": "The Late Devonian extinction (~372 MYA) may have been caused by ocean anoxia from excessive plant growth. Reef ecosystems collapsed and never fully recovered for 100 million years.",
+      "safe_tags": ["Freshwater", "Terrestrial", "Deep-Sea"],
+      "doomed_tags": ["Reef-Dependent", "Shallow-Marine", "Tropical"],
+      "neutral_roll": 4
+    },
+    {
+      "era": 4,
+      "name": "Carboniferous Oxygen Spike",
+      "type": "positive",
+      "description": "Oxygen reaches 35% - the highest ever. Giant insects and amphibians thrive.",
+      "effect": "Players with [Insect] or [Amphibian] traits may place 2 extra markers this era",
+      "science": "Carboniferous O2 levels (~35% vs today's 21%) enabled giant insects - dragonflies with 70cm wingspans. Insects breathe through tracheal tubes, limiting size at lower O2.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null
+    },
+    {
+      "era": 5,
+      "name": "The Great Dying",
+      "type": "extinction",
+      "description": "End-Permian mass extinction. 96% of marine species and 70% of land species eliminated. The worst extinction ever.",
+      "effect": "Binary extinction check - HARDEST",
+      "science": "The End-Permian extinction (~252 MYA) was caused by Siberian Traps volcanism releasing CO2 and methane, causing global warming, ocean acidification, and anoxia. Recovery took 10 million years.",
+      "safe_tags": ["Burrowing", "Freshwater", "Small", "Deep-Sea"],
+      "doomed_tags": ["Reef-Dependent", "Marine-Only", "Large", "Shallow-Marine"],
+      "neutral_roll": 5
+    },
+    {
+      "era": 6,
+      "name": "End-Triassic Volcanism",
+      "type": "extinction",
+      "description": "Central Atlantic Magmatic Province eruptions cause mass extinction. 80% of species eliminated.",
+      "effect": "Binary extinction check",
+      "science": "The End-Triassic extinction (~201 MYA) was caused by volcanism as Pangaea began breaking apart. This cleared ecological space for dinosaurs to dominate.",
+      "safe_tags": ["Burrowing", "Aquatic", "Small", "Archosaur"],
+      "doomed_tags": ["Large", "Tropical", "Non-Archosaur-Reptile"],
+      "neutral_roll": 4
+    },
+    {
+      "era": 7,
+      "name": "Pangaea Breakup",
+      "type": "neutral",
+      "description": "The supercontinent fragments, creating new oceans and isolated landmasses.",
+      "effect": "Shuffle 3 random tiles and replace them. Isolation enables new evolutionary paths",
+      "science": "Pangaea began breaking apart ~200 MYA. Continental drift created new oceans, isolated populations, and led to evolutionary divergence (e.g., marsupials in Australia).",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null
+    },
+    {
+      "era": 8,
+      "name": "K-Pg Asteroid Impact",
+      "type": "extinction",
+      "description": "Chicxulub asteroid strikes Earth. Non-avian dinosaurs go extinct. 76% of species eliminated.",
+      "effect": "Binary extinction check",
+      "science": "The K-Pg extinction (~66 MYA) was caused by a 10km asteroid striking the Yucatan. The impact winter blocked sunlight for years, collapsing food chains. Small, burrowing, aquatic animals survived best.",
+      "safe_tags": ["Burrowing", "Small", "Aquatic", "Nocturnal", "Avian"],
+      "doomed_tags": ["Large", "Dinosauria", "Pterosaur", "Photosynthesis-Dependent"],
+      "neutral_roll": 4
+    },
+    {
+      "era": 9,
+      "name": "Mammalian Radiation",
+      "type": "positive",
+      "description": "With dinosaurs gone, mammals diversify explosively into vacated niches.",
+      "effect": "Players with [Mammal] traits gain +3 alleles and may evolve one trait at half cost",
+      "science": "The Paleocene-Eocene Thermal Maximum and subsequent cooling enabled rapid mammalian diversification. Mammals evolved from shrew-sized to whale-sized in ~20 million years.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null
+    },
+    {
+      "era": 10,
+      "name": "Grassland Expansion",
+      "type": "neutral",
+      "description": "Grasslands spread across continents, replacing forests. Grazing mammals diversify.",
+      "effect": "Flip 2 Forest tiles to Grassland. Players on Grassland tiles gain +1 allele",
+      "science": "Grasslands expanded dramatically in the Miocene (~15 MYA) as CO2 dropped and climates dried. This drove evolution of grazing mammals with high-crowned teeth.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null
+    },
+    {
+      "era": 11,
+      "name": "Pleistocene Ice Ages",
+      "type": "extinction",
+      "description": "Glacial cycles cause repeated habitat contraction. Megafauna go extinct.",
+      "effect": "Binary extinction check",
+      "science": "Pleistocene glaciations (~2.6 MYA - 11,700 years ago) caused ~40 glacial cycles. Megafauna extinction was likely caused by a combination of climate change and human hunting.",
+      "safe_tags": ["Cold-Resistant", "Small", "Burrowing", "Aquatic", "Warm-Blooded"],
+      "doomed_tags": ["Large", "Tropical-Only", "Cold-Vulnerable"],
+      "neutral_roll": 4
+    }
+  ]
+}
+

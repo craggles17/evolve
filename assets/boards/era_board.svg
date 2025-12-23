@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1800" width="1200" height="1800">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0a15"/>
+      <stop offset="100%" style="stop-color:#1a1a2e"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="1800" fill="url(#bgGrad)"/>
+  
+  <!-- Main Border -->
+  <rect x="15" y="15" width="1170" height="1770" fill="none" stroke="#e94560" stroke-width="4" rx="20"/>
+  
+  <!-- Title -->
+  <rect x="30" y="30" width="1140" height="80" fill="#0f3460" rx="10"/>
+  <text x="600" y="80" font-family="Georgia, serif" font-size="42" fill="#ffffff" text-anchor="middle" font-weight="bold">THE PHANEROZOIC EON</text>
+  <text x="600" y="100" font-family="Arial, sans-serif" font-size="16" fill="#888" text-anchor="middle">540 Million Years Ago → Present Day</text>
+  
+  <!-- Era 0: Cambrian -->
+  <g transform="translate(30, 120)">
+    <rect width="1140" height="130" fill="#1a237e" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#1a237e" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#1a237e" font-weight="bold">ERA 0: CAMBRIAN</text>
+    <text x="300" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">540-485 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Explosion of animal body plans - eyes, shells, bilateral symmetry appear for the first time"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Trilobites, Anomalocaris, Hallucigenia, Pikaia (first chordate)</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~15%, CO₂ ~4500ppm | CLIMATE: Warm, no polar ice</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#1a237e" stroke-width="2" rx="5"/>
+    <text x="1010" y="40" font-family="Arial, sans-serif" font-size="10" fill="#1a237e" text-anchor="middle">EVENT CARD</text>
+    <text x="1010" y="55" font-family="Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">POSITIVE</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Great Oxygenation</text>
+  </g>
+  
+  <!-- Era 1: Ordovician -->
+  <g transform="translate(30, 260)">
+    <rect width="1140" height="130" fill="#00695c" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#00695c" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#00695c" font-weight="bold">ERA 1: ORDOVICIAN</text>
+    <text x="340" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">485-444 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Marine life diversifies - first coral reefs, jawed fish begin to appear"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Jawless fish, early coral reefs, first land plants (non-vascular)</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~14% | CLIMATE: Initially warm, ends with severe glaciation</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#e74c3c" stroke-width="2" rx="5"/>
+    <text x="1010" y="40" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">EXTINCTION EVENT</text>
+    <text x="1010" y="60" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">End-Ordovician</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Ice Age</text>
+    <text x="1010" y="95" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">85% species lost</text>
+  </g>
+  
+  <!-- Era 2: Silurian -->
+  <g transform="translate(30, 400)">
+    <rect width="1140" height="130" fill="#2e7d32" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#2e7d32" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#2e7d32" font-weight="bold">ERA 2: SILURIAN</text>
+    <text x="290" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">444-419 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Ozone layer stabilizes - land becomes habitable. First jawed fish diversify"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Jawed fish, vascular plants, first terrestrial arthropods</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~14%, ozone forming | CLIMATE: Warm and stable, ice melts</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#2e7d32" stroke-width="2" rx="5"/>
+    <text x="1010" y="40" font-family="Arial, sans-serif" font-size="10" fill="#2e7d32" text-anchor="middle">EVENT CARD</text>
+    <text x="1010" y="55" font-family="Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">POSITIVE</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Ozone Layer Forms</text>
+  </g>
+  
+  <!-- Era 3: Devonian -->
+  <g transform="translate(30, 540)">
+    <rect width="1140" height="130" fill="#33691e" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#33691e" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#33691e" font-weight="bold">ERA 3: DEVONIAN</text>
+    <text x="300" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">419-359 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Age of Fish - first forests appear, tetrapods emerge from water"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: First forests, first insects, Tiktaalik (fish-tetrapod), amphibians</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~15% | CLIMATE: Warm, extensive swamps and forests</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#e74c3c" stroke-width="2" rx="5"/>
+    <text x="1010" y="40" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">EXTINCTION EVENT</text>
+    <text x="1010" y="60" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Late Devonian</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Crisis</text>
+    <text x="1010" y="95" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">75% species lost</text>
+  </g>
+  
+  <!-- Era 4: Carboniferous -->
+  <g transform="translate(30, 680)">
+    <rect width="1140" height="130" fill="#1b5e20" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#1b5e20" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#1b5e20" font-weight="bold">ERA 4: CARBONIFEROUS</text>
+    <text x="380" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">359-299 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Giant insects thrive in oxygen-rich atmosphere. First amniotes (reptiles) evolve"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Giant dragonflies (70cm), first reptiles, amniotic egg</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~35% (highest ever!) | CLIMATE: Tropical swamps, coal-forming forests</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#1b5e20" stroke-width="2" rx="5"/>
+    <text x="1010" y="40" font-family="Arial, sans-serif" font-size="10" fill="#1b5e20" text-anchor="middle">EVENT CARD</text>
+    <text x="1010" y="55" font-family="Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">POSITIVE</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Oxygen Spike</text>
+  </g>
+  
+  <!-- Era 5: Permian -->
+  <g transform="translate(30, 820)">
+    <rect width="1140" height="130" fill="#4e342e" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#4e342e" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#4e342e" font-weight="bold">ERA 5: PERMIAN</text>
+    <text x="270" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">299-252 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Synapsids (proto-mammals) dominate. Ends with the worst extinction in Earth history"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Therapsids, proto-mammals, Dimetrodon, early archosaurs</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~23% | CLIMATE: Pangaea forms, increasingly arid interior</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#c0392b" stroke-width="3" rx="5"/>
+    <text x="1010" y="35" font-family="Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="bold">★ MAJOR EXTINCTION ★</text>
+    <text x="1010" y="55" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">THE GREAT DYING</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">96% marine species</text>
+    <text x="1010" y="90" font-family="Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">70% land species</text>
+    <text x="1010" y="105" font-family="Arial, sans-serif" font-size="9" fill="#888" text-anchor="middle">Roll 5+ to survive neutral</text>
+  </g>
+  
+  <!-- Era 6: Triassic -->
+  <g transform="translate(30, 960)">
+    <rect width="1140" height="130" fill="#e65100" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#e65100" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#e65100" font-weight="bold">ERA 6: TRIASSIC</text>
+    <text x="280" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">252-201 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Recovery from extinction. First dinosaurs, first mammals, first pterosaurs"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Dinosaurs, true mammals, pterosaurs, crocodilians</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~16% | CLIMATE: Hot and dry, Pangaea still intact</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#e74c3c" stroke-width="2" rx="5"/>
+    <text x="1010" y="40" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">EXTINCTION EVENT</text>
+    <text x="1010" y="60" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">End-Triassic</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Volcanism</text>
+    <text x="1010" y="95" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">80% species lost</text>
+  </g>
+  
+  <!-- Era 7: Jurassic -->
+  <g transform="translate(30, 1100)">
+    <rect width="1140" height="130" fill="#b71c1c" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#b71c1c" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#b71c1c" font-weight="bold">ERA 7: JURASSIC</text>
+    <text x="280" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">201-145 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Dinosaurs dominate. First birds evolve from theropod dinosaurs. Pangaea breaks apart"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Archaeopteryx (first bird), feathered dinosaurs, giant sauropods</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~26% | CLIMATE: Warm and humid, no polar ice caps</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#3498db" stroke-width="2" rx="5"/>
+    <text x="1010" y="40" font-family="Arial, sans-serif" font-size="10" fill="#3498db" text-anchor="middle">EVENT CARD</text>
+    <text x="1010" y="55" font-family="Arial, sans-serif" font-size="9" fill="#888" text-anchor="middle">NEUTRAL</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Pangaea Breakup</text>
+  </g>
+  
+  <!-- Era 8: Cretaceous -->
+  <g transform="translate(30, 1240)">
+    <rect width="1140" height="130" fill="#4a148c" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#4a148c" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#4a148c" font-weight="bold">ERA 8: CRETACEOUS</text>
+    <text x="330" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">145-66 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Flowering plants transform ecosystems. Ends with asteroid impact killing dinosaurs"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Flowering plants, bees, modern birds, T. rex, Triceratops</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~23% | CLIMATE: Warm, high sea levels, flowering plant explosion</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#c0392b" stroke-width="3" rx="5"/>
+    <text x="1010" y="35" font-family="Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle" font-weight="bold">★ MAJOR EXTINCTION ★</text>
+    <text x="1010" y="55" font-family="Arial, sans-serif" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">K-Pg ASTEROID</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">76% species lost</text>
+    <text x="1010" y="90" font-family="Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">Non-avian dinosaurs</text>
+    <text x="1010" y="105" font-family="Arial, sans-serif" font-size="10" fill="#c0392b" text-anchor="middle">go extinct</text>
+  </g>
+  
+  <!-- Era 9: Paleogene -->
+  <g transform="translate(30, 1380)">
+    <rect width="1140" height="130" fill="#ad1457" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#ad1457" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#ad1457" font-weight="bold">ERA 9: PALEOGENE</text>
+    <text x="310" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">66-23 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Age of Mammals begins. Explosive diversification fills empty niches"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Whales, bats, primates, elephants, horses (tiny ancestors)</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~23% | CLIMATE: Initially hot (PETM), then gradual cooling</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#ad1457" stroke-width="2" rx="5"/>
+    <text x="1010" y="40" font-family="Arial, sans-serif" font-size="10" fill="#ad1457" text-anchor="middle">EVENT CARD</text>
+    <text x="1010" y="55" font-family="Arial, sans-serif" font-size="9" fill="#27ae60" text-anchor="middle">POSITIVE</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Mammalian Radiation</text>
+  </g>
+  
+  <!-- Era 10: Neogene -->
+  <g transform="translate(30, 1520)">
+    <rect width="1140" height="130" fill="#f9a825" rx="8" opacity="0.3"/>
+    <rect width="1140" height="130" fill="none" stroke="#f9a825" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#f9a825" font-weight="bold">ERA 10: NEOGENE</text>
+    <text x="290" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">23-2.6 MYA</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Grasslands spread across continents. Grazing mammals diversify. Hominids appear"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Great apes, hominids (Australopithecus), modern whales, horses</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~21% (modern) | CLIMATE: Cooling trend, ice caps begin forming</text>
+    <rect x="900" y="15" width="220" height="100" fill="#0a0a15" stroke="#3498db" stroke-width="2" rx="5"/>
+    <text x="1010" y="40" font-family="Arial, sans-serif" font-size="10" fill="#3498db" text-anchor="middle">EVENT CARD</text>
+    <text x="1010" y="55" font-family="Arial, sans-serif" font-size="9" fill="#888" text-anchor="middle">NEUTRAL</text>
+    <text x="1010" y="75" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Grassland Expansion</text>
+  </g>
+  
+  <!-- Era 11: Quaternary -->
+  <g transform="translate(30, 1660)">
+    <rect width="1140" height="120" fill="#eceff1" rx="8" opacity="0.2"/>
+    <rect width="1140" height="120" fill="none" stroke="#eceff1" stroke-width="2" rx="8"/>
+    <text x="20" y="30" font-family="Georgia, serif" font-size="24" fill="#eceff1" font-weight="bold">ERA 11: QUATERNARY</text>
+    <text x="340" y="30" font-family="Arial, sans-serif" font-size="14" fill="#888">2.6 MYA - Present</text>
+    <text x="20" y="55" font-family="Arial, sans-serif" font-size="12" fill="#ccc">"Ice ages cycle repeatedly. Megafauna go extinct. Homo sapiens emerges"</text>
+    <text x="20" y="75" font-family="Arial, sans-serif" font-size="11" fill="#888">FIRST APPEARANCES: Homo sapiens (~300 KYA), woolly mammoths (extinct ~4 KYA)</text>
+    <text x="20" y="90" font-family="Arial, sans-serif" font-size="11" fill="#888">ATMOSPHERE: O₂ ~21% | CLIMATE: ~40 glacial cycles, we are in an interglacial now</text>
+    <rect x="900" y="10" width="220" height="100" fill="#0a0a15" stroke="#e74c3c" stroke-width="2" rx="5"/>
+    <text x="1010" y="35" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">EXTINCTION EVENT</text>
+    <text x="1010" y="55" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Pleistocene</text>
+    <text x="1010" y="70" font-family="Arial, sans-serif" font-size="11" fill="#fff" text-anchor="middle">Ice Ages</text>
+    <text x="1010" y="90" font-family="Arial, sans-serif" font-size="10" fill="#e74c3c" text-anchor="middle">Megafauna extinct</text>
+  </g>
+</svg>
+
