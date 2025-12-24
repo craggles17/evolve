@@ -8,6 +8,58 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#CB8C37"/>
+      <stop offset="100%" style="stop-color:#CB8C37"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 3-11 (Dev-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 2</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+2 CPX</text>
+  
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">ECOLOGICAL SPECIALIST</text>
+  
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#555">—</tspan></text>
+  
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
+  
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Specialized]</text>
+  
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">DYNAMIC: Specialize in a random occupied b...</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">Gain one of its bonus tags permanently</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +3 on that biome type</text>
+  
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Specialists outcompete generalists in stable environmen</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ts but are vulnerable to ...</text>
+  
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
+</g>
+<g transform="translate(270, 10)">
+  <defs>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
       <stop offset="0%" style="stop-color:#34B2E5"/>
       <stop offset="100%" style="stop-color:#34B2E5"/>
     </linearGradient>
@@ -53,7 +105,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(270, 10)">
+<g transform="translate(530, 10)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -105,7 +157,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(530, 10)">
+<g transform="translate(10, 370)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -157,7 +209,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(10, 370)">
+<g transform="translate(270, 370)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -209,7 +261,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(270, 370)">
+<g transform="translate(530, 370)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -261,7 +313,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(530, 370)">
+<g transform="translate(10, 730)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -313,7 +365,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(10, 730)">
+<g transform="translate(270, 730)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -365,7 +417,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(270, 730)">
+<g transform="translate(530, 730)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -412,58 +464,6 @@
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
   <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Coleoidea]</text>
-  
-  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
-  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
-  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
-</g>
-<g transform="translate(530, 730)">
-  <defs>
-    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a1a2e"/>
-      <stop offset="100%" style="stop-color:#16213e"/>
-    </linearGradient>
-    <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#B3E1D2"/>
-      <stop offset="100%" style="stop-color:#B3E1D2"/>
-    </linearGradient>
-  </defs>
-  
-  <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
-  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
-  
-  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 2-11 (Sil-Qua)</text>
-  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 2</text>
-  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+2 CPX</text>
-  
-  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
-  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">DEFENSIVE SPINES</text>
-  
-  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
-  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (2)</text>
-  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#888">Exoskeleton ◁</tspan></text>
-  
-  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
-  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
-  
-  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Armored] [Defensive]</text>
-  
-  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +2 vs predators</text>
-  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">Cannot be displaced without [Armored] tag.</text>
-  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
-  
-  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Spines evolved independently in urchins, fish, reptiles</text>
-  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">, and mammals - universal...</text>
-  
-  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various (convergent)]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>

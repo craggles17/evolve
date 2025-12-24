@@ -18,6 +18,58 @@
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
   <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 8-11 (Cre-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 6</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+5 CPX</text>
+  
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">EUSOCIALITY</text>
+  
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Complete Me… ◀</tspan><tspan x="65" dy="10" fill="#888">Insect Flig… ◁</tspan></text>
+  
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
+  
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Insect] [Social]</text>
+  
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">ALLELES: +2/era if population 5+</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">TILES: +2 on Forest with flowers (Era 8+).</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
+  
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Reproductive division of labor - workers forgo reproduc</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">tion to help queen</text>
+  
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Hymenoptera]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
+</g>
+<g transform="translate(270, 10)">
+  <defs>
+    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#7FC64E"/>
+      <stop offset="100%" style="stop-color:#7FC64E"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 8-11 (Cre-Qua)</text>
   <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 5</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+3 CPX</text>
   
@@ -53,7 +105,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(270, 10)">
+<g transform="translate(530, 10)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -105,7 +157,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(530, 10)">
+<g transform="translate(10, 370)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -157,7 +209,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(10, 370)">
+<g transform="translate(270, 370)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -209,7 +261,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(270, 370)">
+<g transform="translate(530, 370)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -261,7 +313,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(530, 370)">
+<g transform="translate(10, 730)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -313,7 +365,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(10, 730)">
+<g transform="translate(270, 730)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -365,7 +417,7 @@
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
   <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
-<g transform="translate(270, 730)">
+<g transform="translate(530, 730)">
   <defs>
     <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" style="stop-color:#1a1a2e"/>
@@ -412,58 +464,6 @@
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
   <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Primates/Cetacea]</text>
-  
-  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
-  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
-  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
-</g>
-<g transform="translate(530, 730)">
-  <defs>
-    <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#1a1a2e"/>
-      <stop offset="100%" style="stop-color:#16213e"/>
-    </linearGradient>
-    <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#F4B8D0"/>
-      <stop offset="100%" style="stop-color:#F4B8D0"/>
-    </linearGradient>
-  </defs>
-  
-  <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
-  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
-  
-  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 0-11 (Cam-Qua)</text>
-  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 1</text>
-  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+1 CPX</text>
-  
-  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
-  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">R-STRATEGY REPRODUCTION</text>
-  
-  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
-  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES</text>
-  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#555">—</tspan></text>
-  
-  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
-  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
-  
-  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Fast-Reproduction]</text>
-  
-  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">ALLELES: +2/era</text>
-  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">MARKERS: +2 each era</text>
-  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc">RISK: Lose more in extinctions (boom-bust).</text>
-  
-  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Many offspring, little parental care - thrives in unsta</text>
-  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ble environments</text>
-  
-  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
