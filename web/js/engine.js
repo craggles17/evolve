@@ -215,11 +215,22 @@ export class GameEngine {
         const flipped = [];
         
         for (const tile of this.state.boardTiles) {
-            if (roll >= tile.flipNumber && this.state.currentEra >= tile.eraLock) {
-                // Use ecological transitions for realistic biome changes
-                const transitions = this.state.tilesData.flip_transitions?.[tile.biome];
-                const validTransitions = transitions || Object.keys(this.state.tilesData.biome_types);
-                const newBiome = validTransitions[Math.floor(Math.random() * validTransitions.length)];
+        if (roll >= tile.flipNumber && this.state.currentEra >= tile.eraLock) {
+            // Use ecological transitions for realistic biome changes
+            const transitions = this.state.tilesData.flip_transitions?.[tile.biome];
+            const allTransitions = transitions || Object.keys(this.state.tilesData.biome_types);
+            
+            // Filter transitions by climate zone (map 'tropical' to 'temperate')
+            const climateZone = tile.climateBand === 'tropical' ? 'temperate' : tile.climateBand;
+            const validTransitions = allTransitions.filter(biome => {
+                const biomeData = this.state.tilesData.biome_types[biome];
+                return biomeData && biomeData.climate_zones && biomeData.climate_zones.includes(climateZone);
+            });
+            
+            // Fallback to original biome if no valid transitions
+            const newBiome = validTransitions.length > 0
+                ? validTransitions[Math.floor(Math.random() * validTransitions.length)]
+                : tile.biome;
                 
                 const oldBiome = tile.biome;
                 tile.biome = newBiome;
