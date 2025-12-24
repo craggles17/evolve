@@ -986,6 +986,8 @@ class Game {
         await this.processEndPhase();
         this.isProcessing = false;
         
+        this.updateUI();
+        
         if (this.mode === MODE.HOST && this.mpHost) {
             this.mpHost.broadcastState(this.state);
         }
@@ -1056,8 +1058,6 @@ class Game {
             default:
                 this.state.advancePhase();
         }
-        
-        this.updateUI();
     }
     
     handleEndTurn() {
@@ -1073,6 +1073,8 @@ class Game {
         this.processEndTurn();
         this.isProcessing = false;
         
+        this.updateUI();
+        
         if (this.mode === MODE.HOST && this.mpHost) {
             this.mpHost.broadcastState(this.state);
         }
@@ -1083,7 +1085,6 @@ class Game {
             this.state.advancePhase();
             this.state.currentPlayerIndex = 0;
         }
-        this.updateUI();
     }
     
     handleTileClick(tile) {
