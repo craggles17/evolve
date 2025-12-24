@@ -34,6 +34,9 @@ class Game {
         
         // Touch-based marker placement mode (for mobile)
         this.markerPlacementMode = false;
+        
+        // Prevent rapid clicks from triggering multiple phase transitions
+        this.isProcessing = false;
     }
     
     async init() {
@@ -872,7 +875,7 @@ class Game {
         const playable = this.engine.getPlayableTraits(player);
         this.renderer.renderHand(player, playable);
         
-        const canAct = this.isMyTurn();
+        const canAct = this.isMyTurn() && !this.isProcessing;
         this.renderer.updateActionButtons(this.state.currentPhase, this.currentPlayerRolled, canAct);
         
         if (this.mode === MODE.SPECTATOR) {
@@ -934,8 +937,11 @@ class Game {
     }
     
     async handleAlleleRoll() {
+        if (this.isProcessing) return;
         if (!this.isMyTurn()) return;
         if (this.currentPlayerRolled) return;
+        
+        this.isProcessing = true;
         
         const player = this.state.getCurrentPlayer();
         
@@ -952,10 +958,12 @@ class Game {
             this.mpHost.broadcastState(this.state);
         }
         
+        this.isProcessing = false;
         this.updateUI();
     }
     
     async handleEndPhase() {
+        if (this.isProcessing) return;
         if (!this.isMyTurn() && this.mode !== MODE.LOCAL) return;
         
         if (this.mode === MODE.CLIENT && this.mpClient) {
@@ -963,7 +971,9 @@ class Game {
             return;
         }
         
+        this.isProcessing = true;
         await this.processEndPhase();
+        this.isProcessing = false;
         
         if (this.mode === MODE.HOST && this.mpHost) {
             this.mpHost.broadcastState(this.state);
@@ -1040,6 +1050,7 @@ class Game {
     }
     
     handleEndTurn() {
+        if (this.isProcessing) return;
         if (!this.isMyTurn() && this.mode !== MODE.LOCAL) return;
         
         if (this.mode === MODE.CLIENT && this.mpClient) {
