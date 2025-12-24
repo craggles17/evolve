@@ -1,12 +1,13 @@
 // Card utilities and display helpers
 
-import { ERA_NAMES, ERA_COLORS } from './utils.js';
+import { ERA_NAMES, ERA_COLORS, ERA_TEXT_COLORS } from './utils.js';
 
 // Generate SVG for a trait card (for print or display)
 export function generateTraitCardSVG(trait, traitDb) {
     const width = 180;
     const height = 252;
     const eraColor = ERA_COLORS[trait.era_min] || '#666';
+    const eraTextColor = ERA_TEXT_COLORS[trait.era_min] || '#ffffff';
     
     return `
         <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
@@ -23,7 +24,7 @@ export function generateTraitCardSVG(trait, traitDb) {
             <!-- Era banner -->
             <rect x="0" y="0" width="${width}" height="24" rx="8" fill="${eraColor}"/>
             <rect x="0" y="16" width="${width}" height="8" fill="${eraColor}"/>
-            <text x="${width/2}" y="16" text-anchor="middle" fill="white" font-size="11" font-weight="bold">
+            <text x="${width/2}" y="16" text-anchor="middle" fill="${eraTextColor}" font-size="11" font-weight="bold">
                 Era ${trait.era_min}${trait.era_max !== trait.era_min ? `-${trait.era_max}` : ''}
             </text>
             

@@ -82,22 +82,22 @@ FINAL = Population × Complexity + (Tiles × 3)
 
 ---
 
-## Era Colors (Card Backs)
+## Era Colors (ICS Chronostratigraphic Chart)
 
 | Era | Color | Period |
 |-----|-------|--------|
-| 0 | Deep Blue | Cambrian |
+| 0 | Rose | Cambrian |
 | 1 | Teal | Ordovician |
-| 2 | Sea Green | Silurian |
-| 3 | Forest Green | Devonian |
-| 4 | Dark Green | Carboniferous |
-| 5 | Brown | Permian |
-| 6 | Orange | Triassic |
-| 7 | Red | Jurassic |
-| 8 | Purple | Cretaceous |
-| 9 | Pink | Paleogene |
+| 2 | Light Teal | Silurian |
+| 3 | Brown | Devonian |
+| 4 | Teal-Gray | Carboniferous |
+| 5 | Salmon | Permian |
+| 6 | Purple | Triassic |
+| 7 | Blue | Jurassic |
+| 8 | Green | Cretaceous |
+| 9 | Orange | Paleogene |
 | 10 | Yellow | Neogene |
-| 11 | White | Quaternary |
+| 11 | Cream | Quaternary |
 
 ---
 
