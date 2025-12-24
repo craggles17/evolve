@@ -14,7 +14,7 @@
 
 ### Shared
 - 1 Central Era Board
-- 12 Era Trait Decks (color-coded, ~10 cards per player per deck, 63 unique traits)
+- 12 Era Trait Decks (color-coded, ~10 cards per player per deck, 62 unique traits)
 - 28 Event Cards (shuffled deck with visible backs)
 - 70 Hexagonal Biome Tiles
 - 2 Standard d6 dice
