@@ -29,9 +29,10 @@ export class Renderer {
         
         // Pan/zoom state
         this.viewTransform = { x: 0, y: 0, scale: 1 };
+        this.panOffset = { x: 0, y: 0 };  // Separate pan tracking from zoom focal point
         this.isPanning = false;
         this.panStart = { x: 0, y: 0 };
-        this.minScale = 0.5;
+        this.minScale = 1.0;  // Can't zoom out past full frame
         this.maxScale = 3;
     }
     
@@ -46,7 +47,7 @@ export class Renderer {
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
             
-            const zoomFactor = e.deltaY > 0 ? 0.95 : 1.05;
+            const zoomFactor = e.deltaY > 0 ? 0.98 : 1.02;
             this.zoomAt(mouseX, mouseY, zoomFactor);
         }, { passive: false });
         
@@ -72,9 +73,8 @@ export class Renderer {
             const scaleX = viewBox.width / rect.width;
             const scaleY = viewBox.height / rect.height;
             
-            const panDampening = 0.7;
-            this.viewTransform.x -= dx * scaleX / this.viewTransform.scale * panDampening;
-            this.viewTransform.y -= dy * scaleY / this.viewTransform.scale * panDampening;
+            this.panOffset.x += dx * scaleX;
+            this.panOffset.y += dy * scaleY;
             this.applyTransform();
         });
         
@@ -118,9 +118,8 @@ export class Renderer {
                 const scaleX = viewBox.width / rect.width;
                 const scaleY = viewBox.height / rect.height;
                 
-                const panDampening = 0.7;
-                this.viewTransform.x -= dx * scaleX / this.viewTransform.scale * panDampening;
-                this.viewTransform.y -= dy * scaleY / this.viewTransform.scale * panDampening;
+                this.panOffset.x += dx * scaleX;
+                this.panOffset.y += dy * scaleY;
                 this.applyTransform();
             } else if (e.touches.length === 2) {
                 const dist = Math.hypot(
@@ -174,11 +173,17 @@ export class Renderer {
     applyTransform() {
         if (!this.boardContent) return;
         const { x, y, scale } = this.viewTransform;
-        this.boardContent.setAttribute('transform', `translate(${-x * (scale - 1)}, ${-y * (scale - 1)}) scale(${scale})`);
+        const { x: panX, y: panY } = this.panOffset;
+        // Combine pan offset with zoom-to-point transform
+        const zoomOffsetX = -x * (scale - 1);
+        const zoomOffsetY = -y * (scale - 1);
+        this.boardContent.setAttribute('transform', 
+            `translate(${panX + zoomOffsetX}, ${panY + zoomOffsetY}) scale(${scale})`);
     }
     
     resetZoom() {
         this.viewTransform = { x: 0, y: 0, scale: 1 };
+        this.panOffset = { x: 0, y: 0 };
         this.applyTransform();
     }
     

@@ -911,9 +911,16 @@ body {
     transform: scale(0.95);
 }
 
-/* Board cursor states */
+/* Board cursor states and selection */
 #hex-board {
     cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#hex-board * {
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 #hex-board:active {
