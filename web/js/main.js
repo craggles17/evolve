@@ -141,6 +141,10 @@ class Game {
         this.renderer.callbacks.onTechTreeClick = (trait, state) => this.handleTechTreeClick(trait, state);
         this.renderer.callbacks.onGenomeTraitClick = (trait) => this.handleGenomeTraitClick(trait);
         
+        // Trait modal buttons
+        $('#btn-trait-play')?.addEventListener('click', () => this.playTraitFromModal());
+        $('#btn-trait-close')?.addEventListener('click', () => this.closeTraitModal());
+        
         // Drag and drop for markers
         this.setupDragAndDrop();
     }
@@ -1064,20 +1068,107 @@ class Game {
         }
     }
     
-    // Tech tree trait click - show same detail modal as hand cards
+    // Tech tree trait click - show details modal
     handleTechTreeClick(trait, traitState) {
         const player = this.state.getCurrentPlayer();
         const isEvolutionPhase = this.state.currentPhase === PHASES.EVOLUTION;
         const canPlay = this.isMyTurn() && isEvolutionPhase && traitState === 'available';
         
-        this.renderer.showCardDetail(
-            trait,
-            player,
-            this.state.traitDb,
-            canPlay,
-            isEvolutionPhase && this.isMyTurn(),
-            (t) => this.handleBuyTrait(t)
-        );
+        // Store the trait for potential play action
+        this.selectedTechTreeTrait = trait;
+        
+        // Populate modal
+        $('#trait-modal-name').textContent = trait.name;
+        $('#trait-modal-cost').textContent = `Cost: ${player.getTraitCost(trait, this.state.traitDb)}`;
+        $('#trait-modal-era').textContent = `Era ${trait.era_min}-${trait.era_max}`;
+        $('#trait-modal-grants').textContent = trait.grants;
+        
+        // Tags
+        const tagsContainer = $('#trait-modal-tags');
+        tagsContainer.innerHTML = '';
+        for (const tag of (trait.tags || [])) {
+            const tagEl = document.createElement('span');
+            tagEl.className = 'trait-tag';
+            tagEl.textContent = tag;
+            tagsContainer.appendChild(tagEl);
+        }
+        
+        // Prerequisites
+        const prereqsContainer = $('#trait-modal-prereqs');
+        prereqsContainer.innerHTML = '';
+        
+        const ownedTraits = new Set(player.traits);
+        const hasPrereqs = (trait.hard_prereqs?.length || 0) + (trait.soft_prereqs?.length || 0) + (trait.alt_prereqs?.length || 0) > 0;
+        
+        if (hasPrereqs) {
+            const h4 = document.createElement('h4');
+            h4.textContent = 'Prerequisites';
+            prereqsContainer.appendChild(h4);
+            
+            const list = document.createElement('div');
+            list.className = 'prereq-list';
+            
+            // Hard prereqs
+            for (const prereqId of (trait.hard_prereqs || [])) {
+                const prereq = this.state.traitDb[prereqId];
+                const item = document.createElement('div');
+                item.className = 'prereq-item hard';
+                if (ownedTraits.has(prereqId)) item.classList.add('met');
+                item.textContent = prereq ? prereq.name : prereqId;
+                list.appendChild(item);
+            }
+            
+            // Soft prereqs
+            for (const prereqId of (trait.soft_prereqs || [])) {
+                const prereq = this.state.traitDb[prereqId];
+                const item = document.createElement('div');
+                item.className = 'prereq-item soft';
+                if (ownedTraits.has(prereqId)) item.classList.add('met');
+                item.textContent = `${prereq ? prereq.name : prereqId} (optional)`;
+                list.appendChild(item);
+            }
+            
+            // Alt prereqs
+            for (const altGroup of (trait.alt_prereqs || [])) {
+                const names = altGroup.map(id => {
+                    const p = this.state.traitDb[id];
+                    return p ? p.name : id;
+                }).join(' OR ');
+                const item = document.createElement('div');
+                item.className = 'prereq-item alt';
+                const anyMet = altGroup.some(id => ownedTraits.has(id));
+                if (anyMet) item.classList.add('met');
+                item.textContent = `${names} (alternate)`;
+                list.appendChild(item);
+            }
+            
+            prereqsContainer.appendChild(list);
+        }
+        
+        // Show/hide play button
+        const playBtn = $('#btn-trait-play');
+        if (canPlay) {
+            playBtn.classList.remove('hidden');
+        } else {
+            playBtn.classList.add('hidden');
+        }
+        
+        // Show modal
+        $('#modal-overlay').classList.remove('hidden');
+        $('#trait-modal').classList.remove('hidden');
+    }
+    
+    playTraitFromModal() {
+        if (this.selectedTechTreeTrait) {
+            this.handleBuyTrait(this.selectedTechTreeTrait);
+            this.closeTraitModal();
+        }
+    }
+    
+    closeTraitModal() {
+        $('#modal-overlay').classList.add('hidden');
+        $('#trait-modal').classList.add('hidden');
+        this.selectedTechTreeTrait = null;
     }
     
     async handleCompetitionPhase() {
