@@ -773,6 +773,11 @@ body {
     position: relative;
 }
 
+/* Mobile stats bar - hidden on desktop */
+.mobile-stats-bar {
+    display: none;
+}
+
 #hex-board {
     max-width: 100%;
     max-height: 100%;
@@ -1293,6 +1298,52 @@ body {
     }
     50% {
         box-shadow: 0 2px 12px rgba(63, 185, 80, 0.6);
+    }
+}
+
+/* Touch-based marker placement mode (mobile) */
+.drag-marker.placement-active {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+    animation: placementActivePulse 0.8s ease-in-out infinite;
+    transform: scale(1.15);
+}
+
+@keyframes placementActivePulse {
+    0%, 100% {
+        box-shadow: 0 0 0 4px rgba(63, 185, 80, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 8px rgba(63, 185, 80, 0.2);
+    }
+}
+
+.placement-hint {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-panel);
+    border: 1px solid var(--accent-green);
+    border-radius: 8px;
+    padding: 8px 16px;
+    color: var(--accent-green);
+    font-size: 0.85rem;
+    font-weight: 600;
+    z-index: 100;
+    white-space: nowrap;
+    animation: hintFadeIn 0.3s ease-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes hintFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
     }
 }
 
@@ -2711,106 +2762,271 @@ body {
 @media (max-width: 900px) {
     :root {
         --panel-width: 100%;
-        --header-height: 50px;
-        --footer-height: 60px;
+        --header-height: 44px;
+        --footer-height: 56px;
+        --mobile-tab-height: 48px;
     }
     
     #game-screen {
         height: 100vh;
+        height: 100dvh; /* Dynamic viewport height for mobile browsers */
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
     
+    /* Compact header - single row */
     #game-header {
-        flex-wrap: wrap;
-        padding: 0.5rem;
+        flex-wrap: nowrap;
+        padding: 0 0.5rem;
         gap: 0.5rem;
-        height: auto;
+        height: var(--header-height);
         min-height: var(--header-height);
+        align-items: center;
     }
     
     .era-display {
-        flex: 1;
+        flex: 0 0 auto;
+        gap: 0.4rem;
+    }
+    
+    .era-label {
+        display: none;
     }
     
     .era-number {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+    }
+    
+    .era-name {
+        font-size: 0.85rem;
+        max-width: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
     
     .phase-display {
-        order: 3;
-        width: 100%;
+        flex: 1;
+        order: 0;
         text-align: center;
-        padding: 0.25rem;
-        font-size: 0.85rem;
+        padding: 0.2rem 0.5rem;
+        font-size: 0.75rem;
+        min-width: 0;
     }
     
-    #game-main {
-        flex-direction: column;
-        height: calc(100vh - 100px - var(--footer-height));
+    #current-phase {
+        font-size: 0.75rem;
+    }
+    
+    #phase-hint {
+        display: none;
+    }
+    
+    .current-player-display {
+        flex: 0 0 auto;
+        gap: 0.4rem;
+    }
+    
+    #current-player-name {
+        font-size: 0.85rem;
+        max-width: 60px;
         overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .player-indicator {
+        width: 14px;
+        height: 14px;
+    }
+    
+    /* Main game area - prioritize board */
+    #game-main {
+        flex: 1;
+        flex-direction: column;
+        height: auto;
+        overflow: hidden;
+        position: relative;
     }
     
     #lineage-panel {
-        display: none; /* Hide on mobile - too complex */
+        display: none;
     }
     
-    /* Organism badge in players bar visible on mobile */
-    .organism-badge {
-        display: inline-block;
-        font-size: 0.65rem;
-        padding: 1px 6px;
-    }
-    
+    /* Board takes most of the space */
     #board-container {
         flex: 1;
-        min-height: 200px;
-        max-height: 40vh;
+        min-height: 45vh;
+        max-height: none;
+        position: relative;
     }
     
+    /* Floating stats bar on board */
+    .mobile-stats-bar {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        right: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(22, 27, 34, 0.95);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 6px 10px;
+        z-index: 50;
+        backdrop-filter: blur(8px);
+    }
+    
+    .mobile-stat {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+    }
+    
+    .mobile-stat-value {
+        color: var(--accent-gold);
+        font-weight: 700;
+    }
+    
+    .mobile-stat-icon {
+        font-size: 0.9rem;
+    }
+    
+    .mobile-place-marker {
+        margin-left: auto;
+        background: var(--accent-green);
+        border: none;
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
+        white-space: nowrap;
+        min-height: 32px;
+    }
+    
+    .mobile-place-marker:active {
+        background: #4cc970;
+    }
+    
+    /* Action panel as bottom sheet */
     #action-panel {
         width: 100%;
-        max-height: none;
-        flex: 1;
+        max-height: 35vh;
+        flex: 0 0 auto;
         border: none;
         border-top: 1px solid var(--border);
         overflow-y: auto;
-        padding: 0.75rem;
+        overflow-x: hidden;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
     }
     
+    /* Collapsible action panel header */
+    .action-panel-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 4px;
+        margin: -0.5rem -0.5rem 0 -0.5rem;
+        background: var(--bg-card);
+        border-bottom: 1px solid var(--border);
+        cursor: pointer;
+    }
+    
+    .action-panel-toggle::before {
+        content: '';
+        width: 32px;
+        height: 4px;
+        background: var(--border);
+        border-radius: 2px;
+    }
+    
+    /* Compact event deck */
     #event-deck-display {
         display: flex;
         align-items: center;
-        gap: 1rem;
-        padding: 0.5rem;
+        gap: 0.75rem;
+        padding: 0.4rem;
+        background: var(--bg-card);
+        border-radius: 6px;
+    }
+    
+    #event-deck-display h3 {
+        display: none;
     }
     
     #event-deck-stack {
         flex-direction: row;
+        align-items: center;
         gap: 0.5rem;
     }
     
     .event-back {
-        width: 50px;
-        height: 70px;
-        font-size: 1.5rem;
+        width: 36px;
+        height: 50px;
+        font-size: 1.2rem;
+        border-radius: 4px;
+    }
+    
+    #events-remaining {
+        font-size: 0.7rem;
+    }
+    
+    /* Compact threat indicator for solo mode */
+    #threat-indicator {
+        padding: 0.5rem;
+        margin-bottom: 0;
+    }
+    
+    #threat-indicator h3 {
+        font-size: 0.75rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .threat-meter {
+        height: 18px;
+    }
+    
+    /* Hand cards - horizontal scroll */
+    #hand-container {
+        flex: 0 1 auto;
+        min-height: 0;
+        overflow: hidden;
     }
     
     #hand-container h3 {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
+        margin-bottom: 0.3rem;
     }
     
     #hand-cards {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        display: flex;
         gap: 0.5rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-bottom: 4px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
     }
     
     .hand-card {
+        flex: 0 0 140px;
         padding: 0.5rem;
+        scroll-snap-align: start;
+        min-height: 70px;
     }
     
     .hand-card-name {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        line-height: 1.2;
     }
     
     .hand-card-cost,
@@ -2818,53 +3034,90 @@ body {
         font-size: 0.7rem;
     }
     
+    /* Action buttons - fixed at bottom */
     #action-buttons {
         position: sticky;
         bottom: 0;
         background: var(--bg-panel);
-        padding: 0.5rem 0;
+        padding: 0.4rem 0 0 0;
         display: flex;
         gap: 0.5rem;
+        border-top: 1px solid var(--border);
+        margin: 0 -0.5rem -0.5rem -0.5rem;
+        padding: 0.5rem;
     }
     
     #action-buttons button {
         flex: 1;
-        padding: 0.75rem;
+        padding: 12px 8px;
+        font-size: 0.85rem;
+        min-height: 48px;
     }
     
-    /* Players bar mobile */
+    /* Players bar - compact horizontal scroll */
     #players-bar {
         height: auto;
-        padding: 0.5rem;
+        padding: 0.4rem 0.5rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
     }
     
     #players-overview {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
         gap: 0.5rem;
+        flex-wrap: nowrap;
     }
     
     .player-summary {
-        padding: 0.5rem;
+        flex: 0 0 auto;
+        min-width: 120px;
+        padding: 0.4rem 0.6rem;
+    }
+    
+    .player-summary-color {
+        width: 8px;
+        height: 32px;
     }
     
     .player-summary-name {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     
     .player-summary-stats {
-        font-size: 0.7rem;
-        gap: 0.5rem;
+        font-size: 0.65rem;
+        gap: 0.4rem;
+        flex-wrap: wrap;
     }
     
-    /* Modal mobile */
+    .organism-badge {
+        display: none;
+    }
+    
+    /* Modals - full width */
     .modal {
-        max-width: 95vw;
-        max-height: 85vh;
+        max-width: 100vw;
+        max-height: 90vh;
+        width: 100vw;
+        border-radius: 12px 12px 0 0;
+        margin: 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
     }
     
     .modal-content {
         padding: 1rem;
+        max-height: calc(90vh - 40px);
+        overflow-y: auto;
+    }
+    
+    .modal-close {
+        top: 0.5rem;
+        right: 0.5rem;
+        font-size: 1.75rem;
+        padding: 8px;
     }
     
     .dice-content {
@@ -2878,8 +3131,8 @@ body {
     }
     
     .die {
-        width: 60px;
-        height: 60px;
+        width: 64px;
+        height: 64px;
         font-size: 2rem;
     }
     
@@ -2889,44 +3142,323 @@ body {
     
     .gameover-content {
         min-width: auto;
+        max-width: 100%;
+    }
+    
+    /* Remove all modal min-widths on mobile */
+    #card-detail {
+        min-width: auto;
+        width: 100%;
+    }
+    
+    .trait-modal-content {
+        min-width: auto;
+        max-width: 100%;
+        width: 100%;
+    }
+    
+    .legend-content {
+        min-width: auto;
+        max-width: calc(100vw - 24px);
+        right: -8px;
+    }
+    
+    /* Event card within modal */
+    .event-card {
+        padding: 1rem;
+    }
+    
+    .event-card-name {
+        font-size: 1.2rem;
+    }
+    
+    /* Score rows in game over */
+    .score-row {
+        flex-wrap: wrap;
+        padding: 0.5rem;
+    }
+    
+    .score-formula {
+        font-size: 0.75rem;
+    }
+    
+    .score-value {
+        font-size: 1.1rem;
+        min-width: auto;
+    }
+    
+    .solo-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Organism matches in game over */
+    .organism-match {
+        padding: 0.75rem;
+    }
+    
+    .organism-name-large {
+        font-size: 1.1rem;
     }
     
     .card-detail-name {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     
     #card-actions {
         flex-direction: column;
+        gap: 0.5rem;
     }
     
     #card-actions button {
         width: 100%;
+        min-height: 48px;
+    }
+    
+    /* Zoom controls - larger for touch */
+    .zoom-controls {
+        bottom: 8px;
+        right: 8px;
+    }
+    
+    .zoom-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 1.5rem;
+    }
+    
+    /* Marker drag area - larger on mobile */
+    .drag-marker {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .drag-marker-icon {
+        font-size: 16px;
+    }
+    
+    .stat-markers-row {
+        flex-wrap: nowrap;
+    }
+    
+    /* Placement hint positioning */
+    .placement-hint {
+        bottom: auto;
+        top: 50px;
+        font-size: 0.8rem;
+        padding: 6px 12px;
     }
 }
 
 @media (max-width: 480px) {
     .game-title {
-        font-size: 2rem;
+        font-size: 1.75rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
     }
     
     .setup-container {
-        padding: 1.5rem;
-    }
-    
-    .setup-form {
         padding: 1rem;
     }
     
-    #hand-cards {
-        grid-template-columns: 1fr;
+    .setup-form {
+        padding: 0.75rem;
     }
     
-    #players-overview {
-        grid-template-columns: 1fr;
+    .mode-btn {
+        padding: 0.75rem;
+    }
+    
+    .mode-icon {
+        font-size: 1.2rem;
+    }
+    
+    /* Even more compact header */
+    .era-name {
+        display: none;
+    }
+    
+    #current-player-name {
+        display: none;
+    }
+    
+    /* Hand cards - single column for small phones */
+    .hand-card {
+        flex: 0 0 120px;
+    }
+    
+    /* Smaller player summaries */
+    .player-summary {
+        min-width: 100px;
+        padding: 0.3rem 0.5rem;
     }
     
     .player-summary-stats {
-        flex-wrap: wrap;
+        display: none;
+    }
+    
+    /* Board gets more space */
+    #board-container {
+        min-height: 50vh;
+    }
+    
+    /* Smaller action panel */
+    #action-panel {
+        max-height: 30vh;
+    }
+    
+    /* Hide event deck on very small screens */
+    #event-deck-display {
+        display: none;
+    }
+    
+    /* Modal adjustments */
+    .modal-content {
+        padding: 0.75rem;
+    }
+    
+    .die {
+        width: 56px;
+        height: 56px;
+        font-size: 1.75rem;
+    }
+}
+
+/* Touch device optimizations - larger tap targets */
+@media (pointer: coarse) {
+    /* All interactive buttons need minimum 48px tap target */
+    .btn-primary,
+    .btn-action,
+    .mode-btn,
+    .count-btn,
+    .zoom-btn,
+    .tt-zoom-btn {
+        min-height: 48px;
+    }
+    
+    .count-btn {
+        width: 56px;
+        height: 56px;
+        font-size: 1.3rem;
+    }
+    
+    .zoom-btn {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .tt-zoom-btn {
+        width: 36px;
+        height: 36px;
+    }
+    
+    /* Hand cards need larger touch area */
+    .hand-card {
+        padding: 0.75rem;
+        min-height: 80px;
+    }
+    
+    /* Player summary clickable area */
+    .player-summary {
+        min-height: 48px;
+        padding: 0.6rem 0.75rem;
+    }
+    
+    /* Modal close button */
+    .modal-close {
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+    }
+    
+    /* Lobby slots */
+    .lobby-slot {
+        min-height: 56px;
+        padding: 0.75rem 1rem;
+    }
+    
+    /* Text inputs */
+    .text-input,
+    .player-input input,
+    .chat-input {
+        min-height: 48px;
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+    
+    /* Marker drag button */
+    .drag-marker {
+        width: 44px;
+        height: 44px;
+    }
+    
+    /* Difficulty buttons */
+    .difficulty-btn {
+        min-height: 48px;
+        padding: 0.6rem;
+    }
+    
+    /* Legend toggle */
+    .legend-toggle {
+        width: 44px;
+        height: 44px;
+    }
+    
+    /* Checkbox labels */
+    .checkbox-label {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .checkbox-label input[type="checkbox"] {
+        width: 24px;
+        height: 24px;
+    }
+    
+    /* Experimental toggle */
+    .experimental-toggle {
+        min-height: 48px;
+    }
+    
+    /* Chat controls */
+    .chat-toggle {
+        width: 44px;
+        height: 44px;
+        font-size: 1.5rem;
+    }
+    
+    /* Trait modal actions */
+    .trait-modal-actions button {
+        min-height: 48px;
+    }
+    
+    /* Event card buttons */
+    #btn-continue-event {
+        min-height: 52px;
+        padding: 14px 24px;
+    }
+    
+    /* Dice roll buttons */
+    #btn-roll-dice,
+    #btn-accept-roll {
+        min-height: 52px;
+        padding: 14px 24px;
+    }
+    
+    /* Back buttons */
+    .btn-back {
+        min-height: 44px;
+        padding: 12px 0;
+    }
+    
+    /* Card action buttons */
+    #card-actions button {
+        min-height: 52px;
     }
 }
 

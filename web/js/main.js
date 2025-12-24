@@ -31,6 +31,9 @@ class Game {
         this.mpHost = null;
         this.mpClient = null;
         this.mySlotIndex = -1;
+        
+        // Touch-based marker placement mode (for mobile)
+        this.markerPlacementMode = false;
     }
     
     async init() {
@@ -154,9 +157,10 @@ class Game {
         const dragMarker = $('#drag-marker');
         if (!dragMarker) return;
         
-        // Store valid tiles during drag
+        // Store valid tiles during drag/placement mode
         this.validDragTiles = new Set();
         
+        // Desktop drag-and-drop
         dragMarker.addEventListener('dragstart', (e) => {
             if (!this.isMyTurn() || this.state.currentPhase !== PHASES.POPULATE) {
                 e.preventDefault();
@@ -169,14 +173,10 @@ class Game {
                 return;
             }
             
-            // Get valid tiles and store their IDs
             const validTiles = this.engine.getValidTiles(player);
             this.validDragTiles = new Set(validTiles.map(t => t.id));
-            
-            // Highlight valid tiles
             this.renderer.highlightValidTiles(validTiles, this.state);
             
-            // Set drag data
             e.dataTransfer.setData('text/plain', 'marker');
             e.dataTransfer.effectAllowed = 'move';
             dragMarker.classList.add('dragging');
@@ -185,9 +185,68 @@ class Game {
         dragMarker.addEventListener('dragend', () => {
             dragMarker.classList.remove('dragging');
             this.validDragTiles.clear();
-            // Clear highlights
             this.renderer.clearTileHighlights();
         });
+        
+        // Touch/click-based placement mode for mobile
+        dragMarker.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.toggleMarkerPlacementMode();
+        });
+        
+        // Also handle touchend for mobile (click may not fire reliably)
+        dragMarker.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.toggleMarkerPlacementMode();
+        });
+    }
+    
+    toggleMarkerPlacementMode() {
+        if (!this.isMyTurn() || this.state.currentPhase !== PHASES.POPULATE) {
+            return;
+        }
+        
+        const player = this.state.getCurrentPlayer();
+        if (player.markersOnBoard >= player.markers) {
+            return;
+        }
+        
+        if (this.markerPlacementMode) {
+            this.exitMarkerPlacementMode();
+        } else {
+            this.enterMarkerPlacementMode();
+        }
+    }
+    
+    enterMarkerPlacementMode() {
+        this.markerPlacementMode = true;
+        const player = this.state.getCurrentPlayer();
+        const validTiles = this.engine.getValidTiles(player);
+        this.validDragTiles = new Set(validTiles.map(t => t.id));
+        
+        this.renderer.highlightValidTiles(validTiles, this.state);
+        this.renderer.setMarkerPlacementActive(true);
+        
+        // Add click-outside handler to cancel
+        document.addEventListener('click', this.handlePlacementOutsideClick);
+    }
+    
+    exitMarkerPlacementMode() {
+        this.markerPlacementMode = false;
+        this.validDragTiles.clear();
+        this.renderer.clearTileHighlights();
+        this.renderer.setMarkerPlacementActive(false);
+        
+        document.removeEventListener('click', this.handlePlacementOutsideClick);
+    }
+    
+    handlePlacementOutsideClick = (e) => {
+        // If click is not on a tile or the marker button, exit placement mode
+        if (!e.target.closest('.hex-tile') && !e.target.closest('#drag-marker')) {
+            this.exitMarkerPlacementMode();
+        }
     }
     
     handleMarkerDrop(tileId) {
@@ -1004,8 +1063,42 @@ class Game {
     }
     
     handleTileClick(tile) {
-        // Show tile info modal on click (marker placement is now drag-and-drop)
+        // If in marker placement mode, try to place marker
+        if (this.markerPlacementMode && this.validDragTiles.has(tile.id)) {
+            this.handleMarkerPlacement(tile.id);
+            return;
+        }
+        
+        // Otherwise show tile info modal
         this.renderer.showTileInfo(tile, this.state);
+    }
+    
+    handleMarkerPlacement(tileId) {
+        if (!this.isMyTurn()) return;
+        if (this.state.currentPhase !== PHASES.POPULATE) return;
+        
+        const player = this.state.getCurrentPlayer();
+        
+        if (this.mode === MODE.CLIENT && this.mpClient) {
+            this.mpClient.sendAction({ type: 'place_marker', tileId });
+            this.exitMarkerPlacementMode();
+            return;
+        }
+        
+        const result = this.engine.placeMarker(player, tileId);
+        
+        if (result.success) {
+            console.log(`${player.name} placed marker on tile`);
+            
+            if (this.mode === MODE.HOST && this.mpHost) {
+                this.mpHost.broadcastState(this.state);
+            }
+            
+            this.exitMarkerPlacementMode();
+            this.updateUI();
+        } else {
+            console.log(`Cannot place marker: ${result.reason}`);
+        }
     }
     
     handleCardClick(trait, canBuy) {

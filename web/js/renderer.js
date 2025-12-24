@@ -300,6 +300,42 @@ export class Renderer {
             this.boardContent.appendChild(rect);
         }
         
+        // Render latitude lines (equator and tropics)
+        const latitudeLines = [
+            { row: 3, label: 'Tropic of Cancer', color: '#f0a500', dash: '6,4', width: 1.5 },
+            { row: 3.5, label: 'Equator', color: '#ff6b6b', dash: null, width: 2 },
+            { row: 4, label: 'Tropic of Capricorn', color: '#f0a500', dash: '6,4', width: 1.5 }
+        ];
+        
+        for (const lat of latitudeLines) {
+            const y = baseY + lat.row * rowHeight;
+            
+            const line = createSVGElement('line');
+            line.setAttribute('x1', BOARD_PADDING);
+            line.setAttribute('y1', y);
+            line.setAttribute('x2', boardWidth - BOARD_PADDING);
+            line.setAttribute('y2', y);
+            line.setAttribute('stroke', lat.color);
+            line.setAttribute('stroke-width', lat.width);
+            line.setAttribute('opacity', '0.7');
+            if (lat.dash) {
+                line.setAttribute('stroke-dasharray', lat.dash);
+            }
+            line.classList.add('latitude-line');
+            this.boardContent.appendChild(line);
+            
+            // Label on right side
+            const label = createSVGElement('text');
+            label.setAttribute('x', boardWidth - BOARD_PADDING + 4);
+            label.setAttribute('y', y + 4);
+            label.setAttribute('font-size', '9');
+            label.setAttribute('font-style', 'italic');
+            label.setAttribute('fill', lat.color);
+            label.setAttribute('opacity', '0.85');
+            label.textContent = lat.label;
+            this.boardContent.appendChild(label);
+        }
+        
         // Render labels on both edges
         for (const zone of zones) {
             const labelY = baseY + zone.startRow * rowHeight + (zone.rowSpan * rowHeight) / 2 + 5;
@@ -556,6 +592,27 @@ export class Renderer {
                 polygon.style.filter = '';
             }
         });
+    }
+    
+    // Marker placement mode visual feedback (for mobile tap-to-place)
+    setMarkerPlacementActive(active) {
+        const dragMarker = $('#drag-marker');
+        if (!dragMarker) return;
+        
+        if (active) {
+            dragMarker.classList.add('placement-active');
+            // Add pulsing instruction to board
+            const boardContainer = $('#board-container');
+            if (boardContainer && !$('#placement-hint')) {
+                const hint = createElement('div', 'placement-hint');
+                hint.id = 'placement-hint';
+                hint.textContent = 'Tap a highlighted tile to place marker';
+                boardContainer.appendChild(hint);
+            }
+        } else {
+            dragMarker.classList.remove('placement-active');
+            $('#placement-hint')?.remove();
+        }
     }
     
     // Competition Phase Visualization
@@ -991,6 +1048,62 @@ export class Renderer {
         for (const tag of tags) {
             const tagEl = createElement('span', 'tag', tag);
             tagsList.appendChild(tagEl);
+        }
+        
+        // Update mobile stats bar (only visible on mobile)
+        this.updateMobileStats(player, traitDb, currentPhase, canDrag);
+    }
+    
+    // Mobile floating stats bar
+    updateMobileStats(player, traitDb, currentPhase, canDrag) {
+        const boardContainer = $('#board-container');
+        if (!boardContainer) return;
+        
+        // Only show on mobile (check via CSS visibility would be cleaner, but this works)
+        let statsBar = $('#mobile-stats-bar');
+        
+        // Create if doesn't exist
+        if (!statsBar) {
+            statsBar = createElement('div', 'mobile-stats-bar');
+            statsBar.id = 'mobile-stats-bar';
+            boardContainer.appendChild(statsBar);
+        }
+        
+        const hasAvailableMarkers = player.markersOnBoard < player.markers;
+        const isPopulatePhase = currentPhase === 'populate';
+        const canPlace = canDrag && isPopulatePhase && hasAvailableMarkers;
+        
+        statsBar.innerHTML = `
+            <div class="mobile-stat">
+                <span class="mobile-stat-icon">🧬</span>
+                <span class="mobile-stat-value">${player.alleles}</span>
+            </div>
+            <div class="mobile-stat">
+                <span class="mobile-stat-icon">🦎</span>
+                <span class="mobile-stat-value">${player.markersOnBoard}/${player.markers}</span>
+            </div>
+            <div class="mobile-stat">
+                <span class="mobile-stat-icon">🔷</span>
+                <span class="mobile-stat-value">${player.tilesControlled}</span>
+            </div>
+            <div class="mobile-stat">
+                <span class="mobile-stat-icon">🧩</span>
+                <span class="mobile-stat-value">${player.traits.length}</span>
+            </div>
+            ${canPlace ? `<button class="mobile-place-marker" id="mobile-place-btn">📍 Place</button>` : ''}
+        `;
+        
+        // Add handler for place button
+        const placeBtn = $('#mobile-place-btn');
+        if (placeBtn) {
+            placeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Trigger the same toggle as the drag marker
+                const dragMarker = $('#drag-marker');
+                if (dragMarker) {
+                    dragMarker.click();
+                }
+            });
         }
     }
     
@@ -2078,24 +2191,118 @@ export class Renderer {
         // Fixed era width for ~5 era visibility with scrolling (ignore container width)
         const ERA_WIDTH = 140;
         
+        // Terminal lineages - major evolutionary endpoints
+        const LINEAGES = [
+            { id: 'arthropod', name: 'Arthropods', clades: ['Arthropoda', 'Hexapoda', 'Holometabola', 'Hymenoptera', 'Pterygota', 'Trilobita'] },
+            { id: 'cephalopod', name: 'Cephalopods', clades: ['Cephalopoda', 'Coleoidea'] },
+            { id: 'fish', name: 'Fish', clades: ['Actinopterygii', 'Chondrichthyes', 'Osteichthyes', 'Gnathostomata'] },
+            { id: 'amphibian', name: 'Amphibians', clades: ['Amphibia', 'Tetrapoda'] },
+            { id: 'reptile', name: 'Reptiles', clades: ['Reptilia', 'Diapsida', 'Crocodilia'] },
+            { id: 'bird', name: 'Birds', clades: ['Aves', 'Dinosauria/Aves', 'Theropoda/Aves', 'Archosauria'] },
+            { id: 'mammal', name: 'Mammals', clades: ['Mammalia', 'Eutheria', 'Theria', 'Synapsida', 'Therapsida', 'Primates', 'Cetacea/Pinnipedia', 'Chiroptera'] }
+        ];
+        
+        // Build reverse dependency graph: traitId -> [traits that require it]
+        const dependents = {};
+        for (const trait of traits) {
+            dependents[trait.id] = [];
+        }
+        for (const trait of traits) {
+            for (const prereqId of (trait.hard_prereqs || [])) {
+                if (dependents[prereqId]) {
+                    dependents[prereqId].push(trait.id);
+                }
+            }
+        }
+        
+        // Compute which lineages each trait can reach (by following dependents forward)
+        const traitLineages = {};  // traitId -> Set of lineage ids
+        const computeReachableLineages = (traitId, visited = new Set()) => {
+            if (traitLineages[traitId]) return traitLineages[traitId];
+            if (visited.has(traitId)) return new Set();
+            visited.add(traitId);
+            
+            const trait = traitDb[traitId];
+            const reachable = new Set();
+            
+            // Check if this trait's clade belongs to any lineage
+            for (const lineage of LINEAGES) {
+                if (lineage.clades.includes(trait.clade)) {
+                    reachable.add(lineage.id);
+                }
+            }
+            
+            // Follow dependents forward to find more reachable lineages
+            for (const depId of (dependents[traitId] || [])) {
+                const depLineages = computeReachableLineages(depId, visited);
+                for (const lin of depLineages) {
+                    reachable.add(lin);
+                }
+            }
+            
+            traitLineages[traitId] = reachable;
+            return reachable;
+        };
+        
+        // Compute lineages for all traits
+        for (const trait of traits) {
+            computeReachableLineages(trait.id);
+        }
+        
+        // Get lineage lane for a trait (returns lineage index, or -1 for foundation)
+        const getLineageLane = (trait) => {
+            // Virtual traits have explicit lineageId
+            if (trait.lineageId) {
+                const idx = LINEAGES.findIndex(l => l.id === trait.lineageId);
+                return idx >= 0 ? idx : -1;
+            }
+            // Non-virtual traits use computed lineages
+            const lineages = traitLineages[trait.realId || trait.id];
+            if (!lineages || lineages.size === 0) return -1;
+            for (let i = 0; i < LINEAGES.length; i++) {
+                if (lineages.has(LINEAGES[i].id)) return i;
+            }
+            return -1;
+        };
+        
         // Player ownership data for acquisition-based positioning
         const ownedIds = new Set(player?.traits || []);
         const acquisitions = player?.traitAcquisitions || {};
         
-        // Group traits by display era (acquisition era for owned, era_min for unowned)
+        // Group traits by display era, duplicating across lineages
         const eraGroups = {};
         for (let i = 0; i < NUM_ERAS; i++) {
             eraGroups[i] = [];
         }
         
+        // Track virtual->real trait mapping
+        const virtualToReal = {};  // virtualId -> realTraitId
+        
         for (const trait of traits) {
-            // Owned traits: position by when they were acquired
-            // Unowned traits: position by when they become available
             const displayEra = ownedIds.has(trait.id)
                 ? (acquisitions[trait.id] ?? trait.era_min)
                 : trait.era_min;
-            if (displayEra >= 0 && displayEra < NUM_ERAS) {
-                eraGroups[displayEra].push(trait);
+            if (displayEra < 0 || displayEra >= NUM_ERAS) continue;
+            
+            const reachableLineages = traitLineages[trait.id];
+            
+            // If trait reaches multiple lineages, duplicate it in each lane
+            if (reachableLineages && reachableLineages.size > 1) {
+                for (const lineageId of reachableLineages) {
+                    const virtualId = `${trait.id}@${lineageId}`;
+                    const virtualTrait = {
+                        ...trait,
+                        virtualId,
+                        realId: trait.id,
+                        lineageId,
+                        isVirtual: true
+                    };
+                    virtualToReal[virtualId] = trait.id;
+                    eraGroups[displayEra].push(virtualTrait);
+                }
+            } else {
+                // Single lineage or no lineage - just add normally
+                eraGroups[displayEra].push({ ...trait, realId: trait.id, isVirtual: false });
             }
         }
         
@@ -2169,22 +2376,28 @@ export class Renderer {
             return current;
         };
         
-        // Sort: owned first, then group by same-era chain root, then by chain depth
-        // This ensures prereqs are ABOVE dependents (arrows only go DOWN)
+        // Sort: lineage lane first, then owned status, then by chain root, then by chain depth
+        // This groups related evolutionary lineages together vertically
         for (const era in eraGroups) {
             eraGroups[era].sort((a, b) => {
-                const aOwned = ownedIds.has(a.id) ? 0 : 1;
-                const bOwned = ownedIds.has(b.id) ? 0 : 1;
+                // Group by lineage lane first (keeps evolutionary lineages together)
+                const aLane = getLineageLane(a);
+                const bLane = getLineageLane(b);
+                if (aLane !== bLane) return aLane - bLane;
+                
+                // Within each lane, owned traits first (use realId for ownership check)
+                const aOwned = ownedIds.has(a.realId) ? 0 : 1;
+                const bOwned = ownedIds.has(b.realId) ? 0 : 1;
                 if (aOwned !== bOwned) return aOwned - bOwned;
                 
-                // Group by same-era chain root (keeps related traits together)
-                const aRoot = findChainRoot(a.id);
-                const bRoot = findChainRoot(b.id);
+                // Group by same-era chain root (keeps dependency chains together)
+                const aRoot = findChainRoot(a.realId);
+                const bRoot = findChainRoot(b.realId);
                 if (aRoot !== bRoot) return aRoot.localeCompare(bRoot);
                 
                 // Within a chain, sort by chain depth (prereqs first = above)
-                const aChainDepth = sameEraChainDepth[a.id] || 0;
-                const bChainDepth = sameEraChainDepth[b.id] || 0;
+                const aChainDepth = sameEraChainDepth[a.realId] || 0;
+                const bChainDepth = sameEraChainDepth[b.realId] || 0;
                 if (aChainDepth !== bChainDepth) return aChainDepth - bChainDepth;
                 
                 return a.cost - b.cost;
@@ -2196,11 +2409,21 @@ export class Renderer {
             for (let era = 0; era < NUM_ERAS; era++) {
                 const group = eraGroups[era];
                 const eraX = PADDING + era * ERA_WIDTH;
-                // Left-align with small padding, leaving CHANNEL_WIDTH on the right for routing
                 const nodeStartX = eraX + 8;
                 for (let i = 0; i < group.length; i++) {
+                    const trait = group[i];
                     const y = MYA_HEADER_HEIGHT + PADDING + i * (NODE_HEIGHT + V_GAP);
-                    positions[group[i].id] = { x: nodeStartX, y, era, eraX, slot: i };
+                    const posKey = trait.virtualId || trait.id;
+                    positions[posKey] = { 
+                        x: nodeStartX, 
+                        y, 
+                        era, 
+                        eraX, 
+                        slot: i,
+                        realId: trait.realId,
+                        isVirtual: trait.isVirtual,
+                        lineageId: trait.lineageId
+                    };
                 }
             }
         };
@@ -2212,30 +2435,43 @@ export class Renderer {
             for (let era = 1; era < NUM_ERAS; era++) {
                 const group = eraGroups[era];
                 
-                // Compute barycenter for each trait (avg Y of prereqs)
+                // Compute barycenter for each trait (avg Y of prereqs in same lineage)
                 const barycenters = {};
                 for (const trait of group) {
+                    const posKey = trait.virtualId || trait.id;
                     const prereqs = trait.hard_prereqs || [];
                     if (prereqs.length === 0) {
-                        barycenters[trait.id] = positions[trait.id]?.y ?? 0;
+                        barycenters[posKey] = positions[posKey]?.y ?? 0;
                         continue;
                     }
                     let sum = 0, count = 0;
                     for (const prereqId of prereqs) {
-                        if (positions[prereqId]) {
-                            sum += positions[prereqId].y + NODE_HEIGHT / 2;
+                        // For virtual traits, look for prereq in same lineage first
+                        const prereqVirtualKey = trait.lineageId ? `${prereqId}@${trait.lineageId}` : prereqId;
+                        const prereqPos = positions[prereqVirtualKey] || positions[prereqId];
+                        if (prereqPos) {
+                            sum += prereqPos.y + NODE_HEIGHT / 2;
                             count++;
                         }
                     }
-                    barycenters[trait.id] = count > 0 ? sum / count : (positions[trait.id]?.y ?? 0);
+                    barycenters[posKey] = count > 0 ? sum / count : (positions[posKey]?.y ?? 0);
                 }
                 
-                // Sort by barycenter, keeping owned traits prioritized
+                // Sort by barycenter within lineage lanes
                 group.sort((a, b) => {
-                    const aOwned = ownedIds.has(a.id) ? 0 : 1;
-                    const bOwned = ownedIds.has(b.id) ? 0 : 1;
+                    // Lineage lanes first
+                    const aLane = getLineageLane(a);
+                    const bLane = getLineageLane(b);
+                    if (aLane !== bLane) return aLane - bLane;
+                    
+                    // Within lane, owned first
+                    const aOwned = ownedIds.has(a.realId) ? 0 : 1;
+                    const bOwned = ownedIds.has(b.realId) ? 0 : 1;
                     if (aOwned !== bOwned) return aOwned - bOwned;
-                    return barycenters[a.id] - barycenters[b.id];
+                    
+                    const aKey = a.virtualId || a.id;
+                    const bKey = b.virtualId || b.id;
+                    return barycenters[aKey] - barycenters[bKey];
                 });
             }
             assignPositions();
@@ -2261,7 +2497,10 @@ export class Renderer {
             MYA_HEADER_HEIGHT,
             PADDING,
             NUM_ERAS,
-            CHANNEL_WIDTH
+            CHANNEL_WIDTH,
+            LINEAGES,
+            traitLineages,
+            virtualToReal
         };
     }
     
@@ -2541,18 +2780,29 @@ export class Renderer {
         const edgeLayer = createSVGElement('g');
         edgeLayer.classList.add('tech-tree-edges');
         
-        for (const trait of Object.values(traitDb)) {
-            const toPos = positions[trait.id];
-            if (!toPos) continue;
+        // Iterate over positions (includes virtual duplicates)
+        for (const [posKey, toPos] of Object.entries(positions)) {
+            const realTraitId = toPos.realId || posKey;
+            const trait = traitDb[realTraitId];
+            if (!trait) continue;
             
             for (const prereqId of (trait.hard_prereqs || [])) {
-                const fromPos = positions[prereqId];
+                // For virtual traits, find prereq in same lineage first
+                let fromPosKey = prereqId;
+                if (toPos.lineageId) {
+                    const virtualPrereqKey = `${prereqId}@${toPos.lineageId}`;
+                    if (positions[virtualPrereqKey]) {
+                        fromPosKey = virtualPrereqKey;
+                    }
+                }
+                
+                const fromPos = positions[fromPosKey] || positions[prereqId];
                 if (!fromPos) continue;
                 
                 // Compute obstacle-aware path
                 const d = this.computeOrthogonalPath(
-                    { ...fromPos, id: prereqId },
-                    { ...toPos, id: trait.id },
+                    { ...fromPos, id: fromPosKey },
+                    { ...toPos, id: posKey },
                     obstacles,
                     usedChannels,
                     layout
@@ -2575,16 +2825,20 @@ export class Renderer {
         const nodeLayer = createSVGElement('g');
         nodeLayer.classList.add('tech-tree-nodes');
         
-        for (const trait of Object.values(traitDb)) {
-            const pos = positions[trait.id];
-            if (!pos) continue;
+        // Iterate over positions (includes virtual duplicates)
+        for (const [posKey, pos] of Object.entries(positions)) {
+            const realTraitId = pos.realId || posKey;
+            const trait = traitDb[realTraitId];
+            if (!trait) continue;
             
             const state = getTraitState(trait);
             const nodeWidth = this.getTraitNodeWidth(trait, ERA_WIDTH, PADDING);
             
             const group = createSVGElement('g');
             group.classList.add('tech-node', `tech-node-${state}`);
-            group.dataset.traitId = trait.id;
+            if (pos.isVirtual) group.classList.add('tech-node-virtual');
+            group.dataset.traitId = realTraitId;  // Always use real trait ID for clicks
+            group.dataset.posKey = posKey;
             
             // Node background - width based on era window
             const rect = createSVGElement('rect');
@@ -2611,8 +2865,8 @@ export class Renderer {
             group.appendChild(text);
             
             // Era acquisition badge for owned traits
-            if (state === 'owned' && acquisitionEras[trait.id] !== undefined) {
-                const acqEra = acquisitionEras[trait.id];
+            if (state === 'owned' && acquisitionEras[realTraitId] !== undefined) {
+                const acqEra = acquisitionEras[realTraitId];
                 const badgeX = pos.x + nodeWidth - 12;
                 const badgeY = pos.y - 4;
                 
@@ -2635,11 +2889,33 @@ export class Renderer {
                 group.appendChild(badgeText);
             }
             
+            // Lineage indicator for virtual (duplicated) traits
+            if (pos.isVirtual && pos.lineageId) {
+                const lineage = layout.LINEAGES.find(l => l.id === pos.lineageId);
+                if (lineage) {
+                    const linBadgeX = pos.x + 2;
+                    const linBadgeY = pos.y - 3;
+                    
+                    const linBadge = createSVGElement('text');
+                    linBadge.setAttribute('x', linBadgeX);
+                    linBadge.setAttribute('y', linBadgeY);
+                    linBadge.setAttribute('font-size', '5');
+                    linBadge.setAttribute('fill', '#8b949e');
+                    linBadge.classList.add('lineage-badge');
+                    linBadge.textContent = lineage.name.substring(0, 3).toUpperCase();
+                    group.appendChild(linBadge);
+                }
+            }
+            
             // Tooltip
             const title = createSVGElement('title');
             let tooltipText = `${trait.name}\nCost: ${trait.cost} | Era ${trait.era_min}-${trait.era_max}\n${trait.grants}`;
-            if (state === 'owned' && acquisitionEras[trait.id] !== undefined) {
-                tooltipText += `\nAcquired: Era ${acquisitionEras[trait.id]} (${ERA_NAMES[acquisitionEras[trait.id]]})`;
+            if (state === 'owned' && acquisitionEras[realTraitId] !== undefined) {
+                tooltipText += `\nAcquired: Era ${acquisitionEras[realTraitId]} (${ERA_NAMES[acquisitionEras[realTraitId]]})`;
+            }
+            if (pos.isVirtual && pos.lineageId) {
+                const lineage = layout.LINEAGES.find(l => l.id === pos.lineageId);
+                if (lineage) tooltipText += `\nLineage: ${lineage.name}`;
             }
             title.textContent = tooltipText;
             group.appendChild(title);
