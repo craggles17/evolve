@@ -48,10 +48,42 @@ export const DIFFICULTY = {
 };
 
 export const DIFFICULTY_SETTINGS = {
-    [DIFFICULTY.EASY]: { alleleRetention: Infinity, label: 'Easy', desc: 'Keep all alleles' },
-    [DIFFICULTY.NORMAL]: { alleleRetention: 10, label: 'Normal', desc: 'Keep up to 10' },
-    [DIFFICULTY.HARD]: { alleleRetention: 5, label: 'Hard', desc: 'Keep up to 5' },
-    [DIFFICULTY.BRUTAL]: { alleleRetention: 0, label: 'Brutal', desc: 'Lose all' }
+    [DIFFICULTY.EASY]: { 
+        alleleRetention: Infinity, 
+        label: 'Easy', 
+        desc: 'Keep all alleles',
+        rivalSpawnRate: 0.5,
+        rivalSpreadRate: 0.2,
+        rivalCap: 15,
+        rivalEraBonus: false
+    },
+    [DIFFICULTY.NORMAL]: { 
+        alleleRetention: 10, 
+        label: 'Normal', 
+        desc: 'Keep up to 10',
+        rivalSpawnRate: 0.75,
+        rivalSpreadRate: 0.3,
+        rivalCap: 25,
+        rivalEraBonus: true
+    },
+    [DIFFICULTY.HARD]: { 
+        alleleRetention: 5, 
+        label: 'Hard', 
+        desc: 'Keep up to 5',
+        rivalSpawnRate: 1.0,
+        rivalSpreadRate: 0.4,
+        rivalCap: 40,
+        rivalEraBonus: true
+    },
+    [DIFFICULTY.BRUTAL]: { 
+        alleleRetention: 0, 
+        label: 'Brutal', 
+        desc: 'Lose all',
+        rivalSpawnRate: 1.2,
+        rivalSpreadRate: 0.5,
+        rivalCap: 60,
+        rivalEraBonus: true
+    }
 };
 
 export class GameState {
