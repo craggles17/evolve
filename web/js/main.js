@@ -277,7 +277,8 @@ class Game {
             onSlotsChange: (slots, mySlot) => this.onClientSlotsChange(slots, mySlot),
             onChat: (msg) => this.displayChatMessage(msg),
             onError: (msg) => this.showJoinError(msg),
-            onDisconnect: () => this.onDisconnect()
+            onDisconnect: () => this.onDisconnect(),
+            onShowEvent: (event, results) => this.onShowEvent(event, results)
         });
         
         try {
@@ -370,6 +371,11 @@ class Game {
         const wasStarted = this.state.gameStarted;
         this.state.loadFromJSON(data);
         
+        // Reset roll flag when receiving new state in allele_roll phase
+        if (data.currentPhase === 'allele_roll') {
+            this.currentPlayerRolled = false;
+        }
+        
         if (!wasStarted && this.state.gameStarted) {
             this.renderer.showScreen('game-screen');
             this.renderer.initBoardInteractions?.();
@@ -377,6 +383,16 @@ class Game {
         }
         
         this.updateUI();
+    }
+    
+    async onShowEvent(event, results) {
+        const displayResults = results.map(r => ({
+            player: { id: r.playerId, name: r.playerName, color: r.playerColor },
+            status: r.status,
+            message: r.message,
+            lostMarkers: r.lostMarkers
+        }));
+        await this.renderer.showEvent(event, displayResults);
     }
     
     spectate() {
@@ -416,7 +432,7 @@ class Game {
     }
     
     // Remote Actions (Host receives from clients)
-    handleRemoteAction(peerId, action) {
+    async handleRemoteAction(peerId, action) {
         const slotIndex = this.mpHost.playerSlots.findIndex(s => s?.peerId === peerId);
         if (slotIndex === -1) return;
         
@@ -425,11 +441,11 @@ class Game {
             return;
         }
         
-        this.executeAction(action);
+        await this.executeAction(action);
         this.mpHost.broadcastState(this.state);
     }
     
-    executeAction(action) {
+    async executeAction(action) {
         const player = this.state.getCurrentPlayer();
         
         switch (action.type) {
@@ -439,7 +455,7 @@ class Game {
                 break;
                 
             case 'end_phase':
-                this.processEndPhase();
+                await this.processEndPhase();
                 break;
                 
             case 'end_turn':
@@ -747,6 +763,11 @@ class Game {
         if (!event) return;
         
         const results = this.engine.resolveEvent(event);
+        
+        if (this.mode === MODE.HOST && this.mpHost) {
+            this.mpHost.broadcastEvent(event, results);
+        }
+        
         await this.renderer.showEvent(event, results);
     }
     
