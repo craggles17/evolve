@@ -39,7 +39,9 @@
         {"trait_id": "r_strategy", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "filter_feeding", "copies": 2, "rarity": "common"},
         {"trait_id": "detritivore", "copies": 2, "rarity": "common"},
-        {"trait_id": "shallow_marine", "copies": 2, "rarity": "common"}
+        {"trait_id": "shallow_marine", "copies": 2, "rarity": "common"},
+        {"trait_id": "tentacles", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "regeneration", "copies": 2, "rarity": "uncommon"}
       ]
     },
     "1": {
@@ -63,7 +65,12 @@
         {"trait_id": "pelagic", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "photosynthetic_symbiosis", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "shallow_marine", "copies": 2, "rarity": "common"},
-        {"trait_id": "filter_feeding", "copies": 2, "rarity": "common"}
+        {"trait_id": "filter_feeding", "copies": 2, "rarity": "common"},
+        {"trait_id": "tentacles", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "jet_propulsion", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "ink_sac", "copies": 1, "rarity": "rare"},
+        {"trait_id": "bioluminescence", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "autotomy", "copies": 2, "rarity": "uncommon"}
       ]
     },
     "2": {
@@ -85,7 +92,11 @@
         {"trait_id": "burrowing", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "venom", "copies": 1, "rarity": "rare"},
         {"trait_id": "pelagic", "copies": 2, "rarity": "uncommon"},
-        {"trait_id": "photosynthetic_symbiosis", "copies": 2, "rarity": "uncommon"}
+        {"trait_id": "photosynthetic_symbiosis", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "chromatophores", "copies": 1, "rarity": "rare"},
+        {"trait_id": "spines", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "electric_organs", "copies": 1, "rarity": "rare"},
+        {"trait_id": "chemosynthesis_symbiosis", "copies": 1, "rarity": "rare"}
       ]
     },
     "3": {
@@ -108,7 +119,9 @@
         {"trait_id": "r_strategy", "copies": 2, "rarity": "common"},
         {"trait_id": "venom", "copies": 1, "rarity": "rare"},
         {"trait_id": "tropical_specialist", "copies": 2, "rarity": "uncommon"},
-        {"trait_id": "niche_specialist", "copies": 2, "rarity": "uncommon"}
+        {"trait_id": "niche_specialist", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "camouflage", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "venom_immunity", "copies": 1, "rarity": "rare"}
       ]
     },
     "4": {
@@ -132,7 +145,9 @@
         {"trait_id": "large_size", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "tropical_specialist", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "niche_specialist", "copies": 2, "rarity": "uncommon"},
-        {"trait_id": "detritivore", "copies": 2, "rarity": "common"}
+        {"trait_id": "detritivore", "copies": 2, "rarity": "common"},
+        {"trait_id": "cephalopod_intelligence", "copies": 1, "rarity": "rare"},
+        {"trait_id": "migration", "copies": 2, "rarity": "uncommon"}
       ]
     },
     "5": {
@@ -153,7 +168,10 @@
         {"trait_id": "venom", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "k_strategy", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "parental_care", "copies": 2, "rarity": "uncommon"},
-        {"trait_id": "osteoderms", "copies": 1, "rarity": "rare"}
+        {"trait_id": "osteoderms", "copies": 1, "rarity": "rare"},
+        {"trait_id": "mimicry", "copies": 1, "rarity": "rare"},
+        {"trait_id": "hibernation", "copies": 2, "rarity": "rare"},
+        {"trait_id": "grinding_teeth", "copies": 2, "rarity": "uncommon"}
       ]
     },
     "6": {
@@ -175,7 +193,9 @@
         {"trait_id": "metamorphosis", "copies": 2, "rarity": "common"},
         {"trait_id": "arboreal", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "osteoderms", "copies": 1, "rarity": "uncommon"},
-        {"trait_id": "death_roll", "copies": 1, "rarity": "rare"}
+        {"trait_id": "death_roll", "copies": 1, "rarity": "rare"},
+        {"trait_id": "antifreeze_proteins", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "long_neck", "copies": 2, "rarity": "rare"}
       ]
     },
     "7": {
@@ -198,7 +218,11 @@
         {"trait_id": "arboreal", "copies": 2, "rarity": "common"},
         {"trait_id": "tropical_specialist", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "niche_specialist", "copies": 2, "rarity": "uncommon"},
-        {"trait_id": "death_roll", "copies": 1, "rarity": "uncommon"}
+        {"trait_id": "death_roll", "copies": 1, "rarity": "uncommon"},
+        {"trait_id": "flippers", "copies": 2, "rarity": "rare"},
+        {"trait_id": "pack_hunting", "copies": 1, "rarity": "rare"},
+        {"trait_id": "herding_behavior", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "long_neck", "copies": 2, "rarity": "uncommon"}
       ]
     },
     "8": {
@@ -217,7 +241,10 @@
         {"trait_id": "small_size", "copies": 3, "rarity": "common"},
         {"trait_id": "burrowing", "copies": 3, "rarity": "common"},
         {"trait_id": "insect_flight", "copies": 2, "rarity": "common"},
-        {"trait_id": "metamorphosis", "copies": 2, "rarity": "common"}
+        {"trait_id": "metamorphosis", "copies": 2, "rarity": "common"},
+        {"trait_id": "blubber", "copies": 2, "rarity": "rare"},
+        {"trait_id": "breath_hold_mastery", "copies": 1, "rarity": "rare"},
+        {"trait_id": "flippers", "copies": 2, "rarity": "uncommon"}
       ]
     },
     "9": {
@@ -236,7 +263,12 @@
         {"trait_id": "fur", "copies": 2, "rarity": "common"},
         {"trait_id": "live_birth", "copies": 2, "rarity": "common"},
         {"trait_id": "pollination", "copies": 2, "rarity": "uncommon"},
-        {"trait_id": "eusocial", "copies": 2, "rarity": "rare"}
+        {"trait_id": "eusocial", "copies": 2, "rarity": "rare"},
+        {"trait_id": "ruminant_digestion", "copies": 2, "rarity": "rare"},
+        {"trait_id": "pack_hunting", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "herding_behavior", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "blubber", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "breath_hold_mastery", "copies": 2, "rarity": "uncommon"}
       ]
     },
     "10": {
@@ -255,7 +287,11 @@
         {"trait_id": "k_strategy", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "parental_care", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "flight", "copies": 2, "rarity": "uncommon"},
-        {"trait_id": "eusocial", "copies": 2, "rarity": "uncommon"}
+        {"trait_id": "eusocial", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "ruminant_digestion", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "grinding_teeth", "copies": 2, "rarity": "common"},
+        {"trait_id": "pack_hunting", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "herding_behavior", "copies": 2, "rarity": "common"}
       ]
     },
     "11": {
@@ -274,7 +310,12 @@
         {"trait_id": "parental_care", "copies": 2, "rarity": "common"},
         {"trait_id": "flight", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "echolocation", "copies": 2, "rarity": "uncommon"},
-        {"trait_id": "eusocial", "copies": 2, "rarity": "uncommon"}
+        {"trait_id": "eusocial", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "hibernation", "copies": 2, "rarity": "common"},
+        {"trait_id": "pack_hunting", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "herding_behavior", "copies": 2, "rarity": "common"},
+        {"trait_id": "ruminant_digestion", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "blubber", "copies": 2, "rarity": "uncommon"}
       ]
     }
   }
