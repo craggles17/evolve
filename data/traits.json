@@ -397,7 +397,7 @@
       "tags": ["Cold-Resistant", "Mammal"],
       "hard_prereqs": ["endothermy"],
       "soft_prereqs": ["synapsid_skull"],
-      "incompatible_with": ["feathers", "moist_skin"],
+      "incompatible_with": ["feathers", "moist_skin", "scales_reptilian"],
       "grants": "TILES: +2 on Ice, Mountain. Reduces heat loss.",
       "fecundity_bonus": 0,
       "clade": "Mammalia",
