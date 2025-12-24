@@ -3,7 +3,7 @@
 
 SITE_ID := db7d3d45-fb46-4635-82eb-a8cbca753254
 
-.PHONY: serve deploy deploy-preview sync-data version clean
+.PHONY: serve deploy deploy-preview sync-data cards version clean
 
 # Local development server
 serve:
@@ -25,6 +25,10 @@ sync-data:
 	cp ../data/era_decks.json data/era_decks.json
 	cp ../data/phylogeny.json data/phylogeny.json
 	cp ../data/organisms.json data/organisms.json
+
+# Generate printable SVG cards (runs from parent dir)
+cards:
+	cd .. && python3 tools/card_generator.py --sheets
 
 # Update version info in index.html with current git commit
 version:
