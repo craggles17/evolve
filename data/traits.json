@@ -16,7 +16,9 @@
       "cost": 1,
       "complexity": 1,
       "base_pairs": 85,
-      "tags": ["Bilateria"],
+      "tags": [
+        "Bilateria"
+      ],
       "hard_prereqs": [],
       "soft_prereqs": [],
       "grants": "FOUNDATION: Required for most traits. Enables directed movement.",
@@ -32,8 +34,12 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 180,
-      "tags": ["Segmented"],
-      "hard_prereqs": ["bilateral_symmetry"],
+      "tags": [
+        "Segmented"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
       "soft_prereqs": [],
       "grants": "SURVIVAL: Lose 1 fewer marker during extinctions (redundancy).",
       "fecundity_bonus": 0,
@@ -48,8 +54,13 @@
       "cost": 3,
       "complexity": 2,
       "base_pairs": 210,
-      "tags": ["Armored", "Arthropod"],
-      "hard_prereqs": ["segmentation"],
+      "tags": [
+        "Armored",
+        "Arthropod"
+      ],
+      "hard_prereqs": [
+        "segmentation"
+      ],
       "soft_prereqs": [],
       "grants": "COMPETITION: +1 vs non-armored on any tile. SURVIVAL: Protected from predation.",
       "fecundity_bonus": 0,
@@ -64,8 +75,13 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 145,
-      "tags": ["Vision", "Arthropod"],
-      "hard_prereqs": ["exoskeleton"],
+      "tags": [
+        "Vision",
+        "Arthropod"
+      ],
+      "hard_prereqs": [
+        "exoskeleton"
+      ],
       "soft_prereqs": [],
       "grants": "COMPETITION: +1 on tiles with predators (detect threats).",
       "fecundity_bonus": 0,
@@ -80,12 +96,17 @@
       "cost": 2,
       "complexity": 3,
       "base_pairs": 220,
-      "tags": ["Vision", "Trilobite"],
-      "hard_prereqs": ["exoskeleton"],
+      "tags": [
+        "Vision",
+        "Trilobite"
+      ],
+      "hard_prereqs": [
+        "exoskeleton"
+      ],
       "soft_prereqs": [],
       "grants": "TILES: +1 on Shallow Marine. COMPETITION: +2 vs blind organisms.",
       "fecundity_bonus": 0,
-      "clade": "Trilobita",
+      "clade": "Arthropoda",
       "science": "Trilobite eyes were made of calcite crystal - the only known mineral-based lenses in nature"
     },
     {
@@ -96,8 +117,13 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 165,
-      "tags": ["Armored", "Shelled"],
-      "hard_prereqs": ["bilateral_symmetry"],
+      "tags": [
+        "Armored",
+        "Shelled"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
       "soft_prereqs": [],
       "grants": "COMPETITION: +1 vs predators. Cannot be displaced by organisms without [Predator].",
       "fecundity_bonus": 0,
@@ -112,12 +138,17 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 175,
-      "tags": ["Aquatic", "Respiration"],
-      "hard_prereqs": ["bilateral_symmetry"],
+      "tags": [
+        "Aquatic",
+        "Respiration"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
       "soft_prereqs": [],
       "grants": "TILES: Occupy Ocean, Shallow Sea, Reef, Freshwater. Required for aquatic life.",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Gills extract dissolved O2 via countercurrent exchange, ~80% efficient"
     },
     {
@@ -128,9 +159,15 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 195,
-      "tags": ["Chordate"],
-      "hard_prereqs": ["bilateral_symmetry"],
-      "soft_prereqs": ["gills"],
+      "tags": [
+        "Chordate"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
+      "soft_prereqs": [
+        "gills"
+      ],
       "grants": "FOUNDATION: Unlocks vertebrate traits. -1 cost if have Gills.",
       "fecundity_bonus": 0,
       "clade": "Chordata",
@@ -144,12 +181,17 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 285,
-      "tags": ["Vertebrate", "Bony"],
-      "hard_prereqs": ["notochord"],
+      "tags": [
+        "Vertebrate",
+        "Bony"
+      ],
+      "hard_prereqs": [
+        "notochord"
+      ],
       "soft_prereqs": [],
       "grants": "COMPETITION: +1 vs invertebrates. Enables larger body sizes.",
       "fecundity_bonus": 0,
-      "clade": "Vertebrata",
+      "clade": "Chordata",
       "science": "Vertebrae replaced the notochord, enabling larger body sizes and complex movement"
     },
     {
@@ -160,12 +202,17 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 310,
-      "tags": ["Predator", "Gnathostome"],
-      "hard_prereqs": ["vertebral_column"],
+      "tags": [
+        "Predator",
+        "Gnathostome"
+      ],
+      "hard_prereqs": [
+        "vertebral_column"
+      ],
       "soft_prereqs": [],
       "grants": "COMPETITION: +2 vs [Aquatic] prey. Can displace [Shelled] organisms.",
       "fecundity_bonus": 0,
-      "clade": "Gnathostomata",
+      "clade": "Chordata",
       "science": "Jaws evolved from gill arches ~430 MYA, revolutionizing feeding strategies"
     },
     {
@@ -176,10 +223,19 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 155,
-      "tags": ["Aquatic", "Chondrichthyes"],
-      "hard_prereqs": ["jaws"],
-      "soft_prereqs": ["gills"],
-      "incompatible_with": ["bony_skeleton"],
+      "tags": [
+        "Aquatic",
+        "Chondrichthyes"
+      ],
+      "hard_prereqs": [
+        "jaws"
+      ],
+      "soft_prereqs": [
+        "gills"
+      ],
+      "incompatible_with": [
+        "bony_skeleton"
+      ],
       "grants": "TILES: +1 on Ocean, Deep Sea. COMPETITION: +1 vs bony fish (buoyancy).",
       "fecundity_bonus": 0,
       "clade": "Chondrichthyes",
@@ -193,13 +249,23 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 340,
-      "tags": ["Bony", "Osteichthyes"],
-      "hard_prereqs": ["jaws"],
-      "soft_prereqs": ["gills", "vertebral_column"],
-      "incompatible_with": ["cartilage_skeleton"],
+      "tags": [
+        "Bony",
+        "Osteichthyes"
+      ],
+      "hard_prereqs": [
+        "jaws"
+      ],
+      "soft_prereqs": [
+        "gills",
+        "vertebral_column"
+      ],
+      "incompatible_with": [
+        "cartilage_skeleton"
+      ],
       "grants": "FOUNDATION: Required for tetrapod evolution. COMPETITION: +1 from muscle attachment.",
       "fecundity_bonus": 0,
-      "clade": "Osteichthyes",
+      "clade": "Chordata",
       "science": "Bone stores calcium and phosphorus, enables stronger muscle attachments"
     },
     {
@@ -210,8 +276,13 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 125,
-      "tags": ["Aquatic", "Buoyancy"],
-      "hard_prereqs": ["bony_skeleton"],
+      "tags": [
+        "Aquatic",
+        "Buoyancy"
+      ],
+      "hard_prereqs": [
+        "bony_skeleton"
+      ],
       "soft_prereqs": [],
       "grants": "TILES: +1 on all aquatic tiles (energy-efficient swimming). Precursor to lungs.",
       "fecundity_bonus": 0,
@@ -226,9 +297,16 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 295,
-      "tags": ["Sarcopterygii", "Mobile"],
-      "hard_prereqs": ["bony_skeleton"],
-      "soft_prereqs": ["swim_bladder"],
+      "tags": [
+        "Sarcopterygii",
+        "Mobile"
+      ],
+      "hard_prereqs": [
+        "bony_skeleton"
+      ],
+      "soft_prereqs": [
+        "swim_bladder"
+      ],
       "grants": "TILES: Can prop up in shallow water. FOUNDATION: Required for limbs.",
       "fecundity_bonus": 0,
       "clade": "Sarcopterygii",
@@ -242,9 +320,17 @@
       "cost": 3,
       "complexity": 4,
       "base_pairs": 380,
-      "tags": ["Air-Breathing", "Terrestrial"],
-      "hard_prereqs": ["bony_skeleton"],
-      "soft_prereqs": ["swim_bladder", "lobed_fins"],
+      "tags": [
+        "Air-Breathing",
+        "Terrestrial"
+      ],
+      "hard_prereqs": [
+        "bony_skeleton"
+      ],
+      "soft_prereqs": [
+        "swim_bladder",
+        "lobed_fins"
+      ],
       "grants": "TILES: Survive in low-O2 water, Coast, Swamp. FOUNDATION: Required for land life.",
       "fecundity_bonus": 0,
       "clade": "Sarcopterygii",
@@ -258,13 +344,24 @@
       "cost": 5,
       "complexity": 3,
       "base_pairs": 425,
-      "tags": ["Terrestrial", "Mobile", "Tetrapod"],
-      "hard_prereqs": ["lobed_fins", "lungs"],
-      "soft_prereqs": ["bony_skeleton"],
-      "incompatible_with": ["filter_feeding"],
+      "tags": [
+        "Terrestrial",
+        "Mobile",
+        "Tetrapod"
+      ],
+      "hard_prereqs": [
+        "lobed_fins",
+        "lungs"
+      ],
+      "soft_prereqs": [
+        "bony_skeleton"
+      ],
+      "incompatible_with": [
+        "filter_feeding"
+      ],
       "grants": "TILES: Occupy all land tiles (Forest, Grassland, Desert, Mountain). Walk between tiles.",
       "fecundity_bonus": 0,
-      "clade": "Tetrapoda",
+      "clade": "Sarcopterygii",
       "science": "First tetrapods like Tiktaalik (~375 MYA) bridged fish and amphibian body plans"
     },
     {
@@ -275,10 +372,21 @@
       "cost": 1,
       "complexity": 1,
       "base_pairs": 75,
-      "tags": ["Amphibian", "Freshwater"],
-      "hard_prereqs": ["tetrapod_limbs"],
-      "soft_prereqs": ["gills"],
-      "incompatible_with": ["scales_reptilian", "fur", "feathers"],
+      "tags": [
+        "Amphibian",
+        "Freshwater"
+      ],
+      "hard_prereqs": [
+        "tetrapod_limbs"
+      ],
+      "soft_prereqs": [
+        "gills"
+      ],
+      "incompatible_with": [
+        "scales_reptilian",
+        "fur",
+        "feathers"
+      ],
       "grants": "TILES: +2 on Swamp, Freshwater. Must stay near water. Breathe through skin.",
       "fecundity_bonus": 0,
       "clade": "Amphibia",
@@ -292,13 +400,21 @@
       "cost": 1,
       "complexity": 1,
       "base_pairs": 65,
-      "tags": ["Aquatic", "Freshwater"],
-      "hard_prereqs": ["bilateral_symmetry"],
+      "tags": [
+        "Aquatic",
+        "Freshwater"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
       "soft_prereqs": [],
-      "incompatible_with": ["amniotic_egg", "live_birth"],
+      "incompatible_with": [
+        "amniotic_egg",
+        "live_birth"
+      ],
       "grants": "ALLELES: +2/era. TILES: Must reproduce on aquatic tiles or Swamp.",
       "fecundity_bonus": 2,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "External fertilization in water - high fecundity but vulnerable eggs"
     },
     {
@@ -309,13 +425,22 @@
       "cost": 1,
       "complexity": 1,
       "base_pairs": 55,
-      "tags": ["Aquatic"],
-      "hard_prereqs": ["aquatic_eggs"],
-      "soft_prereqs": ["gills"],
-      "incompatible_with": ["amniotic_egg", "live_birth"],
+      "tags": [
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "aquatic_eggs"
+      ],
+      "soft_prereqs": [
+        "gills"
+      ],
+      "incompatible_with": [
+        "amniotic_egg",
+        "live_birth"
+      ],
       "grants": "ALLELES: +3/era (massive offspring). RISK: Extremely vulnerable to marine extinctions.",
       "fecundity_bonus": 3,
-      "clade": "Various marine",
+      "clade": "Chordata",
       "science": "Release millions of gametes into water - low survival but huge numbers"
     },
     {
@@ -326,10 +451,20 @@
       "cost": 5,
       "complexity": 4,
       "base_pairs": 410,
-      "tags": ["Terrestrial", "Amniote"],
-      "hard_prereqs": ["tetrapod_limbs"],
-      "soft_prereqs": ["lungs"],
-      "incompatible_with": ["aquatic_eggs", "broadcast_spawning"],
+      "tags": [
+        "Terrestrial",
+        "Amniote"
+      ],
+      "hard_prereqs": [
+        "tetrapod_limbs"
+      ],
+      "soft_prereqs": [
+        "lungs"
+      ],
+      "incompatible_with": [
+        "aquatic_eggs",
+        "broadcast_spawning"
+      ],
       "grants": "TILES: Reproduce on any land tile (no water needed). FOUNDATION: Unlocks reptile/mammal paths.",
       "fecundity_bonus": 1,
       "clade": "Amniota",
@@ -343,13 +478,22 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 140,
-      "tags": ["Terrestrial", "Armored", "Reptile"],
-      "hard_prereqs": ["amniotic_egg"],
+      "tags": [
+        "Terrestrial",
+        "Armored",
+        "Reptile"
+      ],
+      "hard_prereqs": [
+        "amniotic_egg"
+      ],
       "soft_prereqs": [],
-      "incompatible_with": ["moist_skin", "fur"],
+      "incompatible_with": [
+        "moist_skin",
+        "fur"
+      ],
       "grants": "TILES: +1 on Desert (water retention). COMPETITION: +1 vs unarmored terrestrial.",
       "fecundity_bonus": 0,
-      "clade": "Reptilia",
+      "clade": "Sauropsida",
       "science": "Keratinized scales prevent water loss - crucial for arid environments"
     },
     {
@@ -360,13 +504,18 @@
       "cost": 0,
       "complexity": 0,
       "base_pairs": 25,
-      "tags": ["Cold-Vulnerable", "Low-Energy"],
+      "tags": [
+        "Cold-Vulnerable",
+        "Low-Energy"
+      ],
       "hard_prereqs": [],
       "soft_prereqs": [],
-      "incompatible_with": ["endothermy"],
+      "incompatible_with": [
+        "endothermy"
+      ],
       "grants": "ALLELES: +1/era (low food needs). RISK: DOOMED during ice ages.",
       "fecundity_bonus": 1,
-      "clade": "Default",
+      "clade": "Bilateria",
       "science": "Body temperature depends on environment - efficient but limits activity in cold"
     },
     {
@@ -377,13 +526,23 @@
       "cost": 6,
       "complexity": 5,
       "base_pairs": 620,
-      "tags": ["Cold-Resistant", "Warm-Blooded"],
-      "hard_prereqs": ["amniotic_egg"],
-      "soft_prereqs": ["synapsid_skull", "diapsid_skull"],
-      "incompatible_with": ["ectothermy"],
+      "tags": [
+        "Cold-Resistant",
+        "Warm-Blooded"
+      ],
+      "hard_prereqs": [
+        "amniotic_egg"
+      ],
+      "soft_prereqs": [
+        "synapsid_skull",
+        "diapsid_skull"
+      ],
+      "incompatible_with": [
+        "ectothermy"
+      ],
       "grants": "TILES: Occupy Ice, Mountain. SURVIVAL: SAFE during ice ages. ALLELES: -1/era (high food).",
       "fecundity_bonus": -1,
-      "clade": "Synapsida/Aves",
+      "clade": "Amniota",
       "science": "Internal heat production requires 10x more food but enables constant activity"
     },
     {
@@ -394,10 +553,21 @@
       "cost": 4,
       "complexity": 2,
       "base_pairs": 185,
-      "tags": ["Cold-Resistant", "Mammal"],
-      "hard_prereqs": ["endothermy"],
-      "soft_prereqs": ["synapsid_skull"],
-      "incompatible_with": ["feathers", "moist_skin", "scales_reptilian"],
+      "tags": [
+        "Cold-Resistant",
+        "Mammal"
+      ],
+      "hard_prereqs": [
+        "endothermy"
+      ],
+      "soft_prereqs": [
+        "synapsid_skull"
+      ],
+      "incompatible_with": [
+        "feathers",
+        "moist_skin",
+        "scales_reptilian"
+      ],
       "grants": "TILES: +2 on Ice, Mountain. Reduces heat loss.",
       "fecundity_bonus": 0,
       "clade": "Mammalia",
@@ -411,10 +581,23 @@
       "cost": 7,
       "complexity": 3,
       "base_pairs": 275,
-      "tags": ["Mammal", "Parental-Care"],
-      "hard_prereqs": ["fur"],
-      "alt_prereqs": [["amniotic_egg", "synapsid_skull"]],
-      "soft_prereqs": ["endothermy", "synapsid_skull"],
+      "tags": [
+        "Mammal",
+        "Parental-Care"
+      ],
+      "hard_prereqs": [
+        "fur"
+      ],
+      "alt_prereqs": [
+        [
+          "amniotic_egg",
+          "synapsid_skull"
+        ]
+      ],
+      "soft_prereqs": [
+        "endothermy",
+        "synapsid_skull"
+      ],
       "grants": "ALLELES: -1/era. SURVIVAL: Offspring survive parent death. Optimal nutrition.",
       "fecundity_bonus": -1,
       "clade": "Mammalia",
@@ -428,14 +611,28 @@
       "cost": 5,
       "complexity": 3,
       "base_pairs": 320,
-      "tags": ["Mammal", "Protected-Offspring"],
-      "hard_prereqs": ["mammary_glands"],
-      "alt_prereqs": [["cartilage_skeleton"]],
-      "soft_prereqs": ["fur"],
-      "incompatible_with": ["aquatic_eggs", "broadcast_spawning"],
+      "tags": [
+        "Mammal",
+        "Protected-Offspring"
+      ],
+      "hard_prereqs": [
+        "mammary_glands"
+      ],
+      "alt_prereqs": [
+        [
+          "cartilage_skeleton"
+        ]
+      ],
+      "soft_prereqs": [
+        "fur"
+      ],
+      "incompatible_with": [
+        "aquatic_eggs",
+        "broadcast_spawning"
+      ],
       "grants": "MARKERS: +1 marker each era (protected offspring). Fewer but guaranteed survivors.",
       "fecundity_bonus": 0,
-      "clade": "Theria",
+      "clade": "Mammalia",
       "science": "Internal development protects embryo but limits offspring number"
     },
     {
@@ -446,12 +643,19 @@
       "cost": 6,
       "complexity": 3,
       "base_pairs": 355,
-      "tags": ["Mammal", "Placental"],
-      "hard_prereqs": ["live_birth"],
-      "soft_prereqs": ["mammary_glands"],
+      "tags": [
+        "Mammal",
+        "Placental"
+      ],
+      "hard_prereqs": [
+        "live_birth"
+      ],
+      "soft_prereqs": [
+        "mammary_glands"
+      ],
       "grants": "MARKERS: Offspring start with +1 tag from parent. Extended development.",
       "fecundity_bonus": -1,
-      "clade": "Eutheria",
+      "clade": "Mammalia",
       "science": "Placenta enables extended nutrient transfer - offspring born more developed"
     },
     {
@@ -462,10 +666,16 @@
       "cost": 4,
       "complexity": 2,
       "base_pairs": 195,
-      "tags": ["Synapsid"],
-      "hard_prereqs": ["amniotic_egg"],
+      "tags": [
+        "Synapsid"
+      ],
+      "hard_prereqs": [
+        "amniotic_egg"
+      ],
       "soft_prereqs": [],
-      "incompatible_with": ["diapsid_skull"],
+      "incompatible_with": [
+        "diapsid_skull"
+      ],
       "grants": "COMPETITION: +1 from jaw strength. FOUNDATION: Mammal path.",
       "fecundity_bonus": 0,
       "clade": "Synapsida",
@@ -479,13 +689,20 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 225,
-      "tags": ["Diapsid", "Reptile"],
-      "hard_prereqs": ["amniotic_egg"],
+      "tags": [
+        "Diapsid",
+        "Reptile"
+      ],
+      "hard_prereqs": [
+        "amniotic_egg"
+      ],
       "soft_prereqs": [],
-      "incompatible_with": ["synapsid_skull"],
+      "incompatible_with": [
+        "synapsid_skull"
+      ],
       "grants": "COMPETITION: +1 from speed (lighter skull). FOUNDATION: Reptile/Bird path.",
       "fecundity_bonus": 0,
-      "clade": "Diapsida",
+      "clade": "Sauropsida",
       "science": "Two temporal fenestrae reduce skull weight - ancestor of reptiles, birds"
     },
     {
@@ -496,9 +713,16 @@
       "cost": 4,
       "complexity": 4,
       "base_pairs": 365,
-      "tags": ["Archosaur", "Mobile"],
-      "hard_prereqs": ["diapsid_skull"],
-      "soft_prereqs": ["scales_reptilian"],
+      "tags": [
+        "Archosaur",
+        "Mobile"
+      ],
+      "hard_prereqs": [
+        "diapsid_skull"
+      ],
+      "soft_prereqs": [
+        "scales_reptilian"
+      ],
       "grants": "TILES: Move 2 tiles per turn. COMPETITION: +1 from efficient locomotion. FOUNDATION: Bird/Croc paths.",
       "fecundity_bonus": 0,
       "clade": "Archosauria",
@@ -512,12 +736,19 @@
       "cost": 4,
       "complexity": 4,
       "base_pairs": 340,
-      "tags": ["Therapsid", "Mobile"],
-      "hard_prereqs": ["synapsid_skull"],
-      "soft_prereqs": ["endothermy"],
+      "tags": [
+        "Therapsid",
+        "Mobile"
+      ],
+      "hard_prereqs": [
+        "synapsid_skull"
+      ],
+      "soft_prereqs": [
+        "endothermy"
+      ],
       "grants": "TILES: Move 2 tiles per turn. COMPETITION: +1 from efficient locomotion. FOUNDATION: Mammal path.",
       "fecundity_bonus": 0,
-      "clade": "Therapsida",
+      "clade": "Synapsida",
       "science": "Legs repositioned under body - enabled sustained activity and pursuit predation"
     },
     {
@@ -528,12 +759,19 @@
       "cost": 4,
       "complexity": 4,
       "base_pairs": 290,
-      "tags": ["Armored", "Archosaur"],
-      "hard_prereqs": ["archosaur_posture"],
-      "soft_prereqs": ["scales_reptilian"],
+      "tags": [
+        "Armored",
+        "Archosaur"
+      ],
+      "hard_prereqs": [
+        "archosaur_posture"
+      ],
+      "soft_prereqs": [
+        "scales_reptilian"
+      ],
       "grants": "COMPETITION: +2 vs predators (bony armor). SURVIVAL: Reduce marker loss by 1. Thermoregulation.",
       "fecundity_bonus": 1,
-      "clade": "Crocodilia/Ankylosauria",
+      "clade": "Archosauria",
       "science": "Bony plates embedded in skin - secondary armor evolved multiple times in archosaurs"
     },
     {
@@ -544,12 +782,17 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 245,
-      "tags": ["Lightweight", "Avian"],
-      "hard_prereqs": ["archosaur_posture"],
+      "tags": [
+        "Lightweight",
+        "Avian"
+      ],
+      "hard_prereqs": [
+        "archosaur_posture"
+      ],
       "soft_prereqs": [],
       "grants": "FOUNDATION: Required for powered flight. Weight reduction.",
       "fecundity_bonus": 0,
-      "clade": "Dinosauria/Aves",
+      "clade": "Aves",
       "science": "Pneumatic bones reduce weight while maintaining strength - essential for flight"
     },
     {
@@ -560,13 +803,24 @@
       "cost": 4,
       "complexity": 3,
       "base_pairs": 265,
-      "tags": ["Feathered", "Cold-Resistant", "Avian"],
-      "hard_prereqs": ["archosaur_posture"],
-      "soft_prereqs": ["hollow_bones"],
-      "incompatible_with": ["fur", "moist_skin"],
+      "tags": [
+        "Feathered",
+        "Cold-Resistant",
+        "Avian"
+      ],
+      "hard_prereqs": [
+        "archosaur_posture"
+      ],
+      "soft_prereqs": [
+        "hollow_bones"
+      ],
+      "incompatible_with": [
+        "fur",
+        "moist_skin"
+      ],
       "grants": "TILES: +1 on Mountain, Ice. Display for mating. Reduces flight cost.",
       "fecundity_bonus": 0,
-      "clade": "Theropoda/Aves",
+      "clade": "Aves",
       "science": "Feathers evolved for insulation/display before being co-opted for flight"
     },
     {
@@ -577,15 +831,31 @@
       "cost": 6,
       "complexity": 5,
       "base_pairs": 580,
-      "tags": ["Aerial", "Mobile", "Avian"],
-      "hard_prereqs": ["hollow_bones"],
-      "alt_prereqs": [["endothermy", "fur"]],
-      "soft_prereqs": ["feathers", "endothermy"],
-      "incompatible_with": ["filter_feeding"],
+      "tags": [
+        "Aerial",
+        "Mobile",
+        "Avian"
+      ],
+      "hard_prereqs": [
+        "hollow_bones"
+      ],
+      "alt_prereqs": [
+        [
+          "endothermy",
+          "fur"
+        ]
+      ],
+      "soft_prereqs": [
+        "feathers",
+        "endothermy"
+      ],
+      "incompatible_with": [
+        "filter_feeding"
+      ],
       "grants": "TILES: Move to ANY tile (ignore adjacency). Escape predators. COMPETITION: +2 vs flightless.",
       "fecundity_bonus": 0,
       "clade": "Aves",
-      "science": "Lift = 0.5 × ρ × v² × A × Cl. Requires ~10% body mass in flight muscles"
+      "science": "Lift = 0.5 \u00d7 \u03c1 \u00d7 v\u00b2 \u00d7 A \u00d7 Cl. Requires ~10% body mass in flight muscles"
     },
     {
       "id": "insect_flight",
@@ -595,13 +865,24 @@
       "cost": 3,
       "complexity": 4,
       "base_pairs": 115,
-      "tags": ["Aerial", "Mobile", "Insect"],
-      "hard_prereqs": ["exoskeleton"],
-      "soft_prereqs": ["six_legs", "compound_eyes"],
-      "incompatible_with": ["filter_feeding"],
+      "tags": [
+        "Aerial",
+        "Mobile",
+        "Insect"
+      ],
+      "hard_prereqs": [
+        "exoskeleton"
+      ],
+      "soft_prereqs": [
+        "six_legs",
+        "compound_eyes"
+      ],
+      "incompatible_with": [
+        "filter_feeding"
+      ],
       "grants": "TILES: Move to ANY tile (first flying animals). COMPETITION: +1 vs crawling insects.",
       "fecundity_bonus": 0,
-      "clade": "Pterygota",
+      "clade": "Hexapoda",
       "science": "Insect wings evolved independently - possibly from gill-like structures"
     },
     {
@@ -612,12 +893,17 @@
       "cost": 3,
       "complexity": 2,
       "base_pairs": 135,
-      "tags": ["Burrowing", "Terrestrial"],
-      "hard_prereqs": ["bilateral_symmetry"],
+      "tags": [
+        "Burrowing",
+        "Terrestrial"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
       "soft_prereqs": [],
       "grants": "SURVIVAL: SAFE during most extinctions. TILES: +1 on Desert (temperature stability).",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Burrows provide thermal buffering and protection from surface catastrophes"
     },
     {
@@ -628,12 +914,19 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 160,
-      "tags": ["Nocturnal", "Small"],
-      "hard_prereqs": ["tetrapod_limbs"],
-      "soft_prereqs": ["burrowing"],
+      "tags": [
+        "Nocturnal",
+        "Small"
+      ],
+      "hard_prereqs": [
+        "tetrapod_limbs"
+      ],
+      "soft_prereqs": [
+        "burrowing"
+      ],
       "grants": "SURVIVAL: SAFE during K-Pg. COMPETITION: Avoid dinosaur competition (Era 6-8).",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Nocturnal lifestyle may have allowed early mammals to avoid dinosaur predation"
     },
     {
@@ -644,13 +937,17 @@
       "cost": 1,
       "complexity": 0,
       "base_pairs": 35,
-      "tags": ["Small"],
+      "tags": [
+        "Small"
+      ],
       "hard_prereqs": [],
       "soft_prereqs": [],
-      "incompatible_with": ["large_size"],
+      "incompatible_with": [
+        "large_size"
+      ],
       "grants": "SURVIVAL: SAFE during most extinctions. ALLELES: +1/era (less food needed).",
       "fecundity_bonus": 1,
-      "clade": "Default",
+      "clade": "Bilateria",
       "science": "Small organisms need less resources and have faster generation times"
     },
     {
@@ -661,13 +958,22 @@
       "cost": 3,
       "complexity": 2,
       "base_pairs": 205,
-      "tags": ["Large"],
-      "hard_prereqs": ["bony_skeleton"],
-      "soft_prereqs": ["jaws", "vertebral_column"],
-      "incompatible_with": ["small_size"],
+      "tags": [
+        "Large"
+      ],
+      "hard_prereqs": [
+        "bony_skeleton"
+      ],
+      "soft_prereqs": [
+        "jaws",
+        "vertebral_column"
+      ],
+      "incompatible_with": [
+        "small_size"
+      ],
       "grants": "COMPETITION: +2 on any tile. RISK: DOOMED during extinctions. ALLELES: -1/era.",
       "fecundity_bonus": -1,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Cope's Law: lineages tend toward larger size over time, but large size is risky"
     },
     {
@@ -678,13 +984,20 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 145,
-      "tags": ["Reef-Dependent", "Aquatic"],
-      "hard_prereqs": ["gills"],
+      "tags": [
+        "Reef-Dependent",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "gills"
+      ],
       "soft_prereqs": [],
-      "incompatible_with": ["deep_sea"],
+      "incompatible_with": [
+        "deep_sea"
+      ],
       "grants": "TILES: +3 on Reef tiles. ALLELES: +1/era from controlled Reef. RISK: DOOMED if reefs collapse.",
       "fecundity_bonus": 0,
-      "clade": "Various marine",
+      "clade": "Chordata",
       "science": "Coral reefs are the 'rainforests of the sea' - extreme biodiversity, extreme fragility"
     },
     {
@@ -695,14 +1008,24 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 255,
-      "tags": ["Deep-Sea", "Aquatic"],
-      "hard_prereqs": ["gills"],
-      "soft_prereqs": ["cartilage_skeleton"],
-      "incompatible_with": ["shallow_marine", "reef_dwelling"],
+      "tags": [
+        "Deep-Sea",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "gills"
+      ],
+      "soft_prereqs": [
+        "cartilage_skeleton"
+      ],
+      "incompatible_with": [
+        "shallow_marine",
+        "reef_dwelling"
+      ],
       "grants": "SURVIVAL: SAFE during surface extinctions. TILES: Exclusive access to Deep Sea tiles.",
       "fecundity_bonus": 0,
-      "clade": "Various",
-      "science": "Deep sea is buffered from surface changes - P = ρgh (pressure increases with depth)"
+      "clade": "Bilateria",
+      "science": "Deep sea is buffered from surface changes - P = \u03c1gh (pressure increases with depth)"
     },
     {
       "id": "freshwater",
@@ -712,12 +1035,17 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 170,
-      "tags": ["Freshwater", "Aquatic"],
-      "hard_prereqs": ["gills"],
+      "tags": [
+        "Freshwater",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "gills"
+      ],
       "soft_prereqs": [],
       "grants": "SURVIVAL: SAFE during marine extinctions. TILES: +2 on Freshwater, Swamp.",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Freshwater systems often survive marine extinction events better"
     },
     {
@@ -728,9 +1056,16 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 95,
-      "tags": ["Insect", "Terrestrial"],
-      "hard_prereqs": ["exoskeleton"],
-      "soft_prereqs": ["segmentation"],
+      "tags": [
+        "Insect",
+        "Terrestrial"
+      ],
+      "hard_prereqs": [
+        "exoskeleton"
+      ],
+      "soft_prereqs": [
+        "segmentation"
+      ],
       "grants": "TILES: Occupy all land tiles. Stable tripod gait. FOUNDATION: Insect traits.",
       "fecundity_bonus": 0,
       "clade": "Hexapoda",
@@ -744,12 +1079,18 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 175,
-      "tags": ["Insect"],
-      "hard_prereqs": ["six_legs"],
-      "soft_prereqs": ["insect_flight"],
+      "tags": [
+        "Insect"
+      ],
+      "hard_prereqs": [
+        "six_legs"
+      ],
+      "soft_prereqs": [
+        "insect_flight"
+      ],
       "grants": "ALLELES: +2/era (larvae and adults use different niches). Niche separation.",
       "fecundity_bonus": 2,
-      "clade": "Holometabola",
+      "clade": "Hexapoda",
       "science": "Complete metamorphosis separates larval feeding from adult reproduction"
     },
     {
@@ -760,12 +1101,19 @@
       "cost": 6,
       "complexity": 5,
       "base_pairs": 195,
-      "tags": ["Insect", "Social"],
-      "hard_prereqs": ["metamorphosis"],
-      "soft_prereqs": ["insect_flight"],
+      "tags": [
+        "Insect",
+        "Social"
+      ],
+      "hard_prereqs": [
+        "metamorphosis"
+      ],
+      "soft_prereqs": [
+        "insect_flight"
+      ],
       "grants": "ALLELES: +2/era if population 5+. TILES: +2 on Forest with flowers (Era 8+).",
       "fecundity_bonus": 2,
-      "clade": "Hymenoptera",
+      "clade": "Hexapoda",
       "science": "Reproductive division of labor - workers forgo reproduction to help queen"
     },
     {
@@ -776,12 +1124,20 @@
       "cost": 5,
       "complexity": 3,
       "base_pairs": 165,
-      "tags": ["Pollinator", "Insect"],
-      "hard_prereqs": ["insect_flight"],
-      "soft_prereqs": ["metamorphosis", "compound_eyes"],
+      "tags": [
+        "Pollinator",
+        "Insect"
+      ],
+      "hard_prereqs": [
+        "insect_flight"
+      ],
+      "soft_prereqs": [
+        "metamorphosis",
+        "compound_eyes"
+      ],
       "grants": "TILES: +3 on Forest with flowers (Era 8+). ALLELES: +1/era mutualism bonus.",
       "fecundity_bonus": 1,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Coevolution with angiosperms - flowers provide nectar, insects provide pollen transfer"
     },
     {
@@ -792,13 +1148,27 @@
       "cost": 6,
       "complexity": 4,
       "base_pairs": 385,
-      "tags": ["Nocturnal", "Mammal"],
-      "hard_prereqs": ["flight", "endothermy"],
-      "alt_prereqs": [["live_birth", "endothermy"]],
-      "soft_prereqs": ["small_size", "nocturnal"],
+      "tags": [
+        "Nocturnal",
+        "Mammal"
+      ],
+      "hard_prereqs": [
+        "flight",
+        "endothermy"
+      ],
+      "alt_prereqs": [
+        [
+          "live_birth",
+          "endothermy"
+        ]
+      ],
+      "soft_prereqs": [
+        "small_size",
+        "nocturnal"
+      ],
       "grants": "COMPETITION: +3 at night (complete darkness hunting). TILES: +2 in caves.",
       "fecundity_bonus": 0,
-      "clade": "Chiroptera",
+      "clade": "Mammalia",
       "science": "Range = (Emitted_Power / Detection_Threshold)^0.25 - up to 100m in some species"
     },
     {
@@ -809,9 +1179,19 @@
       "cost": 5,
       "complexity": 6,
       "base_pairs": 485,
-      "tags": ["Aquatic", "Terrestrial", "Archosaur", "Ambush-Predator", "Cold-Vulnerable"],
-      "hard_prereqs": ["archosaur_posture"],
-      "soft_prereqs": ["osteoderms"],
+      "tags": [
+        "Aquatic",
+        "Terrestrial",
+        "Archosaur",
+        "Ambush-Predator",
+        "Cold-Vulnerable"
+      ],
+      "hard_prereqs": [
+        "archosaur_posture"
+      ],
+      "soft_prereqs": [
+        "osteoderms"
+      ],
       "grants": "TILES: Occupy BOTH land AND aquatic (unique). COMPETITION: +3 ambush on Swamp/Coast. SURVIVAL: SAFE all extinctions except ice.",
       "fecundity_bonus": 2,
       "clade": "Crocodilia",
@@ -825,9 +1205,17 @@
       "cost": 4,
       "complexity": 4,
       "base_pairs": 155,
-      "tags": ["Predator", "Aquatic", "Archosaur"],
-      "hard_prereqs": ["crocodilian_form"],
-      "soft_prereqs": ["jaws"],
+      "tags": [
+        "Predator",
+        "Aquatic",
+        "Archosaur"
+      ],
+      "hard_prereqs": [
+        "crocodilian_form"
+      ],
+      "soft_prereqs": [
+        "jaws"
+      ],
       "grants": "COMPETITION: +3 vs [Large] prey. Can displace any organism on Swamp/Freshwater tiles.",
       "fecundity_bonus": 0,
       "clade": "Crocodilia",
@@ -841,12 +1229,17 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 235,
-      "tags": ["Predator"],
+      "tags": [
+        "Predator"
+      ],
       "hard_prereqs": [],
-      "soft_prereqs": ["jaws", "exoskeleton"],
+      "soft_prereqs": [
+        "jaws",
+        "exoskeleton"
+      ],
       "grants": "COMPETITION: +2 vs any organism. Can displace larger organisms.",
       "fecundity_bonus": 0,
-      "clade": "Various (convergent)",
+      "clade": "Bilateria",
       "science": "Venom evolved independently 100+ times - scorpions had venom by the Silurian (~430 MYA)"
     },
     {
@@ -857,12 +1250,19 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 155,
-      "tags": ["Arboreal", "Terrestrial"],
-      "hard_prereqs": ["tetrapod_limbs"],
-      "soft_prereqs": ["small_size"],
+      "tags": [
+        "Arboreal",
+        "Terrestrial"
+      ],
+      "hard_prereqs": [
+        "tetrapod_limbs"
+      ],
+      "soft_prereqs": [
+        "small_size"
+      ],
       "grants": "TILES: +2 on Forest. Escape ground predators. FOUNDATION: Primate path.",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Tree-dwelling requires grasping limbs and enhanced spatial awareness"
     },
     {
@@ -873,13 +1273,27 @@
       "cost": 5,
       "complexity": 4,
       "base_pairs": 345,
-      "tags": ["Primate", "Arboreal"],
-      "hard_prereqs": ["arboreal", "mammary_glands"],
-      "alt_prereqs": [["arboreal", "scales_reptilian"]],
-      "soft_prereqs": ["live_birth", "large_brain"],
+      "tags": [
+        "Primate",
+        "Arboreal"
+      ],
+      "hard_prereqs": [
+        "arboreal",
+        "mammary_glands"
+      ],
+      "alt_prereqs": [
+        [
+          "arboreal",
+          "scales_reptilian"
+        ]
+      ],
+      "soft_prereqs": [
+        "live_birth",
+        "large_brain"
+      ],
       "grants": "COMPETITION: +1 (tool use potential). TILES: +1 on Forest. Precision grip.",
       "fecundity_bonus": 0,
-      "clade": "Primates",
+      "clade": "Mammalia",
       "science": "Opposable thumbs enable precision grip - key to primate success"
     },
     {
@@ -890,13 +1304,27 @@
       "cost": 8,
       "complexity": 6,
       "base_pairs": 850,
-      "tags": ["Intelligence", "Mammal"],
-      "hard_prereqs": ["mammary_glands"],
-      "alt_prereqs": [["flight", "endothermy"]],
-      "soft_prereqs": ["opposable_digits", "arboreal", "live_birth"],
+      "tags": [
+        "Intelligence",
+        "Mammal"
+      ],
+      "hard_prereqs": [
+        "mammary_glands"
+      ],
+      "alt_prereqs": [
+        [
+          "flight",
+          "endothermy"
+        ]
+      ],
+      "soft_prereqs": [
+        "opposable_digits",
+        "arboreal",
+        "live_birth"
+      ],
       "grants": "COMPETITION: +3 (problem solving). ALLELES: -2/era (brain energy cost).",
       "fecundity_bonus": -2,
-      "clade": "Primates/Cetacea",
+      "clade": "Mammalia",
       "science": "Brain tissue uses 20x more energy than muscle - expensive but powerful"
     },
     {
@@ -907,13 +1335,17 @@
       "cost": 1,
       "complexity": 1,
       "base_pairs": 45,
-      "tags": ["Fast-Reproduction"],
+      "tags": [
+        "Fast-Reproduction"
+      ],
       "hard_prereqs": [],
       "soft_prereqs": [],
-      "incompatible_with": ["k_strategy"],
+      "incompatible_with": [
+        "k_strategy"
+      ],
       "grants": "ALLELES: +2/era. MARKERS: +2 each era. RISK: Lose more in extinctions (boom-bust).",
       "fecundity_bonus": 2,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Many offspring, little parental care - thrives in unstable environments"
     },
     {
@@ -924,13 +1356,20 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 165,
-      "tags": ["Slow-Reproduction", "Protected-Offspring"],
+      "tags": [
+        "Slow-Reproduction",
+        "Protected-Offspring"
+      ],
       "hard_prereqs": [],
-      "soft_prereqs": ["parental_care"],
-      "incompatible_with": ["r_strategy"],
+      "soft_prereqs": [
+        "parental_care"
+      ],
+      "incompatible_with": [
+        "r_strategy"
+      ],
       "grants": "ALLELES: -1/era. SURVIVAL: Markers cannot be displaced. Stable population.",
       "fecundity_bonus": -1,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Few offspring, high parental investment - thrives in stable environments"
     },
     {
@@ -941,12 +1380,17 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 185,
-      "tags": ["Protected-Offspring"],
+      "tags": [
+        "Protected-Offspring"
+      ],
       "hard_prereqs": [],
-      "soft_prereqs": ["k_strategy", "amniotic_egg"],
+      "soft_prereqs": [
+        "k_strategy",
+        "amniotic_egg"
+      ],
       "grants": "SURVIVAL: Markers protected from displacement. ALLELES: -1/era (investment cost).",
       "fecundity_bonus": -1,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Parental care increases offspring survival at cost of parent resources"
     },
     {
@@ -957,12 +1401,17 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 145,
-      "tags": ["Tropical", "Specialized"],
-      "hard_prereqs": ["bilateral_symmetry"],
+      "tags": [
+        "Tropical",
+        "Specialized"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
       "soft_prereqs": [],
       "grants": "TILES: +2 on Reef, Rainforest, Swamp. RISK: DOOMED in Ice Ages.",
       "fecundity_bonus": 1,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Tropical specialists thrive in warm, stable climates but are vulnerable to cooling"
     },
     {
@@ -973,13 +1422,20 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 130,
-      "tags": ["Shallow-Marine", "Aquatic"],
-      "hard_prereqs": ["gills"],
+      "tags": [
+        "Shallow-Marine",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "gills"
+      ],
       "soft_prereqs": [],
-      "incompatible_with": ["deep_sea"],
+      "incompatible_with": [
+        "deep_sea"
+      ],
       "grants": "TILES: +2 on Shallow Sea, Coast. RISK: DOOMED during sea level changes.",
       "fecundity_bonus": 1,
-      "clade": "Various marine",
+      "clade": "Chordata",
       "science": "Continental shelf habitats are productive but vulnerable to sea level fluctuations"
     },
     {
@@ -990,12 +1446,21 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 215,
-      "tags": ["Marine-Only", "Pelagic", "Aquatic"],
-      "hard_prereqs": ["gills"],
-      "soft_prereqs": ["swim_bladder", "cartilage_skeleton"],
+      "tags": [
+        "Marine-Only",
+        "Pelagic",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "gills"
+      ],
+      "soft_prereqs": [
+        "swim_bladder",
+        "cartilage_skeleton"
+      ],
       "grants": "TILES: +2 on Ocean. SURVIVAL: SAFE during reef collapses. Open water specialist.",
       "fecundity_bonus": 0,
-      "clade": "Various marine",
+      "clade": "Chordata",
       "science": "Pelagic organisms live in open water, independent of the seafloor or coast"
     },
     {
@@ -1006,13 +1471,24 @@
       "cost": 1,
       "complexity": 1,
       "base_pairs": 85,
-      "tags": ["Sessile", "Aquatic"],
-      "hard_prereqs": ["bilateral_symmetry"],
-      "soft_prereqs": ["gills"],
-      "incompatible_with": ["flight", "insect_flight", "tetrapod_limbs"],
+      "tags": [
+        "Sessile",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
+      "soft_prereqs": [
+        "gills"
+      ],
+      "incompatible_with": [
+        "flight",
+        "insect_flight",
+        "tetrapod_limbs"
+      ],
       "grants": "TILES: Cannot move. ALLELES: +2/era (passive feeding). RISK: DOOMED if sea level drops.",
       "fecundity_bonus": 2,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Filter feeders strain food particles from water - efficient but immobile"
     },
     {
@@ -1023,12 +1499,20 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 110,
-      "tags": ["Photosynthesis-Dependent", "Reef-Dependent", "Aquatic"],
-      "hard_prereqs": ["bilateral_symmetry"],
-      "soft_prereqs": ["reef_dwelling"],
+      "tags": [
+        "Photosynthesis-Dependent",
+        "Reef-Dependent",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
+      "soft_prereqs": [
+        "reef_dwelling"
+      ],
       "grants": "TILES: +3 on Reef (zooxanthellae). ALLELES: +1/era. RISK: DOOMED if light blocked.",
       "fecundity_bonus": 1,
-      "clade": "Cnidaria/Mollusca",
+      "clade": "Mollusca",
       "science": "Coral and giant clams host photosynthetic algae - mutualistic symbiosis"
     },
     {
@@ -1039,12 +1523,19 @@
       "cost": 1,
       "complexity": 1,
       "base_pairs": 70,
-      "tags": ["Detritivore", "Burrowing"],
-      "hard_prereqs": ["bilateral_symmetry"],
-      "soft_prereqs": ["segmentation"],
+      "tags": [
+        "Detritivore",
+        "Burrowing"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
+      "soft_prereqs": [
+        "segmentation"
+      ],
       "grants": "SURVIVAL: SAFE during volcanic winters (eat decay). TILES: +1 on Swamp, Forest floor.",
       "fecundity_bonus": 1,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Detritivores recycle dead organic matter - essential ecosystem role"
     },
     {
@@ -1055,12 +1546,14 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 175,
-      "tags": ["Specialized"],
+      "tags": [
+        "Specialized"
+      ],
       "hard_prereqs": [],
       "soft_prereqs": [],
       "grants": "DYNAMIC: Specialize in a random occupied biome. Gain one of its bonus tags permanently. COMPETITION: +3 on that biome type. RISK: DOOMED during global warming.",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Specialists outcompete generalists in stable environments but are vulnerable to change"
     },
     {
@@ -1071,13 +1564,24 @@
       "cost": 4,
       "complexity": 3,
       "base_pairs": 285,
-      "tags": ["Marine-Mammal", "Aquatic", "Mobile"],
-      "hard_prereqs": ["tetrapod_limbs"],
-      "soft_prereqs": ["endothermy", "scales_reptilian"],
-      "incompatible_with": ["arboreal"],
+      "tags": [
+        "Marine-Mammal",
+        "Aquatic",
+        "Mobile"
+      ],
+      "hard_prereqs": [
+        "tetrapod_limbs"
+      ],
+      "soft_prereqs": [
+        "endothermy",
+        "scales_reptilian"
+      ],
+      "incompatible_with": [
+        "arboreal"
+      ],
       "grants": "TILES: Occupy Ocean, Coast, Shallow Sea. COMPETITION: +2 in aquatic tiles. Cannot walk on land.",
       "fecundity_bonus": 0,
-      "clade": "Pinnipedia/Cetacea/Ichthyosauria",
+      "clade": "Mammalia",
       "science": "Limbs modified into flippers evolved convergently in whales, seals, and marine reptiles"
     },
     {
@@ -1088,12 +1592,21 @@
       "cost": 3,
       "complexity": 2,
       "base_pairs": 195,
-      "tags": ["Marine-Mammal", "Cold-Resistant", "Aquatic"],
-      "hard_prereqs": ["flippers", "endothermy"],
-      "soft_prereqs": ["live_birth"],
+      "tags": [
+        "Marine-Mammal",
+        "Cold-Resistant",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "flippers",
+        "endothermy"
+      ],
+      "soft_prereqs": [
+        "live_birth"
+      ],
       "grants": "TILES: +2 on Ocean, Ice (thermal insulation). Buoyancy aid and energy reserve.",
       "fecundity_bonus": 0,
-      "clade": "Cetacea/Pinnipedia",
+      "clade": "Mammalia",
       "science": "Blubber provides insulation, buoyancy, and energy storage - up to 50% of body mass in some whales"
     },
     {
@@ -1104,12 +1617,21 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 245,
-      "tags": ["Marine-Mammal", "Deep-Sea", "Aquatic"],
-      "hard_prereqs": ["lungs", "flippers"],
-      "soft_prereqs": ["blubber"],
+      "tags": [
+        "Marine-Mammal",
+        "Deep-Sea",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "lungs",
+        "flippers"
+      ],
+      "soft_prereqs": [
+        "blubber"
+      ],
       "grants": "TILES: Access Deep Sea without gills. Spleen blood storage enables 2+ hour dives.",
       "fecundity_bonus": 0,
-      "clade": "Cetacea/Pinnipedia",
+      "clade": "Mammalia",
       "science": "Marine mammals evolved enlarged spleens and myoglobin stores for extended dives to 3000m"
     },
     {
@@ -1120,10 +1642,20 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 275,
-      "tags": ["Cephalopod", "Aquatic", "Predator"],
-      "hard_prereqs": ["bilateral_symmetry", "gills"],
+      "tags": [
+        "Cephalopod",
+        "Aquatic",
+        "Predator"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry",
+        "gills"
+      ],
       "soft_prereqs": [],
-      "incompatible_with": ["tetrapod_limbs", "exoskeleton"],
+      "incompatible_with": [
+        "tetrapod_limbs",
+        "exoskeleton"
+      ],
       "grants": "COMPETITION: +2 (grasping prey). Eight+ prehensile limbs with suckers.",
       "fecundity_bonus": 0,
       "clade": "Cephalopoda",
@@ -1137,8 +1669,14 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 145,
-      "tags": ["Cephalopod", "Aquatic", "Mobile"],
-      "hard_prereqs": ["tentacles"],
+      "tags": [
+        "Cephalopod",
+        "Aquatic",
+        "Mobile"
+      ],
+      "hard_prereqs": [
+        "tentacles"
+      ],
       "soft_prereqs": [],
       "grants": "TILES: Move 2 aquatic tiles per turn. Rapid escape from predators.",
       "fecundity_bonus": 0,
@@ -1153,12 +1691,19 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 115,
-      "tags": ["Cephalopod", "Aquatic"],
-      "hard_prereqs": ["tentacles"],
-      "soft_prereqs": ["jet_propulsion"],
+      "tags": [
+        "Cephalopod",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "tentacles"
+      ],
+      "soft_prereqs": [
+        "jet_propulsion"
+      ],
       "grants": "SURVIVAL: Avoid 1 predation per era. Melanin cloud confuses predators.",
       "fecundity_bonus": 0,
-      "clade": "Coleoidea",
+      "clade": "Cephalopoda",
       "science": "Cephalopod ink contains melanin and tyrosinase - can numb predator senses"
     },
     {
@@ -1169,12 +1714,20 @@
       "cost": 3,
       "complexity": 4,
       "base_pairs": 325,
-      "tags": ["Cephalopod", "Aquatic", "Camouflage"],
-      "hard_prereqs": ["tentacles"],
-      "soft_prereqs": ["ink_sac"],
+      "tags": [
+        "Cephalopod",
+        "Aquatic",
+        "Camouflage"
+      ],
+      "hard_prereqs": [
+        "tentacles"
+      ],
+      "soft_prereqs": [
+        "ink_sac"
+      ],
       "grants": "COMPETITION: +2 vs predators (camouflage). +1 ambush bonus vs prey.",
       "fecundity_bonus": 0,
-      "clade": "Coleoidea",
+      "clade": "Cephalopoda",
       "science": "Chromatophores change color in milliseconds via neural control - fastest color change in nature"
     },
     {
@@ -1185,12 +1738,21 @@
       "cost": 5,
       "complexity": 5,
       "base_pairs": 445,
-      "tags": ["Cephalopod", "Intelligence", "Aquatic"],
-      "hard_prereqs": ["tentacles"],
-      "soft_prereqs": ["chromatophores", "jet_propulsion"],
+      "tags": [
+        "Cephalopod",
+        "Intelligence",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "tentacles"
+      ],
+      "soft_prereqs": [
+        "chromatophores",
+        "jet_propulsion"
+      ],
       "grants": "COMPETITION: +2 (problem solving). Tool use without hands. Short lifespan limits learning.",
       "fecundity_bonus": 0,
-      "clade": "Coleoidea",
+      "clade": "Cephalopoda",
       "science": "Octopuses solve mazes, use tools, and recognize individuals - the only invertebrate intelligence"
     },
     {
@@ -1201,12 +1763,18 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 125,
-      "tags": ["Armored", "Defensive"],
+      "tags": [
+        "Armored",
+        "Defensive"
+      ],
       "hard_prereqs": [],
-      "soft_prereqs": ["exoskeleton", "bony_skeleton"],
+      "soft_prereqs": [
+        "exoskeleton",
+        "bony_skeleton"
+      ],
       "grants": "COMPETITION: +2 vs predators. Cannot be displaced without [Armored] tag.",
       "fecundity_bonus": 0,
-      "clade": "Various (convergent)",
+      "clade": "Bilateria",
       "science": "Spines evolved independently in urchins, fish, reptiles, and mammals - universal defense"
     },
     {
@@ -1217,12 +1785,17 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 155,
-      "tags": ["Camouflage", "Defensive"],
-      "hard_prereqs": ["bilateral_symmetry"],
+      "tags": [
+        "Camouflage",
+        "Defensive"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
       "soft_prereqs": [],
       "grants": "COMPETITION: +1 on all tiles. Avoid 1 competition roll per era.",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Cryptic coloration matches environment - background matching, disruptive patterns, countershading"
     },
     {
@@ -1233,12 +1806,17 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 215,
-      "tags": ["Camouflage", "Defensive"],
-      "hard_prereqs": ["camouflage"],
+      "tags": [
+        "Camouflage",
+        "Defensive"
+      ],
+      "hard_prereqs": [
+        "camouflage"
+      ],
       "soft_prereqs": [],
       "grants": "COMPETITION: +2 vs predators (Batesian mimicry). Deceive threats by resembling dangerous species.",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Batesian mimicry: harmless species evolve to resemble dangerous ones - evolutionary deception"
     },
     {
@@ -1249,12 +1827,16 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 265,
-      "tags": ["Regenerating"],
-      "hard_prereqs": ["bilateral_symmetry"],
+      "tags": [
+        "Regenerating"
+      ],
+      "hard_prereqs": [
+        "bilateral_symmetry"
+      ],
       "soft_prereqs": [],
       "grants": "SURVIVAL: Restore 1 lost marker per era. Regrow lost body parts.",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Starfish regenerate whole arms; salamanders regrow limbs - dedifferentiation of cells"
     },
     {
@@ -1265,12 +1847,18 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 135,
-      "tags": ["Defensive", "Regenerating"],
+      "tags": [
+        "Defensive",
+        "Regenerating"
+      ],
       "hard_prereqs": [],
-      "soft_prereqs": ["regeneration", "tetrapod_limbs"],
+      "soft_prereqs": [
+        "regeneration",
+        "tetrapod_limbs"
+      ],
       "grants": "SURVIVAL: Escape predation once per era (shed tail/limb). Distract and flee.",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Voluntary limb loss at fracture planes - lizards, crabs, starfish all use this strategy"
     },
     {
@@ -1281,9 +1869,17 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 285,
-      "tags": ["Cold-Resistant", "Metabolic"],
-      "hard_prereqs": ["endothermy"],
-      "soft_prereqs": ["burrowing", "fur"],
+      "tags": [
+        "Cold-Resistant",
+        "Metabolic"
+      ],
+      "hard_prereqs": [
+        "endothermy"
+      ],
+      "soft_prereqs": [
+        "burrowing",
+        "fur"
+      ],
       "grants": "SURVIVAL: SAFE during ice ages and volcanic winters. Skip harsh eras metabolically.",
       "fecundity_bonus": 0,
       "clade": "Mammalia",
@@ -1297,12 +1893,15 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 145,
-      "tags": ["Predator", "Metabolic"],
+      "tags": [
+        "Predator",
+        "Metabolic"
+      ],
       "hard_prereqs": [],
       "soft_prereqs": [],
       "grants": "COMPETITION: Ignore [Venom] bonus from opponents. Can prey on venomous species.",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Honey badgers, mongooses, and opossums evolved modified nicotinic receptors blocking venom"
     },
     {
@@ -1313,12 +1912,18 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 195,
-      "tags": ["Deep-Sea", "Aquatic", "Symbiotic"],
-      "hard_prereqs": ["deep_sea"],
+      "tags": [
+        "Deep-Sea",
+        "Aquatic",
+        "Symbiotic"
+      ],
+      "hard_prereqs": [
+        "deep_sea"
+      ],
       "soft_prereqs": [],
       "grants": "TILES: +3 on Hydrothermal Vent tiles. SURVIVAL: SAFE during surface extinctions.",
       "fecundity_bonus": 1,
-      "clade": "Vestimentifera/Bathymodiolus",
+      "clade": "Bilateria",
       "science": "Giant tube worms host bacteria that oxidize H2S - independent of solar energy"
     },
     {
@@ -1329,12 +1934,19 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 95,
-      "tags": ["Cold-Resistant", "Aquatic", "Metabolic"],
+      "tags": [
+        "Cold-Resistant",
+        "Aquatic",
+        "Metabolic"
+      ],
       "hard_prereqs": [],
-      "soft_prereqs": ["gills", "endothermy"],
+      "soft_prereqs": [
+        "gills",
+        "endothermy"
+      ],
       "grants": "TILES: +2 on Ice, Deep Sea. Survive subzero temperatures without freezing.",
       "fecundity_bonus": 0,
-      "clade": "Nototheniidae/Insecta",
+      "clade": "Actinopterygii",
       "science": "Antifreeze glycoproteins bind to ice crystals, preventing growth - found in Arctic fish and insects"
     },
     {
@@ -1345,12 +1957,21 @@
       "cost": 4,
       "complexity": 4,
       "base_pairs": 375,
-      "tags": ["Social", "Predator", "Intelligence"],
-      "hard_prereqs": ["endothermy"],
-      "soft_prereqs": ["large_brain", "jaws"],
+      "tags": [
+        "Social",
+        "Predator",
+        "Intelligence"
+      ],
+      "hard_prereqs": [
+        "endothermy"
+      ],
+      "soft_prereqs": [
+        "large_brain",
+        "jaws"
+      ],
       "grants": "COMPETITION: +3 if 3+ markers on same tile. Coordinate attacks on larger prey.",
       "fecundity_bonus": 0,
-      "clade": "Canidae/Hyaenidae",
+      "clade": "Mammalia",
       "science": "Wolves, hyenas, and orcas coordinate hunts via vocalization - social carnivory"
     },
     {
@@ -1361,12 +1982,19 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 255,
-      "tags": ["Mobile", "Behavioral"],
+      "tags": [
+        "Mobile",
+        "Behavioral"
+      ],
       "hard_prereqs": [],
-      "soft_prereqs": ["flight", "pelagic", "tetrapod_limbs"],
+      "soft_prereqs": [
+        "flight",
+        "pelagic",
+        "tetrapod_limbs"
+      ],
       "grants": "TILES: Move to ANY tile once per era (seasonal movement). Follow resources.",
       "fecundity_bonus": 0,
-      "clade": "Various",
+      "clade": "Bilateria",
       "science": "Arctic terns migrate 70,000 km/year; wildebeest trek 1,000 km - hardwired navigation"
     },
     {
@@ -1377,12 +2005,21 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 225,
-      "tags": ["Social", "Defensive", "Herbivore"],
-      "hard_prereqs": ["tetrapod_limbs"],
-      "soft_prereqs": ["k_strategy", "large_size"],
+      "tags": [
+        "Social",
+        "Defensive",
+        "Herbivore"
+      ],
+      "hard_prereqs": [
+        "tetrapod_limbs"
+      ],
+      "soft_prereqs": [
+        "k_strategy",
+        "large_size"
+      ],
       "grants": "SURVIVAL: +1 marker protection per adjacent ally marker. Safety in numbers.",
       "fecundity_bonus": 0,
-      "clade": "Bovidae/Equidae",
+      "clade": "Mammalia",
       "science": "Herd dilution effect: probability of predation decreases with group size"
     },
     {
@@ -1393,12 +2030,20 @@
       "cost": 3,
       "complexity": 2,
       "base_pairs": 185,
-      "tags": ["Herbivore", "Mammal"],
-      "hard_prereqs": ["jaws", "synapsid_skull"],
-      "soft_prereqs": ["endothermy"],
+      "tags": [
+        "Herbivore",
+        "Mammal"
+      ],
+      "hard_prereqs": [
+        "jaws",
+        "synapsid_skull"
+      ],
+      "soft_prereqs": [
+        "endothermy"
+      ],
       "grants": "TILES: +2 on Grassland, Forest. Process tough plant material efficiently.",
       "fecundity_bonus": 0,
-      "clade": "Ungulata",
+      "clade": "Mammalia",
       "science": "Hypsodont teeth with flat occlusal surfaces evolved for grinding fibrous plants"
     },
     {
@@ -1409,12 +2054,20 @@
       "cost": 4,
       "complexity": 4,
       "base_pairs": 395,
-      "tags": ["Herbivore", "Mammal"],
-      "hard_prereqs": ["grinding_teeth", "mammary_glands"],
-      "soft_prereqs": ["large_size"],
+      "tags": [
+        "Herbivore",
+        "Mammal"
+      ],
+      "hard_prereqs": [
+        "grinding_teeth",
+        "mammary_glands"
+      ],
+      "soft_prereqs": [
+        "large_size"
+      ],
       "grants": "ALLELES: +2/era (extract more energy from plants). Multi-chambered stomach fermentation.",
       "fecundity_bonus": 0,
-      "clade": "Ruminantia",
+      "clade": "Mammalia",
       "science": "Four-chambered stomach with microbial symbionts breaks down cellulose humans cannot digest"
     },
     {
@@ -1425,12 +2078,20 @@
       "cost": 3,
       "complexity": 3,
       "base_pairs": 275,
-      "tags": ["Herbivore", "Large"],
-      "hard_prereqs": ["large_size", "bony_skeleton"],
-      "soft_prereqs": ["archosaur_posture"],
+      "tags": [
+        "Herbivore",
+        "Large"
+      ],
+      "hard_prereqs": [
+        "large_size",
+        "bony_skeleton"
+      ],
+      "soft_prereqs": [
+        "archosaur_posture"
+      ],
       "grants": "TILES: +2 on Forest (reach canopy foliage). Access resources others cannot reach.",
       "fecundity_bonus": 0,
-      "clade": "Sauropoda/Giraffidae",
+      "clade": "Archosauria",
       "science": "Sauropods had necks up to 15m long; giraffes have same 7 vertebrae as humans, just longer"
     },
     {
@@ -1441,12 +2102,21 @@
       "cost": 4,
       "complexity": 4,
       "base_pairs": 365,
-      "tags": ["Electric", "Aquatic", "Predator"],
-      "hard_prereqs": ["gills"],
-      "soft_prereqs": ["bony_skeleton", "cartilage_skeleton"],
+      "tags": [
+        "Electric",
+        "Aquatic",
+        "Predator"
+      ],
+      "hard_prereqs": [
+        "gills"
+      ],
+      "soft_prereqs": [
+        "bony_skeleton",
+        "cartilage_skeleton"
+      ],
       "grants": "COMPETITION: +3 vs aquatic prey. Stun prey and detect via bioelectricity.",
       "fecundity_bonus": 0,
-      "clade": "Gymnotiformes/Torpediniformes",
+      "clade": "Actinopterygii",
       "science": "Electric eels generate 860V; electroreceptors detect prey heartbeats - evolved 6+ times"
     },
     {
@@ -1457,12 +2127,20 @@
       "cost": 2,
       "complexity": 2,
       "base_pairs": 105,
-      "tags": ["Bioluminescent", "Deep-Sea", "Aquatic"],
-      "hard_prereqs": ["gills"],
-      "soft_prereqs": ["deep_sea"],
+      "tags": [
+        "Bioluminescent",
+        "Deep-Sea",
+        "Aquatic"
+      ],
+      "hard_prereqs": [
+        "gills"
+      ],
+      "soft_prereqs": [
+        "deep_sea"
+      ],
       "grants": "TILES: +2 on Deep Sea. Lure prey, communicate, or counter-illuminate for camouflage.",
       "fecundity_bonus": 0,
-      "clade": "Various marine",
+      "clade": "Chordata",
       "science": "Luciferin-luciferase reaction produces cold light - evolved 50+ times independently"
     }
   ]
