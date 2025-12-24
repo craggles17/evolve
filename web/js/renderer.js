@@ -1632,7 +1632,7 @@ export class Renderer {
         
         // Hide solo result section for multiplayer
         $('#solo-result')?.classList.add('hidden');
-        $('#gameover-title').textContent = 'Evolution Complete!';
+        $('#gameover-title').textContent = 'The Phanerozoic Ends';
         
         scoresDiv.innerHTML = '';
         for (let i = 0; i < scores.length; i++) {
@@ -1640,28 +1640,58 @@ export class Renderer {
             const row = createElement('div', `score-row ${i === 0 ? 'winner' : ''}`);
             row.innerHTML = `
                 <div class="score-name">
-                    <span style="width: 16px; height: 16px; border-radius: 50%; background: ${s.player.color}"></span>
+                    <span class="player-dot" style="background: ${s.player.color}"></span>
                     <span>${s.player.name}</span>
+                    ${i === 0 ? '<span class="winner-badge">👑</span>' : ''}
                 </div>
-                <div style="color: #8b949e;">
-                    ${s.markers} markers × ${s.complexity} complexity + ${s.tiles * 3} tile bonus
+                <div class="score-breakdown">
+                    <span class="score-formula">${s.markers} pop × ${s.complexity} cpx + ${s.tiles * 3} tiles</span>
                 </div>
                 <div class="score-value">${s.score}</div>
             `;
             scoresDiv.appendChild(row);
+            
+            // Add detailed stats row
+            const statsRow = createElement('div', 'score-stats');
+            statsRow.innerHTML = `
+                <span title="Traits acquired">🧬 ${s.traitCount} traits</span>
+                <span title="Genome size">📏 ${s.genomeLength} kb</span>
+                <span title="Extinctions survived">💀 ${s.extinctionsSurvived} survived</span>
+                ${s.tePercent > 0 ? `<span title="TE bloat">🦠 ${s.tePercent}% junk DNA</span>` : ''}
+            `;
+            scoresDiv.appendChild(statsRow);
         }
         
-        winnerDiv.innerHTML = `<div class="winner-text">${scores[0].player.name} wins!</div>`;
+        winnerDiv.innerHTML = `
+            <div class="winner-text">${scores[0].player.name} wins!</div>
+            <div class="winner-subtitle">After 540 million years of evolution</div>
+        `;
         
-        organismsDiv.innerHTML = '<h3 style="margin-bottom: 0.5rem;">Closest Real Organisms</h3>';
-        for (const { player, organism, similarity } of organisms) {
+        organismsDiv.innerHTML = '<h3 class="organism-header">Your Lineage Most Resembles...</h3>';
+        for (const { player, organism, similarity, sharedTraits } of organisms) {
             const match = createElement('div', 'organism-match');
-            match.innerHTML = `
-                <div class="organism-match-player" style="color: ${player.color}">${player.name}</div>
-                <div class="organism-match-result">
-                    ${organism ? `${organism.name} (${(similarity * 100).toFixed(0)}% match)` : 'No match found'}
-                </div>
-            `;
+            if (organism) {
+                const sharedCount = sharedTraits?.length || 0;
+                match.innerHTML = `
+                    <div class="organism-match-player" style="color: ${player.color}">${player.name}</div>
+                    <div class="organism-name-large">${organism.name}</div>
+                    <div class="organism-scientific">${organism.scientific_name}</div>
+                    <div class="organism-similarity">
+                        <div class="similarity-bar-container">
+                            <div class="similarity-bar" style="width: ${(similarity * 100).toFixed(0)}%"></div>
+                        </div>
+                        <span class="similarity-percent">${(similarity * 100).toFixed(0)}% match</span>
+                    </div>
+                    <div class="organism-shared">${sharedCount} shared traits</div>
+                    <div class="organism-fact">"${organism.fun_fact}"</div>
+                `;
+            } else {
+                match.innerHTML = `
+                    <div class="organism-match-player" style="color: ${player.color}">${player.name}</div>
+                    <div class="organism-name-large">Unknown Lifeform</div>
+                    <div class="organism-scientific">No close match in the fossil record</div>
+                `;
+            }
             organismsDiv.appendChild(match);
         }
         
@@ -1679,60 +1709,113 @@ export class Renderer {
         // Show solo result section
         soloResult.classList.remove('hidden');
         
+        // Calculate survival rating
+        const survivalRating = this.getSurvivalRating(erasSurvived, extinct);
+        
         if (extinct) {
             title.textContent = 'Extinction!';
             $('#solo-result-icon').textContent = '💀';
-            $('#solo-result-text').textContent = 'Your lineage has ended.';
+            $('#solo-result-text').innerHTML = `Your lineage has ended.<br><span class="survival-rating">${survivalRating.label}</span>`;
             $('#solo-result-text').style.color = '#f85149';
         } else {
             title.textContent = 'Survival Complete!';
             $('#solo-result-icon').textContent = '🏆';
-            $('#solo-result-text').textContent = 'Your lineage endures!';
+            $('#solo-result-text').innerHTML = `Your lineage endures!<br><span class="survival-rating">${survivalRating.label}</span>`;
             $('#solo-result-text').style.color = '#3fb950';
         }
         
         $('#solo-eras-survived').textContent = `Eras survived: ${erasSurvived} / 12`;
         
-        // Show score
+        // Show score with extended stats
         scoresDiv.innerHTML = '';
         const row = createElement('div', 'score-row winner');
         row.innerHTML = `
             <div class="score-name">
-                <span style="width: 16px; height: 16px; border-radius: 50%; background: ${score.player.color}"></span>
+                <span class="player-dot" style="background: ${score.player.color}"></span>
                 <span>${score.player.name}</span>
             </div>
-            <div style="color: #8b949e;">
-                ${score.markers} markers × ${score.complexity} complexity + ${score.tiles * 3} tile bonus
+            <div class="score-breakdown">
+                <span class="score-formula">${score.markers} pop × ${score.complexity} cpx + ${score.tiles * 3} tiles</span>
             </div>
             <div class="score-value">${score.score}</div>
         `;
         scoresDiv.appendChild(row);
         
+        // Add detailed stats
+        const statsRow = createElement('div', 'solo-stats-grid');
+        statsRow.innerHTML = `
+            <div class="solo-stat">
+                <span class="solo-stat-icon">🧬</span>
+                <span class="solo-stat-value">${score.traitCount}</span>
+                <span class="solo-stat-label">Traits</span>
+            </div>
+            <div class="solo-stat">
+                <span class="solo-stat-icon">📏</span>
+                <span class="solo-stat-value">${score.genomeLength}</span>
+                <span class="solo-stat-label">Genome (kb)</span>
+            </div>
+            <div class="solo-stat">
+                <span class="solo-stat-icon">💀</span>
+                <span class="solo-stat-value">${score.extinctionsSurvived}</span>
+                <span class="solo-stat-label">Extinctions</span>
+            </div>
+            <div class="solo-stat">
+                <span class="solo-stat-icon">🦠</span>
+                <span class="solo-stat-value">${score.tePercent}%</span>
+                <span class="solo-stat-label">Junk DNA</span>
+            </div>
+        `;
+        scoresDiv.appendChild(statsRow);
+        
         // Hide winner display for solo
         winnerDiv.innerHTML = '';
         
         // Show organism match
-        organismsDiv.innerHTML = '<h3 style="margin-bottom: 0.5rem;">Your Lineage Resembles</h3>';
+        organismsDiv.innerHTML = '<h3 class="organism-header">Your Lineage Most Resembles...</h3>';
         if (organismMatch.organism) {
-            const match = createElement('div', 'organism-match');
+            const sharedCount = organismMatch.sharedTraits?.length || 0;
+            const match = createElement('div', 'organism-match organism-match-featured');
             match.innerHTML = `
-                <div class="organism-match-result" style="font-size: 1.2rem;">
-                    ${organismMatch.organism.name}
+                <div class="organism-name-large">${organismMatch.organism.name}</div>
+                <div class="organism-scientific">${organismMatch.organism.scientific_name}</div>
+                <div class="organism-similarity">
+                    <div class="similarity-bar-container">
+                        <div class="similarity-bar" style="width: ${(organismMatch.similarity * 100).toFixed(0)}%"></div>
+                    </div>
+                    <span class="similarity-percent">${(organismMatch.similarity * 100).toFixed(0)}% genetic match</span>
                 </div>
-                <div style="color: #8b949e;">
-                    ${organismMatch.organism.scientific_name}
-                </div>
-                <div style="margin-top: 0.5rem; color: #58a6ff;">
-                    ${(organismMatch.similarity * 100).toFixed(0)}% genetic similarity
-                </div>
-                <div style="margin-top: 0.5rem; font-style: italic; color: #8b949e;">
-                    "${organismMatch.organism.fun_fact}"
-                </div>
+                <div class="organism-shared">${sharedCount} shared traits with your lineage</div>
+                <div class="organism-fact">"${organismMatch.organism.fun_fact}"</div>
+            `;
+            organismsDiv.appendChild(match);
+        } else {
+            const match = createElement('div', 'organism-match organism-match-featured');
+            match.innerHTML = `
+                <div class="organism-name-large">Unknown Lifeform</div>
+                <div class="organism-scientific">A unique branch on the tree of life</div>
+                <div class="organism-fact">"Your lineage defies classification - truly something new under the sun."</div>
             `;
             organismsDiv.appendChild(match);
         }
         
         this.showModal('gameover-modal');
+    }
+    
+    // Calculate survival rating based on eras survived
+    getSurvivalRating(erasSurvived, extinct) {
+        if (!extinct && erasSurvived >= 12) {
+            return { label: 'Living Fossil', tier: 5 };
+        }
+        if (erasSurvived >= 10) {
+            return { label: 'Apex Survivor', tier: 4 };
+        }
+        if (erasSurvived >= 7) {
+            return { label: 'Tenacious', tier: 3 };
+        }
+        if (erasSurvived >= 4) {
+            return { label: 'Brief Flame', tier: 2 };
+        }
+        return { label: 'Evolutionary Dead End', tier: 1 };
     }
     
     // Solo Competition Results Visualization
@@ -1953,6 +2036,7 @@ export class Renderer {
         const MYA_HEADER_HEIGHT = 28;
         const PADDING = 6;
         const NUM_ERAS = 12;
+        const CHANNEL_WIDTH = 25;  // Routing corridor between era columns
         
         // Fixed era width for ~5 era visibility with scrolling (ignore container width)
         const ERA_WIDTH = 140;
@@ -2003,51 +2087,75 @@ export class Renderer {
             computeDepth(trait.id);
         }
         
-        // Sort traits within each era to keep prereq chains together
-        // Priority: 1) owned first, 2) prereq depth, 3) first prereq's position, 4) cost
+        // Initial sort: owned first, then by prereq depth, then by cost
         for (const era in eraGroups) {
             eraGroups[era].sort((a, b) => {
-                // First: owned traits at top (more prominent)
                 const aOwned = ownedIds.has(a.id) ? 0 : 1;
                 const bOwned = ownedIds.has(b.id) ? 0 : 1;
                 if (aOwned !== bOwned) return aOwned - bOwned;
                 
-                // Second: sort by prereq depth (foundation traits first, then dependents)
                 const aDepth = prereqDepth[a.id] || 0;
                 const bDepth = prereqDepth[b.id] || 0;
                 if (aDepth !== bDepth) return aDepth - bDepth;
                 
-                // Third: group by first prerequisite (keeps chains vertically adjacent)
-                const aFirstPrereq = (a.hard_prereqs || [])[0] || '';
-                const bFirstPrereq = (b.hard_prereqs || [])[0] || '';
-                if (aFirstPrereq !== bFirstPrereq) return aFirstPrereq.localeCompare(bFirstPrereq);
-                
-                // Fourth: lower cost first
                 return a.cost - b.cost;
             });
+        }
+        
+        // Assign initial positions - left-align nodes to leave routing channel on right
+        const assignPositions = () => {
+            for (let era = 0; era < NUM_ERAS; era++) {
+                const group = eraGroups[era];
+                const eraX = PADDING + era * ERA_WIDTH;
+                // Left-align with small padding, leaving CHANNEL_WIDTH on the right for routing
+                const nodeStartX = eraX + 8;
+                for (let i = 0; i < group.length; i++) {
+                    const y = MYA_HEADER_HEIGHT + PADDING + i * (NODE_HEIGHT + V_GAP);
+                    positions[group[i].id] = { x: nodeStartX, y, era, eraX, slot: i };
+                }
+            }
+        };
+        assignPositions();
+        
+        // Barycentric ordering: position traits near the average Y of their prerequisites
+        // Run multiple passes to settle the layout
+        for (let pass = 0; pass < 3; pass++) {
+            for (let era = 1; era < NUM_ERAS; era++) {
+                const group = eraGroups[era];
+                
+                // Compute barycenter for each trait (avg Y of prereqs)
+                const barycenters = {};
+                for (const trait of group) {
+                    const prereqs = trait.hard_prereqs || [];
+                    if (prereqs.length === 0) {
+                        barycenters[trait.id] = positions[trait.id]?.y ?? 0;
+                        continue;
+                    }
+                    let sum = 0, count = 0;
+                    for (const prereqId of prereqs) {
+                        if (positions[prereqId]) {
+                            sum += positions[prereqId].y + NODE_HEIGHT / 2;
+                            count++;
+                        }
+                    }
+                    barycenters[trait.id] = count > 0 ? sum / count : (positions[trait.id]?.y ?? 0);
+                }
+                
+                // Sort by barycenter, keeping owned traits prioritized
+                group.sort((a, b) => {
+                    const aOwned = ownedIds.has(a.id) ? 0 : 1;
+                    const bOwned = ownedIds.has(b.id) ? 0 : 1;
+                    if (aOwned !== bOwned) return aOwned - bOwned;
+                    return barycenters[a.id] - barycenters[b.id];
+                });
+            }
+            assignPositions();
         }
         
         // Find the max traits in any era (for height calculation)
         let maxTraitsInEra = 0;
         for (const era in eraGroups) {
             maxTraitsInEra = Math.max(maxTraitsInEra, eraGroups[era].length);
-        }
-        
-        // Compute positions - horizontal timeline with vertical stacking
-        for (let era = 0; era < NUM_ERAS; era++) {
-            const group = eraGroups[era];
-            const eraX = PADDING + era * ERA_WIDTH;
-            const nodeStartX = eraX + (ERA_WIDTH - NODE_WIDTH) / 2;
-            
-            for (let i = 0; i < group.length; i++) {
-                const y = MYA_HEADER_HEIGHT + PADDING + i * (NODE_HEIGHT + V_GAP);
-                positions[group[i].id] = { 
-                    x: nodeStartX, 
-                    y, 
-                    era,
-                    eraX
-                };
-            }
         }
         
         const totalWidth = PADDING * 2 + NUM_ERAS * ERA_WIDTH;
@@ -2063,7 +2171,8 @@ export class Renderer {
             ERA_WIDTH,
             MYA_HEADER_HEIGHT,
             PADDING,
-            NUM_ERAS
+            NUM_ERAS,
+            CHANNEL_WIDTH
         };
     }
     
@@ -2071,6 +2180,58 @@ export class Renderer {
     getTraitNodeWidth(trait, eraWidth, padding) {
         // All nodes same width - ignores era span for cleaner layout
         return 75;
+    }
+    
+    // Compute orthogonal path that routes in dedicated channels between era columns
+    // All segments stay in channels (right side of each era) - never crossing node areas
+    computeOrthogonalPath(from, to, obstacles, usedChannels, layout) {
+        const { NODE_WIDTH, NODE_HEIGHT, ERA_WIDTH, PADDING, CHANNEL_WIDTH, MYA_HEADER_HEIGHT, totalHeight } = layout;
+        
+        const startX = from.x + NODE_WIDTH;
+        const startY = from.y + NODE_HEIGHT / 2;
+        const endX = to.x;
+        const endY = to.y + NODE_HEIGHT / 2;
+        
+        const fromEra = from.era;
+        const toEra = to.era;
+        
+        // Same-era connections: orthogonal path using small jog to the right
+        if (fromEra === toEra) {
+            const jogX = startX + 15;
+            return `M ${startX} ${startY} L ${jogX} ${startY} L ${jogX} ${endY} L ${endX} ${endY}`;
+        }
+        
+        // Exit channel: right side of source era (where nodes don't exist)
+        const exitChannelX = PADDING + (fromEra + 1) * ERA_WIDTH - CHANNEL_WIDTH / 2;
+        
+        // Entry channel: right side of era before target
+        const entryChannelX = PADDING + toEra * ERA_WIDTH - CHANNEL_WIDTH / 2;
+        
+        // Track channel usage for parallel edge offset
+        const channelKey = `${fromEra}-${toEra}`;
+        if (!usedChannels[channelKey]) usedChannels[channelKey] = [];
+        const slotIndex = usedChannels[channelKey].length;
+        const slotOffset = slotIndex * 3;
+        usedChannels[channelKey].push({ from: from.y, to: to.y });
+        
+        // Adjacent eras: simple elbow path through single channel
+        if (toEra === fromEra + 1) {
+            const channelX = entryChannelX - slotOffset;
+            return `M ${startX} ${startY} L ${channelX} ${startY} L ${channelX} ${endY} L ${endX} ${endY}`;
+        }
+        
+        // Multi-era span: route via top or bottom to avoid crossing intermediate nodes
+        // Choose route based on which direction is shorter
+        const routeViaTop = startY > (MYA_HEADER_HEIGHT + totalHeight) / 2;
+        const routeY = routeViaTop 
+            ? MYA_HEADER_HEIGHT + 4 + slotOffset  // Route above nodes
+            : totalHeight - 4 - slotOffset;        // Route below nodes
+        
+        // Path: exit horizontally → vertical to routeY → horizontal across → vertical to endY → enter
+        const exitX = exitChannelX - slotOffset;
+        const entryX = entryChannelX - slotOffset;
+        
+        return `M ${startX} ${startY} L ${exitX} ${startY} L ${exitX} ${routeY} L ${entryX} ${routeY} L ${entryX} ${endY} L ${endX} ${endY}`;
     }
     
     // Render the full tech tree with MYA timeline header
@@ -2206,7 +2367,18 @@ export class Renderer {
         
         svg.appendChild(headerLayer);
         
-        // Draw edges (prerequisite arrows)
+        // Build obstacles list from all positioned nodes
+        const obstacles = Object.entries(positions).map(([id, pos]) => ({
+            id,
+            x: pos.x,
+            y: pos.y,
+            era: pos.era
+        }));
+        
+        // Track used routing channels for parallel edge offset
+        const usedChannels = {};
+        
+        // Draw edges (prerequisite arrows) with obstacle-aware routing
         const edgeLayer = createSVGElement('g');
         edgeLayer.classList.add('tech-tree-edges');
         
@@ -2218,16 +2390,16 @@ export class Renderer {
                 const fromPos = positions[prereqId];
                 if (!fromPos) continue;
                 
+                // Compute obstacle-aware path
+                const d = this.computeOrthogonalPath(
+                    { ...fromPos, id: prereqId },
+                    { ...toPos, id: trait.id },
+                    obstacles,
+                    usedChannels,
+                    layout
+                );
+                
                 const path = createSVGElement('path');
-                const startX = fromPos.x + NODE_WIDTH;
-                const startY = fromPos.y + NODE_HEIGHT / 2;
-                const endX = toPos.x;
-                const endY = toPos.y + NODE_HEIGHT / 2;
-                
-                // Elbow connector: horizontal -> 90° turn -> vertical -> horizontal
-                const midX = startX + (endX - startX) / 2;
-                const d = `M ${startX} ${startY} L ${midX} ${startY} L ${midX} ${endY} L ${endX} ${endY}`;
-                
                 path.setAttribute('d', d);
                 path.setAttribute('fill', 'none');
                 path.setAttribute('stroke', '#484f58');

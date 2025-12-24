@@ -358,15 +358,30 @@ export class GameState {
         return PHASE_NAMES[this.currentPhase] || 'Unknown Phase';
     }
     
-    // Calculate final scores
+    // Calculate final scores with comprehensive stats
     getFinalScores() {
-        return this.players.map(player => ({
-            player,
-            complexity: player.getComplexity(this.traitDb),
-            markers: player.markersOnBoard,
-            tiles: player.tilesControlled,
-            score: player.calculateScore(this.traitDb)
-        })).sort((a, b) => b.score - a.score);
+        return this.players.map(player => {
+            const genomeLength = player.getGenomeLength(this.traitDb);
+            const codingDNA = player.getCodingDNA(this.traitDb);
+            const teBloat = player.teBloat;
+            const tePercent = genomeLength > 0 ? Math.round((teBloat / genomeLength) * 100) : 0;
+            
+            return {
+                player,
+                complexity: player.getComplexity(this.traitDb),
+                markers: player.markersOnBoard,
+                tiles: player.tilesControlled,
+                score: player.calculateScore(this.traitDb),
+                // Extended stats
+                traitCount: player.traits.length,
+                genomeLength,
+                codingDNA,
+                teBloat,
+                tePercent,
+                extinctionsSurvived: player.extinctionsSurvived,
+                tags: [...player.getTags(this.traitDb)]
+            };
+        }).sort((a, b) => b.score - a.score);
     }
     
     // Find closest organism for a player
@@ -374,20 +389,27 @@ export class GameState {
         const playerTags = player.getTags(this.traitDb);
         let bestMatch = null;
         let bestScore = -1;
+        let bestSharedTraits = [];
         
         for (const org of this.organismsData.organisms) {
-            const orgTags = new Set(org.tags);
-            const intersection = [...playerTags].filter(t => orgTags.has(t)).length;
+            const orgTags = new Set(org.traits);
+            const shared = [...playerTags].filter(t => orgTags.has(t));
             const union = new Set([...playerTags, ...orgTags]).size;
-            const similarity = union > 0 ? intersection / union : 0;
+            const similarity = union > 0 ? shared.length / union : 0;
             
             if (similarity > bestScore) {
                 bestScore = similarity;
                 bestMatch = org;
+                bestSharedTraits = shared;
             }
         }
         
-        return { organism: bestMatch, similarity: bestScore };
+        return { 
+            organism: bestMatch, 
+            similarity: bestScore,
+            sharedTraits: bestSharedTraits,
+            playerTraitCount: playerTags.size
+        };
     }
     
     // Serialization for save/load
