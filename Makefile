@@ -9,12 +9,12 @@ SITE_ID := db7d3d45-fb46-4635-82eb-a8cbca753254
 build: cards sync-data version
 	@echo "Build complete"
 
-# Deploy web game to Netlify (production)
-deploy: sync-data version
+# Deploy web game to Netlify (production) - full build first
+deploy: build
 	cd web && PATH="/opt/homebrew/bin:$$PATH" npx --yes netlify-cli deploy --prod --dir=. --site=$(SITE_ID)
 
-# Deploy preview (non-production)
-deploy-preview: sync-data version
+# Deploy preview (non-production) - full build first
+deploy-preview: build
 	cd web && PATH="/opt/homebrew/bin:$$PATH" npx --yes netlify-cli deploy --dir=. --site=$(SITE_ID)
 
 # Run balance simulator (game testing)

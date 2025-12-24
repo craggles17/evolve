@@ -1,20 +1,25 @@
-# Damn Nature You Scary - Build & Deploy
+# Damn Nature You Scary - Web Build & Deploy
 # Requires: netlify-cli (npm install -g netlify-cli)
+# Note: Prefer running `make deploy` from project root for full build
 
 SITE_ID := db7d3d45-fb46-4635-82eb-a8cbca753254
 
-.PHONY: serve deploy deploy-preview sync-data cards version clean
+.PHONY: serve build deploy deploy-preview sync-data cards version clean
 
 # Local development server
 serve:
 	python3 -m http.server 8080
 
-# Deploy to production
-deploy: sync-data version
+# Full build: cards + sync data + version
+build: cards sync-data version
+	@echo "Web build complete"
+
+# Deploy to production (full build first)
+deploy: build
 	PATH="/opt/homebrew/bin:$$PATH" npx --yes netlify-cli deploy --prod --dir=. --site=$(SITE_ID)
 
 # Deploy preview (non-production)
-deploy-preview: sync-data version
+deploy-preview: build
 	PATH="/opt/homebrew/bin:$$PATH" npx --yes netlify-cli deploy --dir=. --site=$(SITE_ID)
 
 # Sync data files from parent data/ folder
@@ -25,10 +30,12 @@ sync-data:
 	cp ../data/era_decks.json data/era_decks.json
 	cp ../data/phylogeny.json data/phylogeny.json
 	cp ../data/organisms.json data/organisms.json
+	@echo "Data synced from ../data/"
 
 # Generate printable SVG cards (runs from parent dir)
 cards:
 	cd .. && python3 tools/card_generator.py --sheets
+	@echo "Cards generated in ../generated_cards/"
 
 # Update version info in index.html with current git commit
 version:
