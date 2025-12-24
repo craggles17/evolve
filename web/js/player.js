@@ -55,11 +55,16 @@ export class Player {
             return { canAcquire: false, reason: `Era ${currentEra} outside window (${trait.era_min}-${trait.era_max})` };
         }
         
-        // Check hard prerequisites
-        for (const prereqId of trait.hard_prereqs) {
-            if (!this.traits.includes(prereqId)) {
-                return { canAcquire: false, reason: `Missing prerequisite: ${prereqId}` };
-            }
+        // Check prerequisites: need ALL hard_prereqs OR ALL from any alt_prereqs set
+        const hasHardPrereqs = trait.hard_prereqs.every(p => this.traits.includes(p));
+        const altPrereqs = trait.alt_prereqs || [];
+        const hasAltPrereqs = altPrereqs.some(
+            altSet => altSet.every(p => this.traits.includes(p))
+        );
+        
+        if (!hasHardPrereqs && !hasAltPrereqs) {
+            const missing = trait.hard_prereqs.filter(p => !this.traits.includes(p));
+            return { canAcquire: false, reason: `Missing prerequisite: ${missing[0]}` };
         }
         
         // Check trait incompatibilities
@@ -78,15 +83,23 @@ export class Player {
         return { canAcquire: true, reason: null };
     }
     
-    getTraitCost(trait) {
+    getTraitCost(trait, traitDb) {
         // Count soft prerequisites met
         const softCount = trait.soft_prereqs.filter(p => this.traits.includes(p)).length;
         const discount = Math.min(softCount, 3);
-        return Math.max(0, trait.cost - discount);
+        
+        // Complexity tier modifier - higher complexity = higher costs
+        const complexity = traitDb ? this.getComplexity(traitDb) : 0;
+        let complexityMod = 0;
+        if (complexity >= 16) complexityMod = 3;
+        else if (complexity >= 11) complexityMod = 2;
+        else if (complexity >= 6) complexityMod = 1;
+        
+        return Math.max(0, trait.cost - discount + complexityMod);
     }
     
-    acquireTrait(trait, currentEra) {
-        const cost = this.getTraitCost(trait);
+    acquireTrait(trait, currentEra, traitDb) {
+        const cost = this.getTraitCost(trait, traitDb);
         if (this.alleles < cost) {
             return false;
         }
@@ -111,6 +124,21 @@ export class Player {
     
     addToHand(trait) {
         this.hand.push(trait);
+    }
+    
+    enforceHandLimit(limit) {
+        if (this.hand.length <= limit) return [];
+        
+        const excess = this.hand.length - limit;
+        const discarded = [];
+        
+        for (let i = 0; i < excess; i++) {
+            const idx = Math.floor(Math.random() * this.hand.length);
+            discarded.push(this.hand[idx]);
+            this.hand.splice(idx, 1);
+        }
+        
+        return discarded;
     }
     
     getPopulationTier() {
