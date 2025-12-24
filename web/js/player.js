@@ -17,6 +17,7 @@ export class Player {
         this.markersOnBoard = 0;    // Markers placed on tiles
         this.tilesControlled = 0;
         this.extinctionsSurvived = 0;
+        this.specializations = {};  // { traitId: { biome: string, tag: string } }
     }
     
     getTags(traitDb) {
@@ -26,6 +27,10 @@ export class Player {
             if (trait && trait.tags) {
                 trait.tags.forEach(tag => tags.add(tag));
             }
+        }
+        // Add dynamically granted tags from specializations
+        for (const spec of Object.values(this.specializations)) {
+            if (spec.tag) tags.add(spec.tag);
         }
         return tags;
     }
@@ -133,7 +138,8 @@ export class Player {
             markers: this.markers,
             markersOnBoard: this.markersOnBoard,
             tilesControlled: this.tilesControlled,
-            extinctionsSurvived: this.extinctionsSurvived
+            extinctionsSurvived: this.extinctionsSurvived,
+            specializations: this.specializations
         };
     }
     
@@ -147,6 +153,7 @@ export class Player {
         player.markersOnBoard = data.markersOnBoard;
         player.tilesControlled = data.tilesControlled;
         player.extinctionsSurvived = data.extinctionsSurvived;
+        player.specializations = data.specializations || {};
         return player;
     }
 }

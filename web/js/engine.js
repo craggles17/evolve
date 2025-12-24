@@ -82,13 +82,52 @@ export class GameEngine {
             return { success: false, reason: `Not enough alleles (need ${cost}, have ${player.alleles})` };
         }
         
+        // Handle dynamic specialization for niche_specialist
+        let specialization = null;
+        if (traitId === 'niche_specialist') {
+            const specResult = this.applyEcologicalSpecialist(player);
+            if (!specResult.success) return specResult;
+            specialization = specResult.specialization;
+        }
+        
         const acquired = player.acquireTrait(trait, this.state.currentEra);
         if (acquired) {
-            this.emit('traitAcquired', { player, trait, cost });
-            return { success: true, cost };
+            this.emit('traitAcquired', { player, trait, cost, specialization });
+            return { success: true, cost, specialization };
         }
         
         return { success: false, reason: 'Failed to acquire trait' };
+    }
+    
+    // Apply dynamic specialization when acquiring niche_specialist
+    applyEcologicalSpecialist(player) {
+        const occupiedTiles = this.getPlayerOccupiedTiles(player);
+        if (occupiedTiles.length === 0) {
+            return { success: false, reason: 'No occupied tiles to specialize in' };
+        }
+        
+        // Pick a random occupied tile
+        const tile = occupiedTiles[Math.floor(Math.random() * occupiedTiles.length)];
+        const biome = tile.biome;
+        const bonusTags = tile.biomeData.bonus_tags || [];
+        
+        if (bonusTags.length === 0) {
+            // Biome has no bonus tags - still grant the specialization but no extra tag
+            player.specializations.niche_specialist = { biome, tag: null };
+            return { 
+                success: true, 
+                specialization: { biome, tag: null, biomeName: tile.biomeData.name }
+            };
+        }
+        
+        // Pick a random bonus tag from the biome
+        const tag = bonusTags[Math.floor(Math.random() * bonusTags.length)];
+        player.specializations.niche_specialist = { biome, tag };
+        
+        return { 
+            success: true, 
+            specialization: { biome, tag, biomeName: tile.biomeData.name }
+        };
     }
     
     // Phase 4: Populate - Place markers
@@ -153,13 +192,21 @@ export class GameEngine {
                 const tagBonus = bonusTags.filter(t => tags.has(t)).length;
                 const diceRoll = rollD6();
                 
+                // Check for ecological specialist bonus
+                let specializationBonus = 0;
+                const spec = player.specializations?.niche_specialist;
+                if (spec && tile.biome === spec.biome) {
+                    specializationBonus = 3;
+                }
+                
                 return {
                     player,
                     playerId: parseInt(playerId),
                     markers: count,
                     tagBonus,
+                    specializationBonus,
                     diceRoll,
-                    total: count + tagBonus + diceRoll
+                    total: count + tagBonus + specializationBonus + diceRoll
                 };
             }).sort((a, b) => b.total - a.total);
             
@@ -176,6 +223,7 @@ export class GameEngine {
                     playerId: s.playerId,
                     markers: s.markers,
                     tagBonus: s.tagBonus,
+                    specializationBonus: s.specializationBonus,
                     diceRoll: s.diceRoll,
                     total: s.total
                 })),
@@ -417,70 +465,131 @@ export class GameEngine {
     }
     
     resolveExtinction(player, event) {
-        const tags = player.getTags(this.state.traitDb);
-        const safeTags = new Set(event.safe_tags || []);
+        const playerTags = player.getTags(this.state.traitDb);
+        const eventSafeTags = new Set(event.safe_tags || []);
         const doomedTags = new Set(event.doomed_tags || []);
         
-        // Check for SAFE tags
-        const hasSafe = [...tags].some(t => safeTags.has(t));
-        if (hasSafe) {
-            player.extinctionsSurvived++;
-            return {
-                player,
-                status: 'safe',
-                message: 'Survived with SAFE tag',
-                matchedTag: [...tags].find(t => safeTags.has(t)),
-                lostMarkers: 0
-            };
+        // Player's safe tags = intersection of player tags and event safe tags
+        const playerSafeTags = new Set([...playerTags].filter(t => eventSafeTags.has(t)));
+        
+        const tileResults = [];
+        let totalLost = 0;
+        const neutralTiles = [];
+        
+        // Per-tile evaluation
+        for (const tile of this.state.boardTiles) {
+            const markerCount = this.state.tileMarkers[tile.id][player.id] || 0;
+            if (markerCount === 0) continue;
+            
+            const tileTags = tile.biomeData.bonus_tags || [];
+            const isDoomed = tileTags.some(t => doomedTags.has(t));
+            const isSaved = tileTags.some(t => playerSafeTags.has(t));
+            
+            if (isDoomed && !isSaved) {
+                // Doomed tile - remove all markers
+                this.state.tileMarkers[tile.id][player.id] = 0;
+                player.markersOnBoard -= markerCount;
+                totalLost += markerCount;
+                tileResults.push({
+                    tile,
+                    status: 'doomed',
+                    markersLost: markerCount,
+                    doomedTag: tileTags.find(t => doomedTags.has(t))
+                });
+            } else if (isSaved) {
+                // Saved tile - keep markers
+                tileResults.push({
+                    tile,
+                    status: 'saved',
+                    markersLost: 0,
+                    savedTag: tileTags.find(t => playerSafeTags.has(t))
+                });
+            } else {
+                // Neutral tile - subject to roll
+                neutralTiles.push({ tile, markerCount });
+                tileResults.push({
+                    tile,
+                    status: 'neutral',
+                    markersLost: 0
+                });
+            }
         }
         
-        // Check for DOOMED tags
-        const hasDoomed = [...tags].some(t => doomedTags.has(t));
-        if (hasDoomed) {
-            const losses = Math.ceil(player.markersOnBoard / 2);
-            player.markersOnBoard = Math.max(1, player.markersOnBoard - losses);
-            player.extinctionsSurvived++;
-            
-            // Remove markers from tiles
-            this.removeRandomMarkers(player, losses);
-            
-            return {
-                player,
-                status: 'doomed',
-                message: 'Lost half population with DOOMED tag',
-                matchedTag: [...tags].find(t => doomedTags.has(t)),
-                lostMarkers: losses
-            };
-        }
-        
-        // Neutral roll
-        const roll = rollD6();
+        // Handle neutral tiles with a roll
+        let roll = null;
         const threshold = event.neutral_roll || 4;
         
-        if (roll >= threshold) {
-            player.extinctionsSurvived++;
-            return {
-                player,
-                status: 'survived',
-                message: `Rolled ${roll} (needed ${threshold}+)`,
-                roll,
-                lostMarkers: 0
-            };
-        } else {
-            const losses = Math.ceil(player.markersOnBoard / 2);
-            player.markersOnBoard = Math.max(1, player.markersOnBoard - losses);
-            player.extinctionsSurvived++;
-            
-            this.removeRandomMarkers(player, losses);
-            
-            return {
-                player,
-                status: 'failed',
-                message: `Rolled ${roll} (needed ${threshold}+)`,
-                roll,
-                lostMarkers: losses
-            };
+        if (neutralTiles.length > 0) {
+            roll = rollD6();
+            if (roll < threshold) {
+                // Failed roll - lose half markers from neutral tiles
+                const neutralMarkers = neutralTiles.reduce((sum, n) => sum + n.markerCount, 0);
+                const losses = Math.ceil(neutralMarkers / 2);
+                let remaining = losses;
+                
+                for (const { tile, markerCount } of neutralTiles) {
+                    if (remaining <= 0) break;
+                    const toLose = Math.min(markerCount, remaining);
+                    this.state.tileMarkers[tile.id][player.id] -= toLose;
+                    player.markersOnBoard -= toLose;
+                    totalLost += toLose;
+                    remaining -= toLose;
+                    
+                    // Update tile result
+                    const result = tileResults.find(r => r.tile.id === tile.id);
+                    if (result) {
+                        result.markersLost = toLose;
+                        result.status = 'failed_roll';
+                    }
+                }
+            }
         }
+        
+        // Ensure at least 1 marker survives
+        if (player.markersOnBoard < 1 && totalLost > 0) {
+            // Restore one marker to a random tile
+            const anyTile = this.state.boardTiles.find(t => 
+                (this.state.tileMarkers[t.id][player.id] || 0) === 0
+            ) || this.state.boardTiles[0];
+            this.state.tileMarkers[anyTile.id][player.id] = 1;
+            player.markersOnBoard = 1;
+            totalLost -= 1;
+        }
+        
+        player.extinctionsSurvived++;
+        
+        // Determine overall status
+        let status = 'survived';
+        let message = 'Survived the extinction event';
+        
+        const doomedCount = tileResults.filter(r => r.status === 'doomed').length;
+        const savedCount = tileResults.filter(r => r.status === 'saved').length;
+        const failedCount = tileResults.filter(r => r.status === 'failed_roll').length;
+        
+        if (doomedCount > 0 && savedCount > 0) {
+            status = 'partial';
+            message = `Saved ${savedCount} tile(s), lost markers on ${doomedCount} doomed tile(s)`;
+        } else if (doomedCount > 0) {
+            status = 'doomed';
+            message = `Lost markers on ${doomedCount} doomed tile(s)`;
+        } else if (savedCount > 0) {
+            status = 'safe';
+            message = `All ${savedCount} tile(s) protected by safe tags`;
+        } else if (failedCount > 0) {
+            status = 'failed';
+            message = `Rolled ${roll} (needed ${threshold}+) - lost markers on ${failedCount} tile(s)`;
+        } else if (roll !== null) {
+            message = `Rolled ${roll} (needed ${threshold}+) - survived`;
+        }
+        
+        return {
+            player,
+            status,
+            message,
+            roll,
+            tileResults,
+            lostMarkers: totalLost
+        };
     }
     
     removeRandomMarkers(player, count) {
