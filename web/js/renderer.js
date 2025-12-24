@@ -1805,78 +1805,85 @@ export class Renderer {
     
     // ==================== TECH TREE ====================
     
-    // Compute DAG layout for all traits
+    // Compute era-based layout for all traits (vertical columns per era)
     computeTechTreeLayout(traitDb) {
         const traits = Object.values(traitDb);
-        const depthMap = {};
         const positions = {};
         
-        // Compute depth for each trait (topological sort with depth tracking)
-        const computeDepth = (traitId, visited = new Set()) => {
-            if (depthMap[traitId] !== undefined) return depthMap[traitId];
-            if (visited.has(traitId)) return 0; // Cycle protection
-            visited.add(traitId);
-            
-            const trait = traitDb[traitId];
-            if (!trait) return 0;
-            
-            const prereqs = trait.hard_prereqs || [];
-            if (prereqs.length === 0) {
-                depthMap[traitId] = 0;
-                return 0;
-            }
-            
-            const maxPrereqDepth = Math.max(...prereqs.map(p => computeDepth(p, visited)));
-            depthMap[traitId] = maxPrereqDepth + 1;
-            return depthMap[traitId];
-        };
-        
-        // Compute depth for all traits
-        for (const trait of traits) {
-            computeDepth(trait.id);
-        }
-        
-        // Group traits by depth
-        const depthGroups = {};
-        for (const trait of traits) {
-            const depth = depthMap[trait.id] || 0;
-            if (!depthGroups[depth]) depthGroups[depth] = [];
-            depthGroups[depth].push(trait);
-        }
-        
-        // Sort each depth group by era_min for better organization
-        for (const depth in depthGroups) {
-            depthGroups[depth].sort((a, b) => a.era_min - b.era_min);
-        }
-        
         // Layout constants
-        const NODE_WIDTH = 90;
-        const NODE_HEIGHT = 28;
-        const H_GAP = 30;
-        const V_GAP = 12;
-        const PADDING = 15;
+        const NODE_WIDTH = 80;
+        const NODE_HEIGHT = 22;
+        const ERA_WIDTH = 100;  // Width of each era column
+        const V_GAP = 6;
+        const HEADER_HEIGHT = 20;
+        const PADDING = 8;
+        const NUM_ERAS = 12;
         
-        // Compute positions
-        const maxDepth = Math.max(...Object.keys(depthGroups).map(Number));
-        let totalHeight = 0;
+        // Group traits by era_min
+        const eraGroups = {};
+        for (let i = 0; i < NUM_ERAS; i++) {
+            eraGroups[i] = [];
+        }
         
-        for (let depth = 0; depth <= maxDepth; depth++) {
-            const group = depthGroups[depth] || [];
-            const x = PADDING + depth * (NODE_WIDTH + H_GAP);
+        for (const trait of traits) {
+            const era = trait.era_min;
+            if (era >= 0 && era < NUM_ERAS) {
+                eraGroups[era].push(trait);
+            }
+        }
+        
+        // Sort traits within each era by cost (simpler traits first)
+        for (const era in eraGroups) {
+            eraGroups[era].sort((a, b) => {
+                // Sort by number of hard prereqs, then by cost
+                const aPrereqs = (a.hard_prereqs || []).length;
+                const bPrereqs = (b.hard_prereqs || []).length;
+                if (aPrereqs !== bPrereqs) return aPrereqs - bPrereqs;
+                return a.cost - b.cost;
+            });
+        }
+        
+        // Find the max traits in any era (for height calculation)
+        let maxTraitsInEra = 0;
+        for (const era in eraGroups) {
+            maxTraitsInEra = Math.max(maxTraitsInEra, eraGroups[era].length);
+        }
+        
+        // Compute positions - horizontal layout with vertical stacking in each era
+        for (let era = 0; era < NUM_ERAS; era++) {
+            const group = eraGroups[era];
+            const eraX = PADDING + era * ERA_WIDTH;
+            const nodeStartX = eraX + (ERA_WIDTH - NODE_WIDTH) / 2;
             
             for (let i = 0; i < group.length; i++) {
-                const y = PADDING + i * (NODE_HEIGHT + V_GAP);
-                positions[group[i].id] = { x, y, depth };
-                totalHeight = Math.max(totalHeight, y + NODE_HEIGHT);
+                const y = HEADER_HEIGHT + PADDING + i * (NODE_HEIGHT + V_GAP);
+                positions[group[i].id] = { 
+                    x: nodeStartX, 
+                    y, 
+                    era,
+                    eraX  // Store era column X for band drawing
+                };
             }
         }
         
-        const totalWidth = PADDING * 2 + (maxDepth + 1) * (NODE_WIDTH + H_GAP) - H_GAP;
+        const totalWidth = PADDING * 2 + NUM_ERAS * ERA_WIDTH;
+        const totalHeight = HEADER_HEIGHT + PADDING * 2 + maxTraitsInEra * (NODE_HEIGHT + V_GAP);
         
-        return { positions, depthMap, totalWidth, totalHeight: totalHeight + PADDING, NODE_WIDTH, NODE_HEIGHT };
+        return { 
+            positions, 
+            eraGroups,
+            totalWidth, 
+            totalHeight, 
+            NODE_WIDTH, 
+            NODE_HEIGHT,
+            ERA_WIDTH,
+            HEADER_HEIGHT,
+            PADDING,
+            NUM_ERAS
+        };
     }
     
-    // Render the full tech tree
+    // Render the full tech tree with era bands
     renderTechTree(player, currentEra, traitDb) {
         const svg = $('#tech-tree-svg');
         if (!svg) return;
@@ -1885,9 +1892,9 @@ export class Renderer {
         
         // Compute layout
         const layout = this.computeTechTreeLayout(traitDb);
-        const { positions, totalWidth, totalHeight, NODE_WIDTH, NODE_HEIGHT } = layout;
+        const { positions, totalWidth, totalHeight, NODE_WIDTH, NODE_HEIGHT, ERA_WIDTH, HEADER_HEIGHT, PADDING, NUM_ERAS } = layout;
         
-        // Set viewBox
+        // Set viewBox and dimensions
         svg.setAttribute('viewBox', `0 0 ${totalWidth} ${totalHeight}`);
         svg.style.width = `${totalWidth}px`;
         svg.style.height = `${totalHeight}px`;
@@ -1928,7 +1935,52 @@ export class Renderer {
         
         svg.appendChild(defs);
         
-        // Draw edges first (so they're behind nodes)
+        // Draw era bands (background columns)
+        const bandLayer = createSVGElement('g');
+        bandLayer.classList.add('tech-tree-bands');
+        
+        for (let era = 0; era < NUM_ERAS; era++) {
+            const eraX = PADDING + era * ERA_WIDTH;
+            const eraColor = ERA_COLORS[era] || '#666';
+            
+            // Era background band
+            const band = createSVGElement('rect');
+            band.setAttribute('x', eraX);
+            band.setAttribute('y', 0);
+            band.setAttribute('width', ERA_WIDTH);
+            band.setAttribute('height', totalHeight);
+            band.setAttribute('fill', eraColor);
+            band.classList.add('era-band');
+            bandLayer.appendChild(band);
+            
+            // Divider line between eras
+            if (era > 0) {
+                const divider = createSVGElement('line');
+                divider.setAttribute('x1', eraX);
+                divider.setAttribute('y1', 0);
+                divider.setAttribute('x2', eraX);
+                divider.setAttribute('y2', totalHeight);
+                divider.classList.add('era-band-divider');
+                bandLayer.appendChild(divider);
+            }
+            
+            // Era header label
+            const headerText = createSVGElement('text');
+            headerText.setAttribute('x', eraX + ERA_WIDTH / 2);
+            headerText.setAttribute('y', HEADER_HEIGHT / 2 + 4);
+            headerText.setAttribute('text-anchor', 'middle');
+            headerText.classList.add('era-band-header');
+            // Highlight current era
+            if (era === currentEra) {
+                headerText.setAttribute('fill', '#d4a574');
+                headerText.setAttribute('font-weight', '700');
+            }
+            headerText.textContent = `E${era}`;
+            bandLayer.appendChild(headerText);
+        }
+        svg.appendChild(bandLayer);
+        
+        // Draw edges (prerequisite arrows)
         const edgeLayer = createSVGElement('g');
         edgeLayer.classList.add('tech-tree-edges');
         
@@ -1947,13 +1999,13 @@ export class Renderer {
                 const endY = toPos.y + NODE_HEIGHT / 2;
                 
                 // Bezier curve for smooth edges
-                const ctrlOffset = Math.min(30, Math.abs(endX - startX) / 3);
+                const ctrlOffset = Math.min(40, Math.abs(endX - startX) / 2);
                 const d = `M ${startX} ${startY} C ${startX + ctrlOffset} ${startY}, ${endX - ctrlOffset} ${endY}, ${endX} ${endY}`;
                 
                 path.setAttribute('d', d);
                 path.setAttribute('fill', 'none');
                 path.setAttribute('stroke', '#484f58');
-                path.setAttribute('stroke-width', '1.5');
+                path.setAttribute('stroke-width', '1');
                 path.setAttribute('marker-end', 'url(#tech-arrow)');
                 path.classList.add('tech-edge');
                 
@@ -1982,32 +2034,21 @@ export class Renderer {
             rect.setAttribute('y', pos.y);
             rect.setAttribute('width', NODE_WIDTH);
             rect.setAttribute('height', NODE_HEIGHT);
-            rect.setAttribute('rx', '4');
+            rect.setAttribute('rx', '3');
             group.appendChild(rect);
             
-            // Trait name (truncated)
+            // Trait name (truncated to fit smaller nodes)
             const text = createSVGElement('text');
             text.setAttribute('x', pos.x + NODE_WIDTH / 2);
-            text.setAttribute('y', pos.y + NODE_HEIGHT / 2 + 4);
+            text.setAttribute('y', pos.y + NODE_HEIGHT / 2 + 3);
             text.setAttribute('text-anchor', 'middle');
-            text.setAttribute('font-size', '9');
+            text.setAttribute('font-size', '8');
             text.setAttribute('pointer-events', 'none');
             
             // Truncate name to fit
-            const displayName = trait.name.length > 12 ? trait.name.substring(0, 11) + '…' : trait.name;
+            const displayName = trait.name.length > 11 ? trait.name.substring(0, 10) + '…' : trait.name;
             text.textContent = displayName;
             group.appendChild(text);
-            
-            // Era indicator (small badge)
-            const eraBadge = createSVGElement('text');
-            eraBadge.setAttribute('x', pos.x + NODE_WIDTH - 4);
-            eraBadge.setAttribute('y', pos.y + 10);
-            eraBadge.setAttribute('text-anchor', 'end');
-            eraBadge.setAttribute('font-size', '7');
-            eraBadge.setAttribute('fill', '#8b949e');
-            eraBadge.setAttribute('pointer-events', 'none');
-            eraBadge.textContent = `E${trait.era_min}`;
-            group.appendChild(eraBadge);
             
             // Tooltip
             const title = createSVGElement('title');

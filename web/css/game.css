@@ -59,6 +59,7 @@
     /* Sizing */
     --header-height: 60px;
     --footer-height: 80px;
+    --tech-tree-height: 140px;
     --panel-width: 280px;
     
     /* Fonts */
@@ -378,7 +379,7 @@ body {
 #game-main {
     flex: 1;
     display: flex;
-    height: calc(100vh - var(--header-height) - var(--footer-height));
+    height: calc(100vh - var(--header-height) - var(--tech-tree-height) - var(--footer-height));
     overflow: hidden;
 }
 
@@ -2702,26 +2703,34 @@ body {
 
 /* ==================== TECH TREE STYLES ==================== */
 
-#tech-tree-container {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 0.75rem;
-    margin-top: 0.75rem;
+#tech-tree-panel {
+    height: var(--tech-tree-height);
+    background: var(--bg-panel);
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
 }
 
-#tech-tree-container h3 {
+.tech-tree-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 1rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.tech-tree-header h3 {
     font-family: var(--font-display);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--accent-gold);
-    margin-bottom: 0.5rem;
+    margin: 0;
 }
 
 .tech-tree-legend {
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 0.5rem;
+    gap: 12px;
     font-size: 0.7rem;
 }
 
@@ -2737,16 +2746,39 @@ body {
 .legend-locked { color: var(--text-muted); }
 
 #tech-tree-scroll {
-    max-height: 300px;
-    overflow: auto;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
     background: var(--bg-dark);
-    border-radius: 4px;
-    padding: 4px;
 }
 
 #tech-tree-svg {
     display: block;
-    min-width: 100%;
+    height: 100%;
+}
+
+/* Era Band Columns */
+.era-band {
+    opacity: 0.15;
+}
+
+.era-band-header {
+    fill: var(--text-primary);
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.era-band-subheader {
+    fill: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 8px;
+}
+
+.era-band-divider {
+    stroke: var(--border);
+    stroke-width: 1;
+    opacity: 0.5;
 }
 
 /* Tech Tree Edges */
@@ -2838,8 +2870,12 @@ body {
 
 /* Mobile: hide tech tree on small screens */
 @media (max-width: 900px) {
-    #tech-tree-container {
+    #tech-tree-panel {
         display: none;
+    }
+    
+    #game-main {
+        height: calc(100vh - var(--header-height) - var(--footer-height));
     }
 }
 
