@@ -11,6 +11,7 @@ export class Player {
         // Game state
         this.traits = [];           // Array of trait IDs acquired
         this.traitsByEra = {};      // { era: [traitIds] } for lineage board
+        this.traitAcquisitions = {};// { traitId: era } when each trait was acquired
         this.hand = [];             // Array of trait objects in hand
         this.alleles = 0;
         this.markers = 6;           // Start with 6 markers (3 pre-placed, 3 available)
@@ -106,6 +107,7 @@ export class Player {
         
         this.alleles -= cost;
         this.traits.push(trait.id);
+        this.traitAcquisitions[trait.id] = currentEra;
         
         // Track by era for lineage board
         if (!this.traitsByEra[currentEra]) {

@@ -6,6 +6,11 @@ export const ERA_NAMES = [
     'Cretaceous', 'Paleogene', 'Neogene', 'Quaternary'
 ];
 
+// MYA (Millions of Years Ago) start times for each era
+export const ERA_MYA = [
+    540, 485, 444, 419, 359, 299, 252, 201, 145, 66, 23, 2.6
+];
+
 export const ERA_COLORS = [
     '#F4B8D0', '#009270', '#B3E1D2', '#CB8C37',
     '#67A599', '#F04028', '#812B92', '#34B2E5',

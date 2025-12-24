@@ -3,7 +3,7 @@
 import { 
     $, $$, createElement, createSVGElement,
     offsetToPixel, getHexCorners, cornersToPoints,
-    ERA_NAMES, ERA_COLORS, ERA_TEXT_COLORS, PLAYER_COLORS, STABILITY_INFO,
+    ERA_NAMES, ERA_COLORS, ERA_TEXT_COLORS, ERA_MYA, PLAYER_COLORS, STABILITY_INFO,
     HEX_SIZE, HEX_WIDTH, HEX_VERT_SPACING
 } from './utils.js';
 import { PHASE_NAMES, PHASE_HINTS } from './state.js';
@@ -1805,19 +1805,21 @@ export class Renderer {
     
     // ==================== TECH TREE ====================
     
-    // Compute era-based layout for all traits (vertical columns per era)
-    computeTechTreeLayout(traitDb) {
+    // Compute MYA timeline layout for all traits (horizontal timeline, vertical stacking)
+    computeTechTreeLayout(traitDb, containerWidth = 1200) {
         const traits = Object.values(traitDb);
         const positions = {};
         
         // Layout constants
-        const NODE_WIDTH = 80;
-        const NODE_HEIGHT = 22;
-        const ERA_WIDTH = 100;  // Width of each era column
-        const V_GAP = 6;
-        const HEADER_HEIGHT = 20;
-        const PADDING = 8;
+        const NODE_WIDTH = 75;
+        const NODE_HEIGHT = 20;
+        const V_GAP = 4;
+        const MYA_HEADER_HEIGHT = 28;
+        const PADDING = 6;
         const NUM_ERAS = 12;
+        
+        // Calculate era column width based on container
+        const ERA_WIDTH = Math.max(85, (containerWidth - PADDING * 2) / NUM_ERAS);
         
         // Group traits by era_min
         const eraGroups = {};
@@ -1835,7 +1837,6 @@ export class Renderer {
         // Sort traits within each era by cost (simpler traits first)
         for (const era in eraGroups) {
             eraGroups[era].sort((a, b) => {
-                // Sort by number of hard prereqs, then by cost
                 const aPrereqs = (a.hard_prereqs || []).length;
                 const bPrereqs = (b.hard_prereqs || []).length;
                 if (aPrereqs !== bPrereqs) return aPrereqs - bPrereqs;
@@ -1849,25 +1850,25 @@ export class Renderer {
             maxTraitsInEra = Math.max(maxTraitsInEra, eraGroups[era].length);
         }
         
-        // Compute positions - horizontal layout with vertical stacking in each era
+        // Compute positions - horizontal timeline with vertical stacking
         for (let era = 0; era < NUM_ERAS; era++) {
             const group = eraGroups[era];
             const eraX = PADDING + era * ERA_WIDTH;
             const nodeStartX = eraX + (ERA_WIDTH - NODE_WIDTH) / 2;
             
             for (let i = 0; i < group.length; i++) {
-                const y = HEADER_HEIGHT + PADDING + i * (NODE_HEIGHT + V_GAP);
+                const y = MYA_HEADER_HEIGHT + PADDING + i * (NODE_HEIGHT + V_GAP);
                 positions[group[i].id] = { 
                     x: nodeStartX, 
                     y, 
                     era,
-                    eraX  // Store era column X for band drawing
+                    eraX
                 };
             }
         }
         
         const totalWidth = PADDING * 2 + NUM_ERAS * ERA_WIDTH;
-        const totalHeight = HEADER_HEIGHT + PADDING * 2 + maxTraitsInEra * (NODE_HEIGHT + V_GAP);
+        const totalHeight = MYA_HEADER_HEIGHT + PADDING * 2 + maxTraitsInEra * (NODE_HEIGHT + V_GAP);
         
         return { 
             positions, 
@@ -1877,27 +1878,34 @@ export class Renderer {
             NODE_WIDTH, 
             NODE_HEIGHT,
             ERA_WIDTH,
-            HEADER_HEIGHT,
+            MYA_HEADER_HEIGHT,
             PADDING,
             NUM_ERAS
         };
     }
     
-    // Render the full tech tree with era bands
+    // Render the full tech tree with MYA timeline header
     renderTechTree(player, currentEra, traitDb) {
         const svg = $('#tech-tree-svg');
         if (!svg) return;
         
         svg.innerHTML = '';
         
-        // Compute layout
-        const layout = this.computeTechTreeLayout(traitDb);
-        const { positions, totalWidth, totalHeight, NODE_WIDTH, NODE_HEIGHT, ERA_WIDTH, HEADER_HEIGHT, PADDING, NUM_ERAS } = layout;
+        // Get container width for responsive layout
+        const container = $('#tech-tree-scroll');
+        const containerWidth = container ? container.clientWidth : 1200;
         
-        // Set viewBox and dimensions
+        // Compute layout
+        const layout = this.computeTechTreeLayout(traitDb, containerWidth);
+        const { positions, totalWidth, totalHeight, NODE_WIDTH, NODE_HEIGHT, ERA_WIDTH, MYA_HEADER_HEIGHT, PADDING, NUM_ERAS } = layout;
+        
+        // Set viewBox and dimensions - full width, scrollable height
         svg.setAttribute('viewBox', `0 0 ${totalWidth} ${totalHeight}`);
-        svg.style.width = `${totalWidth}px`;
+        svg.style.width = '100%';
         svg.style.height = `${totalHeight}px`;
+        
+        // Build acquisition era lookup from player data
+        const acquisitionEras = player.traitAcquisitions || {};
         
         // Determine trait states
         const handIds = new Set(player.hand.map(t => t.id));
@@ -1935,50 +1943,79 @@ export class Renderer {
         
         svg.appendChild(defs);
         
-        // Draw era bands (background columns)
-        const bandLayer = createSVGElement('g');
-        bandLayer.classList.add('tech-tree-bands');
+        // Draw MYA timeline header bar
+        const headerLayer = createSVGElement('g');
+        headerLayer.classList.add('mya-header-bar');
         
+        // Header background
+        const headerBg = createSVGElement('rect');
+        headerBg.setAttribute('x', 0);
+        headerBg.setAttribute('y', 0);
+        headerBg.setAttribute('width', totalWidth);
+        headerBg.setAttribute('height', MYA_HEADER_HEIGHT);
+        headerBg.classList.add('mya-header-bg');
+        headerLayer.appendChild(headerBg);
+        
+        // Draw era columns with MYA markers
         for (let era = 0; era < NUM_ERAS; era++) {
             const eraX = PADDING + era * ERA_WIDTH;
             const eraColor = ERA_COLORS[era] || '#666';
+            const mya = ERA_MYA[era];
+            const isCurrentEra = era === currentEra;
             
-            // Era background band
+            // Era background band (below header)
             const band = createSVGElement('rect');
             band.setAttribute('x', eraX);
-            band.setAttribute('y', 0);
+            band.setAttribute('y', MYA_HEADER_HEIGHT);
             band.setAttribute('width', ERA_WIDTH);
-            band.setAttribute('height', totalHeight);
+            band.setAttribute('height', totalHeight - MYA_HEADER_HEIGHT);
             band.setAttribute('fill', eraColor);
-            band.classList.add('era-band');
-            bandLayer.appendChild(band);
+            band.setAttribute('opacity', '0.08');
+            headerLayer.appendChild(band);
             
-            // Divider line between eras
+            // Divider line
             if (era > 0) {
                 const divider = createSVGElement('line');
                 divider.setAttribute('x1', eraX);
                 divider.setAttribute('y1', 0);
                 divider.setAttribute('x2', eraX);
                 divider.setAttribute('y2', totalHeight);
-                divider.classList.add('era-band-divider');
-                bandLayer.appendChild(divider);
+                divider.classList.add('mya-divider');
+                headerLayer.appendChild(divider);
             }
             
-            // Era header label
-            const headerText = createSVGElement('text');
-            headerText.setAttribute('x', eraX + ERA_WIDTH / 2);
-            headerText.setAttribute('y', HEADER_HEIGHT / 2 + 4);
-            headerText.setAttribute('text-anchor', 'middle');
-            headerText.classList.add('era-band-header');
-            // Highlight current era
-            if (era === currentEra) {
-                headerText.setAttribute('fill', '#d4a574');
-                headerText.setAttribute('font-weight', '700');
-            }
-            headerText.textContent = `E${era}`;
-            bandLayer.appendChild(headerText);
+            // MYA text in header
+            const myaText = createSVGElement('text');
+            myaText.setAttribute('x', eraX + ERA_WIDTH / 2);
+            myaText.setAttribute('y', 11);
+            myaText.setAttribute('text-anchor', 'middle');
+            myaText.classList.add('mya-header-text');
+            if (isCurrentEra) myaText.classList.add('mya-current-era');
+            myaText.textContent = `${mya} MYA`;
+            headerLayer.appendChild(myaText);
+            
+            // Era name below MYA
+            const eraText = createSVGElement('text');
+            eraText.setAttribute('x', eraX + ERA_WIDTH / 2);
+            eraText.setAttribute('y', 22);
+            eraText.setAttribute('text-anchor', 'middle');
+            eraText.classList.add('mya-header-era');
+            if (isCurrentEra) eraText.classList.add('mya-current-era');
+            eraText.textContent = ERA_NAMES[era].substring(0, 4);
+            headerLayer.appendChild(eraText);
         }
-        svg.appendChild(bandLayer);
+        
+        // Bottom border for header
+        const headerBorder = createSVGElement('line');
+        headerBorder.setAttribute('x1', 0);
+        headerBorder.setAttribute('y1', MYA_HEADER_HEIGHT);
+        headerBorder.setAttribute('x2', totalWidth);
+        headerBorder.setAttribute('y2', MYA_HEADER_HEIGHT);
+        headerBorder.setAttribute('stroke', '#484f58');
+        headerBorder.setAttribute('stroke-width', '1');
+        headerLayer.appendChild(headerBorder);
+        
+        svg.appendChild(headerLayer);
         
         // Draw edges (prerequisite arrows)
         const edgeLayer = createSVGElement('g');
@@ -2042,17 +2079,47 @@ export class Renderer {
             text.setAttribute('x', pos.x + NODE_WIDTH / 2);
             text.setAttribute('y', pos.y + NODE_HEIGHT / 2 + 3);
             text.setAttribute('text-anchor', 'middle');
-            text.setAttribute('font-size', '8');
+            text.setAttribute('font-size', '7');
             text.setAttribute('pointer-events', 'none');
             
             // Truncate name to fit
-            const displayName = trait.name.length > 11 ? trait.name.substring(0, 10) + '…' : trait.name;
+            const maxChars = 10;
+            const displayName = trait.name.length > maxChars ? trait.name.substring(0, maxChars - 1) + '…' : trait.name;
             text.textContent = displayName;
             group.appendChild(text);
             
+            // Era acquisition badge for owned traits
+            if (state === 'owned' && acquisitionEras[trait.id] !== undefined) {
+                const acqEra = acquisitionEras[trait.id];
+                const badgeX = pos.x + NODE_WIDTH - 12;
+                const badgeY = pos.y - 4;
+                
+                // Badge background circle
+                const badgeBg = createSVGElement('circle');
+                badgeBg.setAttribute('cx', badgeX + 6);
+                badgeBg.setAttribute('cy', badgeY + 6);
+                badgeBg.setAttribute('r', '7');
+                badgeBg.classList.add('era-badge-bg');
+                group.appendChild(badgeBg);
+                
+                // Badge text
+                const badgeText = createSVGElement('text');
+                badgeText.setAttribute('x', badgeX + 6);
+                badgeText.setAttribute('y', badgeY + 9);
+                badgeText.setAttribute('text-anchor', 'middle');
+                badgeText.setAttribute('font-size', '7');
+                badgeText.classList.add('era-badge-text');
+                badgeText.textContent = `E${acqEra}`;
+                group.appendChild(badgeText);
+            }
+            
             // Tooltip
             const title = createSVGElement('title');
-            title.textContent = `${trait.name}\nCost: ${trait.cost} | Era ${trait.era_min}-${trait.era_max}\n${trait.grants}`;
+            let tooltipText = `${trait.name}\nCost: ${trait.cost} | Era ${trait.era_min}-${trait.era_max}\n${trait.grants}`;
+            if (state === 'owned' && acquisitionEras[trait.id] !== undefined) {
+                tooltipText += `\nAcquired: Era ${acquisitionEras[trait.id]} (${ERA_NAMES[acquisitionEras[trait.id]]})`;
+            }
+            title.textContent = tooltipText;
             group.appendChild(title);
             
             // Click handler for available and owned traits

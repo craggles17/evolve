@@ -59,7 +59,7 @@
     /* Sizing */
     --header-height: 60px;
     --footer-height: 80px;
-    --tech-tree-height: 140px;
+    --tech-tree-height: 160px;
     --panel-width: 280px;
     
     /* Fonts */
@@ -2747,38 +2747,64 @@ body {
 
 #tech-tree-scroll {
     flex: 1;
-    overflow-x: auto;
-    overflow-y: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     background: var(--bg-dark);
 }
 
 #tech-tree-svg {
     display: block;
-    height: 100%;
+    width: 100%;
 }
 
-/* Era Band Columns */
-.era-band {
-    opacity: 0.15;
+/* MYA Timeline Header */
+.mya-header-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
-.era-band-header {
-    fill: var(--text-primary);
-    font-family: var(--font-display);
-    font-size: 10px;
+.mya-header-bg {
+    fill: var(--bg-card);
+}
+
+.mya-header-text {
+    fill: var(--text-secondary);
+    font-family: var(--font-body);
+    font-size: 9px;
     font-weight: 600;
 }
 
-.era-band-subheader {
-    fill: var(--text-secondary);
+.mya-header-era {
+    fill: var(--text-muted);
     font-family: var(--font-body);
-    font-size: 8px;
+    font-size: 7px;
 }
 
-.era-band-divider {
+.mya-divider {
     stroke: var(--border);
     stroke-width: 1;
-    opacity: 0.5;
+    opacity: 0.3;
+}
+
+.mya-current-era {
+    fill: var(--accent-gold);
+    font-weight: 700;
+}
+
+/* Era acquisition badge */
+.era-badge {
+    font-family: var(--font-body);
+    font-size: 7px;
+    font-weight: 700;
+}
+
+.era-badge-bg {
+    fill: var(--accent-amber);
+}
+
+.era-badge-text {
+    fill: var(--bg-dark);
 }
 
 /* Tech Tree Edges */
