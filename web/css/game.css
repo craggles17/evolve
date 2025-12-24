@@ -826,6 +826,97 @@ body {
     }
 }
 
+/* Drag-over state for tiles */
+.hex-tile.drag-over polygon {
+    stroke: #58a6ff !important;
+    stroke-width: 5px !important;
+    filter: drop-shadow(0 0 10px rgba(88, 166, 255, 0.8)) !important;
+}
+
+/* Draggable marker in stats panel */
+.stat-markers-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.drag-marker {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.drag-marker.active {
+    animation: markerPulse 1.5s ease-in-out infinite;
+}
+
+.drag-marker.active:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.drag-marker.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.drag-marker.dragging {
+    opacity: 0.5;
+    transform: scale(0.9);
+}
+
+.drag-marker-icon {
+    font-size: 14px;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.5));
+}
+
+@keyframes markerPulse {
+    0%, 100% {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 0 2px 12px rgba(63, 185, 80, 0.6);
+    }
+}
+
+/* Tile info modal styling */
+.tile-color-swatch {
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tile-markers-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.95rem;
+}
+
+.tag.required {
+    background: rgba(248, 81, 73, 0.2);
+    border: 1px solid #f85149;
+    color: #f85149;
+}
+
+.tag.bonus {
+    background: rgba(63, 185, 80, 0.2);
+    border: 1px solid #3fb950;
+    color: #3fb950;
+}
+
+.no-reqs {
+    opacity: 0.6;
+    font-style: italic;
+}
+
 /* Era lock badge styling */
 .hex-tile .era-lock-badge {
     filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
