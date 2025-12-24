@@ -192,7 +192,9 @@
         {"trait_id": "nocturnal", "copies": 2, "rarity": "common"},
         {"trait_id": "small_size", "copies": 2, "rarity": "common"},
         {"trait_id": "burrowing", "copies": 2, "rarity": "common"},
-        {"trait_id": "arboreal", "copies": 2, "rarity": "common"}
+        {"trait_id": "arboreal", "copies": 2, "rarity": "common"},
+        {"trait_id": "tropical_specialist", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "niche_specialist", "copies": 2, "rarity": "uncommon"}
       ]
     },
     "8": {
