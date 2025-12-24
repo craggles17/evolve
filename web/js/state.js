@@ -40,6 +40,20 @@ export const GAME_MODES = {
     SOLO: 'solo'
 };
 
+export const DIFFICULTY = {
+    EASY: 'easy',
+    NORMAL: 'normal',
+    HARD: 'hard',
+    BRUTAL: 'brutal'
+};
+
+export const DIFFICULTY_SETTINGS = {
+    [DIFFICULTY.EASY]: { alleleRetention: Infinity, label: 'Easy', desc: 'Keep all alleles' },
+    [DIFFICULTY.NORMAL]: { alleleRetention: 10, label: 'Normal', desc: 'Keep up to 10' },
+    [DIFFICULTY.HARD]: { alleleRetention: 5, label: 'Hard', desc: 'Keep up to 5' },
+    [DIFFICULTY.BRUTAL]: { alleleRetention: 0, label: 'Brutal', desc: 'Lose all' }
+};
+
 export class GameState {
     constructor() {
         // Game data (loaded from JSON)
@@ -83,6 +97,10 @@ export class GameState {
         // Hand limit (experimental - disabled by default)
         this.handLimitEnabled = false;
         this.handLimit = 10;
+        
+        // Allele decay (experimental - disabled by default)
+        this.alleleDecayEnabled = false;
+        this.difficulty = DIFFICULTY.NORMAL;
     }
     
     async loadGameData() {
@@ -391,7 +409,9 @@ export class GameState {
             gameEnded: this.gameEnded,
             soloExtinct: this.soloExtinct,
             handLimitEnabled: this.handLimitEnabled,
-            handLimit: this.handLimit
+            handLimit: this.handLimit,
+            alleleDecayEnabled: this.alleleDecayEnabled,
+            difficulty: this.difficulty
         };
     }
     
@@ -410,6 +430,8 @@ export class GameState {
         this.soloExtinct = data.soloExtinct || false;
         this.handLimitEnabled = data.handLimitEnabled || false;
         this.handLimit = data.handLimit || 10;
+        this.alleleDecayEnabled = data.alleleDecayEnabled || false;
+        this.difficulty = data.difficulty || DIFFICULTY.NORMAL;
         
         // Reconstruct players
         this.players = data.players.map(p => Player.fromJSON(p, this.traitDb));

@@ -6,8 +6,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#812B92"/>
-      <stop offset="100%" style="stop-color:#812B92"/>
+      <stop offset="0%" style="stop-color:#67A599"/>
+      <stop offset="100%" style="stop-color:#67A599"/>
     </linearGradient>
   </defs>
   
@@ -15,37 +15,37 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">ERA 6-11 (Tri-Qua)</text>
-  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 7</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 4-11 (Car-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 3</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+3 CPX</text>
   
   <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
-  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">MAMMARY GLANDS</text>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">MIGRATION</text>
   
   <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
   <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (3)</text>
-  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Fur ◀</tspan><tspan x="65" dy="10" fill="#888">Endothermy ◁</tspan></text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#888">Powered Fli… ◁</tspan></text>
   
   <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (5)</text>
-  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Live Birth … ▶</tspan><tspan x="185" dy="10" fill="#27ae60">Placenta ▶</tspan><tspan x="185" dy="10" fill="#27ae60">Opposable D… ▶</tspan></text>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
   
   <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Mammal] [Parental-Care]</text>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Mobile] [Behavioral]</text>
   
   <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">ALLELES: -1/era</text>
-  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: Offspring survive parent death</text>
-  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc">Optimal nutrition.</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">TILES: Move to ANY tile once per era (seas...</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">Follow resources.</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
   
   <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
   <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Mammary glands evolved from modified sweat glands - opt</text>
-  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">imal infant nutrition</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Arctic terns migrate 70,000 km/year; wildebeest trek 1,</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">000 km - hardwired naviga...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Mammalia]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>

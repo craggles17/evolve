@@ -16,36 +16,36 @@
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
   <text x="125" y="25" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">ERA 1-11 (Ord-Qua)</text>
-  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 3</text>
-  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+3 CPX</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 2</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+2 CPX</text>
   
   <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
-  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">JAWS</text>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">AUTOTOMY</text>
   
   <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
-  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (1)</text>
-  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Vertebral C… ◀</tspan></text>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#888">Regeneration ◁</tspan></text>
   
   <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (7)</text>
-  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Cartilagino… ▶</tspan><tspan x="185" dy="10" fill="#27ae60">Bony Skelet… ▶</tspan><tspan x="185" dy="10" fill="#27ae60">Large Size ▶</tspan></text>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
   
   <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Predator] [Gnathostome]</text>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Defensive] [Regenerating]</text>
   
   <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +2 vs [Aquatic] prey</text>
-  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">Can displace [Shelled] organisms.</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: Escape predation once per era (s...</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">Distract and flee.</text>
   <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
   
   <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
   <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Jaws evolved from gill arches ~430 MYA, revolutionizing</text>
-  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666"> feeding strategies</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Voluntary limb loss at fracture planes - lizards, crabs</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">, starfish all use this s...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Gnathostomata]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>

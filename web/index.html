@@ -80,6 +80,43 @@
                         </div>
                     </div>
                     
+                    <!-- Experimental Options -->
+                    <div class="experimental-options">
+                        <button type="button" class="experimental-toggle" id="solo-experimental-toggle">
+                            <span class="toggle-icon">▶</span> Experimental Options
+                        </button>
+                        <div class="experimental-content hidden" id="solo-experimental-content">
+                            <div class="experimental-option">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="solo-allele-decay">
+                                    <span>Allele Decay</span>
+                                </label>
+                                <p class="option-desc">Unspent alleles decay at end of each era</p>
+                            </div>
+                            <div class="difficulty-selector hidden" id="solo-difficulty-selector">
+                                <label>Difficulty</label>
+                                <div class="difficulty-buttons">
+                                    <button type="button" class="difficulty-btn" data-difficulty="easy">
+                                        <span class="diff-name">Easy</span>
+                                        <span class="diff-desc">Keep all</span>
+                                    </button>
+                                    <button type="button" class="difficulty-btn active" data-difficulty="normal">
+                                        <span class="diff-name">Normal</span>
+                                        <span class="diff-desc">Keep 10</span>
+                                    </button>
+                                    <button type="button" class="difficulty-btn" data-difficulty="hard">
+                                        <span class="diff-name">Hard</span>
+                                        <span class="diff-desc">Keep 5</span>
+                                    </button>
+                                    <button type="button" class="difficulty-btn" data-difficulty="brutal">
+                                        <span class="diff-name">Brutal</span>
+                                        <span class="diff-desc">Lose all</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <button id="start-solo-game" class="btn-primary">Begin Survival</button>
                 </div>
 
@@ -109,6 +146,43 @@
                         <div class="player-input hidden" data-player="3">
                             <span class="player-color" style="background: var(--player-4)"></span>
                             <input type="text" placeholder="Player 4" value="Player 4">
+                        </div>
+                    </div>
+                    
+                    <!-- Experimental Options -->
+                    <div class="experimental-options">
+                        <button type="button" class="experimental-toggle" id="local-experimental-toggle">
+                            <span class="toggle-icon">▶</span> Experimental Options
+                        </button>
+                        <div class="experimental-content hidden" id="local-experimental-content">
+                            <div class="experimental-option">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="local-allele-decay">
+                                    <span>Allele Decay</span>
+                                </label>
+                                <p class="option-desc">Unspent alleles decay at end of each era</p>
+                            </div>
+                            <div class="difficulty-selector hidden" id="local-difficulty-selector">
+                                <label>Difficulty</label>
+                                <div class="difficulty-buttons">
+                                    <button type="button" class="difficulty-btn" data-difficulty="easy">
+                                        <span class="diff-name">Easy</span>
+                                        <span class="diff-desc">Keep all</span>
+                                    </button>
+                                    <button type="button" class="difficulty-btn active" data-difficulty="normal">
+                                        <span class="diff-name">Normal</span>
+                                        <span class="diff-desc">Keep 10</span>
+                                    </button>
+                                    <button type="button" class="difficulty-btn" data-difficulty="hard">
+                                        <span class="diff-name">Hard</span>
+                                        <span class="diff-desc">Keep 5</span>
+                                    </button>
+                                    <button type="button" class="difficulty-btn" data-difficulty="brutal">
+                                        <span class="diff-name">Brutal</span>
+                                        <span class="diff-desc">Lose all</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     

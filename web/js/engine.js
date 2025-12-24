@@ -1,6 +1,6 @@
 // GameEngine - Handles game logic and phase progression
 
-import { PHASES } from './state.js';
+import { PHASES, DIFFICULTY_SETTINGS } from './state.js';
 import { roll2D6, rollD6, getHexNeighbors } from './utils.js';
 
 export class GameEngine {
@@ -631,6 +631,27 @@ export class GameEngine {
             if (discarded.length > 0) {
                 results.push({ player, discarded });
                 this.emit('cardsDiscarded', { player, discarded });
+            }
+        }
+        return results;
+    }
+    
+    // Apply allele decay at end of era (experimental feature)
+    applyAlleleDecay() {
+        if (!this.state.alleleDecayEnabled) return [];
+        
+        const settings = DIFFICULTY_SETTINGS[this.state.difficulty];
+        const retention = settings.alleleRetention;
+        
+        const results = [];
+        for (const player of this.state.players) {
+            const before = player.alleles;
+            const lost = Math.max(0, before - retention);
+            
+            if (lost > 0) {
+                player.alleles = Math.min(before, retention);
+                results.push({ player, before, after: player.alleles, lost });
+                this.emit('allelesDecayed', { player, before, after: player.alleles, lost });
             }
         }
         return results;

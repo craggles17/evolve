@@ -1148,6 +1148,30 @@ export class Renderer {
         $$('.modal').forEach(m => m.classList.add('hidden'));
     }
     
+    // Toast notification
+    showNotification(title, message, duration = 2000) {
+        return new Promise(resolve => {
+            let toast = $('#toast-notification');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.id = 'toast-notification';
+                toast.className = 'toast-notification';
+                document.body.appendChild(toast);
+            }
+            
+            toast.innerHTML = `
+                <div class="toast-title">${title}</div>
+                <div class="toast-message">${message.replace(/\n/g, '<br>')}</div>
+            `;
+            toast.classList.add('visible');
+            
+            setTimeout(() => {
+                toast.classList.remove('visible');
+                resolve();
+            }, duration);
+        });
+    }
+    
     // Card Detail Modal
     showCardDetail(trait, player, traitDb, canBuy, isEvolutionPhase, onBuy) {
         const detail = $('#card-detail');

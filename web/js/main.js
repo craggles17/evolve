@@ -1,6 +1,6 @@
 // Main entry point for Damn Nature You Scary web game
 
-import { GameState, PHASES } from './state.js';
+import { GameState, PHASES, DIFFICULTY } from './state.js';
 import { GameEngine } from './engine.js';
 import { Renderer } from './renderer.js';
 import { $, $$, createElement, PLAYER_COLORS, delay } from './utils.js';
@@ -68,6 +68,7 @@ class Game {
         $('#start-online-game')?.addEventListener('click', () => this.startOnlineGame());
         $('#copy-link')?.addEventListener('click', () => this.copyShareLink());
         this.setupHostPlayerCount();
+        this.setupExperimentalOptions();
         
         // Join setup
         $('#join-room')?.addEventListener('click', () => this.joinRoom());
@@ -218,6 +219,51 @@ class Game {
         });
     }
     
+    setupExperimentalOptions() {
+        // Setup for both solo and local modes
+        ['solo', 'local'].forEach(mode => {
+            const toggle = $(`#${mode}-experimental-toggle`);
+            const content = $(`#${mode}-experimental-content`);
+            const checkbox = $(`#${mode}-allele-decay`);
+            const difficultySelector = $(`#${mode}-difficulty-selector`);
+            const difficultyButtons = $$(`#${mode}-difficulty-selector .difficulty-btn`);
+            
+            // Toggle expand/collapse
+            toggle?.addEventListener('click', () => {
+                content.classList.toggle('hidden');
+                const icon = toggle.querySelector('.toggle-icon');
+                icon.textContent = content.classList.contains('hidden') ? '▶' : '▼';
+            });
+            
+            // Checkbox toggles difficulty selector visibility
+            checkbox?.addEventListener('change', () => {
+                if (checkbox.checked) {
+                    difficultySelector.classList.remove('hidden');
+                } else {
+                    difficultySelector.classList.add('hidden');
+                }
+            });
+            
+            // Difficulty button selection
+            difficultyButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    difficultyButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+        });
+    }
+    
+    getExperimentalSettings(mode) {
+        const checkbox = $(`#${mode}-allele-decay`);
+        const activeBtn = $(`#${mode}-difficulty-selector .difficulty-btn.active`);
+        
+        return {
+            alleleDecayEnabled: checkbox?.checked || false,
+            difficulty: activeBtn?.dataset.difficulty || DIFFICULTY.NORMAL
+        };
+    }
+    
     // Mode Selection
     handleModeSelect(mode) {
         $('#mode-select').classList.add('hidden');
@@ -252,6 +298,11 @@ class Game {
         const names = this.renderer.getPlayerNames();
         this.state.initializeGame(names);
         
+        // Apply experimental settings
+        const settings = this.getExperimentalSettings('local');
+        this.state.alleleDecayEnabled = settings.alleleDecayEnabled;
+        this.state.difficulty = settings.difficulty;
+        
         this.renderer.showScreen('game-screen');
         this.renderer.initBoardInteractions?.();
         this.updateUI();
@@ -264,6 +315,11 @@ class Game {
         this.mode = MODE.SOLO;
         const name = $('#solo-player-name')?.value?.trim() || 'Survivor';
         this.state.initializeSoloGame(name);
+        
+        // Apply experimental settings
+        const settings = this.getExperimentalSettings('solo');
+        this.state.alleleDecayEnabled = settings.alleleDecayEnabled;
+        this.state.difficulty = settings.difficulty;
         
         this.renderer.showScreen('game-screen');
         this.renderer.initBoardInteractions?.();
@@ -810,6 +866,12 @@ class Game {
                 // Enforce hand limits at end of era (if enabled)
                 this.engine.enforceHandLimits();
                 
+                // Apply allele decay at end of era (if enabled)
+                const decayResults = this.engine.applyAlleleDecay();
+                if (decayResults.length > 0) {
+                    await this.showAlleleDecayResults(decayResults);
+                }
+                
                 if (!this.state.advanceEra()) {
                     this.handleGameOver();
                     return;
@@ -1105,6 +1167,14 @@ class Game {
         }
         
         await this.renderer.showEvent(event, results);
+    }
+    
+    async showAlleleDecayResults(results) {
+        const messages = results.map(r => 
+            `${r.player.name} lost ${r.lost} allele${r.lost !== 1 ? 's' : ''} (${r.before} → ${r.after})`
+        );
+        
+        await this.renderer.showNotification('Allele Decay', messages.join('\n'), 2000);
     }
     
     handleGameOver() {

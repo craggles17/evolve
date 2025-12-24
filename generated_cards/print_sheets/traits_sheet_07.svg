@@ -29,8 +29,8 @@
   <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#888">Parental Ca… ◁</tspan></text>
   
   <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (1)</text>
-  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Parental Ca… ▶</tspan></text>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Parental Ca… ▶</tspan><tspan x="185" dy="10" fill="#27ae60">Herding Beh… ▶</tspan></text>
   
   <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
   <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Slow-Reproduction] [Protected-Offspring]</text>
@@ -237,8 +237,8 @@
   <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Gills ◀</tspan><tspan x="65" dy="10" fill="#888">Swim Bladder ◁</tspan></text>
   
   <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
-  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (1)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Migration ▶</tspan></text>
   
   <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
   <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Marine-Only] [Pelagic] [Aquatic]</text>

@@ -2690,6 +2690,167 @@ body {
     text-align: center;
 }
 
+/* Experimental Options */
+.experimental-options {
+    margin: 1.5rem 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.experimental-toggle {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: var(--bg-card);
+    border: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.2s;
+}
+
+.experimental-toggle:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+}
+
+.toggle-icon {
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+}
+
+.experimental-content {
+    padding: 1rem;
+    background: var(--bg-panel);
+    border-top: 1px solid var(--border);
+}
+
+.experimental-option {
+    margin-bottom: 1rem;
+}
+
+.experimental-option:last-child {
+    margin-bottom: 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--accent-gold);
+    cursor: pointer;
+}
+
+.option-desc {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    margin-left: 26px;
+}
+
+.difficulty-selector {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.difficulty-selector label {
+    margin-bottom: 0.75rem;
+}
+
+.difficulty-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+}
+
+.difficulty-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.5rem;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.difficulty-btn:hover {
+    background: var(--bg-hover);
+    border-color: var(--text-muted);
+}
+
+.difficulty-btn.active {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: var(--bg-dark);
+}
+
+.diff-name {
+    display: block;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: inherit;
+}
+
+.diff-desc {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+}
+
+.difficulty-btn.active .diff-desc {
+    color: var(--bg-panel);
+}
+
+/* Toast Notification */
+.toast-notification {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: var(--bg-card);
+    border: 1px solid var(--accent-gold);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    min-width: 200px;
+}
+
+.toast-notification.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast-title {
+    font-family: var(--font-display);
+    color: var(--accent-gold);
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.toast-message {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
 /* Threat Indicator */
 .threat-indicator {
     background: var(--bg-card);
