@@ -1,149 +1,257 @@
 {
   "meta": {
-    "version": "1.0",
-    "description": "Hexagonal biome tiles for the game board",
-    "tile_count": 37,
-    "flip_rule": "Roll 1d6 at era start. Tiles with matching or lower flip number AND meeting era requirement flip to new tile from stack."
+    "version": "2.0",
+    "description": "Hexagonal biome tiles with climate zones arranged in east-west bands",
+    "tile_count": 70,
+    "flip_rule": "Roll 1d6 at era start. Tiles with matching or lower flip number AND meeting era requirement flip to new tile from stack.",
+    "layout": "7 rows x 10 columns offset hex grid representing global latitudes"
+  },
+  "climate_zones": {
+    "polar": {
+      "name": "Polar",
+      "rows": [0, 6],
+      "description": "Extreme cold latitudes near the poles",
+      "allowed_biomes": ["ice", "tundra", "arctic_ocean", "mountain"],
+      "bonus_modifier": {"Cold-Resistant": 2}
+    },
+    "temperate": {
+      "name": "Temperate",
+      "rows": [1, 2, 4, 5],
+      "description": "Moderate climate zones with seasonal variation",
+      "allowed_biomes": ["forest", "grassland", "mountain", "desert", "coast", "freshwater", "ocean", "shallow_marine"],
+      "bonus_modifier": {}
+    },
+    "equatorial": {
+      "name": "Equatorial",
+      "rows": [3],
+      "description": "Warm tropical latitudes near the equator",
+      "allowed_biomes": ["reef", "rainforest", "shallow_marine", "swamp", "coast", "ocean"],
+      "bonus_modifier": {"Aquatic": 1}
+    }
   },
   "biome_types": {
+    "arctic_ocean": {
+      "name": "Arctic Ocean",
+      "color": "#2c3e50",
+      "required_tags": ["Aquatic"],
+      "bonus_tags": ["Marine-Only", "Cold-Resistant"],
+      "description": "Frigid polar waters with seasonal ice cover",
+      "climate_zones": ["polar"]
+    },
     "ocean": {
       "name": "Open Ocean",
       "color": "#1a5f7a",
       "required_tags": ["Aquatic"],
       "bonus_tags": ["Marine-Only", "Deep-Sea"],
-      "description": "Deep open water far from shore"
+      "description": "Deep open water far from shore",
+      "climate_zones": ["temperate", "equatorial"]
     },
     "shallow_marine": {
       "name": "Shallow Sea",
       "color": "#3498db",
       "required_tags": ["Aquatic"],
       "bonus_tags": ["Marine-Only", "Shallow-Marine"],
-      "description": "Coastal waters, continental shelves"
+      "description": "Coastal waters, continental shelves",
+      "climate_zones": ["temperate", "equatorial"]
     },
     "reef": {
       "name": "Coral Reef",
       "color": "#e91e63",
       "required_tags": ["Aquatic"],
       "bonus_tags": ["Reef-Dependent"],
-      "description": "Diverse reef ecosystem - fragile"
+      "description": "Diverse reef ecosystem - fragile",
+      "climate_zones": ["equatorial"]
     },
     "coast": {
       "name": "Coastline",
       "color": "#f39c12",
       "required_tags": [],
       "bonus_tags": ["Aquatic", "Terrestrial"],
-      "description": "Transition zone between land and sea"
+      "description": "Transition zone between land and sea",
+      "climate_zones": ["temperate", "equatorial"]
     },
     "freshwater": {
       "name": "Freshwater",
       "color": "#00bcd4",
       "required_tags": ["Aquatic"],
       "bonus_tags": ["Freshwater"],
-      "description": "Rivers, lakes, and wetlands"
+      "description": "Rivers, lakes, and wetlands",
+      "climate_zones": ["temperate"]
     },
     "swamp": {
       "name": "Swamp",
       "color": "#4a5d23",
       "required_tags": [],
       "bonus_tags": ["Aquatic", "Terrestrial", "Amphibian"],
-      "description": "Wetland with trees and standing water"
+      "description": "Wetland with trees and standing water",
+      "climate_zones": ["equatorial", "temperate"]
+    },
+    "rainforest": {
+      "name": "Rainforest",
+      "color": "#1e8449",
+      "required_tags": ["Terrestrial"],
+      "bonus_tags": ["Arboreal", "Amphibian"],
+      "description": "Dense tropical jungle with high biodiversity",
+      "climate_zones": ["equatorial"]
     },
     "forest": {
       "name": "Forest",
       "color": "#27ae60",
       "required_tags": ["Terrestrial"],
       "bonus_tags": ["Arboreal"],
-      "description": "Dense woodland habitat"
+      "description": "Temperate woodland habitat",
+      "climate_zones": ["temperate"]
     },
     "grassland": {
       "name": "Grassland",
       "color": "#f1c40f",
       "required_tags": ["Terrestrial"],
       "bonus_tags": ["Mobile"],
-      "description": "Open plains and savannas"
+      "description": "Open plains and savannas",
+      "climate_zones": ["temperate"]
+    },
+    "tundra": {
+      "name": "Tundra",
+      "color": "#95a5a6",
+      "required_tags": ["Terrestrial"],
+      "bonus_tags": ["Cold-Resistant", "Burrowing"],
+      "description": "Treeless polar plain with permafrost",
+      "climate_zones": ["polar"]
     },
     "desert": {
       "name": "Desert",
       "color": "#e67e22",
       "required_tags": ["Terrestrial"],
-      "bonus_tags": ["Burrowing", "Cold-Resistant"],
-      "description": "Arid environment with extreme temperatures"
+      "bonus_tags": ["Burrowing", "Nocturnal"],
+      "description": "Arid environment with extreme temperatures",
+      "climate_zones": ["temperate"]
     },
     "mountain": {
       "name": "Mountain",
       "color": "#7f8c8d",
       "required_tags": ["Terrestrial"],
       "bonus_tags": ["Aerial", "Cold-Resistant"],
-      "description": "High altitude, harsh conditions"
+      "description": "High altitude, harsh conditions",
+      "climate_zones": ["temperate", "polar"]
     },
     "ice": {
       "name": "Ice Sheet",
       "color": "#ecf0f1",
       "required_tags": ["Cold-Resistant"],
       "bonus_tags": ["Warm-Blooded", "Burrowing"],
-      "description": "Glacial environment"
+      "description": "Glacial environment",
+      "climate_zones": ["polar"]
     }
   },
   "tiles": [
-    {"id": 1, "biome": "ocean", "era_lock": 0, "flip_number": 6, "stable": true},
-    {"id": 2, "biome": "ocean", "era_lock": 0, "flip_number": 6, "stable": true},
-    {"id": 3, "biome": "ocean", "era_lock": 0, "flip_number": 6, "stable": true},
-    {"id": 4, "biome": "ocean", "era_lock": 0, "flip_number": 5, "stable": false},
-    {"id": 5, "biome": "shallow_marine", "era_lock": 0, "flip_number": 4, "stable": false},
-    {"id": 6, "biome": "shallow_marine", "era_lock": 0, "flip_number": 4, "stable": false},
-    {"id": 7, "biome": "shallow_marine", "era_lock": 0, "flip_number": 5, "stable": false},
-    {"id": 8, "biome": "shallow_marine", "era_lock": 0, "flip_number": 3, "stable": false},
-    {"id": 9, "biome": "reef", "era_lock": 1, "flip_number": 3, "stable": false},
-    {"id": 10, "biome": "reef", "era_lock": 1, "flip_number": 3, "stable": false},
-    {"id": 11, "biome": "reef", "era_lock": 1, "flip_number": 2, "stable": false},
-    {"id": 12, "biome": "coast", "era_lock": 0, "flip_number": 4, "stable": false},
-    {"id": 13, "biome": "coast", "era_lock": 0, "flip_number": 4, "stable": false},
-    {"id": 14, "biome": "coast", "era_lock": 0, "flip_number": 5, "stable": false},
-    {"id": 15, "biome": "coast", "era_lock": 2, "flip_number": 4, "stable": false},
-    {"id": 16, "biome": "freshwater", "era_lock": 2, "flip_number": 5, "stable": false},
-    {"id": 17, "biome": "freshwater", "era_lock": 2, "flip_number": 5, "stable": false},
-    {"id": 18, "biome": "freshwater", "era_lock": 2, "flip_number": 4, "stable": false},
-    {"id": 19, "biome": "swamp", "era_lock": 3, "flip_number": 4, "stable": false},
-    {"id": 20, "biome": "swamp", "era_lock": 3, "flip_number": 3, "stable": false},
-    {"id": 21, "biome": "swamp", "era_lock": 3, "flip_number": 4, "stable": false},
-    {"id": 22, "biome": "swamp", "era_lock": 4, "flip_number": 5, "stable": false},
-    {"id": 23, "biome": "forest", "era_lock": 3, "flip_number": 4, "stable": false},
-    {"id": 24, "biome": "forest", "era_lock": 3, "flip_number": 4, "stable": false},
-    {"id": 25, "biome": "forest", "era_lock": 3, "flip_number": 3, "stable": false},
-    {"id": 26, "biome": "forest", "era_lock": 4, "flip_number": 5, "stable": false},
-    {"id": 27, "biome": "forest", "era_lock": 4, "flip_number": 4, "stable": false},
-    {"id": 28, "biome": "grassland", "era_lock": 9, "flip_number": 5, "stable": false},
-    {"id": 29, "biome": "grassland", "era_lock": 9, "flip_number": 4, "stable": false},
-    {"id": 30, "biome": "grassland", "era_lock": 10, "flip_number": 5, "stable": false},
-    {"id": 31, "biome": "desert", "era_lock": 5, "flip_number": 5, "stable": false},
-    {"id": 32, "biome": "desert", "era_lock": 5, "flip_number": 6, "stable": true},
-    {"id": 33, "biome": "desert", "era_lock": 6, "flip_number": 5, "stable": false},
-    {"id": 34, "biome": "mountain", "era_lock": 4, "flip_number": 6, "stable": true},
-    {"id": 35, "biome": "mountain", "era_lock": 4, "flip_number": 6, "stable": true},
-    {"id": 36, "biome": "mountain", "era_lock": 7, "flip_number": 5, "stable": false},
-    {"id": 37, "biome": "ice", "era_lock": 11, "flip_number": 4, "stable": false}
+    {"id": 1, "biome": "ice", "climate_zone": "polar", "row": 0, "col": 0, "era_lock": 11, "flip_number": 5, "stable": false},
+    {"id": 2, "biome": "arctic_ocean", "climate_zone": "polar", "row": 0, "col": 1, "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 3, "biome": "arctic_ocean", "climate_zone": "polar", "row": 0, "col": 2, "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 4, "biome": "tundra", "climate_zone": "polar", "row": 0, "col": 3, "era_lock": 10, "flip_number": 4, "stable": false},
+    {"id": 5, "biome": "ice", "climate_zone": "polar", "row": 0, "col": 4, "era_lock": 11, "flip_number": 5, "stable": false},
+    {"id": 6, "biome": "arctic_ocean", "climate_zone": "polar", "row": 0, "col": 5, "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 7, "biome": "tundra", "climate_zone": "polar", "row": 0, "col": 6, "era_lock": 10, "flip_number": 4, "stable": false},
+    {"id": 8, "biome": "arctic_ocean", "climate_zone": "polar", "row": 0, "col": 7, "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 9, "biome": "mountain", "climate_zone": "polar", "row": 0, "col": 8, "era_lock": 4, "flip_number": 6, "stable": true},
+    {"id": 10, "biome": "ice", "climate_zone": "polar", "row": 0, "col": 9, "era_lock": 11, "flip_number": 4, "stable": false},
+
+    {"id": 11, "biome": "ocean", "climate_zone": "temperate", "row": 1, "col": 0, "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 12, "biome": "coast", "climate_zone": "temperate", "row": 1, "col": 1, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 13, "biome": "forest", "climate_zone": "temperate", "row": 1, "col": 2, "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 14, "biome": "mountain", "climate_zone": "temperate", "row": 1, "col": 3, "era_lock": 4, "flip_number": 6, "stable": true},
+    {"id": 15, "biome": "grassland", "climate_zone": "temperate", "row": 1, "col": 4, "era_lock": 9, "flip_number": 5, "stable": false},
+    {"id": 16, "biome": "freshwater", "climate_zone": "temperate", "row": 1, "col": 5, "era_lock": 2, "flip_number": 5, "stable": false},
+    {"id": 17, "biome": "forest", "climate_zone": "temperate", "row": 1, "col": 6, "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 18, "biome": "coast", "climate_zone": "temperate", "row": 1, "col": 7, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 19, "biome": "shallow_marine", "climate_zone": "temperate", "row": 1, "col": 8, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 20, "biome": "ocean", "climate_zone": "temperate", "row": 1, "col": 9, "era_lock": 0, "flip_number": 6, "stable": true},
+
+    {"id": 21, "biome": "shallow_marine", "climate_zone": "temperate", "row": 2, "col": 0, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 22, "biome": "coast", "climate_zone": "temperate", "row": 2, "col": 1, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 23, "biome": "grassland", "climate_zone": "temperate", "row": 2, "col": 2, "era_lock": 9, "flip_number": 4, "stable": false},
+    {"id": 24, "biome": "desert", "climate_zone": "temperate", "row": 2, "col": 3, "era_lock": 5, "flip_number": 5, "stable": false},
+    {"id": 25, "biome": "forest", "climate_zone": "temperate", "row": 2, "col": 4, "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 26, "biome": "mountain", "climate_zone": "temperate", "row": 2, "col": 5, "era_lock": 4, "flip_number": 6, "stable": true},
+    {"id": 27, "biome": "grassland", "climate_zone": "temperate", "row": 2, "col": 6, "era_lock": 9, "flip_number": 5, "stable": false},
+    {"id": 28, "biome": "freshwater", "climate_zone": "temperate", "row": 2, "col": 7, "era_lock": 2, "flip_number": 5, "stable": false},
+    {"id": 29, "biome": "coast", "climate_zone": "temperate", "row": 2, "col": 8, "era_lock": 0, "flip_number": 5, "stable": false},
+    {"id": 30, "biome": "ocean", "climate_zone": "temperate", "row": 2, "col": 9, "era_lock": 0, "flip_number": 6, "stable": true},
+
+    {"id": 31, "biome": "ocean", "climate_zone": "equatorial", "row": 3, "col": 0, "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 32, "biome": "shallow_marine", "climate_zone": "equatorial", "row": 3, "col": 1, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 33, "biome": "reef", "climate_zone": "equatorial", "row": 3, "col": 2, "era_lock": 1, "flip_number": 3, "stable": false},
+    {"id": 34, "biome": "coast", "climate_zone": "equatorial", "row": 3, "col": 3, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 35, "biome": "rainforest", "climate_zone": "equatorial", "row": 3, "col": 4, "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 36, "biome": "swamp", "climate_zone": "equatorial", "row": 3, "col": 5, "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 37, "biome": "rainforest", "climate_zone": "equatorial", "row": 3, "col": 6, "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 38, "biome": "reef", "climate_zone": "equatorial", "row": 3, "col": 7, "era_lock": 1, "flip_number": 3, "stable": false},
+    {"id": 39, "biome": "shallow_marine", "climate_zone": "equatorial", "row": 3, "col": 8, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 40, "biome": "ocean", "climate_zone": "equatorial", "row": 3, "col": 9, "era_lock": 0, "flip_number": 6, "stable": true},
+
+    {"id": 41, "biome": "shallow_marine", "climate_zone": "temperate", "row": 4, "col": 0, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 42, "biome": "coast", "climate_zone": "temperate", "row": 4, "col": 1, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 43, "biome": "swamp", "climate_zone": "temperate", "row": 4, "col": 2, "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 44, "biome": "forest", "climate_zone": "temperate", "row": 4, "col": 3, "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 45, "biome": "grassland", "climate_zone": "temperate", "row": 4, "col": 4, "era_lock": 9, "flip_number": 5, "stable": false},
+    {"id": 46, "biome": "desert", "climate_zone": "temperate", "row": 4, "col": 5, "era_lock": 5, "flip_number": 5, "stable": false},
+    {"id": 47, "biome": "mountain", "climate_zone": "temperate", "row": 4, "col": 6, "era_lock": 4, "flip_number": 6, "stable": true},
+    {"id": 48, "biome": "forest", "climate_zone": "temperate", "row": 4, "col": 7, "era_lock": 3, "flip_number": 4, "stable": false},
+    {"id": 49, "biome": "coast", "climate_zone": "temperate", "row": 4, "col": 8, "era_lock": 2, "flip_number": 4, "stable": false},
+    {"id": 50, "biome": "ocean", "climate_zone": "temperate", "row": 4, "col": 9, "era_lock": 0, "flip_number": 6, "stable": true},
+
+    {"id": 51, "biome": "ocean", "climate_zone": "temperate", "row": 5, "col": 0, "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 52, "biome": "shallow_marine", "climate_zone": "temperate", "row": 5, "col": 1, "era_lock": 0, "flip_number": 5, "stable": false},
+    {"id": 53, "biome": "coast", "climate_zone": "temperate", "row": 5, "col": 2, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 54, "biome": "freshwater", "climate_zone": "temperate", "row": 5, "col": 3, "era_lock": 2, "flip_number": 4, "stable": false},
+    {"id": 55, "biome": "grassland", "climate_zone": "temperate", "row": 5, "col": 4, "era_lock": 9, "flip_number": 5, "stable": false},
+    {"id": 56, "biome": "forest", "climate_zone": "temperate", "row": 5, "col": 5, "era_lock": 4, "flip_number": 5, "stable": false},
+    {"id": 57, "biome": "desert", "climate_zone": "temperate", "row": 5, "col": 6, "era_lock": 6, "flip_number": 5, "stable": false},
+    {"id": 58, "biome": "mountain", "climate_zone": "temperate", "row": 5, "col": 7, "era_lock": 7, "flip_number": 5, "stable": false},
+    {"id": 59, "biome": "coast", "climate_zone": "temperate", "row": 5, "col": 8, "era_lock": 0, "flip_number": 4, "stable": false},
+    {"id": 60, "biome": "shallow_marine", "climate_zone": "temperate", "row": 5, "col": 9, "era_lock": 0, "flip_number": 4, "stable": false},
+
+    {"id": 61, "biome": "ice", "climate_zone": "polar", "row": 6, "col": 0, "era_lock": 11, "flip_number": 4, "stable": false},
+    {"id": 62, "biome": "arctic_ocean", "climate_zone": "polar", "row": 6, "col": 1, "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 63, "biome": "tundra", "climate_zone": "polar", "row": 6, "col": 2, "era_lock": 10, "flip_number": 4, "stable": false},
+    {"id": 64, "biome": "mountain", "climate_zone": "polar", "row": 6, "col": 3, "era_lock": 4, "flip_number": 6, "stable": true},
+    {"id": 65, "biome": "ice", "climate_zone": "polar", "row": 6, "col": 4, "era_lock": 11, "flip_number": 5, "stable": false},
+    {"id": 66, "biome": "tundra", "climate_zone": "polar", "row": 6, "col": 5, "era_lock": 10, "flip_number": 4, "stable": false},
+    {"id": 67, "biome": "arctic_ocean", "climate_zone": "polar", "row": 6, "col": 6, "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 68, "biome": "arctic_ocean", "climate_zone": "polar", "row": 6, "col": 7, "era_lock": 0, "flip_number": 6, "stable": true},
+    {"id": 69, "biome": "tundra", "climate_zone": "polar", "row": 6, "col": 8, "era_lock": 10, "flip_number": 5, "stable": false},
+    {"id": 70, "biome": "ice", "climate_zone": "polar", "row": 6, "col": 9, "era_lock": 11, "flip_number": 4, "stable": false}
   ],
   "flip_transitions": {
+    "arctic_ocean": ["arctic_ocean", "ice", "ocean"],
     "ocean": ["ocean", "shallow_marine", "coast"],
     "shallow_marine": ["shallow_marine", "reef", "coast", "ocean"],
     "reef": ["reef", "shallow_marine", "ocean"],
     "coast": ["coast", "swamp", "shallow_marine", "freshwater"],
     "freshwater": ["freshwater", "swamp", "coast", "forest"],
-    "swamp": ["swamp", "forest", "freshwater", "grassland"],
+    "swamp": ["swamp", "rainforest", "forest", "freshwater"],
+    "rainforest": ["rainforest", "swamp", "forest"],
     "forest": ["forest", "grassland", "swamp", "mountain"],
-    "grassland": ["grassland", "desert", "forest"],
+    "grassland": ["grassland", "desert", "forest", "tundra"],
+    "tundra": ["tundra", "ice", "grassland", "mountain"],
     "desert": ["desert", "grassland", "mountain"],
-    "mountain": ["mountain", "ice", "forest", "grassland"],
-    "ice": ["ice", "mountain", "ocean"]
+    "mountain": ["mountain", "ice", "forest", "grassland", "tundra"],
+    "ice": ["ice", "tundra", "arctic_ocean", "mountain"]
   },
   "starting_layout": {
-    "description": "Standard 19-hex layout for 2-4 players",
-    "hex_count": 19,
-    "initial_biomes": {
-      "center": "shallow_marine",
-      "ring_1": ["ocean", "shallow_marine", "shallow_marine", "coast", "coast", "shallow_marine"],
-      "ring_2": ["ocean", "ocean", "shallow_marine", "shallow_marine", "reef", "coast", "coast", "coast", "shallow_marine", "ocean", "ocean", "shallow_marine"]
-    }
+    "description": "70-hex global map with latitudinal climate bands",
+    "hex_count": 70,
+    "rows": 7,
+    "columns": 10,
+    "climate_bands": {
+      "row_0": {"zone": "polar", "name": "North Polar"},
+      "row_1": {"zone": "temperate", "name": "North Temperate"},
+      "row_2": {"zone": "temperate", "name": "North Subtropical"},
+      "row_3": {"zone": "equatorial", "name": "Equatorial"},
+      "row_4": {"zone": "temperate", "name": "South Subtropical"},
+      "row_5": {"zone": "temperate", "name": "South Temperate"},
+      "row_6": {"zone": "polar", "name": "South Polar"}
+    },
+    "offset_type": "odd-r",
+    "notes": "Odd rows are offset right by half a hex width. East-west wrap simulates global geography."
   }
 }
-
