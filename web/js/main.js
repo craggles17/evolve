@@ -1102,7 +1102,6 @@ class Game {
         const prereqsContainer = $('#trait-modal-prereqs');
         prereqsContainer.innerHTML = '';
         
-        const ownedTraits = new Set(player.traits);
         const hasPrereqs = (trait.hard_prereqs?.length || 0) + (trait.soft_prereqs?.length || 0) + (trait.alt_prereqs?.length || 0) > 0;
         
         if (hasPrereqs) {
