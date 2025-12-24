@@ -252,7 +252,12 @@ export class MultiplayerHost {
                 playerColor: r.player.color,
                 status: r.status,
                 message: r.message,
-                lostMarkers: r.lostMarkers || 0
+                lostMarkers: r.lostMarkers || 0,
+                tileResults: (r.tileResults || []).map(tr => ({
+                    tile: { id: tr.tile.id, biome: tr.tile.biome, biomeData: tr.tile.biomeData },
+                    status: tr.status,
+                    markersLost: tr.markersLost || 0
+                }))
             }))
         });
     }

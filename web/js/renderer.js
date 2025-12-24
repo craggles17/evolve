@@ -1394,12 +1394,39 @@ export class Renderer {
         resolution.innerHTML = '';
         for (const r of results) {
             const row = createElement('div', `resolution-player ${r.status}`);
+            
+            // Build tile breakdown if available
+            let tileBreakdown = '';
+            if (r.tileResults && r.tileResults.length > 0) {
+                const tileItems = r.tileResults
+                    .filter(tr => tr.markersLost > 0 || tr.status === 'saved')
+                    .map(tr => {
+                        const tileName = tr.tile.biomeData?.name || tr.tile.biome;
+                        if (tr.status === 'doomed') {
+                            return `<span class="tile-result doomed">☠ ${tileName} (-${tr.markersLost})</span>`;
+                        } else if (tr.status === 'saved') {
+                            return `<span class="tile-result saved">✓ ${tileName}</span>`;
+                        } else if (tr.status === 'failed_roll') {
+                            return `<span class="tile-result failed">✗ ${tileName} (-${tr.markersLost})</span>`;
+                        }
+                        return '';
+                    })
+                    .filter(Boolean);
+                
+                if (tileItems.length > 0) {
+                    tileBreakdown = `<div class="tile-breakdown">${tileItems.join('')}</div>`;
+                }
+            }
+            
             row.innerHTML = `
-                <span style="display: flex; align-items: center; gap: 0.5rem;">
-                    <span style="width: 12px; height: 12px; border-radius: 50%; background: ${r.player.color}"></span>
-                    ${r.player.name}
-                </span>
-                <span>${r.message}${r.lostMarkers > 0 ? ` (-${r.lostMarkers} markers)` : ''}</span>
+                <div class="resolution-header">
+                    <span style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="width: 12px; height: 12px; border-radius: 50%; background: ${r.player.color}"></span>
+                        ${r.player.name}
+                    </span>
+                    <span>${r.message}${r.lostMarkers > 0 ? ` (-${r.lostMarkers} markers)` : ''}</span>
+                </div>
+                ${tileBreakdown}
             `;
             resolution.appendChild(row);
         }

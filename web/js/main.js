@@ -466,7 +466,8 @@ class Game {
             player: { id: r.playerId, name: r.playerName, color: r.playerColor },
             status: r.status,
             message: r.message,
-            lostMarkers: r.lostMarkers
+            lostMarkers: r.lostMarkers,
+            tileResults: r.tileResults || []
         }));
         await this.renderer.showEvent(event, displayResults);
     }

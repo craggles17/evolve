@@ -1656,8 +1656,57 @@ body {
     background: rgba(248, 81, 73, 0.2);
 }
 
+.resolution-player.partial {
+    background: linear-gradient(90deg, rgba(63, 185, 80, 0.2), rgba(248, 81, 73, 0.2));
+}
+
+.resolution-player.failed {
+    background: rgba(248, 81, 73, 0.15);
+}
+
+.resolution-player.survived {
+    background: rgba(139, 148, 158, 0.15);
+}
+
 .resolution-player.neutral {
     background: rgba(139, 148, 158, 0.2);
+}
+
+.resolution-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.tile-breakdown {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.4rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid rgba(139, 148, 158, 0.2);
+}
+
+.tile-result {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+}
+
+.tile-result.doomed {
+    background: rgba(248, 81, 73, 0.3);
+    color: #f85149;
+}
+
+.tile-result.saved {
+    background: rgba(63, 185, 80, 0.3);
+    color: #3fb950;
+}
+
+.tile-result.failed {
+    background: rgba(201, 163, 92, 0.3);
+    color: #c9a35c;
 }
 
 /* Game Over Modal */
