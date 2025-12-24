@@ -30,6 +30,11 @@
                 <div id="mode-select" class="setup-form">
                     <label>Game Mode</label>
                     <div class="mode-selector">
+                        <button class="mode-btn" data-mode="solo">
+                            <span class="mode-icon">🦎</span>
+                            <span class="mode-label">Solo Survival</span>
+                            <span class="mode-desc">Survive 12 eras against rival organisms</span>
+                        </button>
                         <button class="mode-btn" data-mode="local">
                             <span class="mode-icon">🎮</span>
                             <span class="mode-label">Local</span>
@@ -46,6 +51,36 @@
                             <span class="mode-desc">Enter a room code</span>
                         </button>
                     </div>
+                </div>
+
+                <!-- Solo Setup Form -->
+                <div id="solo-setup" class="setup-form hidden">
+                    <button class="btn-back" id="back-to-mode-solo">← Back</button>
+                    <h2 class="solo-title">Solo Survival Mode</h2>
+                    <p class="solo-desc">Evolve your lineage through 12 geological eras. Compete against rival organisms for territory. Survive to win!</p>
+                    
+                    <label>Your Name</label>
+                    <div class="player-input solo-player-input">
+                        <span class="player-color" style="background: var(--player-1)"></span>
+                        <input type="text" id="solo-player-name" placeholder="Survivor" value="Survivor">
+                    </div>
+                    
+                    <div class="solo-info">
+                        <div class="solo-info-item">
+                            <span class="solo-info-icon">🎯</span>
+                            <span>Survive all 12 eras to win</span>
+                        </div>
+                        <div class="solo-info-item">
+                            <span class="solo-info-icon">🦠</span>
+                            <span>Rival organisms compete for tiles</span>
+                        </div>
+                        <div class="solo-info-item">
+                            <span class="solo-info-icon">💀</span>
+                            <span>Lose all markers = extinction</span>
+                        </div>
+                    </div>
+                    
+                    <button id="start-solo-game" class="btn-primary">Begin Survival</button>
                 </div>
 
                 <!-- Local Setup Form -->
@@ -205,6 +240,18 @@
                             <div class="organism-fact"></div>
                         </div>
                     </div>
+                    <div id="tech-tree-container">
+                        <h3>Evolution Tech Tree</h3>
+                        <div class="tech-tree-legend">
+                            <span class="legend-owned">● Owned</span>
+                            <span class="legend-available">● Available</span>
+                            <span class="legend-inhand">● In Hand</span>
+                            <span class="legend-locked">● Locked</span>
+                        </div>
+                        <div id="tech-tree-scroll">
+                            <svg id="tech-tree-svg"></svg>
+                        </div>
+                    </div>
                 </aside>
 
                 <!-- Center: Hex Board -->
@@ -249,6 +296,16 @@
 
                 <!-- Right Panel: Cards & Actions -->
                 <aside id="action-panel">
+                    <!-- Threat Indicator (Solo Mode) -->
+                    <div id="threat-indicator" class="threat-indicator hidden">
+                        <h3>Rival Organisms</h3>
+                        <div class="threat-meter">
+                            <div class="threat-fill" id="threat-fill"></div>
+                            <span class="threat-label" id="threat-label">0 rivals</span>
+                        </div>
+                        <div class="threat-status" id="threat-status">Threat: Low</div>
+                    </div>
+                    
                     <div id="event-deck-display">
                         <h3>Event Deck</h3>
                         <div id="event-deck-stack">
@@ -332,7 +389,12 @@
             <!-- Game Over Modal -->
             <div id="gameover-modal" class="modal hidden">
                 <div class="modal-content gameover-content">
-                    <h1>Evolution Complete!</h1>
+                    <h1 id="gameover-title">Evolution Complete!</h1>
+                    <div id="solo-result" class="solo-result hidden">
+                        <div id="solo-result-icon" class="solo-result-icon">🏆</div>
+                        <div id="solo-result-text" class="solo-result-text">You survived!</div>
+                        <div id="solo-eras-survived" class="solo-eras-survived">Eras survived: 12</div>
+                    </div>
                     <div id="final-scores"></div>
                     <div id="winner-display"></div>
                     <div id="organism-matches"></div>

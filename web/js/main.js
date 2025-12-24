@@ -10,7 +10,8 @@ const MODE = {
     LOCAL: 'local',
     HOST: 'host',
     CLIENT: 'client',
-    SPECTATOR: 'spectator'
+    SPECTATOR: 'spectator',
+    SOLO: 'solo'
 };
 
 class Game {
@@ -54,6 +55,10 @@ class Game {
         $('#back-to-mode')?.addEventListener('click', () => this.showModeSelect());
         $('#back-to-mode-host')?.addEventListener('click', () => this.showModeSelect());
         $('#back-to-mode-join')?.addEventListener('click', () => this.showModeSelect());
+        $('#back-to-mode-solo')?.addEventListener('click', () => this.showModeSelect());
+        
+        // Solo setup
+        $('#start-solo-game')?.addEventListener('click', () => this.startSoloGame());
         
         // Local setup
         $('#start-game').addEventListener('click', () => this.startLocalGame());
@@ -212,7 +217,9 @@ class Game {
     handleModeSelect(mode) {
         $('#mode-select').classList.add('hidden');
         
-        if (mode === 'local') {
+        if (mode === 'solo') {
+            $('#solo-setup').classList.remove('hidden');
+        } else if (mode === 'local') {
             $('#local-setup').classList.remove('hidden');
         } else if (mode === 'host') {
             $('#host-setup').classList.remove('hidden');
@@ -245,6 +252,23 @@ class Game {
         this.updateUI();
         
         console.log('Local game started with players:', names);
+    }
+    
+    // Solo Survival Game
+    startSoloGame() {
+        this.mode = MODE.SOLO;
+        const name = $('#solo-player-name')?.value?.trim() || 'Survivor';
+        this.state.initializeSoloGame(name);
+        
+        this.renderer.showScreen('game-screen');
+        this.renderer.initBoardInteractions?.();
+        
+        // Show the threat indicator for solo mode
+        $('#threat-indicator')?.classList.remove('hidden');
+        
+        this.updateUI();
+        
+        console.log('Solo survival game started:', name);
     }
     
     // Host Game
@@ -614,6 +638,7 @@ class Game {
     // Turn Control
     isMyTurn() {
         if (this.mode === MODE.LOCAL) return true;
+        if (this.mode === MODE.SOLO) return true;
         if (this.mode === MODE.SPECTATOR) return false;
         return this.mySlotIndex === this.state.currentPlayerIndex;
     }
@@ -646,6 +671,51 @@ class Game {
         
         if (this.mode === MODE.SPECTATOR) {
             this.showSpectatorBanner();
+        }
+        
+        // Update threat indicator for solo mode
+        if (this.mode === MODE.SOLO) {
+            this.updateThreatIndicator();
+        }
+    }
+    
+    updateThreatIndicator() {
+        const threatLevel = this.engine.getThreatLevel();
+        const totalRivals = this.state.totalRivals;
+        
+        const fill = $('#threat-fill');
+        const label = $('#threat-label');
+        const status = $('#threat-status');
+        
+        if (fill) {
+            fill.style.width = `${threatLevel}%`;
+            
+            // Color based on threat level
+            if (threatLevel < 25) {
+                fill.className = 'threat-fill threat-low';
+            } else if (threatLevel < 50) {
+                fill.className = 'threat-fill threat-medium';
+            } else if (threatLevel < 75) {
+                fill.className = 'threat-fill threat-high';
+            } else {
+                fill.className = 'threat-fill threat-critical';
+            }
+        }
+        
+        if (label) {
+            label.textContent = `${totalRivals} rival${totalRivals !== 1 ? 's' : ''}`;
+        }
+        
+        if (status) {
+            if (threatLevel < 25) {
+                status.textContent = 'Threat: Low';
+            } else if (threatLevel < 50) {
+                status.textContent = 'Threat: Medium';
+            } else if (threatLevel < 75) {
+                status.textContent = 'Threat: High';
+            } else {
+                status.textContent = 'Threat: Critical!';
+            }
         }
     }
     
@@ -701,6 +771,11 @@ class Game {
                 if (!this.state.advancePlayer()) {
                     this.engine.dealCards();
                     this.state.advancePhase();
+                    
+                    // In solo mode, spawn new rivals at the start of each era (after draw)
+                    if (this.mode === MODE.SOLO && this.state.currentEra > 0) {
+                        this.engine.spawnRivals();
+                    }
                 }
                 this.currentPlayerRolled = false;
                 break;
@@ -719,6 +794,15 @@ class Game {
                 
             case PHASES.EVENT:
                 await this.handleEventPhase();
+                
+                // Check if player went extinct in solo mode
+                if (this.mode === MODE.SOLO && this.state.soloExtinct) {
+                    this.handleGameOver();
+                    return;
+                }
+                
+                // Enforce hand limits at end of era (if enabled)
+                this.engine.enforceHandLimits();
                 
                 if (!this.state.advanceEra()) {
                     this.handleGameOver();
@@ -813,6 +897,12 @@ class Game {
     }
     
     async handleCompetitionPhase() {
+        // Use solo competition if in solo mode
+        if (this.mode === MODE.SOLO) {
+            await this.handleSoloCompetitionPhase();
+            return;
+        }
+        
         const results = this.engine.resolveCompetition();
         
         // Only show visuals if there are contested tiles
@@ -831,6 +921,35 @@ class Game {
             // Clear all competition visuals
             this.renderer.clearCompetitionVisuals();
         }
+        
+        this.state.advancePhase();
+    }
+    
+    async handleSoloCompetitionPhase() {
+        const results = this.engine.resolveSoloCompetition();
+        
+        // Only show visuals if there are contested tiles
+        const contestedResults = results.filter(r => r.contested);
+        
+        if (contestedResults.length > 0) {
+            // Show solo competition results
+            this.renderer.showSoloCompetitionResults(contestedResults, this.state);
+            
+            // Wait for player to observe the results
+            await delay(2500);
+            
+            // Clear all competition visuals
+            this.renderer.clearCompetitionVisuals();
+        }
+        
+        // Check if player went extinct
+        if (this.state.soloExtinct) {
+            this.handleGameOver();
+            return;
+        }
+        
+        // Spread rivals after competition
+        this.engine.spreadRivals();
         
         this.state.advancePhase();
     }
@@ -922,7 +1041,17 @@ class Game {
             ...this.state.findClosestOrganism(player)
         }));
         
-        this.renderer.showGameOver(scores, organisms);
+        // Handle solo mode game over differently
+        if (this.mode === MODE.SOLO) {
+            this.renderer.showSoloGameOver(
+                this.state.soloExtinct,
+                this.state.currentEra,
+                scores[0],
+                organisms[0]
+            );
+        } else {
+            this.renderer.showGameOver(scores, organisms);
+        }
     }
     
     cleanup() {
@@ -942,6 +1071,7 @@ class Game {
         
         $('#chat-panel')?.classList.add('hidden');
         $('#connection-status')?.classList.add('hidden');
+        $('#threat-indicator')?.classList.add('hidden');
         $('#chat-messages').innerHTML = '';
         
         const url = new URL(window.location);

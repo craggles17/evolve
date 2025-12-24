@@ -33,6 +33,13 @@ export const PHASE_HINTS = {
     [PHASES.EVENT]: "Resolve the era's extinction or climate event"
 };
 
+export const GAME_MODES = {
+    LOCAL: 'local',
+    HOST: 'host',
+    CLIENT: 'client',
+    SOLO: 'solo'
+};
+
 export class GameState {
     constructor() {
         // Game data (loaded from JSON)
@@ -43,6 +50,9 @@ export class GameState {
         
         // Trait lookup by ID
         this.traitDb = {};
+        
+        // Game mode
+        this.gameMode = GAME_MODES.LOCAL;
         
         // Game state
         this.players = [];
@@ -60,10 +70,19 @@ export class GameState {
         this.boardTiles = [];       // Hex tiles on the board
         this.tileMarkers = {};      // { tileId: { playerId: count } }
         
+        // Solo mode: rival organisms
+        this.rivalMarkers = {};     // { tileId: count } - AI-controlled rival markers
+        this.totalRivals = 0;       // Track total rival markers on board
+        
         // Flags
         this.gameStarted = false;
         this.gameEnded = false;
         this.allPlayersRolled = false;
+        this.soloExtinct = false;   // True if player went extinct in solo mode
+        
+        // Hand limit (experimental - disabled by default)
+        this.handLimitEnabled = false;
+        this.handLimit = 10;
     }
     
     async loadGameData() {
@@ -112,6 +131,76 @@ export class GameState {
         this.currentEra = 0;
         this.currentPhase = PHASES.ALLELE_ROLL;
         this.currentPlayerIndex = 0;
+    }
+    
+    initializeSoloGame(playerName) {
+        this.gameMode = GAME_MODES.SOLO;
+        
+        // Create single player
+        this.players = [new Player(0, playerName)];
+        this.players[0].traits = [];
+        this.players[0].traitsByEra = {};
+        
+        // Shuffle event deck
+        this.eventDeck = shuffle([...this.eventsData.events]);
+        
+        // Turn order is just the solo player
+        this.turnOrder = [0];
+        
+        // Initialize board
+        this.initializeBoard();
+        
+        // Initialize rival markers tracking
+        this.rivalMarkers = {};
+        for (const tile of this.boardTiles) {
+            this.rivalMarkers[tile.id] = 0;
+        }
+        
+        // Spawn initial rival organisms (2-3 in early marine tiles)
+        this.spawnInitialRivals();
+        
+        this.gameStarted = true;
+        this.currentEra = 0;
+        this.currentPhase = PHASES.ALLELE_ROLL;
+        this.currentPlayerIndex = 0;
+        this.soloExtinct = false;
+    }
+    
+    spawnInitialRivals() {
+        // Spawn 2-3 rival markers on equatorial marine tiles (same area as player starts)
+        const equatorialMarineTiles = this.boardTiles.filter(t =>
+            t.climateBand === 'equatorial' &&
+            (t.biome === 'shallow_marine' || t.biome === 'ocean' || t.biome === 'reef')
+        );
+        
+        // Pick tiles that don't have player markers
+        const availableTiles = equatorialMarineTiles.filter(t => {
+            const playerMarkers = this.tileMarkers[t.id][0] || 0;
+            return playerMarkers === 0;
+        });
+        
+        const initialRivalCount = 2 + Math.floor(Math.random() * 2); // 2-3 rivals
+        for (let i = 0; i < initialRivalCount && i < availableTiles.length; i++) {
+            const tile = availableTiles[i];
+            this.rivalMarkers[tile.id] = 1;
+            this.totalRivals++;
+        }
+    }
+    
+    isSoloMode() {
+        return this.gameMode === GAME_MODES.SOLO;
+    }
+    
+    checkSoloExtinction() {
+        if (!this.isSoloMode()) return false;
+        
+        const player = this.players[0];
+        if (player.markersOnBoard <= 0) {
+            this.soloExtinct = true;
+            this.gameEnded = true;
+            return true;
+        }
+        return false;
     }
     
     initializeBoard() {
@@ -265,6 +354,11 @@ export class GameState {
     advanceEra() {
         this.currentEra++;
         
+        // Check for solo extinction before advancing
+        if (this.isSoloMode() && this.checkSoloExtinction()) {
+            return false;
+        }
+        
         if (this.currentEra >= 12) {
             this.gameEnded = true;
             return false;
@@ -274,8 +368,10 @@ export class GameState {
         this.currentPlayerIndex = 0;
         this.allPlayersRolled = false;
         
-        // Rotate turn order
-        this.turnOrder.push(this.turnOrder.shift());
+        // Rotate turn order (skip in solo mode - only one player)
+        if (!this.isSoloMode()) {
+            this.turnOrder.push(this.turnOrder.shift());
+        }
         
         return true;
     }
@@ -331,6 +427,7 @@ export class GameState {
     // Serialization for save/load
     toJSON() {
         return {
+            gameMode: this.gameMode,
             players: this.players.map(p => p.toJSON()),
             currentEra: this.currentEra,
             currentPhase: this.currentPhase,
@@ -340,20 +437,31 @@ export class GameState {
             discardedEvents: this.discardedEvents.map(e => e.id),
             boardTiles: this.boardTiles,
             tileMarkers: this.tileMarkers,
+            rivalMarkers: this.rivalMarkers,
+            totalRivals: this.totalRivals,
             gameStarted: this.gameStarted,
-            gameEnded: this.gameEnded
+            gameEnded: this.gameEnded,
+            soloExtinct: this.soloExtinct,
+            handLimitEnabled: this.handLimitEnabled,
+            handLimit: this.handLimit
         };
     }
     
     loadFromJSON(data) {
+        this.gameMode = data.gameMode || GAME_MODES.LOCAL;
         this.currentEra = data.currentEra;
         this.currentPhase = data.currentPhase;
         this.currentPlayerIndex = data.currentPlayerIndex;
         this.turnOrder = data.turnOrder;
         this.boardTiles = data.boardTiles;
         this.tileMarkers = data.tileMarkers;
+        this.rivalMarkers = data.rivalMarkers || {};
+        this.totalRivals = data.totalRivals || 0;
         this.gameStarted = data.gameStarted;
         this.gameEnded = data.gameEnded;
+        this.soloExtinct = data.soloExtinct || false;
+        this.handLimitEnabled = data.handLimitEnabled || false;
+        this.handLimit = data.handLimit || 10;
         
         // Reconstruct players
         this.players = data.players.map(p => Player.fromJSON(p, this.traitDb));

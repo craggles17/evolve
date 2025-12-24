@@ -1485,6 +1485,15 @@ body {
     opacity: 0.7;
 }
 
+.prereq.incompatible {
+    color: var(--accent-amber);
+}
+
+.prereq.incompatible.blocked {
+    color: var(--accent-red);
+    font-weight: 600;
+}
+
 .card-detail-grants {
     background: var(--bg-card);
     padding: 0.75rem;
@@ -2507,6 +2516,187 @@ body {
     
     .player-summary-stats {
         flex-wrap: wrap;
+    }
+}
+
+/* ==================== SOLO MODE STYLES ==================== */
+
+/* Solo Setup Screen */
+.solo-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+}
+
+.solo-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.solo-player-input {
+    margin-bottom: 1.5rem;
+}
+
+.solo-info {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.solo-info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.solo-info-item:not(:last-child) {
+    border-bottom: 1px solid var(--border);
+}
+
+.solo-info-icon {
+    font-size: 1.25rem;
+    width: 24px;
+    text-align: center;
+}
+
+/* Threat Indicator */
+.threat-indicator {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.threat-indicator h3 {
+    color: #e85d04;
+}
+
+.threat-meter {
+    height: 24px;
+    background: var(--bg-dark);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.threat-fill {
+    height: 100%;
+    border-radius: 12px;
+    transition: width 0.5s ease-out, background 0.5s ease-out;
+    min-width: 4px;
+}
+
+.threat-fill.threat-low {
+    background: linear-gradient(90deg, #3fb950, #50c878);
+}
+
+.threat-fill.threat-medium {
+    background: linear-gradient(90deg, #f0883e, #e5a84b);
+}
+
+.threat-fill.threat-high {
+    background: linear-gradient(90deg, #e85d04, #f0883e);
+}
+
+.threat-fill.threat-critical {
+    background: linear-gradient(90deg, #f85149, #e85d04);
+    animation: threatPulse 1s ease-in-out infinite;
+}
+
+@keyframes threatPulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.threat-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.threat-status {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Rival Markers */
+.rival-marker {
+    filter: drop-shadow(0 1px 3px rgba(232, 93, 4, 0.5));
+}
+
+/* Solo Game Over */
+.solo-result {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border-radius: 12px;
+}
+
+.solo-result-icon {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+}
+
+.solo-result-text {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.solo-eras-survived {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+}
+
+/* Solo Competition Win/Lose Indicators */
+.hex-tile polygon.solo-win {
+    stroke: var(--accent-green) !important;
+    stroke-width: 3 !important;
+    animation: soloWinPulse 1s ease-in-out infinite;
+}
+
+.hex-tile polygon.solo-lose {
+    stroke: var(--accent-red) !important;
+    stroke-width: 3 !important;
+    animation: soloLosePulse 1s ease-in-out infinite;
+}
+
+@keyframes soloWinPulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 4px rgba(63, 185, 80, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 10px rgba(63, 185, 80, 0.8));
+    }
+}
+
+@keyframes soloLosePulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 4px rgba(248, 81, 73, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 10px rgba(248, 81, 73, 0.8));
     }
 }
 

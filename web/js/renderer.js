@@ -366,6 +366,14 @@ export class Renderer {
             }
         }
         
+        // Render rival markers for solo mode
+        if (state.isSoloMode && state.isSoloMode() && state.rivalMarkers) {
+            const rivalCount = state.rivalMarkers[tile.id] || 0;
+            if (rivalCount > 0) {
+                this.renderRivalMarkers(group, x, y, rivalCount, markerOffset);
+            }
+        }
+        
         // Click handler
         group.addEventListener('click', () => {
             if (this.callbacks.onTileClick) {
@@ -419,6 +427,34 @@ export class Renderer {
             moreText.setAttribute('y', startY + 3);
             moreText.setAttribute('font-size', '8');
             moreText.setAttribute('fill', player.color);
+            moreText.textContent = `+${count - 3}`;
+            group.appendChild(moreText);
+        }
+    }
+    
+    renderRivalMarkers(group, cx, cy, count, offset) {
+        const startX = cx - 15 + (offset * 12);
+        const startY = cy + 8;
+        const rivalColor = '#e85d04'; // Orange-red for rivals
+        
+        for (let i = 0; i < Math.min(count, 3); i++) {
+            const marker = createSVGElement('circle');
+            marker.classList.add('hex-marker', 'rival-marker');
+            marker.setAttribute('cx', startX + (i * 8));
+            marker.setAttribute('cy', startY);
+            marker.setAttribute('r', 4);
+            marker.setAttribute('fill', rivalColor);
+            marker.setAttribute('stroke', '#fff');
+            marker.setAttribute('stroke-width', '0.5');
+            group.appendChild(marker);
+        }
+        
+        if (count > 3) {
+            const moreText = createSVGElement('text');
+            moreText.setAttribute('x', startX + 24);
+            moreText.setAttribute('y', startY + 3);
+            moreText.setAttribute('font-size', '8');
+            moreText.setAttribute('fill', rivalColor);
             moreText.textContent = `+${count - 3}`;
             group.appendChild(moreText);
         }
@@ -1446,6 +1482,10 @@ export class Renderer {
         const winnerDiv = $('#winner-display');
         const organismsDiv = $('#organism-matches');
         
+        // Hide solo result section for multiplayer
+        $('#solo-result')?.classList.add('hidden');
+        $('#gameover-title').textContent = 'Evolution Complete!';
+        
         scoresDiv.innerHTML = '';
         for (let i = 0; i < scores.length; i++) {
             const s = scores[i];
@@ -1478,6 +1518,193 @@ export class Renderer {
         }
         
         this.showModal('gameover-modal');
+    }
+    
+    // Solo Game Over Modal
+    showSoloGameOver(extinct, erasSurvived, score, organismMatch) {
+        const title = $('#gameover-title');
+        const soloResult = $('#solo-result');
+        const scoresDiv = $('#final-scores');
+        const winnerDiv = $('#winner-display');
+        const organismsDiv = $('#organism-matches');
+        
+        // Show solo result section
+        soloResult.classList.remove('hidden');
+        
+        if (extinct) {
+            title.textContent = 'Extinction!';
+            $('#solo-result-icon').textContent = '💀';
+            $('#solo-result-text').textContent = 'Your lineage has ended.';
+            $('#solo-result-text').style.color = '#f85149';
+        } else {
+            title.textContent = 'Survival Complete!';
+            $('#solo-result-icon').textContent = '🏆';
+            $('#solo-result-text').textContent = 'Your lineage endures!';
+            $('#solo-result-text').style.color = '#3fb950';
+        }
+        
+        $('#solo-eras-survived').textContent = `Eras survived: ${erasSurvived} / 12`;
+        
+        // Show score
+        scoresDiv.innerHTML = '';
+        const row = createElement('div', 'score-row winner');
+        row.innerHTML = `
+            <div class="score-name">
+                <span style="width: 16px; height: 16px; border-radius: 50%; background: ${score.player.color}"></span>
+                <span>${score.player.name}</span>
+            </div>
+            <div style="color: #8b949e;">
+                ${score.markers} markers × ${score.complexity} complexity + ${score.tiles * 3} tile bonus
+            </div>
+            <div class="score-value">${score.score}</div>
+        `;
+        scoresDiv.appendChild(row);
+        
+        // Hide winner display for solo
+        winnerDiv.innerHTML = '';
+        
+        // Show organism match
+        organismsDiv.innerHTML = '<h3 style="margin-bottom: 0.5rem;">Your Lineage Resembles</h3>';
+        if (organismMatch.organism) {
+            const match = createElement('div', 'organism-match');
+            match.innerHTML = `
+                <div class="organism-match-result" style="font-size: 1.2rem;">
+                    ${organismMatch.organism.name}
+                </div>
+                <div style="color: #8b949e;">
+                    ${organismMatch.organism.scientific_name}
+                </div>
+                <div style="margin-top: 0.5rem; color: #58a6ff;">
+                    ${(organismMatch.similarity * 100).toFixed(0)}% genetic similarity
+                </div>
+                <div style="margin-top: 0.5rem; font-style: italic; color: #8b949e;">
+                    "${organismMatch.organism.fun_fact}"
+                </div>
+            `;
+            organismsDiv.appendChild(match);
+        }
+        
+        this.showModal('gameover-modal');
+    }
+    
+    // Solo Competition Results Visualization
+    showSoloCompetitionResults(results, state) {
+        const rivalColor = '#e85d04';
+        const player = state.players[0];
+        
+        for (const result of results) {
+            const tile = result.tile;
+            const group = $(`.hex-tile[data-tile-id="${tile.id}"]`);
+            if (!group) continue;
+            
+            const polygon = group.querySelector('polygon');
+            if (!polygon) continue;
+            
+            const bbox = polygon.getBBox();
+            const cx = bbox.x + bbox.width / 2;
+            const cy = bbox.y + bbox.height / 2;
+            
+            // Player dice on the left
+            const playerDiceGroup = createSVGElement('g');
+            playerDiceGroup.classList.add('competition-dice');
+            
+            const playerDiceX = cx - 20;
+            const playerDiceY = cy - 30;
+            
+            const playerRect = createSVGElement('rect');
+            playerRect.setAttribute('x', playerDiceX - 10);
+            playerRect.setAttribute('y', playerDiceY - 10);
+            playerRect.setAttribute('width', 20);
+            playerRect.setAttribute('height', 20);
+            playerRect.setAttribute('rx', 3);
+            playerRect.setAttribute('fill', player.color);
+            playerRect.setAttribute('stroke', '#fff');
+            playerRect.setAttribute('stroke-width', '1.5');
+            playerDiceGroup.appendChild(playerRect);
+            
+            const playerDiceText = createSVGElement('text');
+            playerDiceText.setAttribute('x', playerDiceX);
+            playerDiceText.setAttribute('y', playerDiceY + 4);
+            playerDiceText.setAttribute('text-anchor', 'middle');
+            playerDiceText.setAttribute('font-size', '14');
+            playerDiceText.setAttribute('font-weight', 'bold');
+            playerDiceText.setAttribute('fill', '#000');
+            playerDiceText.textContent = result.playerRoll;
+            playerDiceGroup.appendChild(playerDiceText);
+            
+            const playerTotal = createSVGElement('text');
+            playerTotal.setAttribute('x', playerDiceX);
+            playerTotal.setAttribute('y', playerDiceY + 22);
+            playerTotal.setAttribute('text-anchor', 'middle');
+            playerTotal.setAttribute('font-size', '9');
+            playerTotal.setAttribute('fill', player.color);
+            playerTotal.textContent = `=${result.playerTotal}`;
+            playerDiceGroup.appendChild(playerTotal);
+            
+            this.boardContent.appendChild(playerDiceGroup);
+            
+            // Rival dice on the right
+            const rivalDiceGroup = createSVGElement('g');
+            rivalDiceGroup.classList.add('competition-dice');
+            
+            const rivalDiceX = cx + 20;
+            const rivalDiceY = cy - 30;
+            
+            const rivalRect = createSVGElement('rect');
+            rivalRect.setAttribute('x', rivalDiceX - 10);
+            rivalRect.setAttribute('y', rivalDiceY - 10);
+            rivalRect.setAttribute('width', 20);
+            rivalRect.setAttribute('height', 20);
+            rivalRect.setAttribute('rx', 3);
+            rivalRect.setAttribute('fill', rivalColor);
+            rivalRect.setAttribute('stroke', '#fff');
+            rivalRect.setAttribute('stroke-width', '1.5');
+            rivalDiceGroup.appendChild(rivalRect);
+            
+            const rivalDiceText = createSVGElement('text');
+            rivalDiceText.setAttribute('x', rivalDiceX);
+            rivalDiceText.setAttribute('y', rivalDiceY + 4);
+            rivalDiceText.setAttribute('text-anchor', 'middle');
+            rivalDiceText.setAttribute('font-size', '14');
+            rivalDiceText.setAttribute('font-weight', 'bold');
+            rivalDiceText.setAttribute('fill', '#fff');
+            rivalDiceText.textContent = result.rivalRoll;
+            rivalDiceGroup.appendChild(rivalDiceText);
+            
+            const rivalTotal = createSVGElement('text');
+            rivalTotal.setAttribute('x', rivalDiceX);
+            rivalTotal.setAttribute('y', rivalDiceY + 22);
+            rivalTotal.setAttribute('text-anchor', 'middle');
+            rivalTotal.setAttribute('font-size', '9');
+            rivalTotal.setAttribute('fill', rivalColor);
+            rivalTotal.textContent = `=${result.rivalTotal}`;
+            rivalDiceGroup.appendChild(rivalTotal);
+            
+            this.boardContent.appendChild(rivalDiceGroup);
+            
+            // Winner indicator
+            const winnerText = createSVGElement('text');
+            winnerText.classList.add('competition-dice');
+            winnerText.setAttribute('x', cx);
+            winnerText.setAttribute('y', cy - 45);
+            winnerText.setAttribute('text-anchor', 'middle');
+            winnerText.setAttribute('font-size', '12');
+            winnerText.setAttribute('font-weight', 'bold');
+            
+            if (result.winner === 'player') {
+                winnerText.setAttribute('fill', '#3fb950');
+                winnerText.textContent = '✓ WIN';
+            } else {
+                winnerText.setAttribute('fill', '#f85149');
+                winnerText.textContent = '✗ LOSE';
+            }
+            this.boardContent.appendChild(winnerText);
+            
+            // Highlight contested tile
+            polygon.classList.add('contested');
+            polygon.style.stroke = result.winner === 'player' ? '#3fb950' : '#f85149';
+            polygon.style.strokeWidth = '3';
+        }
     }
     
     // Tile Flip Phase Visualization

@@ -77,7 +77,7 @@ export class GameEngine {
         const { canAcquire, reason } = player.canAcquireTrait(trait, this.state.currentEra, this.state.traitDb);
         if (!canAcquire) return { success: false, reason };
         
-        const cost = player.getTraitCost(trait);
+        const cost = player.getTraitCost(trait, this.state.traitDb);
         if (player.alleles < cost) {
             return { success: false, reason: `Not enough alleles (need ${cost}, have ${player.alleles})` };
         }
@@ -90,7 +90,7 @@ export class GameEngine {
             specialization = specResult.specialization;
         }
         
-        const acquired = player.acquireTrait(trait, this.state.currentEra);
+        const acquired = player.acquireTrait(trait, this.state.currentEra, this.state.traitDb);
         if (acquired) {
             this.emit('traitAcquired', { player, trait, cost, specialization });
             return { success: true, cost, specialization };
@@ -320,6 +320,15 @@ export class GameEngine {
             for (const player of this.state.players) {
                 const result = this.resolveExtinction(player, event);
                 results.push(result);
+            }
+            
+            // In solo mode, extinction also affects rivals
+            if (this.state.isSoloMode()) {
+                const rivalResult = this.resolveRivalExtinction(event);
+                results[0].rivalsLost = rivalResult.rivalsLost;
+                
+                // Check if player went extinct
+                this.state.checkSoloExtinction();
             }
         } else if (event.type === 'positive') {
             // Apply positive effects
@@ -612,6 +621,21 @@ export class GameEngine {
         }
     }
     
+    // Enforce hand limits at end of era (experimental feature)
+    enforceHandLimits() {
+        if (!this.state.handLimitEnabled) return [];
+        
+        const results = [];
+        for (const player of this.state.players) {
+            const discarded = player.enforceHandLimit(this.state.handLimit);
+            if (discarded.length > 0) {
+                results.push({ player, discarded });
+                this.emit('cardsDiscarded', { player, discarded });
+            }
+        }
+        return results;
+    }
+    
     // Full phase execution
     async executePhase() {
         const phase = this.state.currentPhase;
@@ -635,7 +659,7 @@ export class GameEngine {
     getPlayableTraits(player) {
         return player.hand.map(trait => {
             const { canAcquire, reason } = player.canAcquireTrait(trait, this.state.currentEra, this.state.traitDb);
-            const cost = player.getTraitCost(trait);
+            const cost = player.getTraitCost(trait, this.state.traitDb);
             const canAfford = player.alleles >= cost;
             
             return {
@@ -718,6 +742,268 @@ export class GameEngine {
         }
         
         return [];
+    }
+    
+    // ==================== SOLO MODE: RIVAL ORGANISMS ====================
+    
+    // Spawn new rival markers at the start of each era (solo mode)
+    spawnRivals() {
+        if (!this.state.isSoloMode()) return { spawned: [] };
+        
+        const era = this.state.currentEra;
+        const spawned = [];
+        
+        // Number of rivals to spawn scales with era: 1-2 in early eras, 2-3 in later eras
+        const baseSpawn = era < 4 ? 1 : (era < 8 ? 2 : 2);
+        const bonusSpawn = Math.random() < 0.5 ? 1 : 0;
+        const toSpawn = baseSpawn + bonusSpawn;
+        
+        // Get valid tiles for rival spawning (unlocked tiles without player markers)
+        const validTiles = this.state.boardTiles.filter(tile => {
+            if (this.state.currentEra < tile.eraLock) return false;
+            const playerMarkers = this.state.tileMarkers[tile.id][0] || 0;
+            return playerMarkers === 0;
+        });
+        
+        // Prefer tiles adjacent to existing rivals for clustering
+        const adjacentToRivals = validTiles.filter(tile => {
+            const neighbors = getHexNeighbors(tile.q, tile.r);
+            return neighbors.some(n => {
+                const neighborTile = this.state.boardTiles.find(t => t.q === n.q && t.r === n.r);
+                return neighborTile && (this.state.rivalMarkers[neighborTile.id] || 0) > 0;
+            });
+        });
+        
+        // 70% chance to spawn adjacent to existing rivals, 30% anywhere valid
+        const spawnPool = adjacentToRivals.length > 0 && Math.random() < 0.7
+            ? adjacentToRivals
+            : validTiles;
+        
+        for (let i = 0; i < toSpawn && spawnPool.length > 0; i++) {
+            const idx = Math.floor(Math.random() * spawnPool.length);
+            const tile = spawnPool[idx];
+            
+            if (!this.state.rivalMarkers[tile.id]) {
+                this.state.rivalMarkers[tile.id] = 0;
+            }
+            this.state.rivalMarkers[tile.id]++;
+            this.state.totalRivals++;
+            spawned.push({ tile, count: 1 });
+            
+            // Remove from pool to avoid double-spawning
+            spawnPool.splice(idx, 1);
+        }
+        
+        this.emit('rivalsSpawned', { spawned, totalRivals: this.state.totalRivals });
+        return { spawned };
+    }
+    
+    // Solo mode competition: player vs rival markers
+    resolveSoloCompetition() {
+        if (!this.state.isSoloMode()) return this.resolveCompetition();
+        
+        const results = [];
+        const player = this.state.players[0];
+        
+        // Reset tiles controlled
+        player.tilesControlled = 0;
+        
+        for (const tile of this.state.boardTiles) {
+            const playerMarkers = this.state.tileMarkers[tile.id][0] || 0;
+            const rivalMarkers = this.state.rivalMarkers[tile.id] || 0;
+            
+            // No contest if only one side has markers
+            if (playerMarkers === 0 && rivalMarkers === 0) continue;
+            
+            if (playerMarkers > 0 && rivalMarkers === 0) {
+                player.tilesControlled++;
+                continue;
+            }
+            
+            if (playerMarkers === 0 && rivalMarkers > 0) {
+                // Rivals control this tile, no effect on player
+                continue;
+            }
+            
+            // Contested tile - player vs rivals
+            const playerTags = player.getTags(this.state.traitDb);
+            const bonusTags = tile.biomeData.bonus_tags || [];
+            const playerTagBonus = bonusTags.filter(t => playerTags.has(t)).length;
+            const playerRoll = rollD6();
+            
+            // Check for ecological specialist bonus
+            let playerSpecBonus = 0;
+            const spec = player.specializations?.niche_specialist;
+            if (spec && tile.biome === spec.biome) {
+                playerSpecBonus = 3;
+            }
+            
+            const playerTotal = playerMarkers + playerTagBonus + playerSpecBonus + playerRoll;
+            
+            // Rival strength: markers + era-scaled bonus + biome affinity
+            const eraBonus = Math.floor(this.state.currentEra / 3); // 0-4 based on era
+            const rivalBiomeBonus = this.getRivalBiomeBonus(tile);
+            const rivalRoll = rollD6();
+            const rivalTotal = rivalMarkers + eraBonus + rivalBiomeBonus + rivalRoll;
+            
+            const tileResult = {
+                tile,
+                contested: true,
+                playerMarkers,
+                playerTagBonus,
+                playerSpecBonus,
+                playerRoll,
+                playerTotal,
+                rivalMarkers,
+                rivalEraBonus: eraBonus,
+                rivalBiomeBonus,
+                rivalRoll,
+                rivalTotal,
+                winner: null,
+                displaced: null
+            };
+            
+            if (playerTotal >= rivalTotal) {
+                // Player wins
+                tileResult.winner = 'player';
+                player.tilesControlled++;
+                
+                // Displacement: if player wins by 3+, remove rival markers
+                if (playerTotal - rivalTotal >= 3) {
+                    const displaced = this.state.rivalMarkers[tile.id];
+                    this.state.rivalMarkers[tile.id] = 0;
+                    this.state.totalRivals -= displaced;
+                    tileResult.displaced = { type: 'rival', count: displaced };
+                }
+            } else {
+                // Rivals win
+                tileResult.winner = 'rival';
+                
+                // Displacement: if rivals win by 3+, remove player markers
+                if (rivalTotal - playerTotal >= 3) {
+                    const displaced = this.state.tileMarkers[tile.id][0];
+                    this.state.tileMarkers[tile.id][0] = 0;
+                    player.markersOnBoard -= displaced;
+                    tileResult.displaced = { type: 'player', count: displaced };
+                }
+            }
+            
+            results.push(tileResult);
+        }
+        
+        // Check for extinction after competition
+        this.state.checkSoloExtinction();
+        
+        this.emit('soloCompetitionResolved', { results });
+        return results;
+    }
+    
+    // Get biome affinity bonus for rivals (they adapt to their environment)
+    getRivalBiomeBonus(tile) {
+        // Rivals get +1 for aquatic tiles (representing primitive marine life)
+        // and +1 for their native climate band
+        let bonus = 0;
+        
+        const biome = tile.biome;
+        if (['ocean', 'shallow_marine', 'reef', 'coast'].includes(biome)) {
+            bonus += 1;
+        }
+        
+        // Rivals are stronger in equatorial regions (origin of life)
+        if (tile.climateBand === 'equatorial') {
+            bonus += 1;
+        }
+        
+        return bonus;
+    }
+    
+    // Spread rivals to adjacent tiles (called after competition)
+    spreadRivals() {
+        if (!this.state.isSoloMode()) return { spread: [] };
+        
+        const spread = [];
+        const tilesWithRivals = this.state.boardTiles.filter(t => 
+            (this.state.rivalMarkers[t.id] || 0) > 0
+        );
+        
+        for (const tile of tilesWithRivals) {
+            // 40% chance to spread from each tile with rivals
+            if (Math.random() > 0.4) continue;
+            
+            const neighbors = getHexNeighbors(tile.q, tile.r);
+            const validNeighbors = neighbors
+                .map(n => this.state.boardTiles.find(t => t.q === n.q && t.r === n.r))
+                .filter(t => {
+                    if (!t) return false;
+                    if (this.state.currentEra < t.eraLock) return false;
+                    // Don't spread to tiles with player markers (they'll fight in competition)
+                    return true;
+                });
+            
+            if (validNeighbors.length === 0) continue;
+            
+            // Pick a random neighbor to spread to
+            const target = validNeighbors[Math.floor(Math.random() * validNeighbors.length)];
+            if (!this.state.rivalMarkers[target.id]) {
+                this.state.rivalMarkers[target.id] = 0;
+            }
+            this.state.rivalMarkers[target.id]++;
+            this.state.totalRivals++;
+            
+            spread.push({ from: tile, to: target });
+        }
+        
+        this.emit('rivalsSpread', { spread, totalRivals: this.state.totalRivals });
+        return { spread };
+    }
+    
+    // Apply extinction effects to rivals (solo mode)
+    resolveRivalExtinction(event) {
+        if (!this.state.isSoloMode()) return;
+        
+        // Extinction events also affect rivals
+        const doomedTags = new Set(event.doomed_tags || []);
+        let rivalsLost = 0;
+        
+        for (const tile of this.state.boardTiles) {
+            const rivalCount = this.state.rivalMarkers[tile.id] || 0;
+            if (rivalCount === 0) continue;
+            
+            const tileTags = tile.biomeData.bonus_tags || [];
+            const isDoomed = tileTags.some(t => doomedTags.has(t));
+            
+            if (isDoomed) {
+                // Rivals on doomed tiles are wiped out
+                rivalsLost += rivalCount;
+                this.state.rivalMarkers[tile.id] = 0;
+                this.state.totalRivals -= rivalCount;
+            } else {
+                // Neutral roll for rivals: 50% chance to lose half
+                if (Math.random() < 0.5) {
+                    const lost = Math.ceil(rivalCount / 2);
+                    this.state.rivalMarkers[tile.id] -= lost;
+                    this.state.totalRivals -= lost;
+                    rivalsLost += lost;
+                }
+            }
+        }
+        
+        return { rivalsLost };
+    }
+    
+    // Get threat level for UI display (solo mode)
+    getThreatLevel() {
+        if (!this.state.isSoloMode()) return 0;
+        
+        const player = this.state.players[0];
+        const playerMarkers = player.markersOnBoard;
+        const rivalMarkers = this.state.totalRivals;
+        
+        if (playerMarkers === 0) return 100;
+        
+        // Threat level: ratio of rivals to player markers, scaled 0-100
+        const ratio = rivalMarkers / Math.max(1, playerMarkers);
+        return Math.min(100, Math.round(ratio * 25));
     }
 }
 
