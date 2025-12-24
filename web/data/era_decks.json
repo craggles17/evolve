@@ -152,7 +152,8 @@
         {"trait_id": "freshwater", "copies": 2, "rarity": "common"},
         {"trait_id": "venom", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "k_strategy", "copies": 2, "rarity": "uncommon"},
-        {"trait_id": "parental_care", "copies": 2, "rarity": "uncommon"}
+        {"trait_id": "parental_care", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "osteoderms", "copies": 1, "rarity": "rare"}
       ]
     },
     "6": {
@@ -172,7 +173,9 @@
         {"trait_id": "burrowing", "copies": 2, "rarity": "common"},
         {"trait_id": "insect_flight", "copies": 2, "rarity": "common"},
         {"trait_id": "metamorphosis", "copies": 2, "rarity": "common"},
-        {"trait_id": "arboreal", "copies": 2, "rarity": "uncommon"}
+        {"trait_id": "arboreal", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "osteoderms", "copies": 1, "rarity": "uncommon"},
+        {"trait_id": "death_roll", "copies": 1, "rarity": "rare"}
       ]
     },
     "7": {
@@ -194,7 +197,8 @@
         {"trait_id": "burrowing", "copies": 2, "rarity": "common"},
         {"trait_id": "arboreal", "copies": 2, "rarity": "common"},
         {"trait_id": "tropical_specialist", "copies": 2, "rarity": "uncommon"},
-        {"trait_id": "niche_specialist", "copies": 2, "rarity": "uncommon"}
+        {"trait_id": "niche_specialist", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "death_roll", "copies": 1, "rarity": "uncommon"}
       ]
     },
     "8": {
