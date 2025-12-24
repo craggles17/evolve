@@ -281,17 +281,24 @@ export class GameEngine {
         return results;
     }
     
-    // Continental Drift: shuffle 3 tiles, move 2 markers per player
+    // Continental Drift: shuffle 3 adjacent tiles, move 2 markers per player
     resolveContinentalDrift(event) {
         const results = [];
         const shuffledTiles = [];
         
-        // Pick 3 random tiles to shuffle
-        const tiles = [...this.state.boardTiles];
-        const selected = [];
-        for (let i = 0; i < 3 && tiles.length > 0; i++) {
-            const idx = Math.floor(Math.random() * tiles.length);
-            selected.push(tiles.splice(idx, 1)[0]);
+        // Pick 3 adjacent tiles to shuffle
+        const selected = this.pickAdjacentTiles(3);
+        if (selected.length < 3) {
+            // Fallback: not enough adjacent tiles, skip the shuffle
+            for (const player of this.state.players) {
+                results.push({
+                    player,
+                    status: 'neutral',
+                    message: 'Continental drift had no effect.',
+                    lostMarkers: 0
+                });
+            }
+            return results;
         }
         
         // Rotate biomes cyclically: A->B, B->C, C->A
@@ -525,8 +532,51 @@ export class GameEngine {
             const requiredTags = tile.biomeData.required_tags || [];
             const hasRequiredTags = requiredTags.every(t => tags.has(t));
             const isAdjacent = this.isAdjacentToPlayerMarkers(player, tile);
-            return hasRequiredTags && isAdjacent;
+            const alreadyOccupied = (this.state.tileMarkers[tile.id][player.id] || 0) > 0;
+            return hasRequiredTags && (isAdjacent || alreadyOccupied);
         });
+    }
+    
+    // Pick N adjacent tiles in same climate zone for continental drift
+    pickAdjacentTiles(count) {
+        const tiles = this.state.boardTiles;
+        if (tiles.length < count) return [];
+        
+        // Try multiple times to find a valid cluster
+        for (let attempt = 0; attempt < 30; attempt++) {
+            const startIdx = Math.floor(Math.random() * tiles.length);
+            const start = tiles[startIdx];
+            const climateBand = start.climateBand;
+            const selected = [start];
+            
+            // Only consider tiles in same climate zone
+            const candidates = new Set(
+                tiles.filter(t => t.id !== start.id && t.climateBand === climateBand)
+            );
+            
+            // Grow cluster by adding adjacent tiles in same zone
+            while (selected.length < count && candidates.size > 0) {
+                const adjacent = [];
+                for (const tile of selected) {
+                    const neighbors = getHexNeighbors(tile.q, tile.r);
+                    for (const n of neighbors) {
+                        const match = [...candidates].find(t => t.q === n.q && t.r === n.r);
+                        if (match) adjacent.push(match);
+                    }
+                }
+                
+                if (adjacent.length === 0) break;
+                
+                // Pick random adjacent tile
+                const next = adjacent[Math.floor(Math.random() * adjacent.length)];
+                selected.push(next);
+                candidates.delete(next);
+            }
+            
+            if (selected.length === count) return selected;
+        }
+        
+        return [];
     }
 }
 
