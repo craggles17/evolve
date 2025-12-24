@@ -204,69 +204,17 @@ export class GameState {
     }
     
     initializeBoard() {
-        // Create rectangular hex grid with climate bands
-        // 10 columns x 11 rows = 110 hexes organized by latitude
-        const COLS = 10;
-        const ROWS = 11;
-        
-        // Climate bands by row (symmetric around equator at row 5)
-        const getClimateBand = (row) => {
-            if (row === 0 || row === 10) return 'polar';
-            if (row === 1 || row === 2 || row === 8 || row === 9) return 'temperate';
-            if (row === 3 || row === 4 || row === 6 || row === 7) return 'tropical';
-            return 'equatorial'; // row 5
-        };
-        
-        // Biome pools per climate band
-        const biomePools = {
-            polar: ['ice', 'mountain', 'mountain'],
-            temperate: ['forest', 'grassland', 'desert', 'mountain', 'forest', 'grassland'],
-            tropical: ['swamp', 'forest', 'coast', 'freshwater', 'swamp', 'forest'],
-            equatorial: ['shallow_marine', 'reef', 'ocean', 'shallow_marine', 'reef', 'ocean', 'coast']
-        };
-        
-        // Era locks by climate (polar unlocks late, equatorial available early)
-        const eraLockRanges = {
-            polar: [8, 11],      // Era 8-11
-            temperate: [4, 8],   // Era 4-8
-            tropical: [2, 5],    // Era 2-5
-            equatorial: [0, 2]   // Era 0-2
-        };
-        
-        const startingLayout = [];
-        
-        for (let row = 0; row < ROWS; row++) {
-            const band = getClimateBand(row);
-            const pool = biomePools[band];
-            const [minEra, maxEra] = eraLockRanges[band];
-            
-            for (let col = 0; col < COLS; col++) {
-                // Pick biome from pool (cycle through with some variation)
-                const biomeIndex = (col + row) % pool.length;
-                const biome = pool[biomeIndex];
-                
-                // Era lock within the band's range
-                const eraLock = minEra + Math.floor(Math.random() * (maxEra - minEra + 1));
-                
-                startingLayout.push({
-                    q: col,
-                    r: row,
-                    biome: biome,
-                    climateBand: band,
-                    eraLock: eraLock
-                });
-            }
-        }
-        
-        this.boardTiles = startingLayout.map((tile, i) => ({
-            id: `tile_${i}`,
-            q: tile.q,
-            r: tile.r,
+        // Load pre-designed tiles from tiles.json (7 rows x 10 cols = 70 tiles)
+        this.boardTiles = this.tilesData.tiles.map(tile => ({
+            id: `tile_${tile.id}`,
+            q: tile.col,
+            r: tile.row,
             biome: tile.biome,
             biomeData: this.tilesData.biome_types[tile.biome],
-            climateBand: tile.climateBand,
-            flipNumber: Math.floor(Math.random() * 6) + 1,
-            eraLock: tile.eraLock
+            climateBand: tile.climate_zone,
+            flipNumber: tile.flip_number,
+            eraLock: tile.era_lock,
+            stable: tile.stable
         }));
         
         // Initialize markers tracking
@@ -274,7 +222,7 @@ export class GameState {
             this.tileMarkers[tile.id] = {};
         }
         
-        // Place starting markers on equatorial marine tiles (row 5)
+        // Place starting markers on equatorial marine tiles (row 3)
         const equatorialTiles = this.boardTiles.filter(t => 
             t.climateBand === 'equatorial' && 
             (t.biome === 'shallow_marine' || t.biome === 'ocean' || t.biome === 'reef')

@@ -9,9 +9,9 @@ import {
 import { PHASE_NAMES, PHASE_HINTS } from './state.js';
 import { findBestOrganism, formatSimilarity } from './organisms.js';
 
-// Board layout constants
+// Board layout constants (matches tiles.json: 7 rows x 10 cols)
 const BOARD_COLS = 10;
-const BOARD_ROWS = 11;
+const BOARD_ROWS = 7;
 const BOARD_PADDING = 50;
 
 export class Renderer {
@@ -203,7 +203,7 @@ export class Renderer {
     }
     
     updatePlayerInputs(count) {
-        const inputs = $$('.player-input');
+        const inputs = $$('#player-names .player-input');
         inputs.forEach((input, i) => {
             if (i < count) {
                 input.classList.remove('hidden');
@@ -268,15 +268,14 @@ export class Renderer {
     }
     
     renderClimateBandLabels() {
-        // Climate bands based on row positions (11 rows: 0=polar, 1-2/8-9=temperate, 3-4/6-7=tropical, 5=equatorial)
+        // Climate bands based on row positions (7 rows matching tiles.json)
+        // Row 0, 6 = polar; Row 1, 2, 4, 5 = temperate; Row 3 = equatorial
         const bands = [
             { row: 0, label: 'POLAR', color: '#b0e0e6' },
             { row: 1.5, label: 'TEMPERATE', color: '#9acd32' },
-            { row: 3.5, label: 'TROPICAL', color: '#228b22' },
-            { row: 5, label: 'EQUATORIAL', color: '#3498db' },
-            { row: 6.5, label: 'TROPICAL', color: '#228b22' },
-            { row: 8.5, label: 'TEMPERATE', color: '#9acd32' },
-            { row: 10, label: 'POLAR', color: '#b0e0e6' }
+            { row: 3, label: 'EQUATORIAL', color: '#3498db' },
+            { row: 4.5, label: 'TEMPERATE', color: '#9acd32' },
+            { row: 6, label: 'POLAR', color: '#b0e0e6' }
         ];
         
         for (const band of bands) {

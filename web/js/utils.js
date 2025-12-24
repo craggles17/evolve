@@ -108,14 +108,28 @@ export function cornersToPoints(corners) {
 }
 
 export function getHexNeighbors(q, r) {
-    return [
-        { q: q + 1, r: r },
-        { q: q + 1, r: r - 1 },
-        { q: q, r: r - 1 },
-        { q: q - 1, r: r },
-        { q: q - 1, r: r + 1 },
-        { q: q, r: r + 1 }
-    ];
+    // Odd-r offset coordinates: odd rows are shifted right
+    if (r % 2 === 1) {
+        // Odd row neighbors
+        return [
+            { q: q + 1, r: r },
+            { q: q + 1, r: r - 1 },
+            { q: q, r: r - 1 },
+            { q: q - 1, r: r },
+            { q: q, r: r + 1 },
+            { q: q + 1, r: r + 1 }
+        ];
+    } else {
+        // Even row neighbors
+        return [
+            { q: q + 1, r: r },
+            { q: q, r: r - 1 },
+            { q: q - 1, r: r - 1 },
+            { q: q - 1, r: r },
+            { q: q - 1, r: r + 1 },
+            { q: q, r: r + 1 }
+        ];
+    }
 }
 
 // Calculate Jaccard similarity for organism matching

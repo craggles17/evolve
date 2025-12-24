@@ -268,8 +268,8 @@ export class GameEngine {
             const transitions = this.state.tilesData.flip_transitions?.[tile.biome];
             const allTransitions = transitions || Object.keys(this.state.tilesData.biome_types);
             
-            // Filter transitions by climate zone (map 'tropical' to 'temperate')
-            const climateZone = tile.climateBand === 'tropical' ? 'temperate' : tile.climateBand;
+            // Filter transitions by climate zone
+            const climateZone = tile.climateBand;
             const validTransitions = allTransitions.filter(biome => {
                 const biomeData = this.state.tilesData.biome_types[biome];
                 return biomeData && biomeData.climate_zones && biomeData.climate_zones.includes(climateZone);
