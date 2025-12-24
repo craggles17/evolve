@@ -246,10 +246,15 @@ export class GameState {
             (t.biome === 'shallow_marine' || t.biome === 'ocean' || t.biome === 'reef')
         );
         
+        // Randomly select 2-3 tiles as starting cluster to maximize early competition
+        const shuffled = [...equatorialTiles].sort(() => Math.random() - 0.5);
+        const clusterSize = 2 + Math.floor(Math.random() * 2); // 2 or 3 tiles
+        const startingTiles = shuffled.slice(0, clusterSize);
+        
         for (const player of this.players) {
-            // Distribute 3 markers across equatorial aquatic tiles
+            // Place 3 markers randomly across the clustered starting tiles
             for (let i = 0; i < 3; i++) {
-                const tile = equatorialTiles[(player.id + i) % equatorialTiles.length];
+                const tile = startingTiles[Math.floor(Math.random() * startingTiles.length)];
                 if (!this.tileMarkers[tile.id][player.id]) {
                     this.tileMarkers[tile.id][player.id] = 0;
                 }
