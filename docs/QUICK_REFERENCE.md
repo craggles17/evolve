@@ -20,7 +20,8 @@
 | Base Roll | 2d6 |
 | 1-3 Markers | +0 |
 | 4-6 Markers | +1 |
-| 7+ Markers | +2 |
+| 7-9 Markers | +2 |
+| 10+ Markers | +3 |
 | Per Controlled Tile | +1 |
 | Fecundity Traits | varies |
 
