@@ -1022,10 +1022,10 @@ export class Renderer {
                 : '';
             
             stats.innerHTML = `
-                <span>💎 ${player.alleles}</span>
-                <span>🦎 ${player.markersOnBoard}</span>
-                <span>🧬 ${player.getComplexity(traitDb)}</span>
-                <span>🗺️ ${player.tilesControlled}</span>
+                <span title="Alleles - genetic currency for evolving traits">💎 ${player.alleles}</span>
+                <span title="Population markers placed on tiles">🦎 ${player.markersOnBoard}</span>
+                <span title="Complexity - sum of all trait costs">🧬 ${player.getComplexity(traitDb)}</span>
+                <span title="Tiles controlled with majority population">🗺️ ${player.tilesControlled}</span>
                 ${organismBadge}
             `;
             
