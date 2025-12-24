@@ -48,6 +48,21 @@ class Game {
             this.renderer.showScreen('setup-screen');
         });
         
+        // Tile legend toggle
+        const legendToggle = document.querySelector('.legend-toggle');
+        const legendContent = document.querySelector('.legend-content');
+        if (legendToggle && legendContent) {
+            legendToggle.addEventListener('click', () => {
+                legendContent.classList.toggle('hidden');
+            });
+            // Close legend when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.tile-legend')) {
+                    legendContent.classList.add('hidden');
+                }
+            });
+        }
+        
         // Renderer callbacks
         this.renderer.callbacks.onTileClick = (tile) => this.handleTileClick(tile);
         this.renderer.callbacks.onCardClick = (trait, canBuy) => this.handleCardClick(trait, canBuy);

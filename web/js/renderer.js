@@ -198,18 +198,35 @@ export class Renderer {
     
     highlightValidTiles(tiles, state) {
         // Reset all tiles
-        $$('.hex-tile polygon').forEach(p => {
-            p.style.strokeWidth = '2';
-            p.style.stroke = '#30363d';
+        $$('.hex-tile').forEach(group => {
+            group.classList.remove('valid-target', 'invalid-target');
+            const polygon = group.querySelector('polygon:not(.locked)');
+            if (polygon) {
+                polygon.style.strokeWidth = '2';
+                polygon.style.stroke = '#30363d';
+            }
         });
         
-        // Highlight valid ones
+        // Mark non-valid tiles as invalid
+        $$('.hex-tile').forEach(group => {
+            const tileId = parseInt(group.dataset.tileId);
+            const isValid = tiles.some(t => t.id === tileId);
+            if (!isValid) {
+                group.classList.add('invalid-target');
+            }
+        });
+        
+        // Highlight valid ones with pulsing effect
         for (const tile of tiles) {
             const group = $(`.hex-tile[data-tile-id="${tile.id}"]`);
             if (group) {
-                const polygon = group.querySelector('polygon');
-                polygon.style.strokeWidth = '3';
-                polygon.style.stroke = '#3fb950';
+                group.classList.add('valid-target');
+                const polygon = group.querySelector('polygon:not(.locked)');
+                if (polygon) {
+                    polygon.style.strokeWidth = '4';
+                    polygon.style.stroke = '#3fb950';
+                    polygon.style.filter = 'drop-shadow(0 0 6px rgba(63, 185, 80, 0.6))';
+                }
             }
         }
     }

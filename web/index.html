@@ -109,6 +109,40 @@
                 <!-- Center: Hex Board -->
                 <section id="board-container">
                     <svg id="hex-board" viewBox="0 0 700 850"></svg>
+                    <div id="tile-legend" class="tile-legend">
+                        <button class="legend-toggle" title="Tile Legend">?</button>
+                        <div class="legend-content hidden">
+                            <h4>Tile Legend</h4>
+                            <div class="legend-item">
+                                <span class="legend-icon era-badge">Cam</span>
+                                <span>Era unlock (locked until that era)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon">⚀-⚅</span>
+                                <span>Flip threshold (roll ≥ to flip)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon stable">⚓</span>
+                                <span>Stable (never flips)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon req">🌊</span>
+                                <span>Required: Aquatic</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon req">🦎</span>
+                                <span>Required: Terrestrial</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon bonus">+🌳</span>
+                                <span>Bonus tags (competition advantage)</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-icon locked">🔒</span>
+                                <span>Locked (not yet available)</span>
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
                 <!-- Right Panel: Cards & Actions -->

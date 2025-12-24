@@ -495,11 +495,107 @@ body {
         radial-gradient(ellipse at center, rgba(212, 165, 116, 0.05) 0%, transparent 60%),
         var(--bg-dark);
     overflow: hidden;
+    position: relative;
 }
 
 #hex-board {
     max-width: 100%;
     max-height: 100%;
+}
+
+/* Tile Legend */
+.tile-legend {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 50;
+}
+
+.legend-toggle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-panel);
+    border: 2px solid var(--border);
+    color: var(--accent-gold);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.legend-toggle:hover {
+    background: var(--bg-hover);
+    border-color: var(--accent-gold);
+    transform: scale(1.1);
+}
+
+.legend-content {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    min-width: 240px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.legend-content.hidden {
+    display: none;
+}
+
+.legend-content h4 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--accent-gold);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 0;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.legend-icon {
+    min-width: 32px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.legend-icon.era-badge {
+    background: var(--era-4);
+    color: #fff;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.legend-icon.stable {
+    background: rgba(212, 165, 116, 0.9);
+    color: #000;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.legend-icon.req {
+    color: #58a6ff;
+}
+
+.legend-icon.bonus {
+    color: #3fb950;
+}
+
+.legend-icon.locked {
+    color: #888;
 }
 
 /* Hex Tiles */
@@ -509,23 +605,94 @@ body {
 }
 
 .hex-tile:hover {
-    filter: brightness(1.2);
+    filter: brightness(1.15);
+}
+
+.hex-tile:hover polygon:not(.locked) {
+    stroke: var(--accent-gold) !important;
+    stroke-width: 3 !important;
 }
 
 .hex-tile polygon {
     stroke: var(--border);
     stroke-width: 2;
+    transition: all 0.2s;
+}
+
+.hex-tile polygon.locked {
+    cursor: not-allowed;
 }
 
 .hex-tile text {
     fill: var(--text-primary);
     font-size: 10px;
     font-family: var(--font-body);
+    pointer-events: none;
 }
 
 .hex-marker {
     stroke: var(--bg-dark);
-    stroke-width: 1;
+    stroke-width: 1.5;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+}
+
+/* Tile state indicators */
+.hex-tile .tile-locked {
+    opacity: 0.4;
+}
+
+.hex-tile .tile-stable polygon {
+    stroke-dasharray: none;
+}
+
+/* Flip danger colors */
+.flip-danger-high {
+    fill: #f85149;
+}
+
+.flip-danger-medium {
+    fill: #f0883e;
+}
+
+.flip-danger-low {
+    fill: #8b949e;
+}
+
+/* Tile targeting states */
+.hex-tile.valid-target {
+    animation: validTargetPulse 1.5s ease-in-out infinite;
+}
+
+.hex-tile.valid-target polygon {
+    filter: drop-shadow(0 0 8px rgba(63, 185, 80, 0.7));
+}
+
+.hex-tile.invalid-target {
+    opacity: 0.6;
+}
+
+.hex-tile.invalid-target:hover {
+    filter: brightness(1) !important;
+    cursor: not-allowed;
+}
+
+@keyframes validTargetPulse {
+    0%, 100% {
+        filter: brightness(1);
+    }
+    50% {
+        filter: brightness(1.2);
+    }
+}
+
+/* Era lock badge styling */
+.hex-tile .era-lock-badge {
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+}
+
+/* Stable tile gold border glow */
+.hex-tile polygon[stroke="#d4a574"] {
+    filter: drop-shadow(0 0 4px rgba(212, 165, 116, 0.4));
 }
 
 /* Event Deck Display */
