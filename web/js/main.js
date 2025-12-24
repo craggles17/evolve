@@ -3,7 +3,7 @@
 import { GameState, PHASES, DIFFICULTY } from './state.js';
 import { GameEngine } from './engine.js';
 import { Renderer } from './renderer.js';
-import { $, $$, createElement, PLAYER_COLORS, delay } from './utils.js';
+import { $, $$, createElement, PLAYER_COLORS, delay, ERA_MYA } from './utils.js';
 import { MultiplayerHost, MultiplayerClient, checkForRoomInURL, getShareLink } from './multiplayer.js';
 
 const MODE = {
@@ -21,7 +21,11 @@ class Game {
         this.engine = null;
         
         this.currentPlayerRolled = false;
-        this.ttZoom = 1; // Tech tree zoom level
+        
+        // Tech tree zoom/scroll state
+        this.ttEraWidth = 140; // Must match renderer.js ERA_WIDTH
+        this.ttZoom = 1;
+        this.ttVisibleEras = 5; // Target eras visible at default zoom
         
         this.mode = MODE.LOCAL;
         this.mpHost = null;
@@ -117,8 +121,9 @@ class Game {
         $('#btn-zoom-reset')?.addEventListener('click', () => this.renderer.resetZoom());
         
         // Tech tree zoom controls
-        $('#tt-zoom-in')?.addEventListener('click', () => this.techTreeZoom(0.1));
-        $('#tt-zoom-out')?.addEventListener('click', () => this.techTreeZoom(-0.1));
+        $('#tt-zoom-in')?.addEventListener('click', () => this.techTreeZoom(0.15));
+        $('#tt-zoom-out')?.addEventListener('click', () => this.techTreeZoom(-0.15));
+        $('#tech-tree-scroll')?.addEventListener('scroll', () => this.updateTTVisibleRange());
         
         // Chat
         $('#chat-send')?.addEventListener('click', () => this.sendChat());
@@ -311,6 +316,7 @@ class Game {
         
         this.renderer.showScreen('game-screen');
         this.renderer.initBoardInteractions?.();
+        this.initTechTreeZoom();
         this.updateUI();
         
         console.log('Local game started with players:', names);
@@ -329,6 +335,7 @@ class Game {
         
         this.renderer.showScreen('game-screen');
         this.renderer.initBoardInteractions?.();
+        this.initTechTreeZoom();
         
         // Show the threat indicator for solo mode
         $('#threat-indicator')?.classList.remove('hidden');
@@ -424,6 +431,7 @@ class Game {
         
         this.renderer.showScreen('game-screen');
         this.renderer.initBoardInteractions?.();
+        this.initTechTreeZoom();
         this.showMultiplayerUI();
         this.updateUI();
         
@@ -546,6 +554,7 @@ class Game {
         if (!wasStarted && this.state.gameStarted) {
             this.renderer.showScreen('game-screen');
             this.renderer.initBoardInteractions?.();
+            this.initTechTreeZoom();
             this.showMultiplayerUI();
         }
         
@@ -569,6 +578,7 @@ class Game {
         
         if (this.state.gameStarted) {
             this.renderer.showScreen('game-screen');
+            this.initTechTreeZoom();
             this.showMultiplayerUI();
             this.updateUI();
         } else {
@@ -702,18 +712,56 @@ class Game {
         btn.textContent = panel.classList.contains('minimized') ? '+' : '−';
     }
     
-    // Tech tree zoom
+    // Tech tree zoom - dynamically calculate based on container width
+    initTechTreeZoom() {
+        const container = $('#tech-tree-scroll');
+        if (!container) return;
+        
+        // Calculate zoom to show exactly 5 eras
+        const containerWidth = container.clientWidth;
+        this.ttZoom = containerWidth / (this.ttVisibleEras * this.ttEraWidth);
+        this.ttZoom = Math.max(0.5, Math.min(2, this.ttZoom));
+        
+        this.applyTTZoom();
+    }
+    
     techTreeZoom(delta) {
         this.ttZoom = (this.ttZoom || 1) + delta;
-        this.ttZoom = Math.max(0.5, Math.min(2, this.ttZoom)); // 50% - 200%
-        
+        this.ttZoom = Math.max(0.5, Math.min(2, this.ttZoom));
+        this.applyTTZoom();
+    }
+    
+    applyTTZoom() {
         const svg = $('#tech-tree-svg');
         if (svg) {
             svg.style.transform = `scale(${this.ttZoom})`;
             svg.style.transformOrigin = 'top left';
         }
+        this.updateTTVisibleRange();
+    }
+    
+    updateTTVisibleRange() {
+        const container = $('#tech-tree-scroll');
+        const label = $('#tt-zoom-level');
+        if (!container || !label) return;
         
-        $('#tt-zoom-level').textContent = Math.round(this.ttZoom * 100) + '%';
+        // Calculate which eras are visible based on scroll + zoom
+        const scrollLeft = container.scrollLeft;
+        const visibleWidth = container.clientWidth;
+        const scaledEraWidth = this.ttEraWidth * this.ttZoom;
+        
+        // First visible era (0-indexed)
+        const firstEra = Math.floor(scrollLeft / scaledEraWidth);
+        // Last visible era
+        const lastEra = Math.min(11, Math.floor((scrollLeft + visibleWidth) / scaledEraWidth));
+        
+        // Get MYA values (ERA_MYA goes from 540 to 2.6)
+        const startMYA = ERA_MYA[firstEra] || 540;
+        const endMYA = ERA_MYA[Math.min(11, lastEra + 1)] || 0;
+        
+        // Format the range
+        const formatMYA = (mya) => mya >= 1 ? Math.round(mya) : mya.toFixed(1);
+        label.textContent = `${formatMYA(startMYA)}–${formatMYA(endMYA)} MYA`;
     }
     
     // Turn Control

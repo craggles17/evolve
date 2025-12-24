@@ -3156,10 +3156,11 @@ body {
 }
 
 #tt-zoom-level {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: var(--text-secondary);
-    min-width: 35px;
+    min-width: 80px;
     text-align: center;
+    font-variant-numeric: tabular-nums;
     color: var(--accent-gold);
     margin: 0;
 }
