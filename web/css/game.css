@@ -557,6 +557,7 @@ body {
     border-radius: 1px;
     transition: filter 0.15s, transform 0.15s;
     cursor: default;
+    flex-shrink: 0;
 }
 
 .genome-block:hover {
@@ -573,20 +574,17 @@ body {
 .genome-block.te {
     background: linear-gradient(135deg, #c53030 0%, #9c2020 50%, #c53030 100%);
     opacity: 0.85;
-    /* Scattered appearance with slight variations */
-    background-size: 4px 4px;
 }
 
 .genome-block.te:nth-child(odd) {
     background: linear-gradient(135deg, #b02020 0%, #8a1a1a 50%, #b02020 100%);
 }
 
-.genome-empty {
-    color: var(--text-muted);
-    font-size: 0.65rem;
-    font-style: italic;
-    text-align: center;
-    padding: 2px 0;
+.genome-block.empty {
+    flex: 1;
+    background: var(--bg-hover);
+    opacity: 0.3;
+    border-radius: 2px;
 }
 
 .genome-legend {

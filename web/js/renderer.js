@@ -968,73 +968,67 @@ export class Renderer {
         const teBloat = player.teBloat;
         const totalLength = codingDNA + teBloat;
         
-        // Update length display
+        // Update length display (always show, even if 0)
         if (totalLength >= 1000) {
             lengthLabel.textContent = `${(totalLength / 1000).toFixed(1)} Mb`;
         } else {
             lengthLabel.textContent = `${totalLength} kb`;
         }
         
-        // No traits yet
+        // Always show bar structure - even when empty
         if (player.traits.length === 0 && teBloat === 0) {
-            container.innerHTML = '<div class="genome-empty">No coding DNA yet</div>';
+            // Show empty placeholder block
+            const emptyBlock = createElement('div', 'genome-block empty');
+            emptyBlock.title = 'Evolve traits to add coding DNA';
+            container.appendChild(emptyBlock);
             return;
         }
         
-        // Calculate TE insertion points (scattered between traits)
-        const tePerTrait = teBloat / Math.max(1, player.traits.length + 1);
+        // Calculate total TE width (proportional to trait count)
+        const teBlockCount = Math.ceil(teBloat / 100); // One TE block per ~100kb
+        let teRemaining = teBlockCount;
         
-        // Build segments: alternate traits with TE blocks
-        let teRemaining = teBloat;
-        
-        // Initial TE block (before first trait)
-        if (teRemaining > 0) {
-            const teAmount = Math.min(tePerTrait, teRemaining);
-            if (teAmount > 20) {
-                const teBlock = this.createGenomeBlock('te', teAmount, totalLength, 'TE');
-                container.appendChild(teBlock);
-                teRemaining -= teAmount;
-            }
-        }
-        
-        // Add trait blocks with TE insertions between them
+        // Add trait blocks with TE insertions scattered between them
         for (let i = 0; i < player.traits.length; i++) {
             const traitId = player.traits[i];
             const trait = traitDb[traitId];
             if (!trait) continue;
             
-            const bp = trait.base_pairs || 100;
-            
-            // Trait block
-            const traitBlock = this.createGenomeBlock('trait', bp, totalLength, trait.name, trait.clade);
+            // Trait block (fixed width)
+            const traitBlock = this.createGenomeBlock('trait', trait.base_pairs || 100, trait.name, trait.clade);
             container.appendChild(traitBlock);
             
-            // TE insertion after this trait
+            // Scatter TE blocks between traits
             if (teRemaining > 0 && i < player.traits.length - 1) {
-                const teAmount = Math.min(tePerTrait, teRemaining);
-                if (teAmount > 15) {
-                    const teBlock = this.createGenomeBlock('te', teAmount, totalLength, 'TE');
+                const teCount = Math.min(Math.ceil(teRemaining / (player.traits.length - i)), 3);
+                for (let t = 0; t < teCount && teRemaining > 0; t++) {
+                    const teBlock = this.createGenomeBlock('te', 100, 'TE');
                     container.appendChild(teBlock);
-                    teRemaining -= teAmount;
+                    teRemaining--;
                 }
             }
         }
         
-        // Trailing TE block (remaining TE at end)
-        if (teRemaining > 20) {
-            const teBlock = this.createGenomeBlock('te', teRemaining, totalLength, 'TE bloat');
+        // Trailing TE blocks (remaining at end)
+        while (teRemaining > 0) {
+            const teBlock = this.createGenomeBlock('te', 100, 'TE bloat');
             container.appendChild(teBlock);
+            teRemaining--;
         }
     }
     
-    // Create a genome segment block
-    createGenomeBlock(type, size, totalSize, label, clade = null) {
+    // Create a genome segment block (fixed width for traits, small for TEs)
+    createGenomeBlock(type, size, label, clade = null) {
         const block = createElement('div', `genome-block ${type}`);
         
-        // Width proportional to size (min 2px, max 40%)
-        const widthPercent = Math.max(2, Math.min(40, (size / totalSize) * 100));
-        block.style.flexGrow = size;
-        block.style.minWidth = '3px';
+        // Fixed width for traits, smaller for TEs
+        if (type === 'trait') {
+            block.style.width = '10px';
+        } else if (type === 'te') {
+            block.style.width = '4px';
+        } else {
+            block.style.flex = '1'; // empty state fills
+        }
         
         // Color based on type and clade
         if (type === 'trait') {
@@ -1060,8 +1054,8 @@ export class Renderer {
         // Tooltip
         if (type === 'trait') {
             block.title = `${label} (${size}kb)`;
-        } else {
-            block.title = `Transposable Elements (${size}kb junk DNA)`;
+        } else if (type === 'te') {
+            block.title = `Transposable Element (~100kb junk DNA)`;
         }
         
         return block;
