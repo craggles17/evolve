@@ -3,7 +3,7 @@
 import { 
     $, $$, createElement, createSVGElement,
     offsetToPixel, getHexCorners, cornersToPoints,
-    ERA_NAMES, ERA_COLORS, PLAYER_COLORS, STABILITY_INFO,
+    ERA_NAMES, ERA_COLORS, ERA_TEXT_COLORS, PLAYER_COLORS, STABILITY_INFO,
     HEX_SIZE, HEX_WIDTH, HEX_VERT_SPACING
 } from './utils.js';
 import { PHASE_NAMES, PHASE_HINTS } from './state.js';
@@ -327,16 +327,32 @@ export class Renderer {
         flipText.textContent = `${stability.percent}% ▽`;
         group.appendChild(flipText);
         
-        // Era lock indicator
+        // Era lock indicator - colored corner triangle
         if (tile.eraLock > state.currentEra) {
-            const lockText = createSVGElement('text');
-            lockText.setAttribute('x', x + 20);
-            lockText.setAttribute('y', y - 20);
-            lockText.setAttribute('text-anchor', 'middle');
-            lockText.setAttribute('font-size', '10');
-            lockText.setAttribute('fill', '#ff6');
-            lockText.textContent = `🔒${tile.eraLock}`;
-            group.appendChild(lockText);
+            const eraColor = ERA_COLORS[tile.eraLock] || '#666';
+            const textColor = ERA_TEXT_COLORS[tile.eraLock] || '#fff';
+            
+            // Corner triangle in top-right of hex
+            const triSize = 14;
+            const triX = x + 18;
+            const triY = y - 22;
+            const triangle = createSVGElement('polygon');
+            triangle.setAttribute('points', `${triX},${triY} ${triX + triSize},${triY} ${triX + triSize},${triY + triSize}`);
+            triangle.setAttribute('fill', eraColor);
+            triangle.setAttribute('stroke', '#000');
+            triangle.setAttribute('stroke-width', '0.5');
+            group.appendChild(triangle);
+            
+            // Era number inside triangle
+            const eraNum = createSVGElement('text');
+            eraNum.setAttribute('x', triX + triSize - 4);
+            eraNum.setAttribute('y', triY + 9);
+            eraNum.setAttribute('text-anchor', 'middle');
+            eraNum.setAttribute('font-size', '7');
+            eraNum.setAttribute('font-weight', 'bold');
+            eraNum.setAttribute('fill', textColor);
+            eraNum.textContent = tile.eraLock;
+            group.appendChild(eraNum);
         }
         
         // Render markers
@@ -1435,6 +1451,90 @@ export class Renderer {
         }
         
         this.showModal('gameover-modal');
+    }
+    
+    // Tile Flip Phase Visualization
+    showTileFlipIndicator(roll, atRiskTiles) {
+        // Create banner overlay
+        const banner = createElement('div', 'tile-flip-banner');
+        banner.id = 'tile-flip-banner';
+        banner.innerHTML = `
+            <div class="flip-banner-content">
+                <span class="flip-banner-icon">🌍</span>
+                <span class="flip-banner-title">Environmental Shift</span>
+                <span class="flip-banner-dice">
+                    <span class="flip-die">${roll}</span>
+                </span>
+                <span class="flip-banner-desc">Tiles flip on ${roll}+</span>
+            </div>
+        `;
+        
+        const boardContainer = $('#board-container');
+        boardContainer.appendChild(banner);
+        
+        // Highlight at-risk tiles
+        for (const tile of atRiskTiles) {
+            const group = $(`.hex-tile[data-tile-id="${tile.id}"]`);
+            if (group) {
+                group.classList.add('tile-at-risk');
+            }
+        }
+    }
+    
+    animateFlippedTiles(flipped) {
+        // Clear at-risk highlights
+        $$('.hex-tile.tile-at-risk').forEach(el => el.classList.remove('tile-at-risk'));
+        
+        // Animate tiles that actually flipped
+        for (const { tile, oldBiome, newBiome } of flipped) {
+            const group = $(`.hex-tile[data-tile-id="${tile.id}"]`);
+            if (!group) continue;
+            
+            group.classList.add('tile-flipping');
+            
+            // Add transition label
+            const polygon = group.querySelector('polygon');
+            if (polygon) {
+                const bbox = polygon.getBBox();
+                const cx = bbox.x + bbox.width / 2;
+                const cy = bbox.y + bbox.height / 2;
+                
+                const transitionLabel = createSVGElement('text');
+                transitionLabel.classList.add('flip-transition-label');
+                transitionLabel.setAttribute('x', cx);
+                transitionLabel.setAttribute('y', cy);
+                transitionLabel.setAttribute('text-anchor', 'middle');
+                transitionLabel.setAttribute('font-size', '9');
+                transitionLabel.setAttribute('fill', '#fff');
+                transitionLabel.textContent = `${oldBiome} → ${newBiome}`;
+                
+                this.boardContent.appendChild(transitionLabel);
+            }
+        }
+        
+        // Update banner to show results
+        const banner = $('#tile-flip-banner');
+        if (banner) {
+            const desc = banner.querySelector('.flip-banner-desc');
+            if (desc) {
+                desc.textContent = flipped.length > 0 
+                    ? `${flipped.length} tile${flipped.length !== 1 ? 's' : ''} shifted!`
+                    : 'Environment stable';
+                desc.classList.add(flipped.length > 0 ? 'flip-changed' : 'flip-stable');
+            }
+        }
+    }
+    
+    clearTileFlipIndicator() {
+        // Remove banner
+        $('#tile-flip-banner')?.remove();
+        
+        // Clear tile animations
+        $$('.hex-tile.tile-at-risk').forEach(el => el.classList.remove('tile-at-risk'));
+        $$('.hex-tile.tile-flipping').forEach(el => el.classList.remove('tile-flipping'));
+        
+        // Remove transition labels
+        $$('.flip-transition-label').forEach(el => el.remove());
     }
 }
 

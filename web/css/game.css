@@ -724,13 +724,10 @@ body {
     font-size: 0.9rem;
 }
 
-.legend-icon.era-badge {
-    background: var(--era-4);
-    color: #fff;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-size: 0.7rem;
-    font-weight: 600;
+.legend-icon.era-corner {
+    color: #7FC64E;  /* Cretaceous green - era 8 example */
+    font-size: 0.85rem;
+    font-weight: 700;
 }
 
 .legend-icon.stable {
@@ -748,9 +745,6 @@ body {
     color: #3fb950;
 }
 
-.legend-icon.locked {
-    color: #888;
-}
 
 /* Zoom Controls */
 .zoom-controls {
@@ -917,6 +911,157 @@ body {
     50% {
         stroke-width: 4;
         filter: drop-shadow(0 0 12px rgba(255, 255, 102, 0.9));
+    }
+}
+
+/* Tile Flip Phase Visualization */
+.tile-flip-banner {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    animation: bannerSlideIn 0.4s ease-out;
+}
+
+.flip-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(135deg, var(--bg-panel), var(--bg-card));
+    border: 2px solid var(--accent-amber);
+    border-radius: 12px;
+    padding: 12px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.flip-banner-icon {
+    font-size: 1.5rem;
+    animation: globeSpin 2s linear infinite;
+}
+
+@keyframes globeSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.flip-banner-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+.flip-banner-dice {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.flip-die {
+    width: 36px;
+    height: 36px;
+    background: var(--bg-dark);
+    border: 2px solid var(--accent-amber);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-amber);
+    animation: dicePopIn 0.4s ease-out;
+}
+
+.flip-banner-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    min-width: 100px;
+}
+
+.flip-banner-desc.flip-changed {
+    color: var(--accent-amber);
+    font-weight: 600;
+}
+
+.flip-banner-desc.flip-stable {
+    color: var(--accent-green);
+}
+
+@keyframes bannerSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* Tiles at risk of flipping */
+.hex-tile.tile-at-risk polygon {
+    stroke: var(--accent-amber) !important;
+    stroke-width: 3px !important;
+    animation: atRiskPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes atRiskPulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 4px rgba(229, 168, 75, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 12px rgba(229, 168, 75, 0.9));
+    }
+}
+
+/* Tiles that are actively flipping */
+.hex-tile.tile-flipping polygon {
+    stroke: #f85149 !important;
+    stroke-width: 4px !important;
+    animation: tileFlipAnimation 0.6s ease-in-out;
+}
+
+@keyframes tileFlipAnimation {
+    0% {
+        filter: brightness(1);
+        transform: scale(1);
+    }
+    25% {
+        filter: brightness(1.5) saturate(0.5);
+        transform: scale(0.95);
+    }
+    50% {
+        filter: brightness(2) saturate(0);
+        transform: scale(0.9);
+    }
+    75% {
+        filter: brightness(1.5) saturate(0.5);
+        transform: scale(0.95);
+    }
+    100% {
+        filter: brightness(1);
+        transform: scale(1);
+    }
+}
+
+/* Transition label for flipped tiles */
+.flip-transition-label {
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    animation: labelFadeIn 0.3s ease-out;
+    pointer-events: none;
+}
+
+@keyframes labelFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 

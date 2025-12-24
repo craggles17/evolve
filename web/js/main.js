@@ -713,11 +713,7 @@ class Game {
                 break;
                 
             case PHASES.TILE_FLIP:
-                const flipResult = this.engine.flipTiles();
-                if (flipResult.flipped.length > 0) {
-                    console.log(`Tiles flipped (roll ${flipResult.roll}):`, flipResult.flipped);
-                }
-                this.state.advancePhase();
+                await this.handleTileFlipPhase();
                 break;
                 
             case PHASES.EVENT:
@@ -834,6 +830,72 @@ class Game {
             // Clear all competition visuals
             this.renderer.clearCompetitionVisuals();
         }
+        
+        this.state.advancePhase();
+    }
+    
+    async handleTileFlipPhase() {
+        // Get tiles that are at risk of flipping (not era-locked)
+        const atRiskTiles = this.state.boardTiles.filter(tile => 
+            this.state.currentEra >= tile.eraLock
+        );
+        
+        // Roll the dice first to determine flip threshold
+        const roll = Math.floor(Math.random() * 6) + 1;
+        
+        // Show the indicator with roll and highlight at-risk tiles
+        this.renderer.showTileFlipIndicator(roll, atRiskTiles);
+        
+        // Wait for players to see the roll
+        await delay(1200);
+        
+        // Now execute the flip logic with the pre-rolled value
+        const flipped = [];
+        for (const tile of this.state.boardTiles) {
+            if (roll >= tile.flipNumber && this.state.currentEra >= tile.eraLock) {
+                const transitions = this.state.tilesData.flip_transitions?.[tile.biome];
+                const validTransitions = transitions || Object.keys(this.state.tilesData.biome_types);
+                const newBiome = validTransitions[Math.floor(Math.random() * validTransitions.length)];
+                
+                const oldBiome = tile.biome;
+                tile.biome = newBiome;
+                tile.biomeData = this.state.tilesData.biome_types[newBiome];
+                tile.flipNumber = Math.floor(Math.random() * 6) + 1;
+                tile.eraLock = this.state.currentEra + Math.floor(Math.random() * 3);
+                
+                flipped.push({ tile, oldBiome, newBiome });
+                
+                // Check if markers are still valid
+                const markers = this.state.tileMarkers[tile.id];
+                const requiredTags = tile.biomeData.required_tags || [];
+                
+                for (const [playerId, count] of Object.entries(markers)) {
+                    if (count > 0) {
+                        const player = this.state.players[parseInt(playerId)];
+                        const tags = player.getTags(this.state.traitDb);
+                        const canStay = requiredTags.every(t => tags.has(t));
+                        
+                        if (!canStay) {
+                            this.state.tileMarkers[tile.id][playerId] = 0;
+                            player.markersOnBoard -= count;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Show which tiles flipped
+        this.renderer.animateFlippedTiles(flipped);
+        
+        if (flipped.length > 0) {
+            console.log(`Tiles flipped (roll ${roll}):`, flipped);
+        }
+        
+        // Wait for animation
+        await delay(1800);
+        
+        // Clear visuals
+        this.renderer.clearTileFlipIndicator();
         
         this.state.advancePhase();
     }
