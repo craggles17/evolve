@@ -2087,13 +2087,47 @@ export class Renderer {
             computeDepth(trait.id);
         }
         
-        // Initial sort: owned first, then by prereq depth, then by cost
+        // Build same-era prereq lookup for grouping
+        const sameEraPrereq = {};  // traitId -> prereqId (if prereq is in same era)
+        for (const trait of traits) {
+            const displayEra = ownedIds.has(trait.id)
+                ? (acquisitions[trait.id] ?? trait.era_min)
+                : trait.era_min;
+            for (const prereqId of (trait.hard_prereqs || [])) {
+                const prereqTrait = traitDb[prereqId];
+                if (!prereqTrait) continue;
+                const prereqEra = ownedIds.has(prereqId)
+                    ? (acquisitions[prereqId] ?? prereqTrait.era_min)
+                    : prereqTrait.era_min;
+                if (prereqEra === displayEra) {
+                    sameEraPrereq[trait.id] = prereqId;
+                    break;  // Only track first same-era prereq
+                }
+            }
+        }
+        
+        // Find the root of a same-era chain
+        const findChainRoot = (traitId) => {
+            let current = traitId;
+            while (sameEraPrereq[current]) {
+                current = sameEraPrereq[current];
+            }
+            return current;
+        };
+        
+        // Initial sort: owned first, then group by same-era chain root, then by prereq depth
         for (const era in eraGroups) {
             eraGroups[era].sort((a, b) => {
                 const aOwned = ownedIds.has(a.id) ? 0 : 1;
                 const bOwned = ownedIds.has(b.id) ? 0 : 1;
                 if (aOwned !== bOwned) return aOwned - bOwned;
                 
+                // Group by same-era chain root (keeps related traits together)
+                const aRoot = findChainRoot(a.id);
+                const bRoot = findChainRoot(b.id);
+                if (aRoot !== bRoot) return aRoot.localeCompare(bRoot);
+                
+                // Within a chain, sort by prereq depth (prereq before dependent)
                 const aDepth = prereqDepth[a.id] || 0;
                 const bDepth = prereqDepth[b.id] || 0;
                 if (aDepth !== bDepth) return aDepth - bDepth;
@@ -2183,7 +2217,7 @@ export class Renderer {
     }
     
     // Compute orthogonal path that routes in dedicated channels between era columns
-    // All segments stay in channels (right side of each era) - never crossing node areas
+    // Channels are on the right side of each era where nodes don't exist
     computeOrthogonalPath(from, to, obstacles, usedChannels, layout) {
         const { NODE_WIDTH, NODE_HEIGHT, ERA_WIDTH, PADDING, CHANNEL_WIDTH, MYA_HEADER_HEIGHT, totalHeight } = layout;
         
@@ -2195,43 +2229,41 @@ export class Renderer {
         const fromEra = from.era;
         const toEra = to.era;
         
-        // Same-era connections: orthogonal path using small jog to the right
+        // Same-era connections: route to the channel on the right side of the era
         if (fromEra === toEra) {
-            const jogX = startX + 15;
-            return `M ${startX} ${startY} L ${jogX} ${startY} L ${jogX} ${endY} L ${endX} ${endY}`;
+            // Use the channel at the right edge of this era
+            const channelX = PADDING + (fromEra + 1) * ERA_WIDTH - CHANNEL_WIDTH / 2;
+            return `M ${startX} ${startY} L ${channelX} ${startY} L ${channelX} ${endY} L ${endX} ${endY}`;
         }
         
-        // Exit channel: right side of source era (where nodes don't exist)
-        const exitChannelX = PADDING + (fromEra + 1) * ERA_WIDTH - CHANNEL_WIDTH / 2;
-        
-        // Entry channel: right side of era before target
-        const entryChannelX = PADDING + toEra * ERA_WIDTH - CHANNEL_WIDTH / 2;
+        // Cross-era: channel is at the era boundary before the target
+        const channelX = PADDING + toEra * ERA_WIDTH - CHANNEL_WIDTH / 2;
         
         // Track channel usage for parallel edge offset
-        const channelKey = `${fromEra}-${toEra}`;
+        const channelKey = `to-${toEra}`;
         if (!usedChannels[channelKey]) usedChannels[channelKey] = [];
         const slotIndex = usedChannels[channelKey].length;
         const slotOffset = slotIndex * 3;
         usedChannels[channelKey].push({ from: from.y, to: to.y });
         
-        // Adjacent eras: simple elbow path through single channel
+        const routeChannelX = channelX - slotOffset;
+        
+        // Adjacent eras: simple elbow path through the channel
         if (toEra === fromEra + 1) {
-            const channelX = entryChannelX - slotOffset;
-            return `M ${startX} ${startY} L ${channelX} ${startY} L ${channelX} ${endY} L ${endX} ${endY}`;
+            return `M ${startX} ${startY} L ${routeChannelX} ${startY} L ${routeChannelX} ${endY} L ${endX} ${endY}`;
         }
         
-        // Multi-era span: route via top or bottom to avoid crossing intermediate nodes
-        // Choose route based on which direction is shorter
+        // Multi-era span: route via top or bottom to avoid crossing intermediate era nodes
         const routeViaTop = startY > (MYA_HEADER_HEIGHT + totalHeight) / 2;
         const routeY = routeViaTop 
-            ? MYA_HEADER_HEIGHT + 4 + slotOffset  // Route above nodes
-            : totalHeight - 4 - slotOffset;        // Route below nodes
+            ? MYA_HEADER_HEIGHT + 4 + slotOffset  // Route above all nodes
+            : totalHeight - 4 - slotOffset;        // Route below all nodes
         
-        // Path: exit horizontally → vertical to routeY → horizontal across → vertical to endY → enter
-        const exitX = exitChannelX - slotOffset;
-        const entryX = entryChannelX - slotOffset;
+        // Exit from source era to its right channel
+        const exitChannelX = PADDING + (fromEra + 1) * ERA_WIDTH - CHANNEL_WIDTH / 2 - slotOffset;
         
-        return `M ${startX} ${startY} L ${exitX} ${startY} L ${exitX} ${routeY} L ${entryX} ${routeY} L ${entryX} ${endY} L ${endX} ${endY}`;
+        // Path: horizontal to exit channel → vertical to routeY → horizontal to entry channel → vertical to target → horizontal to target
+        return `M ${startX} ${startY} L ${exitChannelX} ${startY} L ${exitChannelX} ${routeY} L ${routeChannelX} ${routeY} L ${routeChannelX} ${endY} L ${endX} ${endY}`;
     }
     
     // Render the full tech tree with MYA timeline header
@@ -2264,12 +2296,15 @@ export class Renderer {
         const getTraitState = (trait) => {
             if (ownedIds.has(trait.id)) return 'owned';
             
+            // Check for conflicts with owned traits first
+            const hasConflict = (trait.incompatible_with || []).some(i => ownedIds.has(i));
+            if (hasConflict) return 'conflicted';
+            
             const inHand = handIds.has(trait.id);
             const prereqsMet = (trait.hard_prereqs || []).every(p => ownedIds.has(p));
             const eraValid = currentEra >= trait.era_min && currentEra <= trait.era_max;
-            const noIncompat = !(trait.incompatible_with || []).some(i => ownedIds.has(i));
             
-            if (inHand && prereqsMet && eraValid && noIncompat) return 'available';
+            if (inHand && prereqsMet && eraValid) return 'available';
             if (inHand) return 'inhand';
             return 'locked';
         };

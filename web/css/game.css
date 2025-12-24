@@ -3512,6 +3512,23 @@ body {
     opacity: 0.7;
 }
 
+/* Conflicted state - Red (incompatible with owned traits) */
+.tech-node-conflicted rect {
+    fill: var(--bg-card);
+    stroke: var(--accent-red);
+    stroke-width: 1.5;
+    opacity: 0.6;
+}
+
+.tech-node-conflicted text {
+    fill: var(--accent-red);
+    opacity: 0.8;
+}
+
+.tech-node-conflicted:hover rect {
+    fill: #3d2222;
+}
+
 /* Mobile: hide tech tree on small screens */
 @media (max-width: 900px) {
     #tech-tree-panel {
