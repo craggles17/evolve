@@ -847,13 +847,24 @@ export class GameEngine {
     spawnRivals() {
         if (!this.state.isSoloMode()) return { spawned: [] };
         
+        const settings = DIFFICULTY_SETTINGS[this.state.difficulty];
+        
+        // Respect population cap
+        if (this.state.totalRivals >= settings.rivalCap) {
+            return { spawned: [], capped: true };
+        }
+        
         const era = this.state.currentEra;
         const spawned = [];
         
-        // Number of rivals to spawn scales with era: 1-2 in early eras, 2-3 in later eras
-        const baseSpawn = era < 4 ? 1 : (era < 8 ? 2 : 2);
-        const bonusSpawn = Math.random() < 0.5 ? 1 : 0;
-        const toSpawn = baseSpawn + bonusSpawn;
+        // Base spawn reduced: 1 in early eras, 1-2 in later eras
+        const baseSpawn = era < 4 ? 1 : (era < 8 ? 1 : 2);
+        // Apply difficulty spawn rate multiplier
+        const scaledSpawn = Math.round(baseSpawn * settings.rivalSpawnRate);
+        // Ensure at least 1 spawn on normal+ difficulty, 0-1 on easy
+        const toSpawn = Math.min(scaledSpawn, settings.rivalCap - this.state.totalRivals);
+        
+        if (toSpawn <= 0) return { spawned: [] };
         
         // Get valid tiles for rival spawning (unlocked tiles without player markers)
         const validTiles = this.state.boardTiles.filter(tile => {
@@ -877,6 +888,9 @@ export class GameEngine {
             : validTiles;
         
         for (let i = 0; i < toSpawn && spawnPool.length > 0; i++) {
+            // Double-check cap during loop
+            if (this.state.totalRivals >= settings.rivalCap) break;
+            
             const idx = Math.floor(Math.random() * spawnPool.length);
             const tile = spawnPool[idx];
             
@@ -899,6 +913,7 @@ export class GameEngine {
     resolveSoloCompetition() {
         if (!this.state.isSoloMode()) return this.resolveCompetition();
         
+        const settings = DIFFICULTY_SETTINGS[this.state.difficulty];
         const results = [];
         const player = this.state.players[0];
         
@@ -937,8 +952,10 @@ export class GameEngine {
             
             const playerTotal = playerMarkers + playerTagBonus + playerSpecBonus + playerRoll;
             
-            // Rival strength: markers + era-scaled bonus + biome affinity
-            const eraBonus = Math.floor(this.state.currentEra / 3); // 0-4 based on era
+            // Rival strength: markers + era-scaled bonus (if enabled) + biome affinity
+            const eraBonus = settings.rivalEraBonus 
+                ? Math.floor(this.state.currentEra / 3)  // 0-4 based on era
+                : 0;
             const rivalBiomeBonus = this.getRivalBiomeBonus(tile);
             const rivalRoll = rollD6();
             const rivalTotal = rivalMarkers + eraBonus + rivalBiomeBonus + rivalRoll;
@@ -1018,14 +1035,26 @@ export class GameEngine {
     spreadRivals() {
         if (!this.state.isSoloMode()) return { spread: [] };
         
+        const settings = DIFFICULTY_SETTINGS[this.state.difficulty];
+        
+        // Respect population cap
+        if (this.state.totalRivals >= settings.rivalCap) {
+            return { spread: [], capped: true };
+        }
+        
         const spread = [];
         const tilesWithRivals = this.state.boardTiles.filter(t => 
             (this.state.rivalMarkers[t.id] || 0) > 0
         );
         
         for (const tile of tilesWithRivals) {
-            // 40% chance to spread from each tile with rivals
-            if (Math.random() > 0.4) continue;
+            // Check cap during loop
+            if (this.state.totalRivals >= settings.rivalCap) break;
+            
+            const tileRivals = this.state.rivalMarkers[tile.id] || 0;
+            // Diminishing returns: -5% spread chance per rival on this tile
+            const spreadChance = Math.max(0.05, settings.rivalSpreadRate - (tileRivals * 0.05));
+            if (Math.random() > spreadChance) continue;
             
             const neighbors = getHexNeighbors(tile.q, tile.r);
             const validNeighbors = neighbors
@@ -1033,7 +1062,6 @@ export class GameEngine {
                 .filter(t => {
                     if (!t) return false;
                     if (this.state.currentEra < t.eraLock) return false;
-                    // Don't spread to tiles with player markers (they'll fight in competition)
                     return true;
                 });
             
