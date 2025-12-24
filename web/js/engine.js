@@ -36,8 +36,9 @@ export class GameEngine {
         const popBonus = player.getPopulationTier();
         const tileBonus = player.tilesControlled;
         const fecundity = player.getFecundityBonus(this.state.traitDb);
+        const genomeMod = player.getGenomeFecundityModifier(this.state.traitDb);
         
-        const total = base + popBonus + tileBonus + fecundity;
+        const total = base + popBonus + tileBonus + fecundity + genomeMod;
         player.alleles += total;
         
         return {
@@ -46,6 +47,7 @@ export class GameEngine {
             popBonus,
             tileBonus,
             fecundity,
+            genomeMod,
             total
         };
     }

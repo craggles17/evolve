@@ -1708,9 +1708,10 @@ export class Renderer {
                 const result = onRoll();
                 die1.textContent = result.die;
                 
+                const genomeLabel = result.genomeMod > 0 ? `+${result.genomeMod}` : result.genomeMod;
                 $('#dice-result').innerHTML = `
                     <div class="dice-breakdown">
-                        Offspring: ${result.base} + Population: ${result.popBonus} + Territory: ${result.tileBonus} + Fecundity: ${result.fecundity}
+                        Offspring: ${result.base} + Population: ${result.popBonus} + Territory: ${result.tileBonus} + Fecundity: ${result.fecundity} + Genome: ${genomeLabel}
                     </div>
                     <div class="dice-total">= ${result.total} Genetic Currency</div>
                 `;

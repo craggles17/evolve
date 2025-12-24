@@ -83,6 +83,15 @@ export class Player {
         }, 0);
     }
     
+    // Genome size affects reproduction - larger genomes = slower cell division (C-value effect)
+    getGenomeFecundityModifier(traitDb) {
+        const genomeLength = this.getGenomeLength(traitDb);
+        if (genomeLength < 500) return 1;      // Streamlined (pufferfish, birds)
+        if (genomeLength < 2000) return 0;     // Normal
+        if (genomeLength < 4000) return -1;    // Bloated
+        return -2;                              // Massive (onion-tier)
+    }
+    
     canAcquireTrait(trait, currentEra, traitDb = {}) {
         // Check era window
         if (currentEra < trait.era_min || currentEra > trait.era_max) {
