@@ -97,6 +97,18 @@ In turn order, players may play any number of trait cards from hand:
 | 2 | -2 Alleles |
 | 3+ (all) | -3 Alleles |
 
+**Complexity Tax:**
+As your organism becomes more complex, further evolution requires more energy. Add a modifier to all trait costs based on your total complexity:
+
+| Total Complexity | Cost Modifier |
+|------------------|---------------|
+| 0-5              | +0            |
+| 6-10             | +1            |
+| 11-15            | +2            |
+| 16+              | +3            |
+
+*Example: A player with 12 total complexity buying a 3-cost trait pays 3 + 2 = 5 alleles.*
+
 **Keeping Cards:** Unplayed cards stay in hand for future eras.
 
 ### Phase 4: Populate
@@ -337,6 +349,10 @@ Use this information to compete for tiles or avoid their strategy!
 1. SAFE tag? → Survive
 2. DOOMED tag? → Lose half (min 1 survivor)
 3. Neither? → Roll d6, need 4+ (5+ for Great Dying)
+
+### Complexity Tax
+- 0-5 complexity: +0 to trait costs
+- 6-10: +1, 11-15: +2, 16+: +3
 
 ### Event Back Colors
 - 🔴 **RED/SKULL** = Extinction coming - prepare!

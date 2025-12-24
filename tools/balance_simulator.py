@@ -71,10 +71,22 @@ class Player:
                 return False
         return True
     
-    def get_cost(self, trait: Trait) -> int:
+    def get_cost(self, trait: Trait, trait_db: dict[str, Trait]) -> int:
         soft_count = sum(1 for p in trait.soft_prereqs if p in self.traits)
         discount = min(soft_count, 3)
-        return max(0, trait.cost - discount)
+        
+        # Complexity tier modifier - higher complexity = higher costs
+        complexity = self.get_complexity(trait_db)
+        if complexity >= 16:
+            complexity_mod = 3
+        elif complexity >= 11:
+            complexity_mod = 2
+        elif complexity >= 6:
+            complexity_mod = 1
+        else:
+            complexity_mod = 0
+        
+        return max(0, trait.cost - discount + complexity_mod)
     
     def score(self, trait_db: dict[str, Trait]) -> int:
         complexity = self.get_complexity(trait_db)
@@ -191,17 +203,22 @@ def generalist_strategy(player: Player, available: list[Trait], alleles: int, tr
     
     sorted_traits = sorted(available, key=lambda t: (
         -len(set(t.tags) & survival_tags),
-        player.get_cost(t)
+        player.get_cost(t, trait_db)
     ))
     
     acquired = []
     remaining = alleles
     
     for trait in sorted_traits:
-        cost = player.get_cost(trait)
+        cost = player.get_cost(trait, trait_db)
         if cost <= remaining:
             acquired.append(trait.id)
+            player.traits.append(trait.id)  # Update traits so complexity recalculates
             remaining -= cost
+    
+    # Remove temporarily added traits - they'll be added properly in simulate_game
+    for tid in acquired:
+        player.traits.remove(tid)
     
     return acquired
 
@@ -222,7 +239,7 @@ def specialist_strategy(player: Player, available: list[Trait], alleles: int, tr
     def priority(t: Trait) -> tuple:
         in_path = t.id in target_traits
         path_index = target_traits.index(t.id) if in_path else 999
-        return (-int(in_path), path_index, player.get_cost(t))
+        return (-int(in_path), path_index, player.get_cost(t, trait_db))
     
     sorted_traits = sorted(available, key=priority)
     
@@ -230,10 +247,15 @@ def specialist_strategy(player: Player, available: list[Trait], alleles: int, tr
     remaining = alleles
     
     for trait in sorted_traits:
-        cost = player.get_cost(trait)
+        cost = player.get_cost(trait, trait_db)
         if cost <= remaining:
             acquired.append(trait.id)
+            player.traits.append(trait.id)  # Update traits so complexity recalculates
             remaining -= cost
+    
+    # Remove temporarily added traits - they'll be added properly in simulate_game
+    for tid in acquired:
+        player.traits.remove(tid)
     
     return acquired
 
@@ -278,7 +300,7 @@ def simulate_game(num_players: int = 4, verbose: bool = False) -> dict:
             
             for tid in acquired:
                 trait = trait_db[tid]
-                cost = player.get_cost(trait)
+                cost = player.get_cost(trait, trait_db)
                 if cost <= player.alleles:
                     player.traits.append(tid)
                     player.alleles -= cost

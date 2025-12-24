@@ -37,6 +37,17 @@
 
 ---
 
+## Complexity Tax
+
+| Your Complexity | Extra Cost |
+|-----------------|------------|
+| 0-5 | +0 |
+| 6-10 | +1 |
+| 11-15 | +2 |
+| 16+ | +3 |
+
+---
+
 ## Extinction Resolution
 
 ```
