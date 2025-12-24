@@ -1,6 +1,8 @@
 # Damn Nature You Scary - Build & Deploy
 # Requires: netlify-cli (npm install -g netlify-cli)
 
+SITE_ID := db7d3d45-fb46-4635-82eb-a8cbca753254
+
 .PHONY: serve deploy deploy-preview sync-data version clean
 
 # Local development server
@@ -9,11 +11,11 @@ serve:
 
 # Deploy to production
 deploy: sync-data version
-	PATH="/opt/homebrew/bin:$$PATH" npx --yes netlify-cli deploy --prod --dir=.
+	PATH="/opt/homebrew/bin:$$PATH" npx --yes netlify-cli deploy --prod --dir=. --site=$(SITE_ID)
 
 # Deploy preview (non-production)
 deploy-preview: sync-data version
-	PATH="/opt/homebrew/bin:$$PATH" npx --yes netlify-cli deploy --dir=.
+	PATH="/opt/homebrew/bin:$$PATH" npx --yes netlify-cli deploy --dir=. --site=$(SITE_ID)
 
 # Sync data files from parent data/ folder
 sync-data:
