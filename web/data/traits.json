@@ -506,7 +506,7 @@
     },
     {
       "id": "therapsid_gait",
-      "name": "Therapsid Gait",
+      "name": "Upright Posture",
       "era_min": 5,
       "era_max": 11,
       "cost": 4,
