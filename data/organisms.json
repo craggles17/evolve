@@ -244,9 +244,9 @@
       "name": "Common Octopus",
       "scientific_name": "Octopus vulgaris",
       "era_range": [4, 11],
-      "traits": ["bilateral_symmetry", "gills", "large_brain", "small_size", "ectothermy", "nocturnal"],
+      "traits": ["bilateral_symmetry", "gills", "tentacles", "jet_propulsion", "ink_sac", "chromatophores", "cephalopod_intelligence", "small_size", "ectothermy", "nocturnal"],
       "fun_fact": "Octopuses have three hearts, blue blood, and can solve complex puzzles.",
-      "complexity": 18
+      "complexity": 28
     },
     {
       "id": "nautilus",

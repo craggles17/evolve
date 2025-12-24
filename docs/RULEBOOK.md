@@ -14,7 +14,7 @@
 
 ### Shared
 - 1 Central Era Board
-- 12 Era Trait Decks (color-coded, ~10 cards per player per deck, 62 unique traits)
+- 12 Era Trait Decks (color-coded, ~10 cards per player per deck, 88 unique traits)
 - 28 Event Cards (shuffled deck with visible backs)
 - 70 Hexagonal Biome Tiles
 - 2 Standard d6 dice
@@ -127,6 +127,8 @@ Resolve control for each tile with multiple players:
 5. **Ties:** Both players share control (+0.5 each, rounded down)
 
 **Displacement:** If you have 2+ more markers AND 2+ more relevant tags than an opponent, you may displace their markers (return to their supply).
+
+> **Digital Variant:** The web game adds a d6 roll to each competitor's strength (markers + tags + d6) for added uncertainty. Displacement occurs when the winner exceeds the loser by 3+ points.
 
 ### Phase 6: Tile Flip
 Roll 1d6 for the entire tile grid:
