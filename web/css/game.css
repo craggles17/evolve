@@ -2700,3 +2700,146 @@ body {
     }
 }
 
+/* ==================== TECH TREE STYLES ==================== */
+
+#tech-tree-container {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-top: 0.75rem;
+}
+
+#tech-tree-container h3 {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--accent-gold);
+    margin-bottom: 0.5rem;
+}
+
+.tech-tree-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+    font-size: 0.7rem;
+}
+
+.tech-tree-legend span {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.legend-owned { color: var(--accent-gold); }
+.legend-available { color: var(--accent-green); }
+.legend-inhand { color: var(--accent-blue); }
+.legend-locked { color: var(--text-muted); }
+
+#tech-tree-scroll {
+    max-height: 300px;
+    overflow: auto;
+    background: var(--bg-dark);
+    border-radius: 4px;
+    padding: 4px;
+}
+
+#tech-tree-svg {
+    display: block;
+    min-width: 100%;
+}
+
+/* Tech Tree Edges */
+.tech-edge {
+    transition: stroke 0.2s, stroke-width 0.2s;
+}
+
+/* Tech Tree Nodes - Base styles */
+.tech-node rect {
+    transition: fill 0.2s, stroke 0.2s, filter 0.2s;
+}
+
+.tech-node text {
+    fill: var(--text-primary);
+    font-family: var(--font-body);
+    font-weight: 500;
+}
+
+/* Owned state - Gold */
+.tech-node-owned rect {
+    fill: var(--accent-gold);
+    stroke: #b8925a;
+    stroke-width: 1.5;
+}
+
+.tech-node-owned text {
+    fill: var(--bg-dark);
+}
+
+.tech-node-owned:hover rect {
+    filter: brightness(1.15);
+}
+
+/* Available state - Green glow + pulse */
+.tech-node-available rect {
+    fill: var(--bg-hover);
+    stroke: var(--accent-green);
+    stroke-width: 2;
+    animation: techNodePulse 1.5s ease-in-out infinite;
+}
+
+.tech-node-available text {
+    fill: var(--accent-green);
+    font-weight: 600;
+}
+
+.tech-node-available:hover rect {
+    fill: #2a3d2a;
+    filter: drop-shadow(0 0 8px rgba(63, 185, 80, 0.6));
+}
+
+@keyframes techNodePulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 3px rgba(63, 185, 80, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 8px rgba(63, 185, 80, 0.7));
+    }
+}
+
+/* In Hand state - Blue dashed border */
+.tech-node-inhand rect {
+    fill: var(--bg-card);
+    stroke: var(--accent-blue);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 2;
+}
+
+.tech-node-inhand text {
+    fill: var(--accent-blue);
+}
+
+.tech-node-inhand:hover rect {
+    fill: var(--bg-hover);
+}
+
+/* Locked state - Grey/disabled */
+.tech-node-locked rect {
+    fill: var(--bg-dark);
+    stroke: var(--border);
+    stroke-width: 1;
+    opacity: 0.5;
+}
+
+.tech-node-locked text {
+    fill: var(--text-muted);
+    opacity: 0.7;
+}
+
+/* Mobile: hide tech tree on small screens */
+@media (max-width: 900px) {
+    #tech-tree-container {
+        display: none;
+    }
+}
+

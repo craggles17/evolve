@@ -658,6 +658,7 @@ class Game {
         }
         
         this.renderer.renderLineageBoard(player, this.state.traitDb);
+        this.renderer.renderTechTree(player, this.state.currentEra, this.state.traitDb);
         this.renderer.updatePlayerStats(player, this.state.traitDb, this.state.currentPhase, this.isMyTurn());
         this.renderer.updateEventDeck(this.state);
         this.renderer.renderPlayersBar(this.state.players, this.state.currentPlayerIndex, this.state.traitDb, this.state.currentEra, organisms);

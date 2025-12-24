@@ -1184,6 +1184,19 @@ export class Renderer {
             </div>
             ` : ''}
             
+            ${(trait.incompatible_with?.length > 0) ? `
+            <div class="card-detail-section">
+                <h4>Incompatible With</h4>
+                <div class="card-detail-prereqs">
+                    ${trait.incompatible_with.map(p => {
+                        const blocked = player.traits.includes(p);
+                        const incompTrait = traitDb[p];
+                        return `<span class="prereq incompatible ${blocked ? 'blocked' : ''}">${incompTrait?.name || p}</span>`;
+                    }).join('')}
+                </div>
+            </div>
+            ` : ''}
+            
             <div class="card-detail-section">
                 <h4>Grants</h4>
                 <div class="card-detail-grants">${trait.grants}</div>
