@@ -133,6 +133,7 @@ class Game {
         this.renderer.callbacks.onTraitSlotClick = (traitId) => this.handleTraitSlotClick(traitId);
         this.renderer.callbacks.onMarkerDrop = (tileId) => this.handleMarkerDrop(tileId);
         this.renderer.callbacks.onTechTreeClick = (trait, state) => this.handleTechTreeClick(trait, state);
+        this.renderer.callbacks.onGenomeTraitClick = (trait) => this.handleGenomeTraitClick(trait);
         
         // Trait modal buttons
         $('#btn-trait-play')?.addEventListener('click', () => this.playTraitFromModal());
@@ -955,6 +956,19 @@ class Game {
             canAct,
             isEvolutionPhase && this.isMyTurn(),
             (t) => this.handleBuyTrait(t)
+        );
+    }
+    
+    handleGenomeTraitClick(trait) {
+        // Show trait detail for genome bar clicks (read-only, already owned)
+        const player = this.state.getCurrentPlayer();
+        this.renderer.showCardDetail(
+            trait,
+            player,
+            this.state.traitDb,
+            false,  // canBuy = false (already owned)
+            false,  // isEvolutionPhase irrelevant for owned traits
+            () => {}
         );
     }
     

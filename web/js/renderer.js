@@ -22,7 +22,8 @@ export class Renderer {
             onTileClick: null,
             onCardClick: null,
             onTraitSlotClick: null,
-            onMarkerDrop: null
+            onMarkerDrop: null,
+            onGenomeTraitClick: null
         };
         
         // Pan/zoom state
@@ -994,8 +995,19 @@ export class Renderer {
             const trait = traitDb[traitId];
             if (!trait) continue;
             
-            // Trait block (fixed width)
-            const traitBlock = this.createGenomeBlock('trait', trait.base_pairs || 100, trait.name, trait.clade);
+            // Get the era when this trait was acquired
+            const acquisitionEra = player.traitAcquisitions[traitId] ?? 0;
+            
+            // Trait block (fixed width, colored by acquisition era)
+            const traitBlock = this.createGenomeBlock('trait', trait.base_pairs || 100, trait.name, acquisitionEra);
+            
+            // Make trait blocks clickable
+            traitBlock.addEventListener('click', () => {
+                if (this.callbacks.onGenomeTraitClick) {
+                    this.callbacks.onGenomeTraitClick(trait);
+                }
+            });
+            
             container.appendChild(traitBlock);
             
             // Scatter TE blocks between traits
@@ -1018,7 +1030,8 @@ export class Renderer {
     }
     
     // Create a genome segment block (fixed width for traits, small for TEs)
-    createGenomeBlock(type, size, label, clade = null) {
+    // For traits: acquisitionEra is the era number (0-11) when the trait was acquired
+    createGenomeBlock(type, size, label, acquisitionEra = null) {
         const block = createElement('div', `genome-block ${type}`);
         
         // Fixed width for traits, smaller for TEs
@@ -1030,30 +1043,16 @@ export class Renderer {
             block.style.flex = '1'; // empty state fills
         }
         
-        // Color based on type and clade
+        // Color based on acquisition era (using ERA_COLORS palette)
         if (type === 'trait') {
-            const cladeColors = {
-                'Bilateria': '#4a9eff',
-                'Chordata': '#5ab5ff',
-                'Vertebrata': '#6bc5ff',
-                'Arthropoda': '#ff9844',
-                'Hexapoda': '#ffaa55',
-                'Mollusca': '#aa77dd',
-                'Cephalopoda': '#bb88ee',
-                'Mammalia': '#ff6b9d',
-                'Aves': '#77dd77',
-                'Reptilia': '#8bc34a',
-                'Amphibia': '#26c6da',
-                'Various': '#888',
-                'Default': '#666'
-            };
-            const color = cladeColors[clade] || '#58a6ff';
+            const color = ERA_COLORS[acquisitionEra] || ERA_COLORS[0];
             block.style.backgroundColor = color;
         }
         
-        // Tooltip
+        // Tooltip with era info for traits
         if (type === 'trait') {
-            block.title = `${label} (${size}kb)`;
+            const eraName = ERA_NAMES[acquisitionEra] || 'Unknown';
+            block.title = `${label} (${size}kb) - Acquired: ${eraName}`;
         } else if (type === 'te') {
             block.title = `Transposable Element (~100kb junk DNA)`;
         }
