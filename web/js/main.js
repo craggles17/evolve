@@ -1072,6 +1072,11 @@ class Game {
     handleTechTreeClick(trait, traitState) {
         const player = this.state.getCurrentPlayer();
         const isEvolutionPhase = this.state.currentPhase === PHASES.EVOLUTION;
+        const cost = player.getTraitCost(trait, this.state.traitDb);
+        const ownedTraits = new Set(player.traits);
+        const missingPrereqs = (trait.hard_prereqs || []).filter(p => !ownedTraits.has(p));
+        const eraValid = this.state.currentEra >= trait.era_min && this.state.currentEra <= trait.era_max;
+        const canAfford = player.alleles >= cost;
         const canPlay = this.isMyTurn() && isEvolutionPhase && traitState === 'available';
         
         // Store the trait for potential play action
@@ -1145,12 +1150,32 @@ class Game {
             prereqsContainer.appendChild(list);
         }
         
-        // Show/hide play button
+        // Configure evolve button with informative state
         const playBtn = $('#btn-trait-play');
-        if (canPlay) {
-            playBtn.classList.remove('hidden');
+        playBtn.classList.remove('hidden');
+        
+        if (traitState === 'owned') {
+            playBtn.textContent = 'Already Evolved';
+            playBtn.disabled = true;
+        } else if (!isEvolutionPhase) {
+            playBtn.textContent = 'Evolution Phase Only';
+            playBtn.disabled = true;
+        } else if (!eraValid) {
+            playBtn.textContent = `Available Era ${trait.era_min}-${trait.era_max}`;
+            playBtn.disabled = true;
+        } else if (missingPrereqs.length > 0) {
+            const prereqName = this.state.traitDb[missingPrereqs[0]]?.name || missingPrereqs[0];
+            playBtn.textContent = `Requires: ${prereqName}`;
+            playBtn.disabled = true;
+        } else if (!canAfford) {
+            playBtn.textContent = `Need ${cost} Alleles`;
+            playBtn.disabled = true;
+        } else if (canPlay) {
+            playBtn.textContent = `Evolve (${cost} Alleles)`;
+            playBtn.disabled = false;
         } else {
-            playBtn.classList.add('hidden');
+            playBtn.textContent = 'Cannot Evolve';
+            playBtn.disabled = true;
         }
         
         // Show modal
