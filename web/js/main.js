@@ -548,6 +548,13 @@ class Game {
         
         this.renderer.updateHeader(this.state);
         this.renderer.renderBoard(this.state);
+        
+        // Highlight valid tiles during Populate phase
+        if (this.state.currentPhase === PHASES.POPULATE && this.isMyTurn()) {
+            const validTiles = this.engine.getValidTiles(player);
+            this.renderer.highlightValidTiles(validTiles, this.state);
+        }
+        
         this.renderer.renderLineageBoard(player, this.state.traitDb);
         this.renderer.updatePlayerStats(player, this.state.traitDb);
         this.renderer.updateEventDeck(this.state);
