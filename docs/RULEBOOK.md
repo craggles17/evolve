@@ -72,6 +72,19 @@ All players simultaneously roll 2d6 and add:
 - **Population Tier:** 1-3 markers on board = +0, 4-6 = +1, 7-9 = +2, 10+ = +3
 - **Tile Control:** +1 per tile you control
 - **Fecundity Bonus:** As indicated by your traits
+- **Genome Size:** Modifier based on total genome length (see below)
+
+#### Genome Size Modifier
+Larger genomes take longer to replicate, slowing reproduction (the C-value effect):
+
+| Genome Length | Modifier | Description |
+|---------------|----------|-------------|
+| < 500 kb | +1 | Streamlined |
+| 500-2000 kb | +0 | Normal |
+| 2000-4000 kb | -1 | Bloated |
+| > 4000 kb | -2 | Massive |
+
+Your genome length = coding DNA from traits + TE bloat from isolated populations.
 
 ### Phase 2: Draw
 Shuffle the current era's deck. Deal cards until the deck is exhausted:
@@ -338,8 +351,16 @@ Use this information to compete for tiles or avoid their strategy!
 
 ### Allele Income
 ```
-2d6 + Pop Tier (0/+1/+2/+3) + Tiles Controlled + Fecundity Bonus
+2d6 + Pop Tier (0/+1/+2/+3) + Tiles Controlled + Fecundity Bonus + Genome Modifier
 ```
+
+### Genome Size Modifier
+| Genome | Mod |
+|--------|-----|
+| < 500 kb | +1 |
+| 500-2000 kb | +0 |
+| 2000-4000 kb | -1 |
+| > 4000 kb | -2 |
 
 ### Population Tiers
 - 1-3 markers: +0

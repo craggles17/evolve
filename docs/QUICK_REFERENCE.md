@@ -24,6 +24,18 @@
 | 10+ Markers | +3 |
 | Per Controlled Tile | +1 |
 | Fecundity Traits | varies |
+| Genome Size | see below |
+
+### Genome Size Modifier
+
+| Genome Length | Mod |
+|---------------|-----|
+| < 500 kb | +1 |
+| 500-2000 kb | +0 |
+| 2000-4000 kb | -1 |
+| > 4000 kb | -2 |
+
+*Larger genomes = slower cell division*
 
 ---
 
