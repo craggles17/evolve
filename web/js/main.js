@@ -104,6 +104,11 @@ class Game {
             });
         }
         
+        // Zoom controls
+        $('#btn-zoom-in')?.addEventListener('click', () => this.renderer.zoomIn());
+        $('#btn-zoom-out')?.addEventListener('click', () => this.renderer.zoomOut());
+        $('#btn-zoom-reset')?.addEventListener('click', () => this.renderer.resetZoom());
+        
         // Chat
         $('#chat-send')?.addEventListener('click', () => this.sendChat());
         $('#chat-input')?.addEventListener('keyup', (e) => {
@@ -523,13 +528,15 @@ class Game {
     // Game Actions
     updateUI() {
         const player = this.state.getCurrentPlayer();
+        const organisms = this.state.organismsData?.organisms || [];
         
         this.renderer.updateHeader(this.state);
         this.renderer.renderBoard(this.state);
         this.renderer.renderLineageBoard(player, this.state.traitDb);
         this.renderer.updatePlayerStats(player, this.state.traitDb);
         this.renderer.updateEventDeck(this.state);
-        this.renderer.renderPlayersBar(this.state.players, this.state.currentPlayerIndex, this.state.traitDb);
+        this.renderer.renderPlayersBar(this.state.players, this.state.currentPlayerIndex, this.state.traitDb, this.state.currentEra, organisms);
+        this.renderer.renderOrganismMatch(player, this.state.currentEra, organisms);
         
         const playable = this.engine.getPlayableTraits(player);
         this.renderer.renderHand(player, playable);

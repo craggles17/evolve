@@ -26,6 +26,12 @@ export class GameEngine {
     // Phase 1: Allele Roll
     rollAlleles(player) {
         const [die1, die2] = roll2D6();
+        return this.rollAllelesWithValues(player, [die1, die2]);
+    }
+    
+    // Roll with specific dice values (for multiplayer sync)
+    rollAllelesWithValues(player, dice) {
+        const [die1, die2] = dice;
         const base = die1 + die2;
         
         const popBonus = player.getPopulationTier();

@@ -7,6 +7,7 @@ import {
     HEX_SIZE, HEX_WIDTH, HEX_VERT_SPACING
 } from './utils.js';
 import { PHASE_NAMES, PHASE_HINTS } from './state.js';
+import { findBestOrganism, formatSimilarity } from './organisms.js';
 
 // Board layout constants
 const BOARD_COLS = 10;
@@ -258,6 +259,9 @@ export class Renderer {
         for (const tile of state.boardTiles) {
             this.renderTile(tile, state);
         }
+        
+        // Restore pan/zoom transform after re-rendering
+        this.applyTransform();
     }
     
     renderClimateBandLabels() {
@@ -519,8 +523,44 @@ export class Renderer {
         }
     }
     
-    // Players Bar
-    renderPlayersBar(players, currentPlayerIndex, traitDb) {
+    // Organism Match Display (Lineage Panel - detailed view)
+    renderOrganismMatch(player, currentEra, organisms) {
+        const display = $('#organism-display');
+        if (!display) return;
+        
+        const match = findBestOrganism(player.traits, currentEra, organisms);
+        
+        if (!match || player.traits.length === 0) {
+            display.innerHTML = `
+                <div class="organism-name">---</div>
+                <div class="organism-scientific">Evolve traits to find your match</div>
+                <div class="organism-similarity-bar">
+                    <div class="similarity-fill" style="width: 0%"></div>
+                    <span class="similarity-label">0%</span>
+                </div>
+                <div class="organism-shared">0 shared traits</div>
+                <div class="organism-fact"></div>
+            `;
+            return;
+        }
+        
+        const { organism, similarity, sharedTraits } = match;
+        const pct = Math.round(similarity * 100);
+        
+        display.innerHTML = `
+            <div class="organism-name">${organism.name}</div>
+            <div class="organism-scientific">${organism.scientific_name}</div>
+            <div class="organism-similarity-bar">
+                <div class="similarity-fill" style="width: ${pct}%"></div>
+                <span class="similarity-label">${pct}%</span>
+            </div>
+            <div class="organism-shared">${sharedTraits.length} shared traits</div>
+            <div class="organism-fact">${organism.fun_fact}</div>
+        `;
+    }
+    
+    // Players Bar (with organism badges)
+    renderPlayersBar(players, currentPlayerIndex, traitDb, currentEra = 0, organisms = []) {
         const container = $('#players-overview');
         container.innerHTML = '';
         
@@ -537,11 +577,19 @@ export class Renderer {
             const name = createElement('div', 'player-summary-name', player.name);
             
             const stats = createElement('div', 'player-summary-stats');
+            
+            // Get organism match for this player
+            const match = findBestOrganism(player.traits, currentEra, organisms);
+            const organismBadge = match && player.traits.length > 0
+                ? `<span class="organism-badge" title="${match.organism.name}: ${match.organism.fun_fact}">${match.organism.name} ${formatSimilarity(match.similarity)}</span>`
+                : '';
+            
             stats.innerHTML = `
                 <span>💎 ${player.alleles}</span>
                 <span>🦎 ${player.markersOnBoard}</span>
                 <span>🧬 ${player.getComplexity(traitDb)}</span>
                 <span>🗺️ ${player.tilesControlled}</span>
+                ${organismBadge}
             `;
             
             info.appendChild(name);
@@ -553,7 +601,7 @@ export class Renderer {
     }
     
     // Action Buttons
-    updateActionButtons(phase, playerActed) {
+    updateActionButtons(phase, playerActed, canAct = true) {
         const rollBtn = $('#btn-roll-alleles');
         const endPhaseBtn = $('#btn-end-phase');
         const endTurnBtn = $('#btn-end-turn');
@@ -566,22 +614,39 @@ export class Renderer {
             case 'allele_roll':
                 if (!playerActed) {
                     rollBtn.classList.remove('hidden');
+                    rollBtn.disabled = !canAct;
                 } else {
                     endPhaseBtn.classList.remove('hidden');
+                    endPhaseBtn.disabled = !canAct;
                 }
                 break;
             case 'draw':
             case 'competition':
             case 'tile_flip':
                 endPhaseBtn.classList.remove('hidden');
+                endPhaseBtn.disabled = !canAct;
                 break;
             case 'evolution':
             case 'populate':
                 endTurnBtn.classList.remove('hidden');
+                endTurnBtn.disabled = !canAct;
                 break;
             case 'event':
                 endPhaseBtn.classList.remove('hidden');
+                endPhaseBtn.disabled = !canAct;
                 break;
+        }
+        
+        // Show waiting message when not your turn
+        if (!canAct) {
+            const waitingEl = $('#waiting-indicator');
+            if (!waitingEl) {
+                const indicator = createElement('div', 'waiting-indicator', 'Waiting for other player...');
+                indicator.id = 'waiting-indicator';
+                $('#action-buttons')?.appendChild(indicator);
+            }
+        } else {
+            $('#waiting-indicator')?.remove();
         }
     }
     
