@@ -628,7 +628,7 @@ class Game {
         
         switch (action.type) {
             case 'roll_alleles':
-                this.engine.rollAllelesWithValues(player, action.dice);
+                this.engine.rollAllelesWithValue(player, action.die);
                 this.currentPlayerRolled = true;
                 break;
                 
@@ -872,7 +872,7 @@ class Game {
         this.currentPlayerRolled = true;
         
         if (this.mode === MODE.CLIENT && this.mpClient) {
-            this.mpClient.sendAction({ type: 'roll_alleles', dice: result.dice });
+            this.mpClient.sendAction({ type: 'roll_alleles', die: result.die });
         } else if (this.mode === MODE.HOST && this.mpHost) {
             this.mpHost.broadcastState(this.state);
         }

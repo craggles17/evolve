@@ -1490,7 +1490,6 @@ export class Renderer {
     showDiceRoll(title, onRoll) {
         $('#dice-title').textContent = title;
         $('#die-1').textContent = '?';
-        $('#die-2').textContent = '?';
         $('#dice-result').innerHTML = '';
         
         const rollBtn = $('#btn-roll-dice');
@@ -1506,25 +1505,20 @@ export class Renderer {
             const handleRoll = async () => {
                 rollBtn.disabled = true;
                 
-                // Animate dice
+                // Animate die
                 const die1 = $('#die-1');
-                const die2 = $('#die-2');
                 die1.classList.add('rolling');
-                die2.classList.add('rolling');
                 
                 // Roll animation
                 for (let i = 0; i < 10; i++) {
                     die1.textContent = Math.floor(Math.random() * 6) + 1;
-                    die2.textContent = Math.floor(Math.random() * 6) + 1;
                     await new Promise(r => setTimeout(r, 50));
                 }
                 
                 die1.classList.remove('rolling');
-                die2.classList.remove('rolling');
                 
                 const result = onRoll();
-                die1.textContent = result.dice[0];
-                die2.textContent = result.dice[1];
+                die1.textContent = result.die;
                 
                 $('#dice-result').innerHTML = `
                     <div class="dice-breakdown">

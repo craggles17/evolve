@@ -1,7 +1,7 @@
 // GameEngine - Handles game logic and phase progression
 
 import { PHASES, DIFFICULTY_SETTINGS } from './state.js';
-import { roll2D6, rollD6, getHexNeighbors } from './utils.js';
+import { rollD6, getHexNeighbors } from './utils.js';
 
 export class GameEngine {
     constructor(gameState, renderer) {
@@ -25,14 +25,13 @@ export class GameEngine {
     
     // Phase 1: Allele Roll
     rollAlleles(player) {
-        const [die1, die2] = roll2D6();
-        return this.rollAllelesWithValues(player, [die1, die2]);
+        const die = rollD6();
+        return this.rollAllelesWithValue(player, die);
     }
     
-    // Roll with specific dice values (for multiplayer sync)
-    rollAllelesWithValues(player, dice) {
-        const [die1, die2] = dice;
-        const base = die1 + die2;
+    // Roll with specific die value (for multiplayer sync)
+    rollAllelesWithValue(player, die) {
+        const base = die;
         
         const popBonus = player.getPopulationTier();
         const tileBonus = player.tilesControlled;
@@ -42,7 +41,7 @@ export class GameEngine {
         player.alleles += total;
         
         return {
-            dice: [die1, die2],
+            die,
             base,
             popBonus,
             tileBonus,
