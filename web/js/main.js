@@ -719,6 +719,7 @@ class Game {
         }
         
         this.renderer.renderLineageBoard(player, this.state.traitDb);
+        this.renderer.renderGenomeBar(player, this.state.traitDb);
         this.renderer.renderTechTree(player, this.state.currentEra, this.state.traitDb);
         this.renderer.updatePlayerStats(player, this.state.traitDb, this.state.currentPhase, this.isMyTurn());
         this.renderer.updateEventDeck(this.state);
@@ -791,6 +792,7 @@ class Game {
     
     async handleAlleleRoll() {
         if (!this.isMyTurn()) return;
+        if (this.currentPlayerRolled) return;
         
         const player = this.state.getCurrentPlayer();
         
@@ -865,6 +867,12 @@ class Game {
                 
                 // Enforce hand limits at end of era (if enabled)
                 this.engine.enforceHandLimits();
+                
+                // Apply TE proliferation penalty for isolated tiles (lack of selection pressure)
+                const teResults = this.engine.applyTEProliferation();
+                if (teResults.length > 0) {
+                    await this.showTEProliferationResults(teResults);
+                }
                 
                 // Apply allele decay at end of era (if enabled)
                 const decayResults = this.engine.applyAlleleDecay();
@@ -1175,6 +1183,15 @@ class Game {
         );
         
         await this.renderer.showNotification('Allele Decay', messages.join('\n'), 2000);
+    }
+    
+    async showTEProliferationResults(results) {
+        const messages = results.map(r => {
+            const penalty = Math.floor(r.totalTeBloat / 500);
+            return `${r.player.name}: ${r.isolatedTiles} isolated tile${r.isolatedTiles !== 1 ? 's' : ''} → +${r.teGained}kb TE bloat${penalty > 0 ? ` (+${penalty} complexity)` : ''}`;
+        });
+        
+        await this.renderer.showNotification('TE Proliferation', messages.join('\n'), 2500);
     }
     
     handleGameOver() {

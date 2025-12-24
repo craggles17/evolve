@@ -636,6 +636,83 @@ export class GameEngine {
         return results;
     }
     
+    // ==================== TE PROLIFERATION (ISOLATION PENALTY) ====================
+    
+    // Count tiles where player has markers but NO other players have markers on adjacent tiles
+    // These "isolated" tiles lack selection pressure, allowing TE proliferation
+    countIsolatedTiles(player) {
+        const occupiedTiles = this.getPlayerOccupiedTiles(player);
+        let isolatedCount = 0;
+        
+        for (const tile of occupiedTiles) {
+            const neighbors = getHexNeighbors(tile.q, tile.r);
+            let hasAdjacentCompetition = false;
+            
+            for (const n of neighbors) {
+                const neighborTile = this.state.boardTiles.find(t => t.q === n.q && t.r === n.r);
+                if (!neighborTile) continue;
+                
+                // Check if any OTHER player has markers on this adjacent tile
+                for (const otherPlayer of this.state.players) {
+                    if (otherPlayer.id === player.id) continue;
+                    
+                    const otherMarkers = this.state.tileMarkers[neighborTile.id][otherPlayer.id] || 0;
+                    if (otherMarkers > 0) {
+                        hasAdjacentCompetition = true;
+                        break;
+                    }
+                }
+                
+                // In solo mode, check for rival markers as competition
+                if (this.state.isSoloMode()) {
+                    const rivalMarkers = this.state.rivalMarkers[neighborTile.id] || 0;
+                    if (rivalMarkers > 0) {
+                        hasAdjacentCompetition = true;
+                    }
+                }
+                
+                if (hasAdjacentCompetition) break;
+            }
+            
+            if (!hasAdjacentCompetition) {
+                isolatedCount++;
+            }
+        }
+        
+        return isolatedCount;
+    }
+    
+    // Apply TE proliferation at end of era based on isolation
+    // Each isolated tile adds ~75kb of TE bloat to the genome
+    applyTEProliferation() {
+        const TE_GAIN_PER_ISOLATED_TILE = 75; // kb per isolated tile
+        const results = [];
+        
+        for (const player of this.state.players) {
+            const isolatedCount = this.countIsolatedTiles(player);
+            const teGain = isolatedCount * TE_GAIN_PER_ISOLATED_TILE;
+            
+            if (teGain > 0) {
+                player.addTEBloat(teGain);
+                results.push({
+                    player,
+                    isolatedTiles: isolatedCount,
+                    teGained: teGain,
+                    totalTeBloat: player.teBloat
+                });
+                
+                this.emit('teProliferation', {
+                    player,
+                    isolatedTiles: isolatedCount,
+                    teGained: teGain,
+                    totalTeBloat: player.teBloat
+                });
+            }
+        }
+        
+        return results;
+    }
+    
     // Apply allele decay at end of era (experimental feature)
     applyAlleleDecay() {
         if (!this.state.alleleDecayEnabled) return [];

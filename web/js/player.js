@@ -19,6 +19,9 @@ export class Player {
         this.tilesControlled = 0;
         this.extinctionsSurvived = 0;
         this.specializations = {};  // { traitId: { biome: string, tag: string } }
+        
+        // Genome state - TE (transposable element) bloat from lack of selection pressure
+        this.teBloat = 0;           // Accumulated TE DNA in kilobases (kb)
     }
     
     getTags(traitDb) {
@@ -41,6 +44,36 @@ export class Player {
             const trait = traitDb[traitId];
             return sum + (trait ? trait.complexity : 0);
         }, 0);
+    }
+    
+    // Get total genome length in kb (coding DNA from traits + TE bloat)
+    getGenomeLength(traitDb) {
+        const codingDNA = this.traits.reduce((sum, traitId) => {
+            const trait = traitDb[traitId];
+            return sum + (trait?.base_pairs || 0);
+        }, 0);
+        return codingDNA + this.teBloat;
+    }
+    
+    // Get coding DNA only (no TE bloat) in kb
+    getCodingDNA(traitDb) {
+        return this.traits.reduce((sum, traitId) => {
+            const trait = traitDb[traitId];
+            return sum + (trait?.base_pairs || 0);
+        }, 0);
+    }
+    
+    // Get effective complexity including TE bloat penalty
+    // Every 500kb of TE bloat adds +1 to effective complexity
+    getEffectiveComplexity(traitDb) {
+        const baseComplexity = this.getComplexity(traitDb);
+        const tePenalty = Math.floor(this.teBloat / 500);
+        return baseComplexity + tePenalty;
+    }
+    
+    // Add TE bloat (called when player has isolated tiles)
+    addTEBloat(amount) {
+        this.teBloat += amount;
     }
     
     getFecundityBonus(traitDb) {
@@ -89,8 +122,8 @@ export class Player {
         const softCount = trait.soft_prereqs.filter(p => this.traits.includes(p)).length;
         const discount = Math.min(softCount, 3);
         
-        // Complexity tier modifier - higher complexity = higher costs
-        const complexity = traitDb ? this.getComplexity(traitDb) : 0;
+        // Effective complexity includes TE bloat penalty
+        const complexity = traitDb ? this.getEffectiveComplexity(traitDb) : 0;
         let complexityMod = 0;
         if (complexity >= 16) complexityMod = 3;
         else if (complexity >= 11) complexityMod = 2;
@@ -169,7 +202,8 @@ export class Player {
             markersOnBoard: this.markersOnBoard,
             tilesControlled: this.tilesControlled,
             extinctionsSurvived: this.extinctionsSurvived,
-            specializations: this.specializations
+            specializations: this.specializations,
+            teBloat: this.teBloat
         };
     }
     
@@ -184,6 +218,7 @@ export class Player {
         player.tilesControlled = data.tilesControlled;
         player.extinctionsSurvived = data.extinctionsSurvived;
         player.specializations = data.specializations || {};
+        player.teBloat = data.teBloat || 0;
         return player;
     }
 }

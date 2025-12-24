@@ -956,6 +956,117 @@ export class Renderer {
         }
     }
     
+    // Genome Bar - visualizes genome length with trait blocks and TE insertions
+    renderGenomeBar(player, traitDb) {
+        const container = $('#genome-segments');
+        const lengthLabel = $('#genome-length');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        const codingDNA = player.getCodingDNA(traitDb);
+        const teBloat = player.teBloat;
+        const totalLength = codingDNA + teBloat;
+        
+        // Update length display
+        if (totalLength >= 1000) {
+            lengthLabel.textContent = `${(totalLength / 1000).toFixed(1)} Mb`;
+        } else {
+            lengthLabel.textContent = `${totalLength} kb`;
+        }
+        
+        // No traits yet
+        if (player.traits.length === 0 && teBloat === 0) {
+            container.innerHTML = '<div class="genome-empty">No coding DNA yet</div>';
+            return;
+        }
+        
+        // Calculate TE insertion points (scattered between traits)
+        const tePerTrait = teBloat / Math.max(1, player.traits.length + 1);
+        
+        // Build segments: alternate traits with TE blocks
+        let teRemaining = teBloat;
+        
+        // Initial TE block (before first trait)
+        if (teRemaining > 0) {
+            const teAmount = Math.min(tePerTrait, teRemaining);
+            if (teAmount > 20) {
+                const teBlock = this.createGenomeBlock('te', teAmount, totalLength, 'TE');
+                container.appendChild(teBlock);
+                teRemaining -= teAmount;
+            }
+        }
+        
+        // Add trait blocks with TE insertions between them
+        for (let i = 0; i < player.traits.length; i++) {
+            const traitId = player.traits[i];
+            const trait = traitDb[traitId];
+            if (!trait) continue;
+            
+            const bp = trait.base_pairs || 100;
+            
+            // Trait block
+            const traitBlock = this.createGenomeBlock('trait', bp, totalLength, trait.name, trait.clade);
+            container.appendChild(traitBlock);
+            
+            // TE insertion after this trait
+            if (teRemaining > 0 && i < player.traits.length - 1) {
+                const teAmount = Math.min(tePerTrait, teRemaining);
+                if (teAmount > 15) {
+                    const teBlock = this.createGenomeBlock('te', teAmount, totalLength, 'TE');
+                    container.appendChild(teBlock);
+                    teRemaining -= teAmount;
+                }
+            }
+        }
+        
+        // Trailing TE block (remaining TE at end)
+        if (teRemaining > 20) {
+            const teBlock = this.createGenomeBlock('te', teRemaining, totalLength, 'TE bloat');
+            container.appendChild(teBlock);
+        }
+    }
+    
+    // Create a genome segment block
+    createGenomeBlock(type, size, totalSize, label, clade = null) {
+        const block = createElement('div', `genome-block ${type}`);
+        
+        // Width proportional to size (min 2px, max 40%)
+        const widthPercent = Math.max(2, Math.min(40, (size / totalSize) * 100));
+        block.style.flexGrow = size;
+        block.style.minWidth = '3px';
+        
+        // Color based on type and clade
+        if (type === 'trait') {
+            const cladeColors = {
+                'Bilateria': '#4a9eff',
+                'Chordata': '#5ab5ff',
+                'Vertebrata': '#6bc5ff',
+                'Arthropoda': '#ff9844',
+                'Hexapoda': '#ffaa55',
+                'Mollusca': '#aa77dd',
+                'Cephalopoda': '#bb88ee',
+                'Mammalia': '#ff6b9d',
+                'Aves': '#77dd77',
+                'Reptilia': '#8bc34a',
+                'Amphibia': '#26c6da',
+                'Various': '#888',
+                'Default': '#666'
+            };
+            const color = cladeColors[clade] || '#58a6ff';
+            block.style.backgroundColor = color;
+        }
+        
+        // Tooltip
+        if (type === 'trait') {
+            block.title = `${label} (${size}kb)`;
+        } else {
+            block.title = `Transposable Elements (${size}kb junk DNA)`;
+        }
+        
+        return block;
+    }
+    
     // Hand Display
     renderHand(player, playableTraits) {
         const container = $('#hand-cards');
@@ -1920,6 +2031,12 @@ export class Renderer {
             PADDING,
             NUM_ERAS
         };
+    }
+    
+    // Calculate tech tree node width based on trait's era span
+    getTraitNodeWidth(trait, eraWidth, padding) {
+        const eraSpan = trait.era_max - trait.era_min + 1;
+        return eraSpan * eraWidth - padding;
     }
     
     // Render the full tech tree with MYA timeline header
