@@ -14,23 +14,23 @@ export const PHASES = {
 };
 
 export const PHASE_NAMES = {
-    [PHASES.ALLELE_ROLL]: 'Phase 1: Reproductive Cycle',
+    [PHASES.ALLELE_ROLL]: 'Phase 1: Replication',
     [PHASES.DRAW]: 'Phase 2: Genetic Drift',
     [PHASES.EVOLUTION]: 'Phase 3: Natural Selection',
-    [PHASES.POPULATE]: 'Phase 4: Population Expansion',
-    [PHASES.COMPETITION]: 'Phase 5: Competition',
-    [PHASES.TILE_FLIP]: 'Phase 6: Environmental Shift',
-    [PHASES.EVENT]: 'Phase 7: Extinction Event'
+    [PHASES.POPULATE]: 'Phase 4: Dispersal',
+    [PHASES.COMPETITION]: 'Phase 5: Niche Competition',
+    [PHASES.TILE_FLIP]: 'Phase 6: Biome Turnover',
+    [PHASES.EVENT]: 'Phase 7: Selection Pressure'
 };
 
 export const PHASE_HINTS = {
-    [PHASES.ALLELE_ROLL]: 'Roll dice to generate genetic currency for this era',
-    [PHASES.DRAW]: 'Cards are dealt from the era deck',
-    [PHASES.EVOLUTION]: 'Spend alleles to acquire traits from your hand',
-    [PHASES.POPULATE]: 'Click tiles to place markers - expand your territory',
-    [PHASES.COMPETITION]: 'Tile control is resolved based on markers and tags',
-    [PHASES.TILE_FLIP]: 'Environmental changes may alter biomes',
-    [PHASES.EVENT]: "Resolve the era's extinction or climate event"
+    [PHASES.ALLELE_ROLL]: 'Generate alleles through reproductive success',
+    [PHASES.DRAW]: 'Random mutations enter the gene pool',
+    [PHASES.EVOLUTION]: 'Spend alleles to acquire advantageous traits',
+    [PHASES.POPULATE]: 'Expand your range - place markers on viable habitats',
+    [PHASES.COMPETITION]: 'Contest tile control based on markers and adaptation',
+    [PHASES.TILE_FLIP]: 'Habitats transform as environments change',
+    [PHASES.EVENT]: 'Resolve environmental pressures - extinction or opportunity'
 };
 
 export const GAME_MODES = {

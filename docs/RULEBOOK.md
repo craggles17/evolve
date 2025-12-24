@@ -67,7 +67,7 @@ The right panel tracks:
 
 The game progresses through 12 eras. Each era follows this sequence:
 
-### Phase 1: Allele Roll
+### Phase 1: Replication
 All players simultaneously roll 2d6 and add:
 - **Population Tier:** 1-3 markers on board = +0, 4-6 = +1, 7-9 = +2, 10+ = +3
 - **Tile Control:** +1 per tile you control
@@ -86,14 +86,14 @@ Larger genomes take longer to replicate, slowing reproduction (the C-value effec
 
 Your genome length = coding DNA from traits + TE bloat from isolated populations.
 
-### Phase 2: Draw
+### Phase 2: Genetic Drift
 Shuffle the current era's deck. Deal cards until the deck is exhausted:
 - Deal 1 card to each player in turn order
 - Continue until all cards are dealt
 - Players keep cards in hand (hidden from others)
 - **Duplicates are kept** - multiple copies of a trait are allowed
 
-### Phase 3: Evolution
+### Phase 3: Natural Selection
 In turn order, players may play any number of trait cards from hand:
 
 **To Play a Trait:**
@@ -124,13 +124,13 @@ As your organism becomes more complex, further evolution requires more energy. A
 
 **Keeping Cards:** Unplayed cards stay in hand for future eras.
 
-### Phase 4: Populate
+### Phase 4: Dispersal
 In turn order, players may place or move creature markers:
 - **Place** markers from supply onto tiles where you have valid tags
 - **Move** markers to adjacent tiles (if you have [Mobile])
 - You must have required tags to occupy a biome (e.g., [Aquatic] for Ocean)
 
-### Phase 5: Tile Competition
+### Phase 5: Niche Competition
 Resolve control for each tile with multiple players:
 
 1. Count each player's markers on the tile
@@ -143,14 +143,14 @@ Resolve control for each tile with multiple players:
 
 > **Digital Variant:** The web game adds a d6 roll to each competitor's strength (markers + tags + d6) for added uncertainty. Displacement occurs when the winner exceeds the loser by 3+ points.
 
-### Phase 6: Tile Flip
+### Phase 6: Biome Turnover
 Roll 1d6 for the entire tile grid:
 - Check each tile's flip number
 - If roll ≥ flip number AND current era ≥ tile's era lock, the tile flips
 - Draw a new tile from the stack and place it in the same location
 - Any markers on flipped tiles remain (but must check if still valid)
 
-### Phase 7: Event Resolution
+### Phase 7: Selection Pressure
 **Reveal the top event card** from the shuffled deck.
 
 **Event Types:**
