@@ -139,6 +139,15 @@ body {
     padding: 3rem;
 }
 
+.version-info {
+    margin-top: 2rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: 'Courier New', monospace;
+    opacity: 0.7;
+    letter-spacing: 0.5px;
+}
+
 .game-title {
     font-family: var(--font-display);
     font-size: 3rem;
