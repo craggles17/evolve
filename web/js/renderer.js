@@ -1961,8 +1961,8 @@ export class Renderer {
         const PADDING = 6;
         const NUM_ERAS = 12;
         
-        // Calculate era column width based on container
-        const ERA_WIDTH = Math.max(85, (containerWidth - PADDING * 2) / NUM_ERAS);
+        // Fixed era width for ~5 era visibility with scrolling (ignore container width)
+        const ERA_WIDTH = 140;
         
         // Group traits by era_min
         const eraGroups = {};

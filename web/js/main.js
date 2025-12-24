@@ -21,6 +21,7 @@ class Game {
         this.engine = null;
         
         this.currentPlayerRolled = false;
+        this.ttZoom = 1; // Tech tree zoom level
         
         this.mode = MODE.LOCAL;
         this.mpHost = null;
@@ -114,6 +115,10 @@ class Game {
         $('#btn-zoom-in')?.addEventListener('click', () => this.renderer.zoomIn());
         $('#btn-zoom-out')?.addEventListener('click', () => this.renderer.zoomOut());
         $('#btn-zoom-reset')?.addEventListener('click', () => this.renderer.resetZoom());
+        
+        // Tech tree zoom controls
+        $('#tt-zoom-in')?.addEventListener('click', () => this.techTreeZoom(0.1));
+        $('#tt-zoom-out')?.addEventListener('click', () => this.techTreeZoom(-0.1));
         
         // Chat
         $('#chat-send')?.addEventListener('click', () => this.sendChat());
@@ -694,6 +699,20 @@ class Game {
         const btn = $('#chat-toggle');
         panel.classList.toggle('minimized');
         btn.textContent = panel.classList.contains('minimized') ? '+' : '−';
+    }
+    
+    // Tech tree zoom
+    techTreeZoom(delta) {
+        this.ttZoom = (this.ttZoom || 1) + delta;
+        this.ttZoom = Math.max(0.5, Math.min(2, this.ttZoom)); // 50% - 200%
+        
+        const svg = $('#tech-tree-svg');
+        if (svg) {
+            svg.style.transform = `scale(${this.ttZoom})`;
+            svg.style.transformOrigin = 'top left';
+        }
+        
+        $('#tt-zoom-level').textContent = Math.round(this.ttZoom * 100) + '%';
     }
     
     // Turn Control
