@@ -2033,7 +2033,7 @@ export class Renderer {
         const NODE_WIDTH = 75;
         const NODE_HEIGHT = 20;
         const V_GAP = 4;
-        const MYA_HEADER_HEIGHT = 28;
+        const MYA_HEADER_HEIGHT = 42;
         const PADDING = 6;
         const NUM_ERAS = 12;
         const CHANNEL_WIDTH = 25;  // Routing corridor between era columns
@@ -2285,7 +2285,7 @@ export class Renderer {
     }
     
     // Render the full tech tree with MYA timeline header
-    renderTechTree(player, currentEra, traitDb) {
+    renderTechTree(player, currentEra, traitDb, discardedEvents = []) {
         const svg = $('#tech-tree-svg');
         if (!svg) return;
         
@@ -2343,6 +2343,20 @@ export class Renderer {
         arrowPath.setAttribute('fill', '#484f58');
         marker.appendChild(arrowPath);
         defs.appendChild(marker);
+        
+        // Highlighted arrow marker for path highlighting
+        const markerHighlight = createSVGElement('marker');
+        markerHighlight.setAttribute('id', 'tech-arrow-highlight');
+        markerHighlight.setAttribute('markerWidth', '6');
+        markerHighlight.setAttribute('markerHeight', '6');
+        markerHighlight.setAttribute('refX', '5');
+        markerHighlight.setAttribute('refY', '3');
+        markerHighlight.setAttribute('orient', 'auto');
+        const arrowPathHighlight = createSVGElement('polygon');
+        arrowPathHighlight.setAttribute('points', '0 0, 6 3, 0 6');
+        arrowPathHighlight.setAttribute('fill', '#fbbf24');
+        markerHighlight.appendChild(arrowPathHighlight);
+        defs.appendChild(markerHighlight);
         
         svg.appendChild(defs);
         
@@ -2406,6 +2420,53 @@ export class Renderer {
             if (isCurrentEra) eraText.classList.add('mya-current-era');
             eraText.textContent = ERA_NAMES[era].substring(0, 4);
             headerLayer.appendChild(eraText);
+            
+            // Event marker for past eras (discardedEvents[era] = event that occurred in that era)
+            const eraEvent = discardedEvents[era];
+            if (eraEvent) {
+                const eventGroup = createSVGElement('g');
+                eventGroup.classList.add('tech-tree-event-marker');
+                
+                // Event type determines color
+                const eventType = eraEvent.type || 'neutral';
+                eventGroup.classList.add(`tech-tree-event-${eventType}`);
+                
+                // Small icon/badge
+                const iconSize = 10;
+                const iconX = eraX + ERA_WIDTH / 2 - iconSize / 2;
+                const iconY = 28;
+                
+                const iconRect = createSVGElement('rect');
+                iconRect.setAttribute('x', iconX);
+                iconRect.setAttribute('y', iconY);
+                iconRect.setAttribute('width', iconSize);
+                iconRect.setAttribute('height', iconSize);
+                iconRect.setAttribute('rx', '2');
+                eventGroup.appendChild(iconRect);
+                
+                // Icon symbol (skull for extinction, star for positive, circle for neutral)
+                const iconText = createSVGElement('text');
+                iconText.setAttribute('x', iconX + iconSize / 2);
+                iconText.setAttribute('y', iconY + iconSize - 2);
+                iconText.setAttribute('text-anchor', 'middle');
+                iconText.setAttribute('font-size', '7');
+                iconText.classList.add('event-icon-symbol');
+                if (eventType === 'extinction') {
+                    iconText.textContent = '☠';
+                } else if (eventType === 'positive') {
+                    iconText.textContent = '★';
+                } else {
+                    iconText.textContent = '◆';
+                }
+                eventGroup.appendChild(iconText);
+                
+                // Tooltip with event name
+                const tooltip = createSVGElement('title');
+                tooltip.textContent = eraEvent.name;
+                eventGroup.appendChild(tooltip);
+                
+                headerLayer.appendChild(eventGroup);
+            }
         }
         
         // Bottom border for header
@@ -2590,6 +2651,7 @@ export class Renderer {
             const to = edge.dataset.to;
             if (prereqs.has(from) && prereqs.has(to)) {
                 edge.classList.add('tech-path-highlight');
+                edge.setAttribute('marker-end', 'url(#tech-arrow-highlight)');
             }
         });
         
@@ -2600,6 +2662,9 @@ export class Renderer {
     clearTechPathHighlight() {
         document.querySelectorAll('.tech-path-highlight').forEach(el => {
             el.classList.remove('tech-path-highlight');
+            if (el.classList.contains('tech-edge')) {
+                el.setAttribute('marker-end', 'url(#tech-arrow)');
+            }
         });
         this.highlightedTraitId = null;
     }
