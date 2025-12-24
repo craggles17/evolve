@@ -1,0 +1,262 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Era-specific trait decks. Each deck has 10 cards per player. Card backs are color-coded.",
+    "cards_per_player": 10
+  },
+  "deck_colors": {
+    "0": {"name": "Deep Blue", "hex": "#1a237e", "era": "Cambrian"},
+    "1": {"name": "Teal", "hex": "#00695c", "era": "Ordovician"},
+    "2": {"name": "Sea Green", "hex": "#2e7d32", "era": "Silurian"},
+    "3": {"name": "Forest Green", "hex": "#33691e", "era": "Devonian"},
+    "4": {"name": "Dark Green", "hex": "#1b5e20", "era": "Carboniferous"},
+    "5": {"name": "Brown", "hex": "#4e342e", "era": "Permian"},
+    "6": {"name": "Orange", "hex": "#e65100", "era": "Triassic"},
+    "7": {"name": "Red", "hex": "#b71c1c", "era": "Jurassic"},
+    "8": {"name": "Purple", "hex": "#4a148c", "era": "Cretaceous"},
+    "9": {"name": "Pink", "hex": "#ad1457", "era": "Paleogene"},
+    "10": {"name": "Yellow", "hex": "#f9a825", "era": "Neogene"},
+    "11": {"name": "White", "hex": "#eceff1", "era": "Quaternary"}
+  },
+  "decks": {
+    "0": {
+      "era": "Cambrian",
+      "period_mya": "540-485",
+      "theme": "Body plan foundations - the Cambrian Explosion",
+      "traits": [
+        {"trait_id": "bilateral_symmetry", "copies": 4, "rarity": "common"},
+        {"trait_id": "segmentation", "copies": 3, "rarity": "common"},
+        {"trait_id": "exoskeleton", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "shell", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "gills", "copies": 3, "rarity": "common"},
+        {"trait_id": "notochord", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "trilobite_eyes", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "burrowing", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "aquatic_eggs", "copies": 3, "rarity": "common"},
+        {"trait_id": "broadcast_spawning", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "small_size", "copies": 3, "rarity": "common"},
+        {"trait_id": "ectothermy", "copies": 2, "rarity": "common"},
+        {"trait_id": "r_strategy", "copies": 2, "rarity": "uncommon"}
+      ]
+    },
+    "1": {
+      "era": "Ordovician",
+      "period_mya": "485-444",
+      "theme": "First vertebrate innovations - jaws and skeletons",
+      "traits": [
+        {"trait_id": "vertebral_column", "copies": 3, "rarity": "uncommon"},
+        {"trait_id": "jaws", "copies": 2, "rarity": "rare"},
+        {"trait_id": "cartilage_skeleton", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "bony_skeleton", "copies": 2, "rarity": "rare"},
+        {"trait_id": "reef_dwelling", "copies": 3, "rarity": "common"},
+        {"trait_id": "deep_sea", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "compound_eyes", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "bilateral_symmetry", "copies": 2, "rarity": "common"},
+        {"trait_id": "gills", "copies": 2, "rarity": "common"},
+        {"trait_id": "shell", "copies": 2, "rarity": "common"},
+        {"trait_id": "trilobite_eyes", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "burrowing", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "small_size", "copies": 2, "rarity": "common"}
+      ]
+    },
+    "2": {
+      "era": "Silurian",
+      "period_mya": "444-419",
+      "theme": "First steps toward land - lungs and lobed fins",
+      "traits": [
+        {"trait_id": "swim_bladder", "copies": 3, "rarity": "common"},
+        {"trait_id": "lobed_fins", "copies": 2, "rarity": "rare"},
+        {"trait_id": "lungs", "copies": 2, "rarity": "rare"},
+        {"trait_id": "freshwater", "copies": 3, "rarity": "common"},
+        {"trait_id": "bony_skeleton", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "jaws", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "cartilage_skeleton", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "gills", "copies": 2, "rarity": "common"},
+        {"trait_id": "vertebral_column", "copies": 2, "rarity": "common"},
+        {"trait_id": "reef_dwelling", "copies": 2, "rarity": "common"},
+        {"trait_id": "deep_sea", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "venom", "copies": 1, "rarity": "rare"},
+        {"trait_id": "burrowing", "copies": 2, "rarity": "uncommon"}
+      ]
+    },
+    "3": {
+      "era": "Devonian",
+      "period_mya": "419-359",
+      "theme": "Age of Fish - first tetrapods emerge",
+      "traits": [
+        {"trait_id": "tetrapod_limbs", "copies": 2, "rarity": "rare"},
+        {"trait_id": "moist_skin", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "lungs", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "lobed_fins", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "six_legs", "copies": 2, "rarity": "rare"},
+        {"trait_id": "nocturnal", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "large_size", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "freshwater", "copies": 2, "rarity": "common"},
+        {"trait_id": "bony_skeleton", "copies": 2, "rarity": "common"},
+        {"trait_id": "jaws", "copies": 2, "rarity": "common"},
+        {"trait_id": "swim_bladder", "copies": 2, "rarity": "common"},
+        {"trait_id": "venom", "copies": 1, "rarity": "rare"},
+        {"trait_id": "burrowing", "copies": 2, "rarity": "common"},
+        {"trait_id": "r_strategy", "copies": 2, "rarity": "common"}
+      ]
+    },
+    "4": {
+      "era": "Carboniferous",
+      "period_mya": "359-299",
+      "theme": "Giant insects and first amniotes",
+      "traits": [
+        {"trait_id": "amniotic_egg", "copies": 2, "rarity": "rare"},
+        {"trait_id": "scales_reptilian", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "insect_flight", "copies": 2, "rarity": "rare"},
+        {"trait_id": "metamorphosis", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "synapsid_skull", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "diapsid_skull", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "arboreal", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "tetrapod_limbs", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "six_legs", "copies": 2, "rarity": "common"},
+        {"trait_id": "k_strategy", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "parental_care", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "venom", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "burrowing", "copies": 2, "rarity": "common"},
+        {"trait_id": "large_size", "copies": 2, "rarity": "uncommon"}
+      ]
+    },
+    "5": {
+      "era": "Permian",
+      "period_mya": "299-252",
+      "theme": "Synapsids dominate - proto-mammals emerge",
+      "traits": [
+        {"trait_id": "endothermy", "copies": 2, "rarity": "rare"},
+        {"trait_id": "archosaur_posture", "copies": 2, "rarity": "rare"},
+        {"trait_id": "synapsid_skull", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "diapsid_skull", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "scales_reptilian", "copies": 2, "rarity": "common"},
+        {"trait_id": "amniotic_egg", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "large_size", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "burrowing", "copies": 3, "rarity": "common"},
+        {"trait_id": "small_size", "copies": 2, "rarity": "common"},
+        {"trait_id": "freshwater", "copies": 2, "rarity": "common"},
+        {"trait_id": "venom", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "k_strategy", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "parental_care", "copies": 2, "rarity": "uncommon"}
+      ]
+    },
+    "6": {
+      "era": "Triassic",
+      "period_mya": "252-201",
+      "theme": "Dinosaurs and mammals emerge",
+      "traits": [
+        {"trait_id": "hollow_bones", "copies": 2, "rarity": "rare"},
+        {"trait_id": "fur", "copies": 2, "rarity": "rare"},
+        {"trait_id": "mammary_glands", "copies": 2, "rarity": "rare"},
+        {"trait_id": "crocodilian_form", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "archosaur_posture", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "live_birth", "copies": 1, "rarity": "rare"},
+        {"trait_id": "endothermy", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "small_size", "copies": 2, "rarity": "common"},
+        {"trait_id": "nocturnal", "copies": 2, "rarity": "common"},
+        {"trait_id": "burrowing", "copies": 2, "rarity": "common"},
+        {"trait_id": "insect_flight", "copies": 2, "rarity": "common"},
+        {"trait_id": "metamorphosis", "copies": 2, "rarity": "common"},
+        {"trait_id": "arboreal", "copies": 2, "rarity": "uncommon"}
+      ]
+    },
+    "7": {
+      "era": "Jurassic",
+      "period_mya": "201-145",
+      "theme": "Dinosaur dominance - first birds",
+      "traits": [
+        {"trait_id": "feathers", "copies": 2, "rarity": "rare"},
+        {"trait_id": "flight", "copies": 1, "rarity": "legendary"},
+        {"trait_id": "hollow_bones", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "fur", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "mammary_glands", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "live_birth", "copies": 2, "rarity": "rare"},
+        {"trait_id": "crocodilian_form", "copies": 2, "rarity": "common"},
+        {"trait_id": "large_size", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "endothermy", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "nocturnal", "copies": 2, "rarity": "common"},
+        {"trait_id": "small_size", "copies": 2, "rarity": "common"},
+        {"trait_id": "burrowing", "copies": 2, "rarity": "common"},
+        {"trait_id": "arboreal", "copies": 2, "rarity": "common"}
+      ]
+    },
+    "8": {
+      "era": "Cretaceous",
+      "period_mya": "145-66",
+      "theme": "Flowering plants transform ecosystems",
+      "traits": [
+        {"trait_id": "pollination", "copies": 2, "rarity": "rare"},
+        {"trait_id": "eusocial", "copies": 1, "rarity": "legendary"},
+        {"trait_id": "placenta", "copies": 2, "rarity": "rare"},
+        {"trait_id": "flight", "copies": 2, "rarity": "rare"},
+        {"trait_id": "feathers", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "live_birth", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "mammary_glands", "copies": 2, "rarity": "common"},
+        {"trait_id": "nocturnal", "copies": 3, "rarity": "common"},
+        {"trait_id": "small_size", "copies": 3, "rarity": "common"},
+        {"trait_id": "burrowing", "copies": 3, "rarity": "common"},
+        {"trait_id": "insect_flight", "copies": 2, "rarity": "common"},
+        {"trait_id": "metamorphosis", "copies": 2, "rarity": "common"}
+      ]
+    },
+    "9": {
+      "era": "Paleogene",
+      "period_mya": "66-23",
+      "theme": "Mammalian radiation",
+      "traits": [
+        {"trait_id": "echolocation", "copies": 2, "rarity": "rare"},
+        {"trait_id": "opposable_digits", "copies": 2, "rarity": "rare"},
+        {"trait_id": "large_brain", "copies": 1, "rarity": "legendary"},
+        {"trait_id": "placenta", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "arboreal", "copies": 3, "rarity": "common"},
+        {"trait_id": "flight", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "large_size", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "endothermy", "copies": 2, "rarity": "common"},
+        {"trait_id": "fur", "copies": 2, "rarity": "common"},
+        {"trait_id": "live_birth", "copies": 2, "rarity": "common"},
+        {"trait_id": "pollination", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "eusocial", "copies": 2, "rarity": "rare"}
+      ]
+    },
+    "10": {
+      "era": "Neogene",
+      "period_mya": "23-2.6",
+      "theme": "Grasslands expand - grazing mammals",
+      "traits": [
+        {"trait_id": "large_brain", "copies": 2, "rarity": "rare"},
+        {"trait_id": "opposable_digits", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "echolocation", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "large_size", "copies": 3, "rarity": "common"},
+        {"trait_id": "endothermy", "copies": 2, "rarity": "common"},
+        {"trait_id": "placenta", "copies": 2, "rarity": "common"},
+        {"trait_id": "arboreal", "copies": 2, "rarity": "common"},
+        {"trait_id": "fur", "copies": 2, "rarity": "common"},
+        {"trait_id": "k_strategy", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "parental_care", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "flight", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "eusocial", "copies": 2, "rarity": "uncommon"}
+      ]
+    },
+    "11": {
+      "era": "Quaternary",
+      "period_mya": "2.6-0",
+      "theme": "Ice ages and megafauna",
+      "traits": [
+        {"trait_id": "large_brain", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "opposable_digits", "copies": 2, "rarity": "common"},
+        {"trait_id": "endothermy", "copies": 3, "rarity": "common"},
+        {"trait_id": "fur", "copies": 3, "rarity": "common"},
+        {"trait_id": "large_size", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "small_size", "copies": 3, "rarity": "common"},
+        {"trait_id": "burrowing", "copies": 3, "rarity": "common"},
+        {"trait_id": "k_strategy", "copies": 2, "rarity": "common"},
+        {"trait_id": "parental_care", "copies": 2, "rarity": "common"},
+        {"trait_id": "flight", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "echolocation", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "eusocial", "copies": 2, "rarity": "uncommon"}
+      ]
+    }
+  }
+}
+

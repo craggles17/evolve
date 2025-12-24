@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damn Nature You Scary</title>
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading-container">
+                <div class="loading-spinner"></div>
+                <p>Loading evolution data...</p>
+            </div>
+        </div>
+        
+        <!-- Setup Screen -->
+        <div id="setup-screen" class="screen">
+            <div class="setup-container">
+                <h1 class="game-title">Damn Nature You Scary</h1>
+                <p class="subtitle">A Strategic Lineage-Building Game of Evolution</p>
+                
+                <div class="setup-form">
+                    <label>Number of Players</label>
+                    <div class="player-count-selector">
+                        <button class="count-btn" data-count="2">2</button>
+                        <button class="count-btn active" data-count="3">3</button>
+                        <button class="count-btn" data-count="4">4</button>
+                    </div>
+                    
+                    <div id="player-names">
+                        <div class="player-input" data-player="0">
+                            <span class="player-color" style="background: var(--player-1)"></span>
+                            <input type="text" placeholder="Player 1" value="Player 1">
+                        </div>
+                        <div class="player-input" data-player="1">
+                            <span class="player-color" style="background: var(--player-2)"></span>
+                            <input type="text" placeholder="Player 2" value="Player 2">
+                        </div>
+                        <div class="player-input" data-player="2">
+                            <span class="player-color" style="background: var(--player-3)"></span>
+                            <input type="text" placeholder="Player 3" value="Player 3">
+                        </div>
+                        <div class="player-input hidden" data-player="3">
+                            <span class="player-color" style="background: var(--player-4)"></span>
+                            <input type="text" placeholder="Player 4" value="Player 4">
+                        </div>
+                    </div>
+                    
+                    <button id="start-game" class="btn-primary">Begin Evolution</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <!-- Top Bar: Era & Phase Info -->
+            <header id="game-header">
+                <div class="era-display">
+                    <span class="era-label">Era</span>
+                    <span id="current-era" class="era-number">0</span>
+                    <span id="era-name" class="era-name">Cambrian</span>
+                </div>
+                <div class="phase-display">
+                    <span id="current-phase">Phase 1: Allele Roll</span>
+                    <span id="phase-hint">Roll dice to generate genetic currency for this era</span>
+                </div>
+                <div class="current-player-display">
+                    <span id="current-player-name">Player 1</span>
+                    <span id="current-player-indicator" class="player-indicator"></span>
+                </div>
+            </header>
+
+            <!-- Main Game Area -->
+            <main id="game-main">
+                <!-- Left Panel: Current Player's Lineage Board -->
+                <aside id="lineage-panel">
+                    <h2>Lineage Board</h2>
+                    <div id="lineage-board"></div>
+                    <div id="player-stats">
+                        <div class="stat">
+                            <span class="stat-label">Alleles</span>
+                            <span id="stat-alleles" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Markers</span>
+                            <span id="stat-markers" class="stat-value">3/12</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Complexity</span>
+                            <span id="stat-complexity" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Tiles</span>
+                            <span id="stat-tiles" class="stat-value">0</span>
+                        </div>
+                    </div>
+                    <div id="player-tags">
+                        <h3>Active Tags</h3>
+                        <div id="tags-list"></div>
+                    </div>
+                </aside>
+
+                <!-- Center: Hex Board -->
+                <section id="board-container">
+                    <svg id="hex-board" viewBox="0 0 700 850"></svg>
+                </section>
+
+                <!-- Right Panel: Cards & Actions -->
+                <aside id="action-panel">
+                    <div id="event-deck-display">
+                        <h3>Event Deck</h3>
+                        <div id="event-deck-stack">
+                            <div class="event-back" id="next-event-back"></div>
+                            <span id="events-remaining">12 remaining</span>
+                        </div>
+                    </div>
+                    
+                    <div id="hand-container">
+                        <h3>Your Hand (<span id="hand-count">0</span>)</h3>
+                        <div id="hand-cards"></div>
+                    </div>
+                    
+                    <div id="action-buttons">
+                        <button id="btn-roll-alleles" class="btn-action">Reproduce</button>
+                        <button id="btn-end-phase" class="btn-action">End Phase</button>
+                        <button id="btn-end-turn" class="btn-action hidden">End Turn</button>
+                    </div>
+                </aside>
+            </main>
+
+            <!-- Bottom: All Players Overview -->
+            <footer id="players-bar">
+                <div id="players-overview"></div>
+            </footer>
+        </div>
+
+        <!-- Modal Overlays -->
+        <div id="modal-overlay" class="modal-overlay hidden">
+            <!-- Card Detail Modal -->
+            <div id="card-modal" class="modal hidden">
+                <div class="modal-content">
+                    <button class="modal-close">&times;</button>
+                    <div id="card-detail"></div>
+                    <div id="card-actions"></div>
+                </div>
+            </div>
+            
+            <!-- Event Modal -->
+            <div id="event-modal" class="modal hidden">
+                <div class="modal-content event-content">
+                    <div id="event-card-display"></div>
+                    <div id="event-resolution"></div>
+                    <button id="btn-continue-event" class="btn-primary">Continue</button>
+                </div>
+            </div>
+            
+            <!-- Dice Roll Modal -->
+            <div id="dice-modal" class="modal hidden">
+                <div class="modal-content dice-content">
+                    <h2 id="dice-title">Reproductive Cycle</h2>
+                    <div id="dice-display">
+                        <div class="die" id="die-1">?</div>
+                        <div class="die" id="die-2">?</div>
+                    </div>
+                    <div id="dice-result"></div>
+                    <button id="btn-roll-dice" class="btn-primary">Roll!</button>
+                    <button id="btn-accept-roll" class="btn-primary hidden">Accept</button>
+                </div>
+            </div>
+            
+            <!-- Game Over Modal -->
+            <div id="gameover-modal" class="modal hidden">
+                <div class="modal-content gameover-content">
+                    <h1>Evolution Complete!</h1>
+                    <div id="final-scores"></div>
+                    <div id="winner-display"></div>
+                    <div id="organism-matches"></div>
+                    <button id="btn-new-game" class="btn-primary">New Game</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+</html>
+

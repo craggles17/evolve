@@ -1,0 +1,278 @@
+{
+  "meta": {
+    "version": "2.0",
+    "description": "Generic event cards - shuffled deck, one revealed per era. Events are archetypes with real historical examples."
+  },
+  "events": [
+    {
+      "id": "ice_age",
+      "name": "Ice Age",
+      "type": "extinction",
+      "description": "Global cooling causes glaciation. Sea levels drop dramatically, habitats shrink.",
+      "effect": "Binary extinction check",
+      "safe_tags": ["Freshwater", "Deep-Sea", "Warm-Blooded", "Burrowing"],
+      "doomed_tags": ["Tropical", "Shallow-Marine", "Cold-Vulnerable"],
+      "neutral_roll": 4,
+      "science": "Ice ages occur when orbital cycles (Milankovitch) reduce solar heating. Glaciers lock up water, dropping sea levels 50-100m.",
+      "real_examples": [
+        "End-Ordovician (~445 MYA) - 85% marine species lost",
+        "Pleistocene (~2.6 MYA) - Megafauna extinction"
+      ]
+    },
+    {
+      "id": "volcanic_winter",
+      "name": "Volcanic Winter",
+      "type": "extinction",
+      "description": "Massive volcanic eruptions block sunlight. Global temperatures plummet.",
+      "effect": "Binary extinction check",
+      "safe_tags": ["Burrowing", "Small", "Deep-Sea", "Detritivore"],
+      "doomed_tags": ["Large", "Photosynthesis-Dependent", "Tropical"],
+      "neutral_roll": 4,
+      "science": "Large Igneous Provinces (LIPs) release sulfur aerosols blocking sunlight, plus CO2 causing long-term warming after initial cooling.",
+      "real_examples": [
+        "Siberian Traps (~252 MYA) - The Great Dying, 96% species lost",
+        "Deccan Traps (~66 MYA) - Contributed to K-Pg extinction"
+      ]
+    },
+    {
+      "id": "asteroid_impact",
+      "name": "Asteroid Impact",
+      "type": "extinction",
+      "description": "Bolide strike causes impact winter. Debris blocks sunlight for years.",
+      "effect": "Binary extinction check",
+      "safe_tags": ["Burrowing", "Small", "Aquatic", "Nocturnal"],
+      "doomed_tags": ["Large", "Aerial", "Photosynthesis-Dependent"],
+      "neutral_roll": 4,
+      "science": "Impacts >10km diameter cause global catastrophe. Ejecta reenters atmosphere, igniting forests. Dust blocks photosynthesis.",
+      "real_examples": [
+        "Chicxulub (~66 MYA) - K-Pg extinction, end of dinosaurs",
+        "Late Heavy Bombardment (~4 BYA) - Sterilized early Earth"
+      ]
+    },
+    {
+      "id": "ocean_anoxia",
+      "name": "Ocean Anoxia",
+      "type": "extinction",
+      "description": "Ocean oxygen levels crash. Hydrogen sulfide builds up, poisoning marine life.",
+      "effect": "Binary extinction check",
+      "safe_tags": ["Terrestrial", "Freshwater", "Deep-Sea", "Air-Breathing"],
+      "doomed_tags": ["Marine-Only", "Reef-Dependent", "Shallow-Marine"],
+      "neutral_roll": 4,
+      "science": "Anoxic events occur when ocean circulation stalls. Bacteria produce toxic H2S. Purple/green sulfur bacteria dominate.",
+      "real_examples": [
+        "Late Devonian (~372 MYA) - 75% species eliminated",
+        "End-Permian (~252 MYA) - Euxinic oceans"
+      ]
+    },
+    {
+      "id": "global_warming",
+      "name": "Global Warming",
+      "type": "extinction",
+      "description": "Runaway greenhouse effect. Oceans acidify, heat stress kills.",
+      "effect": "Binary extinction check",
+      "safe_tags": ["Small", "Burrowing", "Aquatic", "Cold-Resistant"],
+      "doomed_tags": ["Large", "Tropical", "Reef-Dependent", "Specialized"],
+      "neutral_roll": 4,
+      "science": "CO2 and methane trap heat. Ocean pH drops (acidification), dissolving shells. Thermal stress exceeds organism tolerance.",
+      "real_examples": [
+        "PETM (~56 MYA) - 5°C warming, ocean acidification",
+        "End-Permian (~252 MYA) - 10°C warming"
+      ]
+    },
+    {
+      "id": "sea_level_collapse",
+      "name": "Sea Level Collapse",
+      "type": "extinction",
+      "description": "Rapid marine regression exposes continental shelves. Coastal habitats destroyed.",
+      "effect": "Binary extinction check",
+      "safe_tags": ["Terrestrial", "Deep-Sea", "Mobile", "Freshwater"],
+      "doomed_tags": ["Shallow-Marine", "Reef-Dependent", "Sessile"],
+      "neutral_roll": 4,
+      "science": "Sea level drops when water locks in glaciers or tectonic changes alter ocean basin volume. Epicontinental seas drain.",
+      "real_examples": [
+        "End-Ordovician (~445 MYA) - 50-100m drop",
+        "End-Permian (~252 MYA) - Pangaea assembly drained seas"
+      ]
+    },
+    {
+      "id": "reef_collapse",
+      "name": "Reef Collapse",
+      "type": "extinction",
+      "description": "Coral reef ecosystems fail. Carbonate production crashes, biodiversity hotspots lost.",
+      "effect": "Binary extinction check",
+      "safe_tags": ["Terrestrial", "Deep-Sea", "Freshwater", "Pelagic"],
+      "doomed_tags": ["Reef-Dependent", "Shallow-Marine", "Tropical"],
+      "neutral_roll": 4,
+      "science": "Reefs are sensitive to temperature, pH, and sediment. Reef gaps in fossil record last 5-10 million years after collapse.",
+      "real_examples": [
+        "Late Devonian (~372 MYA) - Reef gap of 100 MY",
+        "End-Triassic (~201 MYA) - Scleractinian crisis"
+      ]
+    },
+    {
+      "id": "oxygen_surge",
+      "name": "Oxygen Surge",
+      "type": "positive",
+      "description": "Atmospheric oxygen rises dramatically. Larger body sizes become possible.",
+      "effect": "All players gain +2 alleles. [Insect] and [Amphibian] may place +2 markers.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Oxygen levels control maximum body size, especially for organisms using tracheal breathing. Higher O2 = bigger insects.",
+      "real_examples": [
+        "Cambrian Explosion (~540 MYA) - O2 reached 15%",
+        "Carboniferous (~300 MYA) - O2 peaked at 35%"
+      ]
+    },
+    {
+      "id": "new_frontier",
+      "name": "New Frontier",
+      "type": "positive",
+      "description": "A new habitat type becomes available for colonization.",
+      "effect": "Add 2 new tiles of player's choice. First to claim gets +3 alleles.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Ecological opportunity drives adaptive radiation. Empty niches reward early colonizers with reduced competition.",
+      "real_examples": [
+        "Land colonization (~470 MYA) - Plants, then arthropods",
+        "Canopy niche (~100 MYA) - Angiosperm forests"
+      ]
+    },
+    {
+      "id": "adaptive_radiation",
+      "name": "Adaptive Radiation",
+      "type": "positive",
+      "description": "Vacant ecological niches allow rapid diversification.",
+      "effect": "All players may evolve one trait at half cost (round down).",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "After extinctions, survivors radiate into empty niches. Example: mammals after dinosaurs evolved from shrew to whale size in 20 MY.",
+      "real_examples": [
+        "Mammalian radiation (~66 MYA) - Post-K-Pg",
+        "Cambrian Explosion (~540 MYA) - Body plan diversity"
+      ]
+    },
+    {
+      "id": "ozone_shield",
+      "name": "Ozone Shield",
+      "type": "positive",
+      "description": "UV protection strengthens. Land becomes safer for colonization.",
+      "effect": "Players with [Terrestrial] traits gain +2 alleles. Land tiles give +1 marker.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Ozone (O3) absorbs UV-C radiation. Without it, DNA damage prevents land colonization. Photosynthesis created the ozone layer.",
+      "real_examples": [
+        "Silurian (~420 MYA) - First land plants",
+        "Devonian (~400 MYA) - First tetrapods emerge"
+      ]
+    },
+    {
+      "id": "predator_decline",
+      "name": "Predator Decline",
+      "type": "positive",
+      "description": "Top predators reduced in number. Prey populations boom.",
+      "effect": "Players without [Predator] tag gain +3 alleles and +1 marker.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Trophic cascades occur when apex predators decline. Mesopredator release and prey population explosions follow.",
+      "real_examples": [
+        "Post-K-Pg (~65 MYA) - No large predators for 10 MY",
+        "End-Permian recovery - Predator guilds collapsed"
+      ]
+    },
+    {
+      "id": "mutualism_boom",
+      "name": "Mutualism Boom",
+      "type": "positive",
+      "description": "Symbiotic relationships flourish. Cooperation provides advantages.",
+      "effect": "Players with [Pollinator] or [Social] tags gain +4 alleles.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Coevolution between species creates mutual benefits. Pollination, gut microbiomes, and cleaning symbioses enhance fitness.",
+      "real_examples": [
+        "Angiosperm-insect coevolution (~100 MYA)",
+        "Mycorrhizal networks (~450 MYA) - Plants + fungi"
+      ]
+    },
+    {
+      "id": "continental_drift",
+      "name": "Continental Drift",
+      "type": "neutral",
+      "description": "Landmasses shift position. Populations become isolated or connected.",
+      "effect": "Shuffle 3 random tiles and replace. Players may move 2 markers for free.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Continental drift at ~2-10 cm/year creates and destroys habitats over millions of years. Isolation drives speciation.",
+      "real_examples": [
+        "Pangaea breakup (~200 MYA) - Created Atlantic Ocean",
+        "India-Asia collision (~50 MYA) - Himalayas formed"
+      ]
+    },
+    {
+      "id": "climate_shift",
+      "name": "Climate Shift",
+      "type": "neutral",
+      "description": "Global temperature and precipitation patterns change significantly.",
+      "effect": "Flip 2 tiles to new biome types. Affected players may relocate markers.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Climate shifts driven by orbital cycles, tectonics, and ocean currents redistribute habitats across latitudes.",
+      "real_examples": [
+        "Eocene-Oligocene cooling (~34 MYA)",
+        "Mid-Miocene Climatic Optimum (~15 MYA)"
+      ]
+    },
+    {
+      "id": "biome_transition",
+      "name": "Biome Transition",
+      "type": "neutral",
+      "description": "One ecosystem type gradually replaces another across large areas.",
+      "effect": "Convert 2 Forest tiles to Grassland OR vice versa. Matching traits gain +2.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Biome shifts occur when climate changes or new dominant species evolve. Grasslands replaced forests as CO2 dropped.",
+      "real_examples": [
+        "Grassland expansion (~15 MYA) - Miocene drying",
+        "Rainforest spread (~55 MYA) - PETM warmth"
+      ]
+    },
+    {
+      "id": "arms_race",
+      "name": "Arms Race",
+      "type": "neutral",
+      "description": "Predator-prey competition intensifies. Evolutionary pressure increases.",
+      "effect": "All [Predator] and [Armored] traits cost -1 allele this era.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Red Queen hypothesis: species must constantly evolve to maintain relative fitness. Predators drive prey defenses and vice versa.",
+      "real_examples": [
+        "Mesozoic Marine Revolution (~200 MYA)",
+        "Cambrian arms race - Shells vs jaws"
+      ]
+    },
+    {
+      "id": "niche_partitioning",
+      "name": "Niche Partitioning",
+      "type": "neutral",
+      "description": "Resources divided among competitors. Specialization rewarded.",
+      "effect": "Players with 3+ unique tags gain +2 alleles. Generalists gain +1.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Competitive exclusion principle: species partition resources to coexist. Time, space, and diet differentiation reduces overlap.",
+      "real_examples": [
+        "Darwin's finches - Beak specialization",
+        "African ungulates - Grazer height partitioning"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,280 @@
+{
+  "meta": {
+    "version": "1.0",
+    "description": "Organism database for trait matching lookup feature",
+    "matching_algorithm": "Jaccard similarity on trait vectors"
+  },
+  "organisms": [
+    {
+      "id": "trilobite",
+      "name": "Trilobite",
+      "scientific_name": "Trilobita (class)",
+      "era_range": [0, 5],
+      "traits": ["bilateral_symmetry", "segmentation", "exoskeleton", "compound_eyes", "trilobite_eyes", "gills", "small_size", "ectothermy"],
+      "fun_fact": "Trilobites had the first complex eyes in the animal kingdom, made of calcite crystals.",
+      "complexity": 12
+    },
+    {
+      "id": "anomalocaris",
+      "name": "Anomalocaris",
+      "scientific_name": "Anomalocaris canadensis",
+      "era_range": [0, 0],
+      "traits": ["bilateral_symmetry", "segmentation", "compound_eyes", "gills", "large_size"],
+      "fun_fact": "At 1 meter long, Anomalocaris was the apex predator of the Cambrian seas.",
+      "complexity": 10
+    },
+    {
+      "id": "hagfish",
+      "name": "Hagfish",
+      "scientific_name": "Myxini",
+      "era_range": [0, 11],
+      "traits": ["bilateral_symmetry", "notochord", "gills", "small_size", "ectothermy"],
+      "fun_fact": "Hagfish can produce a gallon of slime in seconds and have been unchanged for 300+ million years.",
+      "complexity": 7
+    },
+    {
+      "id": "lamprey",
+      "name": "Lamprey",
+      "scientific_name": "Petromyzontiformes",
+      "era_range": [0, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "gills", "small_size", "ectothermy", "freshwater"],
+      "fun_fact": "Lampreys are 'living fossils' - jawless fish that have barely changed since the Devonian.",
+      "complexity": 9
+    },
+    {
+      "id": "great_white_shark",
+      "name": "Great White Shark",
+      "scientific_name": "Carcharodon carcharias",
+      "era_range": [9, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "cartilage_skeleton", "gills", "large_size", "ectothermy"],
+      "fun_fact": "Sharks have been around for 400 million years, predating dinosaurs by 200 million years.",
+      "complexity": 15
+    },
+    {
+      "id": "coelacanth",
+      "name": "Coelacanth",
+      "scientific_name": "Latimeria chalumnae",
+      "era_range": [3, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "lobed_fins", "gills", "deep_sea", "large_size", "ectothermy"],
+      "fun_fact": "Thought extinct for 65 million years until one was caught in 1938. A true 'living fossil'.",
+      "complexity": 18
+    },
+    {
+      "id": "lungfish",
+      "name": "Lungfish",
+      "scientific_name": "Dipnoi",
+      "era_range": [3, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "lobed_fins", "lungs", "gills", "freshwater", "ectothermy", "burrowing"],
+      "fun_fact": "Lungfish can survive droughts by burrowing and breathing air for up to 4 years.",
+      "complexity": 20
+    },
+    {
+      "id": "tiktaalik",
+      "name": "Tiktaalik",
+      "scientific_name": "Tiktaalik roseae",
+      "era_range": [3, 3],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "lobed_fins", "lungs", "gills", "freshwater", "ectothermy"],
+      "fun_fact": "Tiktaalik is the famous 'fishapod' - the transitional form between fish and tetrapods.",
+      "complexity": 19
+    },
+    {
+      "id": "salamander",
+      "name": "Salamander",
+      "scientific_name": "Caudata",
+      "era_range": [7, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "moist_skin", "aquatic_eggs", "freshwater", "small_size", "ectothermy", "nocturnal", "burrowing"],
+      "fun_fact": "Some salamanders can regenerate entire limbs, including bones, muscles, and nerves.",
+      "complexity": 22
+    },
+    {
+      "id": "frog",
+      "name": "Frog",
+      "scientific_name": "Anura",
+      "era_range": [6, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "moist_skin", "aquatic_eggs", "freshwater", "small_size", "ectothermy", "r_strategy", "metamorphosis"],
+      "fun_fact": "Frogs absorb water through their skin and some species can freeze solid and survive.",
+      "complexity": 21
+    },
+    {
+      "id": "crocodile",
+      "name": "Crocodile",
+      "scientific_name": "Crocodylidae",
+      "era_range": [6, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "amniotic_egg", "scales_reptilian", "diapsid_skull", "archosaur_posture", "crocodilian_form", "large_size", "ectothermy", "freshwater", "parental_care"],
+      "fun_fact": "Crocodilians are 'living fossils' - virtually unchanged for 200+ million years.",
+      "complexity": 28
+    },
+    {
+      "id": "turtle",
+      "name": "Sea Turtle",
+      "scientific_name": "Chelonioidea",
+      "era_range": [6, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "amniotic_egg", "shell", "scales_reptilian", "large_size", "ectothermy", "k_strategy"],
+      "fun_fact": "Sea turtles navigate using Earth's magnetic field and return to the same beach to nest.",
+      "complexity": 24
+    },
+    {
+      "id": "komodo_dragon",
+      "name": "Komodo Dragon",
+      "scientific_name": "Varanus komodoensis",
+      "era_range": [10, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "amniotic_egg", "scales_reptilian", "diapsid_skull", "large_size", "ectothermy", "venom"],
+      "fun_fact": "Komodo dragons have venomous saliva that prevents blood clotting in their prey.",
+      "complexity": 26
+    },
+    {
+      "id": "tyrannosaurus",
+      "name": "Tyrannosaurus rex",
+      "scientific_name": "Tyrannosaurus rex",
+      "era_range": [8, 8],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "amniotic_egg", "scales_reptilian", "diapsid_skull", "archosaur_posture", "hollow_bones", "large_size", "endothermy"],
+      "fun_fact": "T. rex could bite with 12,800 pounds of force - enough to crush a car.",
+      "complexity": 32
+    },
+    {
+      "id": "archaeopteryx",
+      "name": "Archaeopteryx",
+      "scientific_name": "Archaeopteryx lithographica",
+      "era_range": [7, 7],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "amniotic_egg", "diapsid_skull", "archosaur_posture", "hollow_bones", "feathers", "flight", "small_size", "endothermy"],
+      "fun_fact": "Archaeopteryx is the first known bird, with both dinosaur teeth and bird feathers.",
+      "complexity": 35
+    },
+    {
+      "id": "eagle",
+      "name": "Golden Eagle",
+      "scientific_name": "Aquila chrysaetos",
+      "era_range": [9, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "amniotic_egg", "diapsid_skull", "archosaur_posture", "hollow_bones", "feathers", "flight", "endothermy", "large_size", "k_strategy", "parental_care"],
+      "fun_fact": "Golden eagles can spot prey from 2 miles away and dive at 150+ mph.",
+      "complexity": 38
+    },
+    {
+      "id": "penguin",
+      "name": "Emperor Penguin",
+      "scientific_name": "Aptenodytes forsteri",
+      "era_range": [9, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "amniotic_egg", "diapsid_skull", "archosaur_posture", "hollow_bones", "feathers", "endothermy", "k_strategy", "parental_care"],
+      "fun_fact": "Penguins are birds that traded flight for swimming - their wings became flippers.",
+      "complexity": 34
+    },
+    {
+      "id": "platypus",
+      "name": "Platypus",
+      "scientific_name": "Ornithorhynchus anatinus",
+      "era_range": [8, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "synapsid_skull", "fur", "mammary_glands", "endothermy", "venom", "freshwater", "small_size", "nocturnal", "burrowing"],
+      "fun_fact": "Platypus males have venomous spurs - one of only a few venomous mammals.",
+      "complexity": 36
+    },
+    {
+      "id": "mouse",
+      "name": "House Mouse",
+      "scientific_name": "Mus musculus",
+      "era_range": [10, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "synapsid_skull", "fur", "mammary_glands", "live_birth", "placenta", "endothermy", "small_size", "nocturnal", "burrowing", "r_strategy"],
+      "fun_fact": "A single pair of mice can produce 2,000+ offspring in a year.",
+      "complexity": 35
+    },
+    {
+      "id": "bat",
+      "name": "Common Bat",
+      "scientific_name": "Chiroptera",
+      "era_range": [9, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "synapsid_skull", "fur", "mammary_glands", "live_birth", "placenta", "endothermy", "flight", "echolocation", "small_size", "nocturnal"],
+      "fun_fact": "Bats are the only mammals capable of true sustained flight.",
+      "complexity": 42
+    },
+    {
+      "id": "blue_whale",
+      "name": "Blue Whale",
+      "scientific_name": "Balaenoptera musculus",
+      "era_range": [10, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "synapsid_skull", "mammary_glands", "live_birth", "placenta", "endothermy", "large_size", "k_strategy", "parental_care"],
+      "fun_fact": "Blue whales are the largest animals ever to exist - larger than any dinosaur.",
+      "complexity": 40
+    },
+    {
+      "id": "elephant",
+      "name": "African Elephant",
+      "scientific_name": "Loxodonta africana",
+      "era_range": [10, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "synapsid_skull", "mammary_glands", "live_birth", "placenta", "endothermy", "large_size", "large_brain", "k_strategy", "parental_care"],
+      "fun_fact": "Elephants can recognize themselves in mirrors and mourn their dead.",
+      "complexity": 45
+    },
+    {
+      "id": "chimpanzee",
+      "name": "Chimpanzee",
+      "scientific_name": "Pan troglodytes",
+      "era_range": [10, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "synapsid_skull", "fur", "mammary_glands", "live_birth", "placenta", "endothermy", "arboreal", "opposable_digits", "large_brain", "k_strategy", "parental_care"],
+      "fun_fact": "Chimpanzees share 98.8% of their DNA with humans and use tools.",
+      "complexity": 52
+    },
+    {
+      "id": "human",
+      "name": "Human",
+      "scientific_name": "Homo sapiens",
+      "era_range": [11, 11],
+      "traits": ["bilateral_symmetry", "notochord", "vertebral_column", "jaws", "bony_skeleton", "tetrapod_limbs", "lungs", "synapsid_skull", "fur", "mammary_glands", "live_birth", "placenta", "endothermy", "opposable_digits", "large_brain", "k_strategy", "parental_care"],
+      "fun_fact": "Humans have the highest encephalization quotient of any species.",
+      "complexity": 55
+    },
+    {
+      "id": "honeybee",
+      "name": "Honeybee",
+      "scientific_name": "Apis mellifera",
+      "era_range": [8, 11],
+      "traits": ["bilateral_symmetry", "segmentation", "exoskeleton", "compound_eyes", "six_legs", "insect_flight", "metamorphosis", "eusocial", "pollination", "small_size", "ectothermy", "r_strategy"],
+      "fun_fact": "A single bee colony can pollinate 300 million flowers per day.",
+      "complexity": 28
+    },
+    {
+      "id": "dragonfly",
+      "name": "Dragonfly",
+      "scientific_name": "Odonata",
+      "era_range": [4, 11],
+      "traits": ["bilateral_symmetry", "segmentation", "exoskeleton", "compound_eyes", "six_legs", "insect_flight", "metamorphosis", "small_size", "ectothermy", "freshwater", "r_strategy"],
+      "fun_fact": "Carboniferous dragonflies had 70cm wingspans due to high oxygen levels.",
+      "complexity": 22
+    },
+    {
+      "id": "octopus",
+      "name": "Common Octopus",
+      "scientific_name": "Octopus vulgaris",
+      "era_range": [4, 11],
+      "traits": ["bilateral_symmetry", "gills", "large_brain", "small_size", "ectothermy", "nocturnal"],
+      "fun_fact": "Octopuses have three hearts, blue blood, and can solve complex puzzles.",
+      "complexity": 18
+    },
+    {
+      "id": "nautilus",
+      "name": "Nautilus",
+      "scientific_name": "Nautilus pompilius",
+      "era_range": [0, 11],
+      "traits": ["bilateral_symmetry", "shell", "gills", "small_size", "ectothermy", "deep_sea"],
+      "fun_fact": "Nautiluses are 'living fossils' - their shell design is unchanged for 500 million years.",
+      "complexity": 10
+    },
+    {
+      "id": "horseshoe_crab",
+      "name": "Horseshoe Crab",
+      "scientific_name": "Limulus polyphemus",
+      "era_range": [1, 11],
+      "traits": ["bilateral_symmetry", "segmentation", "exoskeleton", "compound_eyes", "gills", "shell", "small_size", "ectothermy"],
+      "fun_fact": "Horseshoe crabs have blue blood used to test for bacterial contamination in medicine.",
+      "complexity": 14
+    },
+    {
+      "id": "starfish",
+      "name": "Starfish",
+      "scientific_name": "Asteroidea",
+      "era_range": [1, 11],
+      "traits": ["bilateral_symmetry", "gills", "small_size", "ectothermy", "r_strategy"],
+      "fun_fact": "Starfish can regenerate entire arms, and some species can regenerate from a single arm.",
+      "complexity": 8
+    }
+  ]
+}
+
