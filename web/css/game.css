@@ -3112,6 +3112,15 @@ body {
     border-top: 1px solid var(--border);
     display: flex;
     flex-direction: column;
+    transition: all 0.25s ease-out;
+}
+
+#tech-tree-panel.fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    height: 100vh;
+    border-top: none;
 }
 
 .tech-tree-header {
