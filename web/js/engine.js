@@ -127,7 +127,7 @@ export class GameEngine {
         return { success: true };
     }
     
-    // Phase 5: Competition - Resolve tile control
+    // Phase 5: Competition - Resolve tile control with dice rolls
     resolveCompetition() {
         const results = [];
         
@@ -136,7 +136,7 @@ export class GameEngine {
             const competitors = Object.entries(markers).filter(([_, count]) => count > 0);
             
             if (competitors.length <= 1) {
-                // Single or no controller
+                // Single or no controller - no contest
                 if (competitors.length === 1) {
                     const [playerId, _] = competitors[0];
                     const player = this.state.players[parseInt(playerId)];
@@ -145,18 +145,21 @@ export class GameEngine {
                 continue;
             }
             
-            // Calculate strength for each player
+            // Contested tile - roll dice and calculate strength for each player
             const strengths = competitors.map(([playerId, count]) => {
                 const player = this.state.players[parseInt(playerId)];
                 const tags = player.getTags(this.state.traitDb);
                 const bonusTags = tile.biomeData.bonus_tags || [];
                 const tagBonus = bonusTags.filter(t => tags.has(t)).length;
+                const diceRoll = rollD6();
                 
                 return {
                     player,
+                    playerId: parseInt(playerId),
                     markers: count,
                     tagBonus,
-                    total: count + tagBonus
+                    diceRoll,
+                    total: count + tagBonus + diceRoll
                 };
             }).sort((a, b) => b.total - a.total);
             
@@ -164,25 +167,42 @@ export class GameEngine {
             const winner = strengths[0];
             winner.player.tilesControlled++;
             
-            // Check for displacement
+            // Build result for this contested tile
+            const tileResult = {
+                tile,
+                contested: true,
+                combatants: strengths.map(s => ({
+                    player: s.player,
+                    playerId: s.playerId,
+                    markers: s.markers,
+                    tagBonus: s.tagBonus,
+                    diceRoll: s.diceRoll,
+                    total: s.total
+                })),
+                winner: winner.player,
+                displaced: null
+            };
+            
+            // Check for displacement - loser with significantly lower strength loses markers
             if (strengths.length > 1) {
                 const second = strengths[1];
-                const markerDiff = winner.markers - second.markers;
-                const tagDiff = winner.tagBonus - second.tagBonus;
+                const totalDiff = winner.total - second.total;
                 
-                if (markerDiff >= 2 && tagDiff >= 2) {
-                    // Displace the second player
-                    const displaced = this.state.tileMarkers[tile.id][second.player.id];
+                // Displacement occurs when winner beats loser by 3+ points
+                if (totalDiff >= 3) {
+                    const displacedCount = this.state.tileMarkers[tile.id][second.player.id];
                     this.state.tileMarkers[tile.id][second.player.id] = 0;
-                    second.player.markersOnBoard -= displaced;
+                    second.player.markersOnBoard -= displacedCount;
                     
-                    results.push({
-                        tile,
-                        winner: winner.player,
-                        displaced: { player: second.player, count: displaced }
-                    });
+                    tileResult.displaced = {
+                        player: second.player,
+                        playerId: second.playerId,
+                        count: displacedCount
+                    };
                 }
             }
+            
+            results.push(tileResult);
         }
         
         this.emit('competitionResolved', { results });
@@ -196,9 +216,10 @@ export class GameEngine {
         
         for (const tile of this.state.boardTiles) {
             if (roll >= tile.flipNumber && this.state.currentEra >= tile.eraLock) {
-                // Tile flips - for now just change biome randomly
-                const biomes = Object.keys(this.state.tilesData.biome_types);
-                const newBiome = biomes[Math.floor(Math.random() * biomes.length)];
+                // Use ecological transitions for realistic biome changes
+                const transitions = this.state.tilesData.flip_transitions?.[tile.biome];
+                const validTransitions = transitions || Object.keys(this.state.tilesData.biome_types);
+                const newBiome = validTransitions[Math.floor(Math.random() * validTransitions.length)];
                 
                 const oldBiome = tile.biome;
                 tile.biome = newBiome;

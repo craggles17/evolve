@@ -21,6 +21,17 @@ export const ERA_TEXT_COLORS = [
 
 export const PLAYER_COLORS = ['#58a6ff', '#f0883e', '#a371f7', '#3fb950'];
 
+// Tile stability info based on flip number (d6 roll >= flipNumber triggers change)
+// Lower numbers = more environmental pressure, higher chance of biome shift
+export const STABILITY_INFO = {
+    1: { label: 'Extremely Unstable', percent: 100, color: '#ff4444' },
+    2: { label: 'Very Unstable', percent: 83, color: '#ff7744' },
+    3: { label: 'Unstable', percent: 67, color: '#ffaa44' },
+    4: { label: 'Moderate', percent: 50, color: '#ffdd44' },
+    5: { label: 'Stable', percent: 33, color: '#88cc44' },
+    6: { label: 'Very Stable', percent: 17, color: '#44aa88' }
+};
+
 export function rollD6() {
     return Math.floor(Math.random() * 6) + 1;
 }

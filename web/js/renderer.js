@@ -3,7 +3,7 @@
 import { 
     $, $$, createElement, createSVGElement,
     offsetToPixel, getHexCorners, cornersToPoints,
-    ERA_NAMES, ERA_COLORS, PLAYER_COLORS, 
+    ERA_NAMES, ERA_COLORS, PLAYER_COLORS, STABILITY_INFO,
     HEX_SIZE, HEX_WIDTH, HEX_VERT_SPACING
 } from './utils.js';
 import { PHASE_NAMES, PHASE_HINTS } from './state.js';
@@ -316,14 +316,15 @@ export class Renderer {
         label.textContent = tile.biomeData.name;
         group.appendChild(label);
         
-        // Flip number indicator
+        // Stability indicator (flip probability)
+        const stability = STABILITY_INFO[tile.flipNumber];
         const flipText = createSVGElement('text');
         flipText.setAttribute('x', x);
         flipText.setAttribute('y', y + 25);
         flipText.setAttribute('text-anchor', 'middle');
-        flipText.setAttribute('font-size', '10');
-        flipText.setAttribute('fill', '#888');
-        flipText.textContent = `⚀${tile.flipNumber}`;
+        flipText.setAttribute('font-size', '9');
+        flipText.setAttribute('fill', stability.color);
+        flipText.textContent = `${stability.percent}% ▽`;
         group.appendChild(flipText);
         
         // Era lock indicator
@@ -454,40 +455,409 @@ export class Renderer {
         });
     }
     
-    // Lineage Board
+    // Competition Phase Visualization
+    showCompetitionResults(results, state) {
+        // For each contested tile, show dice rolls floating above markers
+        for (const result of results) {
+            const tile = result.tile;
+            const group = $(`.hex-tile[data-tile-id="${tile.id}"]`);
+            if (!group) continue;
+            
+            // Get tile center from polygon bounds
+            const polygon = group.querySelector('polygon');
+            if (!polygon) continue;
+            
+            const bbox = polygon.getBBox();
+            const cx = bbox.x + bbox.width / 2;
+            const cy = bbox.y + bbox.height / 2;
+            
+            // Add dice popups for each combatant
+            result.combatants.forEach((combatant, idx) => {
+                const diceGroup = createSVGElement('g');
+                diceGroup.classList.add('competition-dice');
+                diceGroup.dataset.playerId = combatant.playerId;
+                
+                // Position dice above the tile, offset per player
+                const offsetX = (idx - (result.combatants.length - 1) / 2) * 28;
+                const diceX = cx + offsetX;
+                const diceY = cy - 30;
+                
+                // Dice background
+                const diceRect = createSVGElement('rect');
+                diceRect.setAttribute('x', diceX - 10);
+                diceRect.setAttribute('y', diceY - 10);
+                diceRect.setAttribute('width', 20);
+                diceRect.setAttribute('height', 20);
+                diceRect.setAttribute('rx', 3);
+                diceRect.setAttribute('fill', combatant.player.color);
+                diceRect.setAttribute('stroke', '#fff');
+                diceRect.setAttribute('stroke-width', '1.5');
+                diceGroup.appendChild(diceRect);
+                
+                // Dice value
+                const diceText = createSVGElement('text');
+                diceText.setAttribute('x', diceX);
+                diceText.setAttribute('y', diceY + 4);
+                diceText.setAttribute('text-anchor', 'middle');
+                diceText.setAttribute('font-size', '14');
+                diceText.setAttribute('font-weight', 'bold');
+                diceText.setAttribute('fill', '#000');
+                diceText.textContent = combatant.diceRoll;
+                diceGroup.appendChild(diceText);
+                
+                // Total strength below dice
+                const totalText = createSVGElement('text');
+                totalText.setAttribute('x', diceX);
+                totalText.setAttribute('y', diceY + 22);
+                totalText.setAttribute('text-anchor', 'middle');
+                totalText.setAttribute('font-size', '9');
+                totalText.setAttribute('fill', combatant.player.color);
+                totalText.textContent = `=${combatant.total}`;
+                diceGroup.appendChild(totalText);
+                
+                this.boardContent.appendChild(diceGroup);
+            });
+            
+            // Highlight contested tile with combat border
+            polygon.classList.add('contested');
+            polygon.style.stroke = '#ff6';
+            polygon.style.strokeWidth = '3';
+            polygon.style.filter = 'drop-shadow(0 0 6px rgba(255, 255, 102, 0.6))';
+        }
+    }
+    
+    markDyingMarkers(results, state) {
+        // Add skull overlays on markers that will be displaced
+        for (const result of results) {
+            if (!result.displaced) continue;
+            
+            const tile = result.tile;
+            const group = $(`.hex-tile[data-tile-id="${tile.id}"]`);
+            if (!group) continue;
+            
+            // Find markers belonging to the displaced player
+            const markers = group.querySelectorAll('.hex-marker');
+            let markersFound = 0;
+            
+            markers.forEach(marker => {
+                const markerColor = marker.getAttribute('fill');
+                if (markerColor === result.displaced.player.color && markersFound < result.displaced.count) {
+                    // Add dying class
+                    marker.classList.add('marker-dying');
+                    
+                    // Add skull overlay at marker position
+                    const skullGroup = createSVGElement('g');
+                    skullGroup.classList.add('marker-skull');
+                    
+                    const mcx = parseFloat(marker.getAttribute('cx'));
+                    const mcy = parseFloat(marker.getAttribute('cy'));
+                    
+                    // Skull emoji text
+                    const skull = createSVGElement('text');
+                    skull.setAttribute('x', mcx);
+                    skull.setAttribute('y', mcy + 3);
+                    skull.setAttribute('text-anchor', 'middle');
+                    skull.setAttribute('font-size', '12');
+                    skull.textContent = '💀';
+                    skullGroup.appendChild(skull);
+                    
+                    this.boardContent.appendChild(skullGroup);
+                    markersFound++;
+                }
+            });
+        }
+    }
+    
+    clearCompetitionVisuals() {
+        // Remove all dice popups
+        $$('.competition-dice').forEach(el => el.remove());
+        
+        // Remove all skull overlays
+        $$('.marker-skull').forEach(el => el.remove());
+        
+        // Remove dying state from markers
+        $$('.marker-dying').forEach(el => el.classList.remove('marker-dying'));
+        
+        // Reset contested tile styling
+        $$('.hex-tile polygon.contested').forEach(polygon => {
+            polygon.classList.remove('contested');
+            polygon.style.stroke = '#30363d';
+            polygon.style.strokeWidth = '2';
+            polygon.style.filter = '';
+        });
+    }
+    
+    // Lineage Board - SVG-based with dependency arrows
     renderLineageBoard(player, traitDb) {
         const board = $('#lineage-board');
         board.innerHTML = '';
         
-        // Show 6 eras at a time (first half or second half)
-        const startEra = 0;
-        const endEra = 12;
+        // SVG dimensions
+        const SLOT_WIDTH = 32;
+        const SLOT_HEIGHT = 18;
+        const HEADER_HEIGHT = 16;
+        const SLOT_GAP = 3;
+        const COL_GAP = 4;
+        const PADDING = 4;
+        const NUM_ERAS = 12;
+        const SLOTS_PER_ERA = 3;
         
-        for (let era = startEra; era < endEra; era++) {
-            const column = createElement('div', 'era-column');
+        const svgWidth = NUM_ERAS * (SLOT_WIDTH + COL_GAP) - COL_GAP + PADDING * 2;
+        const svgHeight = HEADER_HEIGHT + SLOTS_PER_ERA * (SLOT_HEIGHT + SLOT_GAP) - SLOT_GAP + PADDING * 2;
+        
+        const svg = createSVGElement('svg');
+        svg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
+        svg.setAttribute('width', '100%');
+        svg.setAttribute('class', 'lineage-svg');
+        
+        // Defs for arrow markers
+        const defs = createSVGElement('defs');
+        
+        // Hard prereq arrow (green)
+        const markerHard = createSVGElement('marker');
+        markerHard.setAttribute('id', 'arrow-hard');
+        markerHard.setAttribute('markerWidth', '8');
+        markerHard.setAttribute('markerHeight', '6');
+        markerHard.setAttribute('refX', '7');
+        markerHard.setAttribute('refY', '3');
+        markerHard.setAttribute('orient', 'auto');
+        const arrowHard = createSVGElement('polygon');
+        arrowHard.setAttribute('points', '0 0, 8 3, 0 6');
+        arrowHard.setAttribute('fill', '#3fb950');
+        markerHard.appendChild(arrowHard);
+        defs.appendChild(markerHard);
+        
+        // Soft prereq arrow (blue)
+        const markerSoft = createSVGElement('marker');
+        markerSoft.setAttribute('id', 'arrow-soft');
+        markerSoft.setAttribute('markerWidth', '8');
+        markerSoft.setAttribute('markerHeight', '6');
+        markerSoft.setAttribute('refX', '7');
+        markerSoft.setAttribute('refY', '3');
+        markerSoft.setAttribute('orient', 'auto');
+        const arrowSoft = createSVGElement('polygon');
+        arrowSoft.setAttribute('points', '0 0, 8 3, 0 6');
+        arrowSoft.setAttribute('fill', '#58a6ff');
+        markerSoft.appendChild(arrowSoft);
+        defs.appendChild(markerSoft);
+        
+        // Dependent arrow (gold)
+        const markerDep = createSVGElement('marker');
+        markerDep.setAttribute('id', 'arrow-dep');
+        markerDep.setAttribute('markerWidth', '8');
+        markerDep.setAttribute('markerHeight', '6');
+        markerDep.setAttribute('refX', '7');
+        markerDep.setAttribute('refY', '3');
+        markerDep.setAttribute('orient', 'auto');
+        const arrowDep = createSVGElement('polygon');
+        arrowDep.setAttribute('points', '0 0, 8 3, 0 6');
+        arrowDep.setAttribute('fill', '#d4a574');
+        markerDep.appendChild(arrowDep);
+        defs.appendChild(markerDep);
+        
+        svg.appendChild(defs);
+        
+        // Layer for arrows (behind slots)
+        const arrowLayer = createSVGElement('g');
+        arrowLayer.setAttribute('class', 'arrow-layer');
+        svg.appendChild(arrowLayer);
+        
+        // Build position map for traits
+        this.traitPositions = {};
+        
+        // Render era columns and slots
+        for (let era = 0; era < NUM_ERAS; era++) {
+            const x = PADDING + era * (SLOT_WIDTH + COL_GAP);
             
-            const header = createElement('div', 'era-column-header');
-            header.textContent = ERA_NAMES[era].substring(0, 3);
-            header.style.background = ERA_COLORS[era];
-            column.appendChild(header);
+            // Era header
+            const header = createSVGElement('rect');
+            header.setAttribute('x', x);
+            header.setAttribute('y', PADDING);
+            header.setAttribute('width', SLOT_WIDTH);
+            header.setAttribute('height', HEADER_HEIGHT - 2);
+            header.setAttribute('fill', ERA_COLORS[era]);
+            header.setAttribute('rx', '2');
+            svg.appendChild(header);
             
-            // 3 trait slots per era
+            const headerText = createSVGElement('text');
+            headerText.setAttribute('x', x + SLOT_WIDTH / 2);
+            headerText.setAttribute('y', PADDING + HEADER_HEIGHT - 5);
+            headerText.setAttribute('text-anchor', 'middle');
+            headerText.setAttribute('font-size', '7');
+            headerText.setAttribute('fill', '#fff');
+            headerText.setAttribute('class', 'era-header-text');
+            headerText.textContent = ERA_NAMES[era].substring(0, 3);
+            svg.appendChild(headerText);
+            
+            // Trait slots
             const traits = player.traitsByEra[era] || [];
-            for (let slot = 0; slot < 3; slot++) {
-                const slotEl = createElement('div', 'trait-slot');
-                if (traits[slot]) {
-                    slotEl.classList.add('filled');
-                    slotEl.title = traitDb[traits[slot]]?.name || traits[slot];
-                    slotEl.addEventListener('click', () => {
+            for (let slot = 0; slot < SLOTS_PER_ERA; slot++) {
+                const slotY = PADDING + HEADER_HEIGHT + slot * (SLOT_HEIGHT + SLOT_GAP);
+                const slotGroup = createSVGElement('g');
+                slotGroup.setAttribute('class', 'trait-slot-group');
+                
+                const rect = createSVGElement('rect');
+                rect.setAttribute('x', x);
+                rect.setAttribute('y', slotY);
+                rect.setAttribute('width', SLOT_WIDTH);
+                rect.setAttribute('height', SLOT_HEIGHT);
+                rect.setAttribute('rx', '2');
+                
+                const traitId = traits[slot];
+                if (traitId) {
+                    rect.setAttribute('class', 'trait-slot-rect filled');
+                    rect.setAttribute('data-trait-id', traitId);
+                    
+                    // Store position (center of rect)
+                    this.traitPositions[traitId] = {
+                        x: x + SLOT_WIDTH / 2,
+                        y: slotY + SLOT_HEIGHT / 2,
+                        era: era
+                    };
+                    
+                    // Trait name abbreviation
+                    const traitData = traitDb[traitId];
+                    const abbrev = traitData ? traitData.name.substring(0, 4) : traitId.substring(0, 4);
+                    const label = createSVGElement('text');
+                    label.setAttribute('x', x + SLOT_WIDTH / 2);
+                    label.setAttribute('y', slotY + SLOT_HEIGHT / 2 + 3);
+                    label.setAttribute('text-anchor', 'middle');
+                    label.setAttribute('font-size', '6');
+                    label.setAttribute('fill', '#1a1a1a');
+                    label.setAttribute('class', 'trait-label');
+                    label.setAttribute('pointer-events', 'none');
+                    label.textContent = abbrev;
+                    slotGroup.appendChild(label);
+                    
+                    // Hover handlers for arrows
+                    rect.addEventListener('mouseenter', () => {
+                        this.showDependencyArrows(traitId, player, traitDb, arrowLayer);
+                    });
+                    rect.addEventListener('mouseleave', () => {
+                        this.clearDependencyArrows(arrowLayer);
+                    });
+                    
+                    // Click handler
+                    rect.addEventListener('click', () => {
                         if (this.callbacks.onTraitSlotClick) {
-                            this.callbacks.onTraitSlotClick(traits[slot]);
+                            this.callbacks.onTraitSlotClick(traitId);
                         }
                     });
+                    
+                    // Title for tooltip
+                    const title = createSVGElement('title');
+                    title.textContent = traitData?.name || traitId;
+                    rect.appendChild(title);
+                } else {
+                    rect.setAttribute('class', 'trait-slot-rect empty');
                 }
-                column.appendChild(slotEl);
+                
+                slotGroup.appendChild(rect);
+                svg.appendChild(slotGroup);
             }
+        }
+        
+        board.appendChild(svg);
+    }
+    
+    // Draw dependency arrows for a hovered trait
+    showDependencyArrows(traitId, player, traitDb, arrowLayer) {
+        this.clearDependencyArrows(arrowLayer);
+        
+        const traitData = traitDb[traitId];
+        if (!traitData) return;
+        
+        const targetPos = this.traitPositions[traitId];
+        if (!targetPos) return;
+        
+        // Draw arrows FROM prerequisites TO this trait
+        // Hard prerequisites (solid green)
+        for (const prereqId of traitData.hard_prereqs || []) {
+            const prereqPos = this.traitPositions[prereqId];
+            if (prereqPos) {
+                this.drawArrow(arrowLayer, prereqPos, targetPos, 'hard');
+            }
+        }
+        
+        // Soft prerequisites (dashed blue)
+        for (const prereqId of traitData.soft_prereqs || []) {
+            const prereqPos = this.traitPositions[prereqId];
+            if (prereqPos) {
+                this.drawArrow(arrowLayer, prereqPos, targetPos, 'soft');
+            }
+        }
+        
+        // Draw arrows FROM this trait TO dependents (gold)
+        for (const [otherTraitId, otherData] of Object.entries(traitDb)) {
+            if (!this.traitPositions[otherTraitId]) continue;
             
-            board.appendChild(column);
+            const isHardDep = (otherData.hard_prereqs || []).includes(traitId);
+            const isSoftDep = (otherData.soft_prereqs || []).includes(traitId);
+            
+            if (isHardDep || isSoftDep) {
+                const depPos = this.traitPositions[otherTraitId];
+                this.drawArrow(arrowLayer, targetPos, depPos, 'dep');
+            }
+        }
+        
+        // Highlight the hovered trait
+        const rect = arrowLayer.parentElement.querySelector(`rect[data-trait-id="${traitId}"]`);
+        if (rect) rect.classList.add('hovered');
+    }
+    
+    // Draw a curved arrow between two points
+    drawArrow(layer, from, to, type) {
+        const path = createSVGElement('path');
+        
+        // Calculate control point for bezier curve
+        const dx = to.x - from.x;
+        const dy = to.y - from.y;
+        const midX = (from.x + to.x) / 2;
+        const midY = (from.y + to.y) / 2;
+        
+        // Curve upward for visual clarity
+        const curvature = Math.abs(dx) > 50 ? -15 : -8;
+        const cx = midX;
+        const cy = midY + curvature;
+        
+        // Shorten the path slightly so arrow doesn't overlap with rect
+        const offsetEnd = 8;
+        const angle = Math.atan2(to.y - cy, to.x - cx);
+        const endX = to.x - Math.cos(angle) * offsetEnd;
+        const endY = to.y - Math.sin(angle) * offsetEnd;
+        
+        const d = `M ${from.x} ${from.y} Q ${cx} ${cy} ${endX} ${endY}`;
+        path.setAttribute('d', d);
+        path.setAttribute('fill', 'none');
+        
+        if (type === 'hard') {
+            path.setAttribute('stroke', '#3fb950');
+            path.setAttribute('stroke-width', '1.5');
+            path.setAttribute('marker-end', 'url(#arrow-hard)');
+            path.setAttribute('class', 'dep-arrow hard');
+        } else if (type === 'soft') {
+            path.setAttribute('stroke', '#58a6ff');
+            path.setAttribute('stroke-width', '1.5');
+            path.setAttribute('stroke-dasharray', '3,2');
+            path.setAttribute('marker-end', 'url(#arrow-soft)');
+            path.setAttribute('class', 'dep-arrow soft');
+        } else {
+            path.setAttribute('stroke', '#d4a574');
+            path.setAttribute('stroke-width', '1');
+            path.setAttribute('marker-end', 'url(#arrow-dep)');
+            path.setAttribute('class', 'dep-arrow dependent');
+        }
+        
+        layer.appendChild(path);
+    }
+    
+    // Clear all arrows
+    clearDependencyArrows(layer) {
+        layer.innerHTML = '';
+        // Remove hovered class from all rects
+        const svg = layer.parentElement;
+        if (svg) {
+            svg.querySelectorAll('.trait-slot-rect.hovered').forEach(r => r.classList.remove('hovered'));
         }
     }
     
@@ -862,8 +1232,28 @@ export class Renderer {
             ` : ''}
             
             <div class="card-detail-section">
-                <h4>Flip Number</h4>
-                <p>⚀ ${tile.flipNumber} - Tile flips when dice roll is ≥ this value</p>
+                <h4>Environmental Stability</h4>
+                ${(() => {
+                    const stability = STABILITY_INFO[tile.flipNumber];
+                    const transitions = state.tilesData?.flip_transitions?.[tile.biome] || [];
+                    const transitionNames = transitions
+                        .filter(b => b !== tile.biome)
+                        .map(b => state.tilesData.biome_types[b]?.name || b)
+                        .join(', ');
+                    return `
+                        <p style="color: ${stability.color}; font-weight: bold;">
+                            ${stability.label} (${stability.percent}% chance to shift)
+                        </p>
+                        <p style="opacity: 0.8; font-size: 0.9em;">
+                            Roll d6 each era: biome shifts on ${tile.flipNumber}+
+                        </p>
+                        ${transitionNames ? `
+                        <p style="margin-top: 8px;">
+                            <strong>Possible transitions:</strong> ${transitionNames}
+                        </p>
+                        ` : ''}
+                    `;
+                })()}
             </div>
             
             ${isLocked ? `

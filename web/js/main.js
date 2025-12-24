@@ -3,7 +3,7 @@
 import { GameState, PHASES } from './state.js';
 import { GameEngine } from './engine.js';
 import { Renderer } from './renderer.js';
-import { $, $$, createElement, PLAYER_COLORS } from './utils.js';
+import { $, $$, createElement, PLAYER_COLORS, delay } from './utils.js';
 import { MultiplayerHost, MultiplayerClient, checkForRoomInURL, getShareLink } from './multiplayer.js';
 
 const MODE = {
@@ -709,8 +709,7 @@ class Game {
                 break;
                 
             case PHASES.COMPETITION:
-                this.engine.resolveCompetition();
-                this.state.advancePhase();
+                await this.handleCompetitionPhase();
                 break;
                 
             case PHASES.TILE_FLIP:
@@ -814,6 +813,29 @@ class Game {
             const player = this.state.getCurrentPlayer();
             this.renderer.showCardDetail(trait, player, this.state.traitDb, false, false, () => {});
         }
+    }
+    
+    async handleCompetitionPhase() {
+        const results = this.engine.resolveCompetition();
+        
+        // Only show visuals if there are contested tiles
+        const contestedResults = results.filter(r => r.contested);
+        
+        if (contestedResults.length > 0) {
+            // Show dice rolls and combat results
+            this.renderer.showCompetitionResults(contestedResults, this.state);
+            
+            // Mark markers that will die with skulls
+            this.renderer.markDyingMarkers(contestedResults, this.state);
+            
+            // Wait for players to observe the results
+            await delay(2500);
+            
+            // Clear all competition visuals
+            this.renderer.clearCompetitionVisuals();
+        }
+        
+        this.state.advancePhase();
     }
     
     async handleEventPhase() {
