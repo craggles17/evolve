@@ -5,18 +5,18 @@
     "cards_per_player": 10
   },
   "deck_colors": {
-    "0": {"name": "Deep Blue", "hex": "#1a237e", "era": "Cambrian"},
-    "1": {"name": "Teal", "hex": "#00695c", "era": "Ordovician"},
-    "2": {"name": "Sea Green", "hex": "#2e7d32", "era": "Silurian"},
-    "3": {"name": "Forest Green", "hex": "#33691e", "era": "Devonian"},
-    "4": {"name": "Dark Green", "hex": "#1b5e20", "era": "Carboniferous"},
-    "5": {"name": "Brown", "hex": "#4e342e", "era": "Permian"},
-    "6": {"name": "Orange", "hex": "#e65100", "era": "Triassic"},
-    "7": {"name": "Red", "hex": "#b71c1c", "era": "Jurassic"},
-    "8": {"name": "Purple", "hex": "#4a148c", "era": "Cretaceous"},
-    "9": {"name": "Pink", "hex": "#ad1457", "era": "Paleogene"},
-    "10": {"name": "Yellow", "hex": "#f9a825", "era": "Neogene"},
-    "11": {"name": "White", "hex": "#eceff1", "era": "Quaternary"}
+    "0": {"name": "Rose", "hex": "#F4B8D0", "era": "Cambrian"},
+    "1": {"name": "Teal", "hex": "#009270", "era": "Ordovician"},
+    "2": {"name": "Light Teal", "hex": "#B3E1D2", "era": "Silurian"},
+    "3": {"name": "Brown", "hex": "#CB8C37", "era": "Devonian"},
+    "4": {"name": "Teal-Gray", "hex": "#67A599", "era": "Carboniferous"},
+    "5": {"name": "Salmon", "hex": "#F04028", "era": "Permian"},
+    "6": {"name": "Purple", "hex": "#812B92", "era": "Triassic"},
+    "7": {"name": "Blue", "hex": "#34B2E5", "era": "Jurassic"},
+    "8": {"name": "Green", "hex": "#7FC64E", "era": "Cretaceous"},
+    "9": {"name": "Orange", "hex": "#FD9A52", "era": "Paleogene"},
+    "10": {"name": "Yellow", "hex": "#FFE619", "era": "Neogene"},
+    "11": {"name": "Cream", "hex": "#FFF2AE", "era": "Quaternary"}
   },
   "decks": {
     "0": {

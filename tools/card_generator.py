@@ -12,18 +12,25 @@ from typing import Optional
 
 
 DECK_COLORS = {
-    0: {"name": "Cambrian", "color": "#1a237e"},
-    1: {"name": "Ordovician", "color": "#00695c"},
-    2: {"name": "Silurian", "color": "#2e7d32"},
-    3: {"name": "Devonian", "color": "#33691e"},
-    4: {"name": "Carboniferous", "color": "#1b5e20"},
-    5: {"name": "Permian", "color": "#4e342e"},
-    6: {"name": "Triassic", "color": "#e65100"},
-    7: {"name": "Jurassic", "color": "#b71c1c"},
-    8: {"name": "Cretaceous", "color": "#4a148c"},
-    9: {"name": "Paleogene", "color": "#ad1457"},
-    10: {"name": "Neogene", "color": "#f9a825"},
-    11: {"name": "Quaternary", "color": "#eceff1"}
+    0: {"name": "Cambrian", "color": "#F4B8D0"},
+    1: {"name": "Ordovician", "color": "#009270"},
+    2: {"name": "Silurian", "color": "#B3E1D2"},
+    3: {"name": "Devonian", "color": "#CB8C37"},
+    4: {"name": "Carboniferous", "color": "#67A599"},
+    5: {"name": "Permian", "color": "#F04028"},
+    6: {"name": "Triassic", "color": "#812B92"},
+    7: {"name": "Jurassic", "color": "#34B2E5"},
+    8: {"name": "Cretaceous", "color": "#7FC64E"},
+    9: {"name": "Paleogene", "color": "#FD9A52"},
+    10: {"name": "Neogene", "color": "#FFE619"},
+    11: {"name": "Quaternary", "color": "#FFF2AE"}
+}
+
+# Text colors for era banners (dark text for light backgrounds)
+DECK_TEXT_COLORS = {
+    0: "#2d2d2d", 1: "#ffffff", 2: "#2d2d2d", 3: "#2d2d2d",
+    4: "#2d2d2d", 5: "#ffffff", 6: "#ffffff", 7: "#2d2d2d",
+    8: "#2d2d2d", 9: "#2d2d2d", 10: "#2d2d2d", 11: "#2d2d2d"
 }
 
 
@@ -52,6 +59,7 @@ def generate_trait_card_svg(trait: dict, trait_lookup: dict = None, enables_look
     era_min = trait["era_min"]
     era_max = trait["era_max"]
     era_color = DECK_COLORS.get(era_min, {"color": "#333"})["color"]
+    era_text_color = DECK_TEXT_COLORS.get(era_min, "#fff")
     
     trait_lookup = trait_lookup or {}
     enables_lookup = enables_lookup or {}
@@ -126,7 +134,7 @@ def generate_trait_card_svg(trait: dict, trait_lookup: dict = None, enables_look
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA {era_min}-{era_max} ({DECK_COLORS.get(era_min, {}).get("name", "")[:3]}-{DECK_COLORS.get(era_max, {}).get("name", "")[:3]})</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="{era_text_color}" text-anchor="middle" font-weight="bold">ERA {era_min}-{era_max} ({DECK_COLORS.get(era_min, {}).get("name", "")[:3]}-{DECK_COLORS.get(era_max, {}).get("name", "")[:3]})</text>
   <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: {trait["cost"]}</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+{trait["complexity"]} CPX</text>
   

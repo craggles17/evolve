@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
   Era Deck Back Template
-  Color-coded by era for strategic reads
+  Color-coded by era using ICS Chronostratigraphic Chart colors
   
-  Era Colors:
-  0 - Cambrian: #1a237e (Deep Blue)
-  1 - Ordovician: #00695c (Teal)
-  2 - Silurian: #2e7d32 (Sea Green)
-  3 - Devonian: #33691e (Forest Green)
-  4 - Carboniferous: #1b5e20 (Dark Green)
-  5 - Permian: #4e342e (Brown)
-  6 - Triassic: #e65100 (Orange)
-  7 - Jurassic: #b71c1c (Red)
-  8 - Cretaceous: #4a148c (Purple)
-  9 - Paleogene: #ad1457 (Pink)
-  10 - Neogene: #f9a825 (Yellow)
-  11 - Quaternary: #eceff1 (White)
+  Era Colors (ICS Standard):
+  0 - Cambrian: #F4B8D0 (Rose)
+  1 - Ordovician: #009270 (Teal)
+  2 - Silurian: #B3E1D2 (Light Teal)
+  3 - Devonian: #CB8C37 (Brown)
+  4 - Carboniferous: #67A599 (Teal-Gray)
+  5 - Permian: #F04028 (Salmon)
+  6 - Triassic: #812B92 (Purple)
+  7 - Jurassic: #34B2E5 (Blue)
+  8 - Cretaceous: #7FC64E (Green)
+  9 - Paleogene: #FD9A52 (Orange)
+  10 - Neogene: #FFE619 (Yellow)
+  11 - Quaternary: #FFF2AE (Cream)
 -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
   <defs>

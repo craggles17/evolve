@@ -7,9 +7,16 @@ export const ERA_NAMES = [
 ];
 
 export const ERA_COLORS = [
-    '#4a6741', '#5d7a5d', '#7a9a7a', '#8b6914',
-    '#2d4a3e', '#8b4513', '#6b4423', '#2e5a4c',
-    '#4a7c59', '#7a6b5a', '#8a7a6a', '#5a6a7a'
+    '#F4B8D0', '#009270', '#B3E1D2', '#CB8C37',
+    '#67A599', '#F04028', '#812B92', '#34B2E5',
+    '#7FC64E', '#FD9A52', '#FFE619', '#FFF2AE'
+];
+
+// Text colors for each era (dark text for light backgrounds)
+export const ERA_TEXT_COLORS = [
+    '#2d2d2d', '#ffffff', '#2d2d2d', '#2d2d2d',
+    '#2d2d2d', '#ffffff', '#ffffff', '#2d2d2d',
+    '#2d2d2d', '#2d2d2d', '#2d2d2d', '#2d2d2d'
 ];
 
 export const PLAYER_COLORS = ['#58a6ff', '#f0883e', '#a371f7', '#3fb950'];
