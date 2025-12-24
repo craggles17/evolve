@@ -14,36 +14,40 @@
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 6-11</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Triassic to Quaternary)</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 6-11 (Tri-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 1</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+6 CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">CROCODILIAN BODY PLAN</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">CROCODILIAN BODY PLAN</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">1</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Upright Pos… ◀</tspan><tspan x="65" dy="10" fill="#888">Osteoderms ◁</tspan></text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Upright Posture ━</tspan><tspan x="185" dy="12" fill="#888">Osteoderms ┅</tspan></text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (1)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Death Roll ▶</tspan></text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +6</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Aquatic] [Terrestrial] [Archosaur]...</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Aquatic] [Terrestrial] [Archosaur]...</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">TILES: Occupy BOTH land AND aquatic (unique)</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +3 ambush on Swamp/Coast</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE all extinctions except ice.</text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">TILES: Occupy BOTH land AND aquatic (unique)</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +3 ambush on Swamp/Coast</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE all extinctions except ice.</text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Crocodilians are 'living fossils' - body plan unchanged</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666"> for 200+ million years</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Crocodilians are 'living fossils' - body plan unchanged</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666"> for 200+ million years</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Crocodilia]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Crocodilia]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </svg>

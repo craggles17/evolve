@@ -2,19 +2,188 @@
 
 import { 
     $, $$, createElement, createSVGElement,
-    hexToPixel, getHexCorners, cornersToPoints,
-    ERA_NAMES, ERA_COLORS, PLAYER_COLORS, HEX_SIZE
+    offsetToPixel, getHexCorners, cornersToPoints,
+    ERA_NAMES, ERA_COLORS, PLAYER_COLORS, 
+    HEX_SIZE, HEX_WIDTH, HEX_VERT_SPACING
 } from './utils.js';
 import { PHASE_NAMES, PHASE_HINTS } from './state.js';
+
+// Board layout constants
+const BOARD_COLS = 10;
+const BOARD_ROWS = 11;
+const BOARD_PADDING = 50;
 
 export class Renderer {
     constructor() {
         this.hexBoard = $('#hex-board');
+        this.boardContent = null;  // SVG group for pan/zoom transforms
         this.callbacks = {
             onTileClick: null,
             onCardClick: null,
             onTraitSlotClick: null
         };
+        
+        // Pan/zoom state
+        this.viewTransform = { x: 0, y: 0, scale: 1 };
+        this.isPanning = false;
+        this.panStart = { x: 0, y: 0 };
+        this.minScale = 0.5;
+        this.maxScale = 3;
+    }
+    
+    // Initialize board pan/zoom interactions
+    initBoardInteractions() {
+        const container = $('#board-container');
+        
+        // Mouse wheel zoom
+        this.hexBoard.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const rect = this.hexBoard.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+            this.zoomAt(mouseX, mouseY, zoomFactor);
+        }, { passive: false });
+        
+        // Mouse pan
+        this.hexBoard.addEventListener('mousedown', (e) => {
+            if (e.button === 0) {
+                this.isPanning = true;
+                this.panStart = { x: e.clientX, y: e.clientY };
+                this.hexBoard.style.cursor = 'grabbing';
+            }
+        });
+        
+        window.addEventListener('mousemove', (e) => {
+            if (!this.isPanning) return;
+            
+            const dx = e.clientX - this.panStart.x;
+            const dy = e.clientY - this.panStart.y;
+            this.panStart = { x: e.clientX, y: e.clientY };
+            
+            // Convert screen delta to SVG coordinates
+            const rect = this.hexBoard.getBoundingClientRect();
+            const viewBox = this.hexBoard.viewBox.baseVal;
+            const scaleX = viewBox.width / rect.width;
+            const scaleY = viewBox.height / rect.height;
+            
+            this.viewTransform.x -= dx * scaleX / this.viewTransform.scale;
+            this.viewTransform.y -= dy * scaleY / this.viewTransform.scale;
+            this.applyTransform();
+        });
+        
+        window.addEventListener('mouseup', () => {
+            if (this.isPanning) {
+                this.isPanning = false;
+                this.hexBoard.style.cursor = 'grab';
+            }
+        });
+        
+        // Touch support for mobile
+        let lastTouchDist = 0;
+        let lastTouchCenter = { x: 0, y: 0 };
+        
+        this.hexBoard.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
+                this.isPanning = true;
+                this.panStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            } else if (e.touches.length === 2) {
+                this.isPanning = false;
+                lastTouchDist = Math.hypot(
+                    e.touches[1].clientX - e.touches[0].clientX,
+                    e.touches[1].clientY - e.touches[0].clientY
+                );
+                lastTouchCenter = {
+                    x: (e.touches[0].clientX + e.touches[1].clientX) / 2,
+                    y: (e.touches[0].clientY + e.touches[1].clientY) / 2
+                };
+            }
+        }, { passive: true });
+        
+        this.hexBoard.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (e.touches.length === 1 && this.isPanning) {
+                const dx = e.touches[0].clientX - this.panStart.x;
+                const dy = e.touches[0].clientY - this.panStart.y;
+                this.panStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                
+                const rect = this.hexBoard.getBoundingClientRect();
+                const viewBox = this.hexBoard.viewBox.baseVal;
+                const scaleX = viewBox.width / rect.width;
+                const scaleY = viewBox.height / rect.height;
+                
+                this.viewTransform.x -= dx * scaleX / this.viewTransform.scale;
+                this.viewTransform.y -= dy * scaleY / this.viewTransform.scale;
+                this.applyTransform();
+            } else if (e.touches.length === 2) {
+                const dist = Math.hypot(
+                    e.touches[1].clientX - e.touches[0].clientX,
+                    e.touches[1].clientY - e.touches[0].clientY
+                );
+                const center = {
+                    x: (e.touches[0].clientX + e.touches[1].clientX) / 2,
+                    y: (e.touches[0].clientY + e.touches[1].clientY) / 2
+                };
+                
+                if (lastTouchDist > 0) {
+                    const zoomFactor = dist / lastTouchDist;
+                    const rect = this.hexBoard.getBoundingClientRect();
+                    this.zoomAt(center.x - rect.left, center.y - rect.top, zoomFactor);
+                }
+                
+                lastTouchDist = dist;
+                lastTouchCenter = center;
+            }
+        }, { passive: false });
+        
+        this.hexBoard.addEventListener('touchend', () => {
+            this.isPanning = false;
+            lastTouchDist = 0;
+        }, { passive: true });
+        
+        // Set initial cursor
+        this.hexBoard.style.cursor = 'grab';
+    }
+    
+    zoomAt(screenX, screenY, factor) {
+        const newScale = Math.max(this.minScale, Math.min(this.maxScale, this.viewTransform.scale * factor));
+        if (newScale === this.viewTransform.scale) return;
+        
+        // Get SVG point under cursor
+        const rect = this.hexBoard.getBoundingClientRect();
+        const viewBox = this.hexBoard.viewBox.baseVal;
+        const svgX = (screenX / rect.width) * viewBox.width;
+        const svgY = (screenY / rect.height) * viewBox.height;
+        
+        // Adjust transform to keep point under cursor stationary
+        const scaleDiff = newScale / this.viewTransform.scale;
+        this.viewTransform.x = svgX - (svgX - this.viewTransform.x) / scaleDiff;
+        this.viewTransform.y = svgY - (svgY - this.viewTransform.y) / scaleDiff;
+        this.viewTransform.scale = newScale;
+        
+        this.applyTransform();
+    }
+    
+    applyTransform() {
+        if (!this.boardContent) return;
+        const { x, y, scale } = this.viewTransform;
+        this.boardContent.setAttribute('transform', `translate(${-x * (scale - 1)}, ${-y * (scale - 1)}) scale(${scale})`);
+    }
+    
+    resetZoom() {
+        this.viewTransform = { x: 0, y: 0, scale: 1 };
+        this.applyTransform();
+    }
+    
+    zoomIn() {
+        const rect = this.hexBoard.getBoundingClientRect();
+        this.zoomAt(rect.width / 2, rect.height / 2, 1.25);
+    }
+    
+    zoomOut() {
+        const rect = this.hexBoard.getBoundingClientRect();
+        this.zoomAt(rect.width / 2, rect.height / 2, 0.8);
     }
     
     // Setup screen
@@ -72,15 +241,27 @@ export class Renderer {
     renderBoard(state) {
         this.hexBoard.innerHTML = '';
         
+        // Calculate proper viewBox based on grid size
+        const totalWidth = BOARD_COLS * HEX_WIDTH + HEX_WIDTH / 2 + BOARD_PADDING * 2;
+        const totalHeight = BOARD_ROWS * HEX_VERT_SPACING + HEX_SIZE + BOARD_PADDING * 2;
+        this.hexBoard.setAttribute('viewBox', `0 0 ${totalWidth} ${totalHeight}`);
+        
+        // Create content group for pan/zoom transforms
+        this.boardContent = createSVGElement('g');
+        this.boardContent.classList.add('board-content');
+        this.hexBoard.appendChild(this.boardContent);
+        
         // Add climate band labels
         this.renderClimateBandLabels();
         
+        // Render all tiles
         for (const tile of state.boardTiles) {
             this.renderTile(tile, state);
         }
     }
     
     renderClimateBandLabels() {
+        // Climate bands based on row positions (11 rows: 0=polar, 1-2/8-9=temperate, 3-4/6-7=tropical, 5=equatorial)
         const bands = [
             { row: 0, label: 'POLAR', color: '#b0e0e6' },
             { row: 1.5, label: 'TEMPERATE', color: '#9acd32' },
@@ -92,21 +273,21 @@ export class Renderer {
         ];
         
         for (const band of bands) {
-            const y = 60 + band.row * (Math.sqrt(3) * HEX_SIZE);
+            const y = BOARD_PADDING + HEX_SIZE + band.row * HEX_VERT_SPACING;
             const label = createSVGElement('text');
-            label.setAttribute('x', 10);
+            label.setAttribute('x', 8);
             label.setAttribute('y', y);
             label.setAttribute('font-size', '10');
             label.setAttribute('fill', band.color);
             label.setAttribute('opacity', '0.6');
             label.textContent = band.label;
-            this.hexBoard.appendChild(label);
+            this.boardContent.appendChild(label);
         }
     }
     
     renderTile(tile, state) {
-        // Use offset coordinates for rectangular grid
-        const { x, y } = hexToPixel(tile.q, tile.r, 80, 60);
+        // Use offset coordinates (col=q, row=r) with proper padding
+        const { x, y } = offsetToPixel(tile.q, tile.r, BOARD_PADDING + HEX_WIDTH / 2, BOARD_PADDING + HEX_SIZE);
         const corners = getHexCorners(x, y, HEX_SIZE);
         
         const group = createSVGElement('g');
@@ -168,7 +349,7 @@ export class Renderer {
             }
         });
         
-        this.hexBoard.appendChild(group);
+        this.boardContent.appendChild(group);
     }
     
     renderMarkers(group, cx, cy, player, count, offset) {

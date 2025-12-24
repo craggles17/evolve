@@ -56,13 +56,21 @@ export function createSVGElement(tag) {
 
 // Hex grid utilities
 export const HEX_SIZE = 40;
-export const HEX_WIDTH = HEX_SIZE * 2;
-export const HEX_HEIGHT = Math.sqrt(3) * HEX_SIZE;
+export const HEX_WIDTH = Math.sqrt(3) * HEX_SIZE;  // ~69.28 for pointy-top
+export const HEX_HEIGHT = HEX_SIZE * 2;             // 80 for pointy-top
+export const HEX_VERT_SPACING = HEX_SIZE * 1.5;     // 60 - vertical distance between row centers
 
-export function hexToPixel(q, r, offsetX = 400, offsetY = 300) {
-    const x = HEX_SIZE * (3/2 * q);
-    const y = HEX_SIZE * (Math.sqrt(3)/2 * q + Math.sqrt(3) * r);
+// Convert offset coordinates (col, row) to pixel position
+// Uses odd-r offset: odd rows are shifted right by half a hex width
+export function offsetToPixel(col, row, offsetX = 0, offsetY = 0) {
+    const x = col * HEX_WIDTH + (row % 2) * (HEX_WIDTH / 2);
+    const y = row * HEX_VERT_SPACING;
     return { x: x + offsetX, y: y + offsetY };
+}
+
+// Legacy alias for compatibility
+export function hexToPixel(q, r, offsetX = 0, offsetY = 0) {
+    return offsetToPixel(q, r, offsetX, offsetY);
 }
 
 export function getHexCorners(cx, cy, size = HEX_SIZE) {

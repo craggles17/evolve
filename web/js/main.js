@@ -3,7 +3,15 @@
 import { GameState, PHASES } from './state.js';
 import { GameEngine } from './engine.js';
 import { Renderer } from './renderer.js';
-import { $ } from './utils.js';
+import { $, $$, createElement, PLAYER_COLORS } from './utils.js';
+import { MultiplayerHost, MultiplayerClient, checkForRoomInURL, getShareLink } from './multiplayer.js';
+
+const MODE = {
+    LOCAL: 'local',
+    HOST: 'host',
+    CLIENT: 'client',
+    SPECTATOR: 'spectator'
+};
 
 class Game {
     constructor() {
@@ -11,8 +19,12 @@ class Game {
         this.renderer = new Renderer();
         this.engine = null;
         
-        // Track per-phase state
         this.currentPlayerRolled = false;
+        
+        this.mode = MODE.LOCAL;
+        this.mpHost = null;
+        this.mpClient = null;
+        this.mySlotIndex = -1;
     }
     
     async init() {
@@ -24,13 +36,42 @@ class Game {
         this.setupEventListeners();
         this.renderer.setupPlayerCountButtons();
         
-        // Transition from loading to setup screen
-        this.renderer.showScreen('setup-screen');
+        const roomCode = checkForRoomInURL();
+        if (roomCode) {
+            this.showJoinWithCode(roomCode);
+        } else {
+            this.renderer.showScreen('setup-screen');
+        }
     }
     
     setupEventListeners() {
-        // Setup screen
-        $('#start-game').addEventListener('click', () => this.startGame());
+        // Mode selection
+        $$('.mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => this.handleModeSelect(btn.dataset.mode));
+        });
+        
+        // Back buttons
+        $('#back-to-mode')?.addEventListener('click', () => this.showModeSelect());
+        $('#back-to-mode-host')?.addEventListener('click', () => this.showModeSelect());
+        $('#back-to-mode-join')?.addEventListener('click', () => this.showModeSelect());
+        
+        // Local setup
+        $('#start-game').addEventListener('click', () => this.startLocalGame());
+        
+        // Host setup
+        $('#create-room')?.addEventListener('click', () => this.createRoom());
+        $('#start-online-game')?.addEventListener('click', () => this.startOnlineGame());
+        $('#copy-link')?.addEventListener('click', () => this.copyShareLink());
+        this.setupHostPlayerCount();
+        
+        // Join setup
+        $('#join-room')?.addEventListener('click', () => this.joinRoom());
+        $('#join-code')?.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') this.joinRoom();
+        });
+        
+        // Spectate button
+        $('#spectate-btn')?.addEventListener('click', () => this.spectate());
         
         // Game controls
         $('#btn-roll-alleles').addEventListener('click', () => this.handleAlleleRoll());
@@ -44,8 +85,9 @@ class Game {
         
         // New game button
         $('#btn-new-game').addEventListener('click', () => {
+            this.cleanup();
             this.renderer.hideModals();
-            this.renderer.showScreen('setup-screen');
+            this.showModeSelect();
         });
         
         // Tile legend toggle
@@ -55,7 +97,6 @@ class Game {
             legendToggle.addEventListener('click', () => {
                 legendContent.classList.toggle('hidden');
             });
-            // Close legend when clicking outside
             document.addEventListener('click', (e) => {
                 if (!e.target.closest('.tile-legend')) {
                     legendContent.classList.add('hidden');
@@ -63,22 +104,423 @@ class Game {
             });
         }
         
+        // Chat
+        $('#chat-send')?.addEventListener('click', () => this.sendChat());
+        $('#chat-input')?.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') this.sendChat();
+        });
+        $('#chat-toggle')?.addEventListener('click', () => this.toggleChat());
+        
         // Renderer callbacks
         this.renderer.callbacks.onTileClick = (tile) => this.handleTileClick(tile);
         this.renderer.callbacks.onCardClick = (trait, canBuy) => this.handleCardClick(trait, canBuy);
         this.renderer.callbacks.onTraitSlotClick = (traitId) => this.handleTraitSlotClick(traitId);
     }
     
-    startGame() {
+    setupHostPlayerCount() {
+        const buttons = $$('#host-player-count .count-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    }
+    
+    // Mode Selection
+    handleModeSelect(mode) {
+        $('#mode-select').classList.add('hidden');
+        
+        if (mode === 'local') {
+            $('#local-setup').classList.remove('hidden');
+        } else if (mode === 'host') {
+            $('#host-setup').classList.remove('hidden');
+        } else if (mode === 'join') {
+            $('#join-setup').classList.remove('hidden');
+        }
+    }
+    
+    showModeSelect() {
+        $$('.setup-form').forEach(f => f.classList.add('hidden'));
+        $('#mode-select').classList.remove('hidden');
+        this.renderer.showScreen('setup-screen');
+    }
+    
+    showJoinWithCode(code) {
+        this.renderer.showScreen('setup-screen');
+        $$('.setup-form').forEach(f => f.classList.add('hidden'));
+        $('#join-setup').classList.remove('hidden');
+        $('#join-code').value = code;
+    }
+    
+    // Local Game
+    startLocalGame() {
+        this.mode = MODE.LOCAL;
         const names = this.renderer.getPlayerNames();
         this.state.initializeGame(names);
         
         this.renderer.showScreen('game-screen');
+        this.renderer.initBoardInteractions?.();
         this.updateUI();
         
-        console.log('Game started with players:', names);
+        console.log('Local game started with players:', names);
     }
     
+    // Host Game
+    async createRoom() {
+        const hostName = $('#host-name').value.trim() || 'Host';
+        const playerCount = parseInt($('#host-player-count .count-btn.active').dataset.count);
+        
+        this.mpHost = new MultiplayerHost({
+            onPlayerConnect: (peerId) => this.onPlayerConnect(peerId),
+            onPlayerDisconnect: (peerId) => this.onPlayerDisconnect(peerId),
+            onSlotClaim: (slot, name, peerId) => this.onSlotClaim(slot, name, peerId),
+            onSlotsChange: (slots) => this.renderLobbySlots(slots),
+            onAction: (peerId, action) => this.handleRemoteAction(peerId, action),
+            onChat: (msg) => this.displayChatMessage(msg)
+        });
+        
+        const code = await this.mpHost.initialize(playerCount, hostName);
+        
+        $('#host-setup').classList.add('hidden');
+        $('#room-lobby').classList.remove('hidden');
+        $('#room-code').textContent = code;
+        $('#share-link').value = this.mpHost.getShareLink();
+        
+        this.renderLobbySlots(this.mpHost.playerSlots);
+        this.updateStartButton();
+        
+        console.log('Room created:', code);
+    }
+    
+    renderLobbySlots(slots) {
+        const container = $('#lobby-slots');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        slots.forEach((slot, i) => {
+            const slotEl = createElement('div', 'lobby-slot');
+            if (slot?.connected) {
+                slotEl.classList.add(slot.peerId === 'host' ? 'you' : 'taken');
+            } else if (slot && !slot.connected) {
+                slotEl.classList.add('disconnected');
+            }
+            
+            slotEl.innerHTML = `
+                <span class="slot-color" style="background: ${PLAYER_COLORS[i]}"></span>
+                <div class="slot-info">
+                    <span class="slot-label">Player ${i + 1}</span>
+                    <span class="slot-status ${slot?.connected ? 'connected' : ''}">${
+                        slot ? (slot.connected ? slot.name : `${slot.name} (disconnected)`) : 'Open'
+                    }</span>
+                </div>
+            `;
+            
+            container.appendChild(slotEl);
+        });
+        
+        this.updateStartButton();
+    }
+    
+    updateStartButton() {
+        const btn = $('#start-online-game');
+        if (!btn || !this.mpHost) return;
+        
+        const ready = this.mpHost.allSlotsReady();
+        btn.disabled = !ready;
+        $('#lobby-status').textContent = ready 
+            ? 'All players ready!' 
+            : 'Waiting for players...';
+    }
+    
+    copyShareLink() {
+        const link = $('#share-link').value;
+        navigator.clipboard.writeText(link);
+        $('#copy-link').textContent = 'Copied!';
+        setTimeout(() => $('#copy-link').textContent = 'Copy Link', 2000);
+    }
+    
+    startOnlineGame() {
+        this.mode = MODE.HOST;
+        this.mySlotIndex = 0;
+        
+        const names = this.mpHost.getPlayerNames();
+        this.state.initializeGame(names);
+        
+        this.mpHost.broadcastState(this.state);
+        
+        this.renderer.showScreen('game-screen');
+        this.renderer.initBoardInteractions?.();
+        this.showMultiplayerUI();
+        this.updateUI();
+        
+        console.log('Online game started with players:', names);
+    }
+    
+    // Join Game
+    async joinRoom() {
+        const code = $('#join-code').value.trim().toUpperCase();
+        if (code.length !== 6) {
+            this.showJoinError('Enter a 6-character room code');
+            return;
+        }
+        
+        this.mpClient = new MultiplayerClient({
+            onWelcome: (data) => this.onWelcome(data),
+            onStateUpdate: (data) => this.onStateUpdate(data),
+            onSlotsChange: (slots, mySlot) => this.onClientSlotsChange(slots, mySlot),
+            onChat: (msg) => this.displayChatMessage(msg),
+            onError: (msg) => this.showJoinError(msg),
+            onDisconnect: () => this.onDisconnect()
+        });
+        
+        try {
+            await this.mpClient.connect(code);
+        } catch (err) {
+            this.showJoinError(err.message || 'Failed to connect');
+        }
+    }
+    
+    showJoinError(msg) {
+        const el = $('#join-error');
+        el.textContent = msg;
+        el.classList.remove('hidden');
+    }
+    
+    onWelcome(data) {
+        console.log('Connected to room:', data.roomCode);
+        
+        $('#join-setup').classList.add('hidden');
+        $('#slot-select').classList.remove('hidden');
+        
+        this.renderClientSlots(data.slots);
+        
+        if (data.gameState) {
+            this.state.loadFromJSON(data.gameState);
+        }
+        
+        data.chatHistory.forEach(msg => this.displayChatMessage(msg, false));
+    }
+    
+    renderClientSlots(slots) {
+        const container = $('#available-slots');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        slots.forEach((slot, i) => {
+            const slotEl = createElement('div', 'lobby-slot');
+            const isTaken = slot && slot.connected;
+            const isMe = slot?.peerId === this.mpClient?.peer?.id;
+            
+            if (isTaken && !isMe) slotEl.classList.add('taken');
+            if (isMe) slotEl.classList.add('you');
+            
+            slotEl.innerHTML = `
+                <span class="slot-color" style="background: ${PLAYER_COLORS[i]}"></span>
+                <div class="slot-info">
+                    <span class="slot-label">Player ${i + 1}</span>
+                    <span class="slot-status ${isTaken ? 'connected' : ''}">${
+                        slot ? (slot.connected ? slot.name : 'Disconnected - claim to rejoin') : 'Available'
+                    }</span>
+                </div>
+            `;
+            
+            if (!isTaken || !slot?.connected) {
+                slotEl.addEventListener('click', () => this.claimSlot(i));
+            }
+            
+            container.appendChild(slotEl);
+        });
+    }
+    
+    claimSlot(slotIndex) {
+        const name = $('#client-name').value.trim();
+        if (!name) {
+            alert('Enter your name first');
+            return;
+        }
+        
+        this.mpClient.claimSlot(slotIndex, name);
+    }
+    
+    onClientSlotsChange(slots, mySlot) {
+        this.mySlotIndex = mySlot;
+        
+        if (this.state.gameStarted) {
+            this.updateUI();
+            return;
+        }
+        
+        this.renderClientSlots(slots);
+        
+        if (mySlot >= 0) {
+            this.mode = MODE.CLIENT;
+            console.log('Claimed slot:', mySlot);
+        }
+    }
+    
+    onStateUpdate(data) {
+        const wasStarted = this.state.gameStarted;
+        this.state.loadFromJSON(data);
+        
+        if (!wasStarted && this.state.gameStarted) {
+            this.renderer.showScreen('game-screen');
+            this.renderer.initBoardInteractions?.();
+            this.showMultiplayerUI();
+        }
+        
+        this.updateUI();
+    }
+    
+    spectate() {
+        this.mode = MODE.SPECTATOR;
+        this.mySlotIndex = -1;
+        
+        if (this.state.gameStarted) {
+            this.renderer.showScreen('game-screen');
+            this.showMultiplayerUI();
+            this.updateUI();
+        } else {
+            $('#slot-select').innerHTML = `
+                <h2>Spectating</h2>
+                <p class="lobby-status">Waiting for game to start...</p>
+            `;
+        }
+    }
+    
+    onDisconnect() {
+        this.showConnectionStatus(false);
+        console.log('Disconnected from host');
+    }
+    
+    showMultiplayerUI() {
+        $('#chat-panel')?.classList.remove('hidden');
+        $('#connection-status')?.classList.remove('hidden');
+        this.showConnectionStatus(true);
+    }
+    
+    showConnectionStatus(connected) {
+        const el = $('#connection-status');
+        if (!el) return;
+        
+        $('#connection-icon').textContent = connected ? '🟢' : '🔴';
+        $('#connection-text').textContent = connected ? 'Connected' : 'Disconnected';
+        el.classList.toggle('disconnected', !connected);
+    }
+    
+    // Remote Actions (Host receives from clients)
+    handleRemoteAction(peerId, action) {
+        const slotIndex = this.mpHost.playerSlots.findIndex(s => s?.peerId === peerId);
+        if (slotIndex === -1) return;
+        
+        if (slotIndex !== this.state.currentPlayerIndex) {
+            console.log('Not this player\'s turn');
+            return;
+        }
+        
+        this.executeAction(action);
+        this.mpHost.broadcastState(this.state);
+    }
+    
+    executeAction(action) {
+        const player = this.state.getCurrentPlayer();
+        
+        switch (action.type) {
+            case 'roll_alleles':
+                this.engine.rollAllelesWithValues(player, action.dice);
+                this.currentPlayerRolled = true;
+                break;
+                
+            case 'end_phase':
+                this.processEndPhase();
+                break;
+                
+            case 'end_turn':
+                this.processEndTurn();
+                break;
+                
+            case 'place_marker':
+                this.engine.placeMarker(player, action.tileId);
+                break;
+                
+            case 'buy_trait':
+                this.engine.buyTrait(player, action.traitId);
+                break;
+        }
+        
+        this.updateUI();
+    }
+    
+    onPlayerConnect(peerId) {
+        console.log('Player connected:', peerId);
+        this.addSystemMessage(`A player connected`);
+    }
+    
+    onPlayerDisconnect(peerId) {
+        console.log('Player disconnected:', peerId);
+        this.addSystemMessage(`A player disconnected`);
+    }
+    
+    onSlotClaim(slot, name, peerId) {
+        console.log(`${name} claimed slot ${slot}`);
+        this.addSystemMessage(`${name} joined as Player ${slot + 1}`);
+    }
+    
+    // Chat
+    sendChat() {
+        const input = $('#chat-input');
+        const text = input.value.trim();
+        if (!text) return;
+        
+        if (this.mode === MODE.HOST && this.mpHost) {
+            this.mpHost.sendChat(text);
+        } else if ((this.mode === MODE.CLIENT || this.mode === MODE.SPECTATOR) && this.mpClient) {
+            this.mpClient.sendChat(text);
+        }
+        
+        input.value = '';
+    }
+    
+    displayChatMessage(msg, scroll = true) {
+        const container = $('#chat-messages');
+        if (!container) return;
+        
+        const el = createElement('div', 'chat-message');
+        el.innerHTML = `<span class="chat-message-sender">${msg.from}:</span> <span class="chat-message-text">${msg.text}</span>`;
+        container.appendChild(el);
+        
+        if (scroll) {
+            container.scrollTop = container.scrollHeight;
+        }
+    }
+    
+    addSystemMessage(text) {
+        const container = $('#chat-messages');
+        if (!container) return;
+        
+        const el = createElement('div', 'chat-message chat-message-system');
+        el.textContent = text;
+        container.appendChild(el);
+        container.scrollTop = container.scrollHeight;
+    }
+    
+    toggleChat() {
+        const panel = $('#chat-panel');
+        const btn = $('#chat-toggle');
+        panel.classList.toggle('minimized');
+        btn.textContent = panel.classList.contains('minimized') ? '+' : '−';
+    }
+    
+    // Turn Control
+    isMyTurn() {
+        if (this.mode === MODE.LOCAL) return true;
+        if (this.mode === MODE.SPECTATOR) return false;
+        return this.mySlotIndex === this.state.currentPlayerIndex;
+    }
+    
+    // Game Actions
     updateUI() {
         const player = this.state.getCurrentPlayer();
         
@@ -89,15 +531,28 @@ class Game {
         this.renderer.updateEventDeck(this.state);
         this.renderer.renderPlayersBar(this.state.players, this.state.currentPlayerIndex, this.state.traitDb);
         
-        // Update hand with playability info
         const playable = this.engine.getPlayableTraits(player);
         this.renderer.renderHand(player, playable);
         
-        // Update action buttons
-        this.renderer.updateActionButtons(this.state.currentPhase, this.currentPlayerRolled);
+        const canAct = this.isMyTurn();
+        this.renderer.updateActionButtons(this.state.currentPhase, this.currentPlayerRolled, canAct);
+        
+        if (this.mode === MODE.SPECTATOR) {
+            this.showSpectatorBanner();
+        }
+    }
+    
+    showSpectatorBanner() {
+        if (!$('#spectator-banner')) {
+            const banner = createElement('div', 'spectator-banner', 'Watching as spectator');
+            banner.id = 'spectator-banner';
+            $('#game-header')?.after(banner);
+        }
     }
     
     async handleAlleleRoll() {
+        if (!this.isMyTurn()) return;
+        
         const player = this.state.getCurrentPlayer();
         
         const result = await this.renderer.showDiceRoll(
@@ -106,17 +561,37 @@ class Game {
         );
         
         this.currentPlayerRolled = true;
+        
+        if (this.mode === MODE.CLIENT && this.mpClient) {
+            this.mpClient.sendAction({ type: 'roll_alleles', dice: result.dice });
+        } else if (this.mode === MODE.HOST && this.mpHost) {
+            this.mpHost.broadcastState(this.state);
+        }
+        
         this.updateUI();
     }
     
     async handleEndPhase() {
+        if (!this.isMyTurn() && this.mode !== MODE.LOCAL) return;
+        
+        if (this.mode === MODE.CLIENT && this.mpClient) {
+            this.mpClient.sendAction({ type: 'end_phase' });
+            return;
+        }
+        
+        await this.processEndPhase();
+        
+        if (this.mode === MODE.HOST && this.mpHost) {
+            this.mpHost.broadcastState(this.state);
+        }
+    }
+    
+    async processEndPhase() {
         const phase = this.state.currentPhase;
         
         switch (phase) {
             case PHASES.ALLELE_ROLL:
-                // All players need to roll
                 if (!this.state.advancePlayer()) {
-                    // All players rolled, move to draw
                     this.engine.dealCards();
                     this.state.advancePhase();
                 }
@@ -143,13 +618,11 @@ class Game {
             case PHASES.EVENT:
                 await this.handleEventPhase();
                 
-                // Check for game end
                 if (!this.state.advanceEra()) {
                     this.handleGameOver();
                     return;
                 }
                 
-                // Grow population for new era
                 this.engine.growPopulation();
                 this.currentPlayerRolled = false;
                 break;
@@ -162,8 +635,22 @@ class Game {
     }
     
     handleEndTurn() {
+        if (!this.isMyTurn() && this.mode !== MODE.LOCAL) return;
+        
+        if (this.mode === MODE.CLIENT && this.mpClient) {
+            this.mpClient.sendAction({ type: 'end_turn' });
+            return;
+        }
+        
+        this.processEndTurn();
+        
+        if (this.mode === MODE.HOST && this.mpHost) {
+            this.mpHost.broadcastState(this.state);
+        }
+    }
+    
+    processEndTurn() {
         if (!this.state.advancePlayer()) {
-            // All players have acted, move to next phase
             this.state.advancePhase();
             this.state.currentPlayerIndex = 0;
         }
@@ -171,16 +658,29 @@ class Game {
     }
     
     handleTileClick(tile) {
+        if (!this.isMyTurn()) return;
+        
         if (this.state.currentPhase !== PHASES.POPULATE) {
             console.log('Can only place markers during Populate phase');
             return;
         }
         
         const player = this.state.getCurrentPlayer();
+        
+        if (this.mode === MODE.CLIENT && this.mpClient) {
+            this.mpClient.sendAction({ type: 'place_marker', tileId: tile.id });
+            return;
+        }
+        
         const result = this.engine.placeMarker(player, tile.id);
         
         if (result.success) {
             console.log(`${player.name} placed marker on ${tile.biomeData.name}`);
+            
+            if (this.mode === MODE.HOST && this.mpHost) {
+                this.mpHost.broadcastState(this.state);
+            }
+            
             this.updateUI();
         } else {
             console.log(`Cannot place marker: ${result.reason}`);
@@ -190,23 +690,37 @@ class Game {
     handleCardClick(trait, canBuy) {
         const player = this.state.getCurrentPlayer();
         const isEvolutionPhase = this.state.currentPhase === PHASES.EVOLUTION;
+        const canAct = this.isMyTurn() && canBuy;
         
         this.renderer.showCardDetail(
             trait,
             player,
             this.state.traitDb,
-            canBuy,
-            isEvolutionPhase,
+            canAct,
+            isEvolutionPhase && this.isMyTurn(),
             (t) => this.handleBuyTrait(t)
         );
     }
     
     handleBuyTrait(trait) {
+        if (!this.isMyTurn()) return;
+        
         const player = this.state.getCurrentPlayer();
+        
+        if (this.mode === MODE.CLIENT && this.mpClient) {
+            this.mpClient.sendAction({ type: 'buy_trait', traitId: trait.id });
+            return;
+        }
+        
         const result = this.engine.buyTrait(player, trait.id);
         
         if (result.success) {
             console.log(`${player.name} evolved ${trait.name} for ${result.cost} alleles`);
+            
+            if (this.mode === MODE.HOST && this.mpHost) {
+                this.mpHost.broadcastState(this.state);
+            }
+            
             this.updateUI();
         } else {
             console.log(`Cannot evolve: ${result.reason}`);
@@ -217,7 +731,6 @@ class Game {
         const trait = this.state.traitDb[traitId];
         if (trait) {
             const player = this.state.getCurrentPlayer();
-            // Already owned trait - show as info only
             this.renderer.showCardDetail(trait, player, this.state.traitDb, false, false, () => {});
         }
     }
@@ -240,9 +753,32 @@ class Game {
         
         this.renderer.showGameOver(scores, organisms);
     }
+    
+    cleanup() {
+        if (this.mpHost) {
+            this.mpHost.destroy();
+            this.mpHost = null;
+        }
+        if (this.mpClient) {
+            this.mpClient.destroy();
+            this.mpClient = null;
+        }
+        
+        this.mode = MODE.LOCAL;
+        this.mySlotIndex = -1;
+        this.state = new GameState();
+        this.state.loadGameData();
+        
+        $('#chat-panel')?.classList.add('hidden');
+        $('#connection-status')?.classList.add('hidden');
+        $('#chat-messages').innerHTML = '';
+        
+        const url = new URL(window.location);
+        url.searchParams.delete('room');
+        window.history.replaceState({}, '', url);
+    }
 }
 
 // Initialize game on page load
 const game = new Game();
 game.init().catch(console.error);
-

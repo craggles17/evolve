@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
 </head>
 <body>
     <div id="app">
@@ -25,7 +26,31 @@
                 <h1 class="game-title">Damn Nature You Scary</h1>
                 <p class="subtitle">A Strategic Lineage-Building Game of Evolution</p>
                 
-                <div class="setup-form">
+                <!-- Mode Selection -->
+                <div id="mode-select" class="setup-form">
+                    <label>Game Mode</label>
+                    <div class="mode-selector">
+                        <button class="mode-btn" data-mode="local">
+                            <span class="mode-icon">🎮</span>
+                            <span class="mode-label">Local</span>
+                            <span class="mode-desc">Pass & play on one device</span>
+                        </button>
+                        <button class="mode-btn" data-mode="host">
+                            <span class="mode-icon">🌐</span>
+                            <span class="mode-label">Host Online</span>
+                            <span class="mode-desc">Create a room for friends</span>
+                        </button>
+                        <button class="mode-btn" data-mode="join">
+                            <span class="mode-icon">🔗</span>
+                            <span class="mode-label">Join Game</span>
+                            <span class="mode-desc">Enter a room code</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Local Setup Form -->
+                <div id="local-setup" class="setup-form hidden">
+                    <button class="btn-back" id="back-to-mode">← Back</button>
                     <label>Number of Players</label>
                     <div class="player-count-selector">
                         <button class="count-btn" data-count="2">2</button>
@@ -54,7 +79,66 @@
                     
                     <button id="start-game" class="btn-primary">Begin Evolution</button>
                 </div>
-                <div class="version-info">v1.0.0 | build 20251224 | 3548768</div>
+
+                <!-- Host Setup Form -->
+                <div id="host-setup" class="setup-form hidden">
+                    <button class="btn-back" id="back-to-mode-host">← Back</button>
+                    <label>Your Name</label>
+                    <input type="text" id="host-name" class="text-input" placeholder="Enter your name" value="">
+                    
+                    <label>Number of Players</label>
+                    <div class="player-count-selector" id="host-player-count">
+                        <button class="count-btn" data-count="2">2</button>
+                        <button class="count-btn active" data-count="3">3</button>
+                        <button class="count-btn" data-count="4">4</button>
+                    </div>
+                    
+                    <button id="create-room" class="btn-primary">Create Room</button>
+                </div>
+
+                <!-- Room Lobby (after hosting) -->
+                <div id="room-lobby" class="setup-form hidden">
+                    <h2>Room Created!</h2>
+                    <div class="room-code-display">
+                        <span class="room-code-label">Room Code</span>
+                        <span id="room-code" class="room-code">------</span>
+                    </div>
+                    <div class="share-link-container">
+                        <input type="text" id="share-link" class="text-input" readonly>
+                        <button id="copy-link" class="btn-action">Copy Link</button>
+                    </div>
+                    
+                    <div id="lobby-slots" class="lobby-slots">
+                        <!-- Player slots will be rendered here -->
+                    </div>
+                    
+                    <div id="lobby-status" class="lobby-status">Waiting for players...</div>
+                    <button id="start-online-game" class="btn-primary" disabled>Start Game</button>
+                </div>
+
+                <!-- Join Form -->
+                <div id="join-setup" class="setup-form hidden">
+                    <button class="btn-back" id="back-to-mode-join">← Back</button>
+                    <label>Room Code</label>
+                    <input type="text" id="join-code" class="text-input room-code-input" placeholder="ABC123" maxlength="6">
+                    <button id="join-room" class="btn-primary">Join Room</button>
+                    <div id="join-error" class="error-message hidden"></div>
+                </div>
+
+                <!-- Slot Selection (after joining) -->
+                <div id="slot-select" class="setup-form hidden">
+                    <h2>Choose Your Slot</h2>
+                    <label>Your Name</label>
+                    <input type="text" id="client-name" class="text-input" placeholder="Enter your name">
+                    
+                    <div id="available-slots" class="lobby-slots">
+                        <!-- Slots will be rendered here -->
+                    </div>
+                    
+                    <button id="spectate-btn" class="btn-action">Watch as Spectator</button>
+                </div>
+
+                <div class="version-info">v1.1.0 | build 20251224 | multiplayer</div>
             </div>
         </div>
 
@@ -144,6 +228,11 @@
                             </div>
                         </div>
                     </div>
+                    <div id="zoom-controls" class="zoom-controls">
+                        <button id="btn-zoom-in" class="zoom-btn" title="Zoom In">+</button>
+                        <button id="btn-zoom-reset" class="zoom-btn" title="Reset Zoom">⟲</button>
+                        <button id="btn-zoom-out" class="zoom-btn" title="Zoom Out">−</button>
+                    </div>
                 </section>
 
                 <!-- Right Panel: Cards & Actions -->
@@ -173,6 +262,25 @@
             <footer id="players-bar">
                 <div id="players-overview"></div>
             </footer>
+            
+            <!-- Chat Panel (multiplayer only) -->
+            <div id="chat-panel" class="chat-panel hidden">
+                <div class="chat-header">
+                    <span>Chat</span>
+                    <button id="chat-toggle" class="chat-toggle">−</button>
+                </div>
+                <div id="chat-messages" class="chat-messages"></div>
+                <div class="chat-input-container">
+                    <input type="text" id="chat-input" class="chat-input" placeholder="Type a message...">
+                    <button id="chat-send" class="btn-action">Send</button>
+                </div>
+            </div>
+            
+            <!-- Connection Status (multiplayer only) -->
+            <div id="connection-status" class="connection-status hidden">
+                <span id="connection-icon">🟢</span>
+                <span id="connection-text">Connected</span>
+            </div>
         </div>
 
         <!-- Modal Overlays -->

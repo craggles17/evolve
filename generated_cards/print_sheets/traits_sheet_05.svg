@@ -16,38 +16,42 @@
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 3-11</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Devonian to Quaternary)</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 3-11 (Dev-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 2</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+2 CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">NOCTURNAL ADAPTATION</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">NOCTURNAL ADAPTATION</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">2</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Tetrapod Li… ◀</tspan><tspan x="65" dy="10" fill="#888">Burrowing ◁</tspan></text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Tetrapod Limbs ━</tspan><tspan x="185" dy="12" fill="#888">Burrowing ┅</tspan></text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (1)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Echolocation ▶</tspan></text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +2</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Nocturnal] [Small]</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Nocturnal] [Small]</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE during K-Pg</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: Avoid dinosaur competition (E...</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc"></text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE during K-Pg</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: Avoid dinosaur competition (E...</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Nocturnal lifestyle may have allowed early mammals to a</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">void dinosaur predation</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Nocturnal lifestyle may have allowed early mammals to a</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">void dinosaur predation</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Various]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
 <g transform="translate(270, 10)">
   <defs>
@@ -64,38 +68,42 @@
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 0-11</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Cambrian to Quaternary)</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 0-11 (Cam-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 1</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+0 CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">SMALL SIZE</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">SMALL SIZE</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">0</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#555">—</tspan></text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#666">None</tspan></text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Echolocation ▶</tspan><tspan x="185" dy="10" fill="#27ae60">Arboreal Li… ▶</tspan></text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +0</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Small]</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Small]</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE during most extinctions</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">ALLELES: +1/era (less food needed).</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc"></text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE during most extinctions</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">ALLELES: +1/era (less food needed).</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Small organisms need less resources and have faster gen</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">eration times</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Small organisms need less resources and have faster gen</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">eration times</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Default]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Default]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
 <g transform="translate(530, 10)">
   <defs>
@@ -112,38 +120,42 @@
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 3-11</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Devonian to Quaternary)</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 3-11 (Dev-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 3</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+2 CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">LARGE SIZE</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">LARGE SIZE</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">3</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (3)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Bony Skelet… ◀</tspan><tspan x="65" dy="10" fill="#888">Jaws ◁</tspan></text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Bony Skeleton ━</tspan><tspan x="185" dy="12" fill="#888">Jaws ┅</tspan><tspan x="185" dy="12" fill="#888">Vertebral Column ┅</tspan></text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +2</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Large]</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Large]</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +2 on any tile</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">RISK: DOOMED during extinctions</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc">ALLELES: -1/era.</text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +2 on any tile</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">RISK: DOOMED during extinctions</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc">ALLELES: -1/era.</text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Cope's Law: lineages tend toward larger size over time,</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666"> but large size is risky</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Cope's Law: lineages tend toward larger size over time,</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666"> but large size is risky</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Various]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
 <g transform="translate(10, 370)">
   <defs>
@@ -160,38 +172,42 @@
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 1-11</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Ordovician to Quaternary)</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 1-11 (Ord-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 2</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+2 CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">REEF DWELLING</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">REEF DWELLING</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">2</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (1)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Gills ◀</tspan></text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Gills ━</tspan></text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (1)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Photosynthe… ▶</tspan></text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +2</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Reef-Dependent] [Aquatic]</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Reef-Dependent] [Aquatic]</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">TILES: +3 on Reef tiles</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">ALLELES: +1/era from controlled Reef</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc">RISK: DOOMED if reefs collapse.</text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">TILES: +3 on Reef tiles</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">ALLELES: +1/era from controlled Reef</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc">RISK: DOOMED if reefs collapse.</text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Coral reefs are the 'rainforests of the sea' - extreme </text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">biodiversity, extreme fra...</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Coral reefs are the 'rainforests of the sea' - extreme </text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">biodiversity, extreme fra...</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Various marine]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various marine]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
 <g transform="translate(270, 370)">
   <defs>
@@ -208,38 +224,42 @@
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 1-11</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Ordovician to Quaternary)</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 1-11 (Ord-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 3</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+3 CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">DEEP SEA ADAPTATION</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">DEEP SEA ADAPTATION</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">3</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Gills ◀</tspan><tspan x="65" dy="10" fill="#888">Cartilagino… ◁</tspan></text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Gills ━</tspan><tspan x="185" dy="12" fill="#888">Cartilaginous Skeleton ┅</tspan></text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +3</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Deep-Sea] [Aquatic]</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Deep-Sea] [Aquatic]</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE during surface extinctions</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">TILES: Exclusive access to Deep Sea tiles.</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc"></text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE during surface extinctions</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">TILES: Exclusive access to Deep Sea tiles.</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Deep sea is buffered from surface changes - P = ρgh (pr</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">essure increases with dep...</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Deep sea is buffered from surface changes - P = ρgh (pr</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">essure increases with dep...</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Various]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
 <g transform="translate(530, 370)">
   <defs>
@@ -256,38 +276,42 @@
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 2-11</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Silurian to Quaternary)</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 2-11 (Sil-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 2</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+2 CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">FRESHWATER ADAPTATION</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">FRESHWATER ADAPTATION</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">2</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (1)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Gills ◀</tspan></text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Gills ━</tspan></text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +2</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Freshwater] [Aquatic]</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Freshwater] [Aquatic]</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE during marine extinctions</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">TILES: +2 on Freshwater, Swamp.</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc"></text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">SURVIVAL: SAFE during marine extinctions</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">TILES: +2 on Freshwater, Swamp.</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Freshwater systems often survive marine extinction even</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">ts better</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Freshwater systems often survive marine extinction even</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ts better</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Various]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
 <g transform="translate(10, 730)">
   <defs>
@@ -304,38 +328,42 @@
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 3-11</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Devonian to Quaternary)</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 3-11 (Dev-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 2</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+2 CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">SIX LEGS</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">SIX LEGS</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">2</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Exoskeleton ◀</tspan><tspan x="65" dy="10" fill="#888">Segmentation ◁</tspan></text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Exoskeleton ━</tspan><tspan x="185" dy="12" fill="#888">Segmentation ┅</tspan></text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Insect Flig… ▶</tspan><tspan x="185" dy="10" fill="#27ae60">Complete Me… ▶</tspan></text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +2</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Insect] [Terrestrial]</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Insect] [Terrestrial]</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">TILES: Occupy all land tiles</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">Stable tripod gait</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc">FOUNDATION: Insect traits.</text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">TILES: Occupy all land tiles</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">Stable tripod gait</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc">FOUNDATION: Insect traits.</text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Six legs provide stable tripod gait - three legs always</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666"> on ground</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Six legs provide stable tripod gait - three legs always</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666"> on ground</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Hexapoda]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Hexapoda]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
 <g transform="translate(270, 730)">
   <defs>
@@ -352,38 +380,42 @@
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 4-11</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Carboniferous to Quaternary)</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 4-11 (Car-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 3</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+3 CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">COMPLETE METAMORPHOSIS</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">COMPLETE METAMORPHOSIS</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">3</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Six Legs ◀</tspan><tspan x="65" dy="10" fill="#888">Insect Flig… ◁</tspan></text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Six Legs ━</tspan><tspan x="185" dy="12" fill="#888">Insect Flight ┅</tspan></text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#27ae60">Eusociality ▶</tspan><tspan x="185" dy="10" fill="#27ae60">Pollination… ▶</tspan></text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +3</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Insect]</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Insect]</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">ALLELES: +2/era (larvae and adults use dif...</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">Niche separation.</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc"></text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">ALLELES: +2/era (larvae and adults use dif...</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">Niche separation.</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Complete metamorphosis separates larval feeding from ad</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">ult reproduction</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Complete metamorphosis separates larval feeding from ad</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ult reproduction</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Holometabola]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Holometabola]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g>
 <g transform="translate(530, 730)">
   <defs>
@@ -400,36 +432,40 @@
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: 8-11</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">(Cretaceous to Quaternary)</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 8-11 (Cre-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 4</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+5 CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">EUSOCIALITY</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">EUSOCIALITY</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">4</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">REQUIRES (2)</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="65" dy="10" fill="#e94560">Complete Me… ◀</tspan><tspan x="65" dy="10" fill="#888">Insect Flig… ◁</tspan></text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle"><tspan x="185" dy="12" fill="#e94560">Complete Metamorphosis ━</tspan><tspan x="185" dy="12" fill="#888">Insect Flight ┅</tspan></text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">UNLOCKS</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle"><tspan x="185" dy="10" fill="#555">—</tspan></text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +5</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Insect] [Social]</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">[Insect] [Social]</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">ALLELES: +2/era if population 5+</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">TILES: +2 on Forest with flowers (Era 8+).</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc"></text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">ALLELES: +2/era if population 5+</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">TILES: +2 on Forest with flowers (Era 8+).</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">Reproductive division of labor - workers forgo reproduc</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">tion to help queen</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">Reproductive division of labor - workers forgo reproduc</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">tion to help queen</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: Hymenoptera]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Hymenoptera]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </g></svg>

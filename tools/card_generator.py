@@ -41,13 +41,20 @@ def load_data():
     return traits, events, decks
 
 
-def generate_trait_card_svg(trait: dict, trait_lookup: dict = None) -> str:
-    """Generate SVG for a single trait card."""
+def generate_trait_card_svg(trait: dict, trait_lookup: dict = None, enables_lookup: dict = None) -> str:
+    """Generate SVG for a single trait card.
+    
+    Args:
+        trait: The trait data dict
+        trait_lookup: Maps trait_id -> display name
+        enables_lookup: Maps trait_id -> list of trait_ids this enables
+    """
     era_min = trait["era_min"]
     era_max = trait["era_max"]
     era_color = DECK_COLORS.get(era_min, {"color": "#333"})["color"]
     
     trait_lookup = trait_lookup or {}
+    enables_lookup = enables_lookup or {}
     
     def get_name(trait_id):
         """Convert trait ID to display name."""
@@ -55,16 +62,29 @@ def generate_trait_card_svg(trait: dict, trait_lookup: dict = None) -> str:
             return trait_lookup[trait_id]
         return trait_id.replace("_", " ").title()
     
+    def shorten_name(name, max_len=12):
+        """Shorten trait name for display."""
+        if len(name) <= max_len:
+            return name
+        return name[:max_len-1] + "…"
+    
     hard_prereqs = trait.get("hard_prereqs", [])
     soft_prereqs = trait.get("soft_prereqs", [])
+    enables = enables_lookup.get(trait["id"], [])
     
-    prereq_lines = []
+    # Build prereq display (REQUIRES section)
+    prereq_items = []
     for p in hard_prereqs[:2]:
-        prereq_lines.append(f'<tspan x="185" dy="12" fill="#e94560">{get_name(p)} ━</tspan>')
-    for p in soft_prereqs[:2]:
-        prereq_lines.append(f'<tspan x="185" dy="12" fill="#888">{get_name(p)} ┅</tspan>')
+        prereq_items.append(f'<tspan x="65" dy="10" fill="#e94560">{shorten_name(get_name(p))} ◀</tspan>')
+    for p in soft_prereqs[:1]:
+        prereq_items.append(f'<tspan x="65" dy="10" fill="#888">{shorten_name(get_name(p))} ◁</tspan>')
+    prereq_text = "".join(prereq_items) if prereq_items else '<tspan x="65" dy="10" fill="#555">—</tspan>'
     
-    prereq_text = "".join(prereq_lines) if prereq_lines else '<tspan x="185" dy="12" fill="#666">None</tspan>'
+    # Build enables display (UNLOCKS section)
+    enables_items = []
+    for e in enables[:3]:
+        enables_items.append(f'<tspan x="185" dy="10" fill="#27ae60">{shorten_name(get_name(e))} ▶</tspan>')
+    enables_text = "".join(enables_items) if enables_items else '<tspan x="185" dy="10" fill="#555">—</tspan>'
     
     tags_display = " ".join(f"[{t}]" for t in trait["tags"][:3])
     if len(trait["tags"]) > 3:
@@ -83,6 +103,12 @@ def generate_trait_card_svg(trait: dict, trait_lookup: dict = None) -> str:
     if len(trait.get("science", "")) > 80:
         science_text += "..."
     
+    # Count for display
+    prereq_count = len(hard_prereqs) + len(soft_prereqs)
+    enables_count = len(enables)
+    prereq_label = f"REQUIRES ({prereq_count})" if prereq_count else "REQUIRES"
+    enables_label = f"UNLOCKS ({enables_count})" if enables_count else "UNLOCKS"
+    
     svg = f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 350" width="250" height="350">
   <defs>
@@ -99,38 +125,42 @@ def generate_trait_card_svg(trait: dict, trait_lookup: dict = None) -> str:
   <rect width="250" height="350" fill="url(#cardBg)" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="35" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="28" font-family="Arial" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">ERA WINDOW: {era_min}-{era_max}</text>
-  <text x="125" y="40" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">({DECK_COLORS.get(era_min, {}).get("name", "")} to {DECK_COLORS.get(era_max, {}).get("name", "")})</text>
+  <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA {era_min}-{era_max} ({DECK_COLORS.get(era_min, {}).get("name", "")[:3]}-{DECK_COLORS.get(era_max, {}).get("name", "")[:3]})</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: {trait["cost"]}</text>
+  <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+{trait["complexity"]} CPX</text>
   
-  <rect x="10" y="50" width="230" height="40" fill="#0f3460" rx="5"/>
-  <text x="125" y="76" font-family="Georgia" font-size="16" fill="#fff" text-anchor="middle" font-weight="bold">{trait["name"].upper()}</text>
+  <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
+  <text x="125" y="66" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">{trait["name"].upper()}</text>
   
-  <rect x="10" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="65" y="112" font-family="Arial" font-size="10" fill="#f1c40f" text-anchor="middle" font-weight="bold">COST</text>
-  <text x="65" y="135" font-family="Arial" font-size="24" fill="#f1c40f" text-anchor="middle" font-weight="bold">{trait["cost"]}</text>
+  <rect x="10" y="80" width="110" height="48" fill="#0a0a15" stroke="#e94560" rx="5"/>
+  <text x="65" y="92" font-family="Arial" font-size="8" fill="#e94560" text-anchor="middle" font-weight="bold">{prereq_label}</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle">{prereq_text}</text>
   
-  <rect x="130" y="95" width="110" height="50" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="185" y="112" font-family="Arial" font-size="10" fill="#e94560" text-anchor="middle" font-weight="bold">PREREQS</text>
-  <text font-family="Arial" font-size="8" text-anchor="middle">{prereq_text}</text>
+  <rect x="130" y="80" width="110" height="48" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="185" y="92" font-family="Arial" font-size="8" fill="#27ae60" text-anchor="middle" font-weight="bold">{enables_label}</text>
+  <text font-family="Arial" font-size="7" text-anchor="middle">{enables_text}</text>
   
-  <rect x="10" y="150" width="230" height="35" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
-  <text x="70" y="170" font-family="Arial" font-size="10" fill="#9b59b6" text-anchor="middle">COMPLEXITY +{trait["complexity"]}</text>
-  <text x="185" y="170" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">{tags_display}</text>
+  <rect x="10" y="132" width="230" height="22" fill="#0a0a15" stroke="#3a3a5a" rx="5"/>
+  <text x="125" y="147" font-family="Arial" font-size="8" fill="#3498db" text-anchor="middle">{tags_display}</text>
   
-  <rect x="10" y="190" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="20" y="206" font-family="Arial" font-size="10" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="220" font-family="Arial" font-size="8" fill="#ccc">{grants_lines[0] if grants_lines else ""}</text>
-  <text x="20" y="232" font-family="Arial" font-size="8" fill="#ccc">{grants_lines[1] if len(grants_lines) > 1 else ""}</text>
-  <text x="20" y="244" font-family="Arial" font-size="8" fill="#ccc">{grants_lines[2] if len(grants_lines) > 2 else ""}</text>
+  <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">{grants_lines[0] if grants_lines else ""}</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">{grants_lines[1] if len(grants_lines) > 1 else ""}</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc">{grants_lines[2] if len(grants_lines) > 2 else ""}</text>
   
-  <rect x="10" y="265" width="230" height="45" fill="#0a0a15" stroke="#888" rx="5"/>
-  <text x="20" y="280" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
-  <text x="20" y="292" font-family="Arial" font-size="7" fill="#666">{science_text[:55]}</text>
-  <text x="20" y="302" font-family="Arial" font-size="7" fill="#666">{science_text[55:] if len(science_text) > 55 else ""}</text>
+  <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
+  <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
+  <text x="20" y="258" font-family="Arial" font-size="7" fill="#666">{science_text[:55]}</text>
+  <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">{science_text[55:] if len(science_text) > 55 else ""}</text>
   
-  <rect x="10" y="315" width="230" height="25" fill="#0f3460" rx="5"/>
-  <text x="125" y="332" font-family="Arial" font-size="10" fill="#888" text-anchor="middle">[Clade: {trait.get("clade", "Various")}]</text>
+  <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[{trait.get("clade", "Various")}]</text>
+  
+  <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
+  <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
+  <text x="230" y="330" font-family="Arial" font-size="7" fill="#555" text-anchor="end">▶ Enables</text>
 </svg>'''
     
     return svg
@@ -203,6 +233,27 @@ def generate_event_card_svg(event: dict) -> str:
     return svg
 
 
+def build_enables_lookup(traits: list) -> dict:
+    """Build reverse lookup: trait_id -> list of traits it enables.
+    
+    A trait enables another if it appears in that trait's hard_prereqs or soft_prereqs.
+    """
+    enables = {}
+    for trait in traits:
+        trait_id = trait["id"]
+        enables[trait_id] = []
+    
+    for trait in traits:
+        for prereq_id in trait.get("hard_prereqs", []):
+            if prereq_id in enables:
+                enables[prereq_id].append(trait["id"])
+        for prereq_id in trait.get("soft_prereqs", []):
+            if prereq_id in enables:
+                enables[prereq_id].append(trait["id"])
+    
+    return enables
+
+
 def generate_all_cards(output_dir: Optional[Path] = None) -> None:
     """Generate all card SVGs."""
     if output_dir is None:
@@ -215,10 +266,11 @@ def generate_all_cards(output_dir: Optional[Path] = None) -> None:
     traits, events, _ = load_data()
     
     trait_lookup = {t["id"]: t["name"] for t in traits["traits"]}
+    enables_lookup = build_enables_lookup(traits["traits"])
     
     print(f"Generating {len(traits['traits'])} trait cards...")
     for trait in traits["traits"]:
-        svg = generate_trait_card_svg(trait, trait_lookup)
+        svg = generate_trait_card_svg(trait, trait_lookup, enables_lookup)
         filepath = output_dir / "traits" / f"{trait['id']}.svg"
         with open(filepath, "w") as f:
             f.write(svg)
@@ -287,7 +339,8 @@ def generate_print_sheets(output_dir: Optional[Path] = None) -> None:
         with open(output_dir / sheet_name, "w") as f:
             f.write(svg_header + "\n".join(cards_content) + "</svg>")
     
-    trait_cards = [generate_trait_card_svg(t, trait_lookup) for t in traits["traits"]]
+    enables_lookup = build_enables_lookup(traits["traits"])
+    trait_cards = [generate_trait_card_svg(t, trait_lookup, enables_lookup) for t in traits["traits"]]
     for i in range(0, len(trait_cards), cards_per_sheet):
         sheet_num = i // cards_per_sheet + 1
         batch = trait_cards[i:i + cards_per_sheet]
