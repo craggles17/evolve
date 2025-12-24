@@ -120,6 +120,82 @@ class Game {
         this.renderer.callbacks.onTileClick = (tile) => this.handleTileClick(tile);
         this.renderer.callbacks.onCardClick = (trait, canBuy) => this.handleCardClick(trait, canBuy);
         this.renderer.callbacks.onTraitSlotClick = (traitId) => this.handleTraitSlotClick(traitId);
+        this.renderer.callbacks.onMarkerDrop = (tileId) => this.handleMarkerDrop(tileId);
+        
+        // Drag and drop for markers
+        this.setupDragAndDrop();
+    }
+    
+    setupDragAndDrop() {
+        const dragMarker = $('#drag-marker');
+        if (!dragMarker) return;
+        
+        // Store valid tiles during drag
+        this.validDragTiles = new Set();
+        
+        dragMarker.addEventListener('dragstart', (e) => {
+            if (!this.isMyTurn() || this.state.currentPhase !== PHASES.POPULATE) {
+                e.preventDefault();
+                return;
+            }
+            
+            const player = this.state.getCurrentPlayer();
+            if (player.markersOnBoard >= player.markers) {
+                e.preventDefault();
+                return;
+            }
+            
+            // Get valid tiles and store their IDs
+            const validTiles = this.engine.getValidTiles(player);
+            this.validDragTiles = new Set(validTiles.map(t => t.id));
+            
+            // Highlight valid tiles
+            this.renderer.highlightValidTiles(validTiles, this.state);
+            
+            // Set drag data
+            e.dataTransfer.setData('text/plain', 'marker');
+            e.dataTransfer.effectAllowed = 'move';
+            dragMarker.classList.add('dragging');
+        });
+        
+        dragMarker.addEventListener('dragend', () => {
+            dragMarker.classList.remove('dragging');
+            this.validDragTiles.clear();
+            // Clear highlights
+            this.renderer.clearTileHighlights();
+        });
+    }
+    
+    handleMarkerDrop(tileId) {
+        if (!this.isMyTurn()) return;
+        if (this.state.currentPhase !== PHASES.POPULATE) return;
+        
+        const player = this.state.getCurrentPlayer();
+        
+        // Validate tile is in valid set
+        if (!this.validDragTiles.has(tileId)) {
+            console.log('Cannot place marker: invalid tile');
+            return;
+        }
+        
+        if (this.mode === MODE.CLIENT && this.mpClient) {
+            this.mpClient.sendAction({ type: 'place_marker', tileId });
+            return;
+        }
+        
+        const result = this.engine.placeMarker(player, tileId);
+        
+        if (result.success) {
+            console.log(`${player.name} placed marker on tile`);
+            
+            if (this.mode === MODE.HOST && this.mpHost) {
+                this.mpHost.broadcastState(this.state);
+            }
+            
+            this.updateUI();
+        } else {
+            console.log(`Cannot place marker: ${result.reason}`);
+        }
     }
     
     setupHostPlayerCount() {
@@ -556,7 +632,7 @@ class Game {
         }
         
         this.renderer.renderLineageBoard(player, this.state.traitDb);
-        this.renderer.updatePlayerStats(player, this.state.traitDb);
+        this.renderer.updatePlayerStats(player, this.state.traitDb, this.state.currentPhase, this.isMyTurn());
         this.renderer.updateEventDeck(this.state);
         this.renderer.renderPlayersBar(this.state.players, this.state.currentPlayerIndex, this.state.traitDb, this.state.currentEra, organisms);
         this.renderer.renderOrganismMatch(player, this.state.currentEra, organisms);
@@ -688,33 +764,8 @@ class Game {
     }
     
     handleTileClick(tile) {
-        if (!this.isMyTurn()) return;
-        
-        if (this.state.currentPhase !== PHASES.POPULATE) {
-            console.log('Can only place markers during Populate phase');
-            return;
-        }
-        
-        const player = this.state.getCurrentPlayer();
-        
-        if (this.mode === MODE.CLIENT && this.mpClient) {
-            this.mpClient.sendAction({ type: 'place_marker', tileId: tile.id });
-            return;
-        }
-        
-        const result = this.engine.placeMarker(player, tile.id);
-        
-        if (result.success) {
-            console.log(`${player.name} placed marker on ${tile.biomeData.name}`);
-            
-            if (this.mode === MODE.HOST && this.mpHost) {
-                this.mpHost.broadcastState(this.state);
-            }
-            
-            this.updateUI();
-        } else {
-            console.log(`Cannot place marker: ${result.reason}`);
-        }
+        // Show tile info modal on click (marker placement is now drag-and-drop)
+        this.renderer.showTileInfo(tile, this.state);
     }
     
     handleCardClick(trait, canBuy) {

@@ -21,7 +21,8 @@ export class Renderer {
         this.callbacks = {
             onTileClick: null,
             onCardClick: null,
-            onTraitSlotClick: null
+            onTraitSlotClick: null,
+            onMarkerDrop: null
         };
         
         // Pan/zoom state
@@ -353,6 +354,29 @@ export class Renderer {
             }
         });
         
+        // Drag and drop handlers for marker placement
+        group.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            if (group.classList.contains('valid-target')) {
+                e.dataTransfer.dropEffect = 'move';
+                group.classList.add('drag-over');
+            } else {
+                e.dataTransfer.dropEffect = 'none';
+            }
+        });
+        
+        group.addEventListener('dragleave', () => {
+            group.classList.remove('drag-over');
+        });
+        
+        group.addEventListener('drop', (e) => {
+            e.preventDefault();
+            group.classList.remove('drag-over');
+            if (this.callbacks.onMarkerDrop && group.classList.contains('valid-target')) {
+                this.callbacks.onMarkerDrop(tile.id);
+            }
+        });
+        
         this.boardContent.appendChild(group);
     }
     
@@ -416,6 +440,18 @@ export class Renderer {
         }
     }
     
+    clearTileHighlights() {
+        $$('.hex-tile').forEach(group => {
+            group.classList.remove('valid-target', 'invalid-target', 'drag-over');
+            const polygon = group.querySelector('polygon:not(.locked)');
+            if (polygon) {
+                polygon.style.strokeWidth = '2';
+                polygon.style.stroke = '#30363d';
+                polygon.style.filter = '';
+            }
+        });
+    }
+    
     // Lineage Board
     renderLineageBoard(player, traitDb) {
         const board = $('#lineage-board');
@@ -454,11 +490,24 @@ export class Renderer {
     }
     
     // Player Stats
-    updatePlayerStats(player, traitDb) {
+    updatePlayerStats(player, traitDb, currentPhase, canDrag = false) {
         $('#stat-alleles').textContent = player.alleles;
         $('#stat-markers').textContent = `${player.markersOnBoard}/${player.markers}`;
         $('#stat-complexity').textContent = player.getComplexity(traitDb);
         $('#stat-tiles').textContent = player.tilesControlled;
+        
+        // Update drag marker state
+        const dragMarker = $('#drag-marker');
+        if (dragMarker) {
+            const hasAvailableMarkers = player.markersOnBoard < player.markers;
+            const isPopulatePhase = currentPhase === 'populate';
+            const canDragMarker = canDrag && isPopulatePhase && hasAvailableMarkers;
+            
+            dragMarker.style.backgroundColor = player.color;
+            dragMarker.classList.toggle('active', canDragMarker);
+            dragMarker.classList.toggle('disabled', !canDragMarker);
+            dragMarker.setAttribute('draggable', canDragMarker ? 'true' : 'false');
+        }
         
         // Update tags
         const tagsList = $('#tags-list');
@@ -750,6 +799,87 @@ export class Renderer {
             });
         }
         actions.appendChild(buyBtn);
+        
+        const closeBtn = createElement('button', 'btn-action', 'Close');
+        closeBtn.addEventListener('click', () => this.hideModals());
+        actions.appendChild(closeBtn);
+        
+        this.showModal('card-modal');
+    }
+    
+    // Tile Info Modal
+    showTileInfo(tile, state) {
+        const detail = $('#card-detail');
+        const actions = $('#card-actions');
+        
+        // Gather markers on this tile
+        const markers = state.tileMarkers[tile.id] || {};
+        const markerInfo = Object.entries(markers)
+            .filter(([_, count]) => count > 0)
+            .map(([playerId, count]) => {
+                const player = state.players[parseInt(playerId)];
+                return `<span style="color: ${player.color}">● ${player.name}: ${count}</span>`;
+            })
+            .join(' &nbsp; ');
+        
+        const requiredTags = tile.biomeData.required_tags || [];
+        const bonusTags = tile.biomeData.bonus_tags || [];
+        
+        const isLocked = tile.eraLock > state.currentEra;
+        
+        detail.innerHTML = `
+            <div class="card-detail-header">
+                <div class="card-detail-name" style="display: flex; align-items: center; gap: 10px;">
+                    <span class="tile-color-swatch" style="background: ${tile.biomeData.color}; width: 24px; height: 24px; border-radius: 4px;"></span>
+                    ${tile.biomeData.name}
+                </div>
+                <div class="card-detail-cost">${tile.climateBand || 'Unknown'} zone</div>
+            </div>
+            
+            <div class="card-detail-section">
+                <h4>Description</h4>
+                <p>${tile.biomeData.description || 'No description available.'}</p>
+            </div>
+            
+            <div class="card-detail-section">
+                <h4>Requirements to Occupy</h4>
+                <div class="card-detail-prereqs">
+                    ${requiredTags.length > 0 
+                        ? requiredTags.map(t => `<span class="tag required">${t}</span>`).join(' ')
+                        : '<span class="no-reqs">None - any organism can occupy</span>'}
+                </div>
+            </div>
+            
+            ${bonusTags.length > 0 ? `
+            <div class="card-detail-section">
+                <h4>Bonus for Tags</h4>
+                <div class="card-detail-prereqs">
+                    ${bonusTags.map(t => `<span class="tag bonus">${t}</span>`).join(' ')}
+                </div>
+            </div>
+            ` : ''}
+            
+            <div class="card-detail-section">
+                <h4>Flip Number</h4>
+                <p>⚀ ${tile.flipNumber} - Tile flips when dice roll is ≥ this value</p>
+            </div>
+            
+            ${isLocked ? `
+            <div class="card-detail-section">
+                <h4>Era Lock</h4>
+                <p style="color: #ff6;">🔒 Locked until Era ${tile.eraLock} (${ERA_NAMES[tile.eraLock] || 'Future'})</p>
+            </div>
+            ` : ''}
+            
+            <div class="card-detail-section">
+                <h4>Current Occupants</h4>
+                <div class="tile-markers-info">
+                    ${markerInfo || '<span style="opacity: 0.6">No markers placed</span>'}
+                </div>
+            </div>
+        `;
+        
+        actions.innerHTML = '';
         
         const closeBtn = createElement('button', 'btn-action', 'Close');
         closeBtn.addEventListener('click', () => this.hideModals());
