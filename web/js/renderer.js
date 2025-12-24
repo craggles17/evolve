@@ -23,7 +23,8 @@ export class Renderer {
             onCardClick: null,
             onTraitSlotClick: null,
             onMarkerDrop: null,
-            onGenomeTraitClick: null
+            onGenomeTraitClick: null,
+            onEventMarkerClick: null
         };
         
         // Pan/zoom state
@@ -269,26 +270,62 @@ export class Renderer {
     }
     
     renderClimateBandLabels() {
-        // Climate bands based on row positions (7 rows matching tiles.json)
-        // Row 0, 6 = polar; Row 1, 2, 4, 5 = temperate; Row 3 = equatorial
-        const bands = [
-            { row: 0, label: 'POLAR', color: '#b0e0e6' },
-            { row: 1.5, label: 'TEMPERATE', color: '#9acd32' },
-            { row: 3, label: 'EQUATORIAL', color: '#3498db' },
-            { row: 4.5, label: 'TEMPERATE', color: '#9acd32' },
-            { row: 6, label: 'POLAR', color: '#b0e0e6' }
+        // Climate zones with background bands
+        // Row layout: 0=polar, 1-2=temperate, 3=equatorial, 4-5=temperate, 6=polar
+        const boardWidth = BOARD_COLS * HEX_WIDTH + HEX_WIDTH / 2 + BOARD_PADDING * 2;
+        const rowHeight = HEX_VERT_SPACING;
+        const baseY = BOARD_PADDING + HEX_SIZE - rowHeight / 2;
+        
+        const zones = [
+            { startRow: 0, rowSpan: 1, label: 'POLAR', color: '#b0e0e6', bgAlpha: 0.18 },
+            { startRow: 1, rowSpan: 2, label: 'TEMPERATE', color: '#9acd32', bgAlpha: 0.15 },
+            { startRow: 3, rowSpan: 1, label: 'EQUATORIAL', color: '#3498db', bgAlpha: 0.2 },
+            { startRow: 4, rowSpan: 2, label: 'TEMPERATE', color: '#9acd32', bgAlpha: 0.15 },
+            { startRow: 6, rowSpan: 1, label: 'POLAR', color: '#b0e0e6', bgAlpha: 0.18 }
         ];
         
-        for (const band of bands) {
-            const y = BOARD_PADDING + HEX_SIZE + band.row * HEX_VERT_SPACING;
-            const label = createSVGElement('text');
-            label.setAttribute('x', 8);
-            label.setAttribute('y', y);
-            label.setAttribute('font-size', '10');
-            label.setAttribute('fill', band.color);
-            label.setAttribute('opacity', '0.6');
-            label.textContent = band.label;
-            this.boardContent.appendChild(label);
+        // Render background bands (behind tiles)
+        for (const zone of zones) {
+            const y = baseY + zone.startRow * rowHeight;
+            const height = zone.rowSpan * rowHeight;
+            
+            const rect = createSVGElement('rect');
+            rect.setAttribute('x', 0);
+            rect.setAttribute('y', y);
+            rect.setAttribute('width', boardWidth);
+            rect.setAttribute('height', height);
+            rect.setAttribute('fill', zone.color);
+            rect.setAttribute('opacity', zone.bgAlpha);
+            rect.classList.add('climate-band-bg');
+            this.boardContent.appendChild(rect);
+        }
+        
+        // Render labels on both edges
+        for (const zone of zones) {
+            const labelY = baseY + zone.startRow * rowHeight + (zone.rowSpan * rowHeight) / 2 + 5;
+            
+            // Left label
+            const leftLabel = createSVGElement('text');
+            leftLabel.setAttribute('x', 12);
+            leftLabel.setAttribute('y', labelY);
+            leftLabel.setAttribute('font-size', '13');
+            leftLabel.setAttribute('font-weight', '600');
+            leftLabel.setAttribute('fill', zone.color);
+            leftLabel.setAttribute('opacity', '0.9');
+            leftLabel.textContent = zone.label;
+            this.boardContent.appendChild(leftLabel);
+            
+            // Right label
+            const rightLabel = createSVGElement('text');
+            rightLabel.setAttribute('x', boardWidth - 12);
+            rightLabel.setAttribute('y', labelY);
+            rightLabel.setAttribute('text-anchor', 'end');
+            rightLabel.setAttribute('font-size', '13');
+            rightLabel.setAttribute('font-weight', '600');
+            rightLabel.setAttribute('fill', zone.color);
+            rightLabel.setAttribute('opacity', '0.9');
+            rightLabel.textContent = zone.label;
+            this.boardContent.appendChild(rightLabel);
         }
     }
     
@@ -2426,6 +2463,7 @@ export class Renderer {
             if (eraEvent) {
                 const eventGroup = createSVGElement('g');
                 eventGroup.classList.add('tech-tree-event-marker');
+                eventGroup.style.cursor = 'pointer';
                 
                 // Event type determines color
                 const eventType = eraEvent.type || 'neutral';
@@ -2462,8 +2500,15 @@ export class Renderer {
                 
                 // Tooltip with event name
                 const tooltip = createSVGElement('title');
-                tooltip.textContent = eraEvent.name;
+                tooltip.textContent = `${eraEvent.name} (click to view)`;
                 eventGroup.appendChild(tooltip);
+                
+                // Click handler to show event card
+                eventGroup.addEventListener('click', () => {
+                    if (this.callbacks.onEventMarkerClick) {
+                        this.callbacks.onEventMarkerClick(eraEvent, era);
+                    }
+                });
                 
                 headerLayer.appendChild(eventGroup);
             }

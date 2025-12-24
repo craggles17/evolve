@@ -3405,6 +3405,36 @@ body {
     opacity: 0.3;
 }
 
+/* Event markers on timeline */
+.tech-tree-event-marker {
+    cursor: pointer;
+}
+
+.tech-tree-event-marker rect {
+    stroke-width: 1;
+}
+
+.tech-tree-event-extinction rect {
+    fill: var(--extinction-red);
+    stroke: #ff4444;
+}
+
+.tech-tree-event-positive rect {
+    fill: var(--event-green);
+    stroke: #4caf50;
+}
+
+.tech-tree-event-neutral rect {
+    fill: var(--accent-blue);
+    stroke: #64b5f6;
+}
+
+.event-icon-symbol {
+    fill: #fff;
+    font-family: var(--font-body);
+    pointer-events: none;
+}
+
 .mya-current-era {
     fill: var(--accent-gold);
     font-weight: 700;

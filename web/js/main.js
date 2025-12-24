@@ -140,6 +140,7 @@ class Game {
         this.renderer.callbacks.onMarkerDrop = (tileId) => this.handleMarkerDrop(tileId);
         this.renderer.callbacks.onTechTreeClick = (trait, state) => this.handleTechTreeClick(trait, state);
         this.renderer.callbacks.onGenomeTraitClick = (trait) => this.handleGenomeTraitClick(trait);
+        this.renderer.callbacks.onEventMarkerClick = (event, era) => this.handleEventMarkerClick(event, era);
         
         // Trait modal buttons
         $('#btn-trait-play')?.addEventListener('click', () => this.playTraitFromModal());
@@ -1033,6 +1034,12 @@ class Game {
             false,  // isEvolutionPhase irrelevant for owned traits
             () => {}
         );
+    }
+    
+    handleEventMarkerClick(event, era) {
+        // Show the event card for a past event from the timeline
+        // Use showEvent with empty results since this is just viewing history
+        this.renderer.showEvent(event, []);
     }
     
     handleBuyTrait(trait) {
