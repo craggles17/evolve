@@ -803,7 +803,7 @@ class Game {
         
         this.renderer.renderLineageBoard(player, this.state.traitDb);
         this.renderer.renderGenomeBar(player, this.state.traitDb);
-        this.renderer.renderTechTree(player, this.state.currentEra, this.state.traitDb);
+        this.renderer.renderTechTree(player, this.state.currentEra, this.state.traitDb, this.state.discardedEvents);
         this.renderer.updatePlayerStats(player, this.state.traitDb, this.state.currentPhase, this.isMyTurn());
         this.renderer.updateEventDeck(this.state);
         this.renderer.renderPlayersBar(this.state.players, this.state.currentPlayerIndex, this.state.traitDb, this.state.currentEra, organisms);
@@ -1082,6 +1082,9 @@ class Game {
         // Store the trait for potential play action
         this.selectedTechTreeTrait = trait;
         
+        // Highlight prerequisite path in tech tree
+        this.renderer.highlightTechPath(trait.id, this.state.traitDb);
+        
         // Populate modal
         $('#trait-modal-name').textContent = trait.name;
         $('#trait-modal-cost').textContent = `Cost: ${player.getTraitCost(trait, this.state.traitDb)}`;
@@ -1193,6 +1196,7 @@ class Game {
         $('#modal-overlay').classList.add('hidden');
         $('#trait-modal').classList.add('hidden');
         this.selectedTechTreeTrait = null;
+        this.renderer.clearTechPathHighlight();
     }
     
     async handleCompetitionPhase() {

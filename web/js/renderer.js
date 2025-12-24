@@ -2106,6 +2106,23 @@ export class Renderer {
             }
         }
         
+        // Compute same-era chain depth (0 = root, 1 = first dependent, etc.)
+        const sameEraChainDepth = {};
+        const computeChainDepth = (traitId) => {
+            if (sameEraChainDepth[traitId] !== undefined) return sameEraChainDepth[traitId];
+            const prereq = sameEraPrereq[traitId];
+            if (!prereq) {
+                sameEraChainDepth[traitId] = 0;
+                return 0;
+            }
+            const depth = computeChainDepth(prereq) + 1;
+            sameEraChainDepth[traitId] = depth;
+            return depth;
+        };
+        for (const trait of traits) {
+            computeChainDepth(trait.id);
+        }
+        
         // Find the root of a same-era chain
         const findChainRoot = (traitId) => {
             let current = traitId;
@@ -2115,7 +2132,8 @@ export class Renderer {
             return current;
         };
         
-        // Initial sort: owned first, then group by same-era chain root, then by prereq depth
+        // Sort: owned first, then group by same-era chain root, then by chain depth
+        // This ensures prereqs are ABOVE dependents (arrows only go DOWN)
         for (const era in eraGroups) {
             eraGroups[era].sort((a, b) => {
                 const aOwned = ownedIds.has(a.id) ? 0 : 1;
@@ -2127,10 +2145,10 @@ export class Renderer {
                 const bRoot = findChainRoot(b.id);
                 if (aRoot !== bRoot) return aRoot.localeCompare(bRoot);
                 
-                // Within a chain, sort by prereq depth (prereq before dependent)
-                const aDepth = prereqDepth[a.id] || 0;
-                const bDepth = prereqDepth[b.id] || 0;
-                if (aDepth !== bDepth) return aDepth - bDepth;
+                // Within a chain, sort by chain depth (prereqs first = above)
+                const aChainDepth = sameEraChainDepth[a.id] || 0;
+                const bChainDepth = sameEraChainDepth[b.id] || 0;
+                if (aChainDepth !== bChainDepth) return aChainDepth - bChainDepth;
                 
                 return a.cost - b.cost;
             });
@@ -2531,6 +2549,59 @@ export class Renderer {
             nodeLayer.appendChild(group);
         }
         svg.appendChild(nodeLayer);
+    }
+    
+    // Build the complete prerequisite chain for a trait (all ancestors)
+    getPrerequisitePath(traitId, traitDb) {
+        const path = new Set();
+        const queue = [traitId];
+        
+        while (queue.length > 0) {
+            const current = queue.shift();
+            const trait = traitDb[current];
+            if (!trait) continue;
+            
+            for (const prereq of (trait.hard_prereqs || [])) {
+                if (!path.has(prereq)) {
+                    path.add(prereq);
+                    queue.push(prereq);
+                }
+            }
+        }
+        return path;
+    }
+    
+    // Highlight a trait and its prerequisite path in the tech tree
+    highlightTechPath(traitId, traitDb) {
+        this.clearTechPathHighlight();
+        
+        const prereqs = this.getPrerequisitePath(traitId, traitDb);
+        prereqs.add(traitId);
+        
+        // Highlight nodes on the path
+        for (const id of prereqs) {
+            const node = document.querySelector(`[data-trait-id="${id}"]`);
+            if (node) node.classList.add('tech-path-highlight');
+        }
+        
+        // Highlight edges that connect traits on the path
+        document.querySelectorAll('.tech-edge').forEach(edge => {
+            const from = edge.dataset.from;
+            const to = edge.dataset.to;
+            if (prereqs.has(from) && prereqs.has(to)) {
+                edge.classList.add('tech-path-highlight');
+            }
+        });
+        
+        this.highlightedTraitId = traitId;
+    }
+    
+    // Clear all tech tree path highlighting
+    clearTechPathHighlight() {
+        document.querySelectorAll('.tech-path-highlight').forEach(el => {
+            el.classList.remove('tech-path-highlight');
+        });
+        this.highlightedTraitId = null;
     }
 }
 

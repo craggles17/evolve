@@ -3529,6 +3529,25 @@ body {
     fill: #3d2222;
 }
 
+/* Tech Tree Path Highlighting */
+.tech-node.tech-path-highlight rect {
+    stroke: var(--accent-amber) !important;
+    stroke-width: 2.5 !important;
+    filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.6));
+}
+
+.tech-node.tech-path-highlight text {
+    fill: var(--accent-amber);
+    font-weight: 600;
+}
+
+.tech-edge.tech-path-highlight {
+    stroke: var(--accent-amber) !important;
+    stroke-width: 2 !important;
+    opacity: 1 !important;
+    filter: drop-shadow(0 0 4px rgba(251, 191, 36, 0.5));
+}
+
 /* Mobile: hide tech tree on small screens */
 @media (max-width: 900px) {
     #tech-tree-panel {
