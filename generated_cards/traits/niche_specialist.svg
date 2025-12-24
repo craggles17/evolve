@@ -35,9 +35,9 @@
   
   <rect x="10" y="158" width="230" height="70" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="20" y="173" font-family="Arial" font-size="9" fill="#27ae60" font-weight="bold">GRANTS:</text>
-  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +3 on ONE chosen biome type</text>
-  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">RISK: DOOMED during global warming.</text>
-  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc"></text>
+  <text x="20" y="186" font-family="Arial" font-size="8" fill="#ccc">DYNAMIC: Specialize in a random occupied b...</text>
+  <text x="20" y="198" font-family="Arial" font-size="8" fill="#ccc">Gain one of its bonus tags permanently</text>
+  <text x="20" y="210" font-family="Arial" font-size="8" fill="#ccc">COMPETITION: +3 on that biome type</text>
   
   <rect x="10" y="232" width="230" height="55" fill="#0a0a15" stroke="#888" rx="5"/>
   <text x="20" y="246" font-family="Arial" font-size="8" fill="#888" font-style="italic">SCIENCE:</text>
