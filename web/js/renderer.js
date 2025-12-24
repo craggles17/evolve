@@ -1942,7 +1942,7 @@ export class Renderer {
     // ==================== TECH TREE ====================
     
     // Compute MYA timeline layout for all traits (horizontal timeline, vertical stacking)
-    computeTechTreeLayout(traitDb, containerWidth = 1200) {
+    computeTechTreeLayout(traitDb, containerWidth = 1200, player = null) {
         const traits = Object.values(traitDb);
         const positions = {};
         
@@ -1957,43 +1957,72 @@ export class Renderer {
         // Fixed era width for ~5 era visibility with scrolling (ignore container width)
         const ERA_WIDTH = 140;
         
-        // Group traits by era_min
+        // Player ownership data for acquisition-based positioning
+        const ownedIds = new Set(player?.traits || []);
+        const acquisitions = player?.traitAcquisitions || {};
+        
+        // Group traits by display era (acquisition era for owned, era_min for unowned)
         const eraGroups = {};
         for (let i = 0; i < NUM_ERAS; i++) {
             eraGroups[i] = [];
         }
         
         for (const trait of traits) {
-            const era = trait.era_min;
-            if (era >= 0 && era < NUM_ERAS) {
-                eraGroups[era].push(trait);
+            // Owned traits: position by when they were acquired
+            // Unowned traits: position by when they become available
+            const displayEra = ownedIds.has(trait.id)
+                ? (acquisitions[trait.id] ?? trait.era_min)
+                : trait.era_min;
+            if (displayEra >= 0 && displayEra < NUM_ERAS) {
+                eraGroups[displayEra].push(trait);
             }
         }
         
-        // Sort traits within each era to minimize arrow crossings
-        // Priority: 1) prereq count, 2) clade grouping, 3) cost
-        const cladeOrder = [
-            'Bilateria', 'Chordata', 'Vertebrata', 'Gnathostomata', 'Osteichthyes',
-            'Sarcopterygii', 'Tetrapoda', 'Amniota', 'Synapsida', 'Mammalia',
-            'Diapsida', 'Archosauria', 'Aves', 'Reptilia', 'Crocodilia',
-            'Arthropoda', 'Hexapoda', 'Trilobita',
-            'Mollusca', 'Cephalopoda',
-            'Amphibia', 'Various', 'Default'
-        ];
+        // Compute prereq chain depth for each trait (foundation traits = 0, dependents = higher)
+        const prereqDepth = {};
+        const computeDepth = (traitId, visited = new Set()) => {
+            if (prereqDepth[traitId] !== undefined) return prereqDepth[traitId];
+            if (visited.has(traitId)) return 0; // Avoid cycles
+            visited.add(traitId);
+            
+            const trait = traitDb[traitId];
+            if (!trait || !trait.hard_prereqs || trait.hard_prereqs.length === 0) {
+                prereqDepth[traitId] = 0;
+                return 0;
+            }
+            
+            let maxParentDepth = 0;
+            for (const prereqId of trait.hard_prereqs) {
+                maxParentDepth = Math.max(maxParentDepth, computeDepth(prereqId, visited) + 1);
+            }
+            prereqDepth[traitId] = maxParentDepth;
+            return maxParentDepth;
+        };
         
+        for (const trait of traits) {
+            computeDepth(trait.id);
+        }
+        
+        // Sort traits within each era to keep prereq chains together
+        // Priority: 1) owned first, 2) prereq depth, 3) first prereq's position, 4) cost
         for (const era in eraGroups) {
             eraGroups[era].sort((a, b) => {
-                // First: fewer prerequisites at top (foundation traits)
-                const aPrereqs = (a.hard_prereqs || []).length;
-                const bPrereqs = (b.hard_prereqs || []).length;
-                if (aPrereqs !== bPrereqs) return aPrereqs - bPrereqs;
+                // First: owned traits at top (more prominent)
+                const aOwned = ownedIds.has(a.id) ? 0 : 1;
+                const bOwned = ownedIds.has(b.id) ? 0 : 1;
+                if (aOwned !== bOwned) return aOwned - bOwned;
                 
-                // Second: group by clade (keeps related traits together)
-                const aCladeIdx = cladeOrder.indexOf(a.clade) ?? 99;
-                const bCladeIdx = cladeOrder.indexOf(b.clade) ?? 99;
-                if (aCladeIdx !== bCladeIdx) return aCladeIdx - bCladeIdx;
+                // Second: sort by prereq depth (foundation traits first, then dependents)
+                const aDepth = prereqDepth[a.id] || 0;
+                const bDepth = prereqDepth[b.id] || 0;
+                if (aDepth !== bDepth) return aDepth - bDepth;
                 
-                // Third: lower cost first
+                // Third: group by first prerequisite (keeps chains vertically adjacent)
+                const aFirstPrereq = (a.hard_prereqs || [])[0] || '';
+                const bFirstPrereq = (b.hard_prereqs || [])[0] || '';
+                if (aFirstPrereq !== bFirstPrereq) return aFirstPrereq.localeCompare(bFirstPrereq);
+                
+                // Fourth: lower cost first
                 return a.cost - b.cost;
             });
         }
@@ -2055,8 +2084,8 @@ export class Renderer {
         const container = $('#tech-tree-scroll');
         const containerWidth = container ? container.clientWidth : 1200;
         
-        // Compute layout
-        const layout = this.computeTechTreeLayout(traitDb, containerWidth);
+        // Compute layout (pass player for acquisition-based positioning)
+        const layout = this.computeTechTreeLayout(traitDb, containerWidth, player);
         const { positions, totalWidth, totalHeight, NODE_WIDTH, NODE_HEIGHT, ERA_WIDTH, MYA_HEADER_HEIGHT, PADDING, NUM_ERAS } = layout;
         
         // Set viewBox and dimensions - full width, scrollable height
@@ -2195,9 +2224,9 @@ export class Renderer {
                 const endX = toPos.x;
                 const endY = toPos.y + NODE_HEIGHT / 2;
                 
-                // Bezier curve for smooth edges
-                const ctrlOffset = Math.min(40, Math.abs(endX - startX) / 2);
-                const d = `M ${startX} ${startY} C ${startX + ctrlOffset} ${startY}, ${endX - ctrlOffset} ${endY}, ${endX} ${endY}`;
+                // Elbow connector: horizontal -> 90° turn -> vertical -> horizontal
+                const midX = startX + (endX - startX) / 2;
+                const d = `M ${startX} ${startY} L ${midX} ${startY} L ${midX} ${endY} L ${endX} ${endY}`;
                 
                 path.setAttribute('d', d);
                 path.setAttribute('fill', 'none');
