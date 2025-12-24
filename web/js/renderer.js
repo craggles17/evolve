@@ -44,7 +44,7 @@ export class Renderer {
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
             
-            const zoomFactor = e.deltaY > 0 ? 0.9 : 1.1;
+            const zoomFactor = e.deltaY > 0 ? 0.95 : 1.05;
             this.zoomAt(mouseX, mouseY, zoomFactor);
         }, { passive: false });
         
@@ -70,8 +70,9 @@ export class Renderer {
             const scaleX = viewBox.width / rect.width;
             const scaleY = viewBox.height / rect.height;
             
-            this.viewTransform.x -= dx * scaleX / this.viewTransform.scale;
-            this.viewTransform.y -= dy * scaleY / this.viewTransform.scale;
+            const panDampening = 0.7;
+            this.viewTransform.x -= dx * scaleX / this.viewTransform.scale * panDampening;
+            this.viewTransform.y -= dy * scaleY / this.viewTransform.scale * panDampening;
             this.applyTransform();
         });
         
@@ -115,8 +116,9 @@ export class Renderer {
                 const scaleX = viewBox.width / rect.width;
                 const scaleY = viewBox.height / rect.height;
                 
-                this.viewTransform.x -= dx * scaleX / this.viewTransform.scale;
-                this.viewTransform.y -= dy * scaleY / this.viewTransform.scale;
+                const panDampening = 0.7;
+                this.viewTransform.x -= dx * scaleX / this.viewTransform.scale * panDampening;
+                this.viewTransform.y -= dy * scaleY / this.viewTransform.scale * panDampening;
                 this.applyTransform();
             } else if (e.touches.length === 2) {
                 const dist = Math.hypot(
@@ -129,7 +131,7 @@ export class Renderer {
                 };
                 
                 if (lastTouchDist > 0) {
-                    const zoomFactor = dist / lastTouchDist;
+                    const zoomFactor = 1 + (dist / lastTouchDist - 1) * 0.5;
                     const rect = this.hexBoard.getBoundingClientRect();
                     this.zoomAt(center.x - rect.left, center.y - rect.top, zoomFactor);
                 }
