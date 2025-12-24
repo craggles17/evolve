@@ -1977,12 +1977,30 @@ export class Renderer {
             }
         }
         
-        // Sort traits within each era by cost (simpler traits first)
+        // Sort traits within each era to minimize arrow crossings
+        // Priority: 1) prereq count, 2) clade grouping, 3) cost
+        const cladeOrder = [
+            'Bilateria', 'Chordata', 'Vertebrata', 'Gnathostomata', 'Osteichthyes',
+            'Sarcopterygii', 'Tetrapoda', 'Amniota', 'Synapsida', 'Mammalia',
+            'Diapsida', 'Archosauria', 'Aves', 'Reptilia', 'Crocodilia',
+            'Arthropoda', 'Hexapoda', 'Trilobita',
+            'Mollusca', 'Cephalopoda',
+            'Amphibia', 'Various', 'Default'
+        ];
+        
         for (const era in eraGroups) {
             eraGroups[era].sort((a, b) => {
+                // First: fewer prerequisites at top (foundation traits)
                 const aPrereqs = (a.hard_prereqs || []).length;
                 const bPrereqs = (b.hard_prereqs || []).length;
                 if (aPrereqs !== bPrereqs) return aPrereqs - bPrereqs;
+                
+                // Second: group by clade (keeps related traits together)
+                const aCladeIdx = cladeOrder.indexOf(a.clade) ?? 99;
+                const bCladeIdx = cladeOrder.indexOf(b.clade) ?? 99;
+                if (aCladeIdx !== bCladeIdx) return aCladeIdx - bCladeIdx;
+                
+                // Third: lower cost first
                 return a.cost - b.cost;
             });
         }
@@ -2027,10 +2045,10 @@ export class Renderer {
         };
     }
     
-    // Calculate tech tree node width based on trait's era span
+    // Fixed width for all tech tree nodes (cleaner, no overlap)
     getTraitNodeWidth(trait, eraWidth, padding) {
-        const eraSpan = trait.era_max - trait.era_min + 1;
-        return eraSpan * eraWidth - padding;
+        // All nodes same width - ignores era span for cleaner layout
+        return 75;
     }
     
     // Render the full tech tree with MYA timeline header
