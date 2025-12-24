@@ -2237,7 +2237,8 @@ export class Renderer {
         const ERA_WIDTH = NODE_LEFT_MARGIN + NODE_WIDTH + 30;
         
         // Phylogenetic clades - loaded from phylogeny.json at game init
-        const CLADES = this.phylogenyClades || {
+        // Filter out _comment and other underscore-prefixed keys
+        const rawClades = this.phylogenyClades || {
             "Bilateria": { "parent": null, "era_split": 0, "row": 0, "color": "#8b949e" },
             "Arthropoda": { "parent": "Bilateria", "era_split": 0, "row": 1, "color": "#f97316" },
             "Hexapoda": { "parent": "Arthropoda", "era_split": 3, "row": 2, "color": "#fb923c" },
@@ -2256,6 +2257,9 @@ export class Renderer {
             "Crocodilia": { "parent": "Archosauria", "era_split": 6, "row": 15, "color": "#84cc16" },
             "Aves": { "parent": "Archosauria", "era_split": 7, "row": 16, "color": "#f472b6" }
         };
+        const CLADES = Object.fromEntries(
+            Object.entries(rawClades).filter(([k]) => !k.startsWith('_'))
+        );
         
         // Build child lookup for clades
         const cladeChildren = {};  // parent -> [children]
@@ -2265,6 +2269,18 @@ export class Renderer {
                 if (!cladeChildren[parent]) cladeChildren[parent] = [];
                 cladeChildren[parent].push(cladeName);
             }
+        }
+        
+        // Compute hierarchy depth for each clade (number of ancestors)
+        const cladeDepth = {};
+        for (const cladeName of Object.keys(CLADES)) {
+            let depth = 0;
+            let current = CLADES[cladeName]?.parent;
+            while (current) {
+                depth++;
+                current = CLADES[current]?.parent;
+            }
+            cladeDepth[cladeName] = depth;
         }
         
         // Get all descendant clades (recursive)
@@ -2910,6 +2926,7 @@ export class Renderer {
             NODE_LEFT_MARGIN,
             INDENT_PER_LEVEL,
             CLADES,
+            cladeDepth,
             activeCladesByEra,
             cladeYRanges,
             branchSplits,
@@ -2933,10 +2950,18 @@ export class Renderer {
         const startX = from.x + NODE_WIDTH;  // Exit from right side of source trait
         const startY = from.y + NODE_HEIGHT / 2;
         const endX = to.x;  // Enter left side of target trait
-        const endY = to.y + NODE_HEIGHT / 2;
+        // Use adjustedEndY if provided (for multiple incoming arrows), otherwise center
+        const endY = to.adjustedEndY !== undefined ? to.adjustedEndY : to.y + NODE_HEIGHT / 2;
         
         const fromEra = from.era;
         const toEra = to.era;
+        
+        // Arrows should never go backwards (right to left)
+        // Prerequisites must be in earlier or same era as dependents
+        if (toEra < fromEra) {
+            // Invalid direction - return a minimal path that won't render weirdly
+            return `M ${startX} ${startY} L ${endX} ${endY}`;
+        }
         
         // Get the target clade's range for routing
         const targetClade = to.activeClade || to.clade;
@@ -3237,7 +3262,7 @@ export class Renderer {
         const branchLayer = createSVGElement('g');
         branchLayer.classList.add('phylo-branch-layer');
         
-        const { branchSplits, cladeYRanges, activeCladesByEra, CLADES } = layout;
+        const { branchSplits, cladeYRanges, activeCladesByEra, CLADES, cladeDepth, INDENT_PER_LEVEL } = layout;
         
         // Draw lane backgrounds for each active clade at each era
         // Also add clade labels at era 0
@@ -3273,9 +3298,11 @@ export class Renderer {
                 branchLayer.appendChild(laneEdge);
                 
                 // Clade label in the header area (show at split era, abbreviated elsewhere)
+                // At split era: full name at left edge; after split: abbreviated with 1-level indent
                 const cladeSplitEra = CLADES[cladeName]?.era_split || 0;
+                const indent = era === cladeSplitEra ? 0 : INDENT_PER_LEVEL;
                 const cladeLabel = createSVGElement('text');
-                cladeLabel.setAttribute('x', eraX + 6);
+                cladeLabel.setAttribute('x', eraX + 6 + indent);
                 cladeLabel.setAttribute('y', range.startY + 12);  // In header area
                 cladeLabel.setAttribute('font-size', era === cladeSplitEra ? '10' : '8');
                 cladeLabel.setAttribute('font-weight', era === cladeSplitEra ? 'bold' : 'normal');
@@ -3394,6 +3421,16 @@ export class Renderer {
         
         const { virtualToReal } = layout;
         
+        // Pre-count how many arrows enter each trait (for vertical offset)
+        const incomingArrowCounts = {};  // posKey -> count
+        for (const [posKey, toPos] of Object.entries(positions)) {
+            const realTraitId = toPos.realId || posKey;
+            const trait = traitDb[realTraitId];
+            if (!trait) continue;
+            incomingArrowCounts[posKey] = (trait.hard_prereqs || []).length;
+        }
+        const incomingArrowIndex = {};  // posKey -> current index
+        
         // Iterate over all positions (including virtual traits)
         for (const [posKey, toPos] of Object.entries(positions)) {
             const realTraitId = toPos.realId || posKey;
@@ -3424,6 +3461,24 @@ export class Renderer {
                     continue;
                 }
                 
+                // Skip backwards arrows - prerequisites must be in earlier or same era
+                if (fromPos.era > toPos.era) {
+                    continue;
+                }
+                
+                // Calculate vertical offset for multiple incoming arrows
+                const totalIncoming = incomingArrowCounts[posKey] || 1;
+                const arrowIndex = incomingArrowIndex[posKey] || 0;
+                incomingArrowIndex[posKey] = arrowIndex + 1;
+                
+                // Spread arrows vertically across the left edge of the target node
+                const arrowSpacing = Math.min(6, (NODE_HEIGHT - 8) / Math.max(1, totalIncoming - 1));
+                const baseY = toPos.y + NODE_HEIGHT / 2;
+                const offsetY = totalIncoming > 1 
+                    ? (arrowIndex - (totalIncoming - 1) / 2) * arrowSpacing 
+                    : 0;
+                const adjustedEndY = baseY + offsetY;
+                
                 let d;
                 const isSameEra = fromPos.era === toPos.era;
                 const fromRealId = fromPos.realId || prereqId;
@@ -3433,14 +3488,14 @@ export class Renderer {
                     const startX = fromPos.x + 8;
                     const startY = fromPos.y + NODE_HEIGHT;
                     const endX = toPos.x;
-                    const endY = toPos.y + NODE_HEIGHT / 2;
+                    const endY = adjustedEndY;
                     const turnY = endY;
                     d = `M ${startX} ${startY} L ${startX} ${turnY} L ${endX} ${endY}`;
                 } else {
-                    // Cross-era or non-direct: use normal routing
+                    // Cross-era or non-direct: use normal routing with adjusted end Y
                     d = this.computeOrthogonalPath(
                         { ...fromPos, id: prereqId },
-                        { ...toPos, id: trait.id },
+                        { ...toPos, id: trait.id, adjustedEndY },
                         obstacles,
                         usedChannels,
                         layout
