@@ -3821,6 +3821,7 @@ body {
     display: flex;
     flex-direction: column;
     transition: all 0.25s ease-out;
+    position: relative; /* For lane header overlay positioning */
 }
 
 #tech-tree-panel.fullscreen {
@@ -3906,6 +3907,7 @@ body {
     background: var(--bg-dark);
     /* Smooth scrolling */
     scroll-behavior: smooth;
+    margin-left: 80px; /* Make room for sticky lane headers */
 }
 
 #tech-tree-svg {
@@ -3913,6 +3915,38 @@ body {
     /* Don't constrain width - allow horizontal scroll */
     min-width: max-content;
     transition: transform 0.15s ease-out;
+}
+
+/* Sticky Lane Header Overlay */
+#lane-header-overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 15;
+    background: var(--bg-card);
+    border-right: 1px solid var(--border);
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.lane-header-label {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    font-size: 9px;
+    font-weight: bold;
+    color: var(--text-primary);
+    border-bottom: 1px dashed var(--border);
+    box-sizing: border-box;
+}
+
+.lane-header-label.foundation {
+    font-weight: normal;
+    color: var(--text-muted);
 }
 
 /* MYA Timeline Header */
@@ -3973,6 +4007,59 @@ body {
     fill: #fff;
     font-family: var(--font-body);
     pointer-events: none;
+}
+
+/* Upcoming event card backs (future eras) */
+.tech-tree-event-upcoming rect {
+    stroke-width: 1;
+    stroke-dasharray: 2 1;
+    opacity: 0.7;
+}
+
+.tech-tree-event-upcoming-extinction rect {
+    fill: transparent;
+    stroke: var(--extinction-red);
+}
+
+.tech-tree-event-upcoming-other rect {
+    fill: transparent;
+    stroke: var(--event-green);
+}
+
+.tech-tree-event-upcoming-current rect {
+    opacity: 1;
+    stroke-dasharray: none;
+    animation: event-pulse 1.5s ease-in-out infinite;
+}
+
+.tech-tree-event-upcoming-current.tech-tree-event-upcoming-extinction rect {
+    fill: rgba(139, 0, 0, 0.3);
+}
+
+.tech-tree-event-upcoming-current.tech-tree-event-upcoming-other rect {
+    fill: rgba(45, 90, 39, 0.3);
+}
+
+.event-upcoming-symbol {
+    font-family: var(--font-body);
+    pointer-events: none;
+}
+
+.tech-tree-event-upcoming-extinction .event-upcoming-symbol {
+    fill: var(--extinction-red);
+}
+
+.tech-tree-event-upcoming-other .event-upcoming-symbol {
+    fill: var(--event-green);
+}
+
+.tech-tree-event-upcoming-current .event-upcoming-symbol {
+    fill: #fff;
+}
+
+@keyframes event-pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
 }
 
 .mya-current-era {

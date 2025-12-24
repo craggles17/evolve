@@ -44,6 +44,11 @@ class Game {
         await this.state.loadGameData();
         console.log('Game data loaded!');
         
+        // Pass phylogeny clades to renderer for tech tree layout
+        if (this.state.phylogenyData?.clades_flat) {
+            this.renderer.phylogenyClades = this.state.phylogenyData.clades_flat;
+        }
+        
         this.engine = new GameEngine(this.state, this.renderer);
         this.setupEventListeners();
         this.renderer.setupPlayerCountButtons();
@@ -823,6 +828,12 @@ class Game {
         const label = $('#tt-zoom-level');
         if (!container || !label) return;
         
+        // Sync lane header overlay vertical scroll with content
+        const laneOverlay = $('#lane-header-overlay');
+        if (laneOverlay) {
+            laneOverlay.style.transform = `translateY(-${container.scrollTop}px)`;
+        }
+        
         // Calculate which eras are visible based on scroll + zoom
         const scrollLeft = container.scrollLeft;
         const visibleWidth = container.clientWidth;
@@ -866,7 +877,7 @@ class Game {
         
         this.renderer.renderLineageBoard(player, this.state.traitDb);
         this.renderer.renderGenomeBar(player, this.state.traitDb);
-        this.renderer.renderTechTree(player, this.state.currentEra, this.state.traitDb, this.state.discardedEvents);
+        this.renderer.renderTechTree(player, this.state.currentEra, this.state.traitDb, this.state.discardedEvents, this.state.eventDeck);
         this.renderer.updatePlayerStats(player, this.state.traitDb, this.state.currentPhase, this.isMyTurn());
         this.renderer.updateEventDeck(this.state);
         this.renderer.renderPlayersBar(this.state.players, this.state.currentPlayerIndex, this.state.traitDb, this.state.currentEra, organisms);
@@ -1058,7 +1069,9 @@ class Game {
             return;
         }
         
+        this.isProcessing = true;
         this.processEndTurn();
+        this.isProcessing = false;
         
         if (this.mode === MODE.HOST && this.mpHost) {
             this.mpHost.broadcastState(this.state);

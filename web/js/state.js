@@ -138,17 +138,19 @@ export class GameState {
     async loadGameData() {
         const basePath = './data/';
         
-        const [traits, events, tiles, organisms] = await Promise.all([
+        const [traits, events, tiles, organisms, phylogeny] = await Promise.all([
             fetch(basePath + 'traits.json').then(r => r.json()),
             fetch(basePath + 'events.json').then(r => r.json()),
             fetch(basePath + 'tiles.json').then(r => r.json()),
-            fetch(basePath + 'organisms.json').then(r => r.json())
+            fetch(basePath + 'organisms.json').then(r => r.json()),
+            fetch(basePath + 'phylogeny.json').then(r => r.json())
         ]);
         
         this.traitsData = traits;
         this.eventsData = events;
         this.tilesData = tiles;
         this.organismsData = organisms;
+        this.phylogenyData = phylogeny;
         
         // Build trait lookup
         for (const trait of traits.traits) {

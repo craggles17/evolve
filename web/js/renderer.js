@@ -2230,58 +2230,184 @@ export class Renderer {
         const MYA_HEADER_HEIGHT = 42;
         const PADDING = 6;
         const NUM_ERAS = 12;
-        const CHANNEL_WIDTH = 25;  // Routing corridor between era columns
+        const CHANNEL_WIDTH = 40;  // Routing corridor on left side of each era column
+        const NODE_LEFT_MARGIN = 50;  // Space for routing channel before trait boxes
         
-        // Fixed era width for ~5 era visibility with scrolling (ignore container width)
-        const ERA_WIDTH = 140;
+        // Fixed era width - includes routing channel + node area
+        const ERA_WIDTH = NODE_LEFT_MARGIN + NODE_WIDTH + 30;
         
-        // Terminal lineages - major evolutionary endpoints
-        const LINEAGES = [
-            { id: 'arthropod', name: 'Arthropods', clades: ['Arthropoda', 'Hexapoda', 'Holometabola', 'Hymenoptera', 'Pterygota', 'Trilobita'] },
-            { id: 'cephalopod', name: 'Cephalopods', clades: ['Cephalopoda', 'Coleoidea'] },
-            { id: 'fish', name: 'Fish', clades: ['Actinopterygii', 'Chondrichthyes', 'Osteichthyes', 'Gnathostomata'] },
-            { id: 'amphibian', name: 'Amphibians', clades: ['Amphibia', 'Tetrapoda'] },
-            { id: 'reptile', name: 'Reptiles', clades: ['Reptilia', 'Diapsida', 'Crocodilia'] },
-            { id: 'bird', name: 'Birds', clades: ['Aves', 'Dinosauria/Aves', 'Theropoda/Aves', 'Archosauria'] },
-            { id: 'mammal', name: 'Mammals', clades: ['Mammalia', 'Eutheria', 'Theria', 'Synapsida', 'Therapsida', 'Primates', 'Cetacea/Pinnipedia', 'Chiroptera'] }
-        ];
+        // Phylogenetic clades - loaded from phylogeny.json at game init
+        const CLADES = this.phylogenyClades || {
+            "Bilateria": { "parent": null, "era_split": 0, "row": 0, "color": "#8b949e" },
+            "Arthropoda": { "parent": "Bilateria", "era_split": 0, "row": 1, "color": "#f97316" },
+            "Hexapoda": { "parent": "Arthropoda", "era_split": 3, "row": 2, "color": "#fb923c" },
+            "Mollusca": { "parent": "Bilateria", "era_split": 0, "row": 3, "color": "#a855f7" },
+            "Cephalopoda": { "parent": "Mollusca", "era_split": 1, "row": 4, "color": "#c084fc" },
+            "Chordata": { "parent": "Bilateria", "era_split": 0, "row": 5, "color": "#3b82f6" },
+            "Chondrichthyes": { "parent": "Chordata", "era_split": 1, "row": 6, "color": "#60a5fa" },
+            "Actinopterygii": { "parent": "Chordata", "era_split": 1, "row": 7, "color": "#38bdf8" },
+            "Sarcopterygii": { "parent": "Chordata", "era_split": 2, "row": 8, "color": "#22d3ee" },
+            "Amphibia": { "parent": "Sarcopterygii", "era_split": 3, "row": 9, "color": "#34d399" },
+            "Amniota": { "parent": "Sarcopterygii", "era_split": 4, "row": 10, "color": "#4ade80" },
+            "Synapsida": { "parent": "Amniota", "era_split": 4, "row": 11, "color": "#facc15" },
+            "Mammalia": { "parent": "Synapsida", "era_split": 6, "row": 12, "color": "#fbbf24" },
+            "Sauropsida": { "parent": "Amniota", "era_split": 4, "row": 13, "color": "#ef4444" },
+            "Archosauria": { "parent": "Sauropsida", "era_split": 5, "row": 14, "color": "#f87171" },
+            "Crocodilia": { "parent": "Archosauria", "era_split": 6, "row": 15, "color": "#84cc16" },
+            "Aves": { "parent": "Archosauria", "era_split": 7, "row": 16, "color": "#f472b6" }
+        };
         
-        // Build reverse dependency graph: traitId -> [traits that require it]
-        const dependents = {};
-        for (const trait of traits) {
-            dependents[trait.id] = [];
-        }
-        for (const trait of traits) {
-            for (const prereqId of (trait.hard_prereqs || [])) {
-                if (dependents[prereqId]) {
-                    dependents[prereqId].push(trait.id);
-                }
+        // Build child lookup for clades
+        const cladeChildren = {};  // parent -> [children]
+        for (const [cladeName, cladeData] of Object.entries(CLADES)) {
+            const parent = cladeData.parent;
+            if (parent) {
+                if (!cladeChildren[parent]) cladeChildren[parent] = [];
+                cladeChildren[parent].push(cladeName);
             }
         }
         
-        // Compute which lineages each trait can reach (by following dependents forward)
-        const traitLineages = {};  // traitId -> Set of lineage ids
-        const computeReachableLineages = (traitId, visited = new Set()) => {
+        // Get all descendant clades (recursive)
+        const getDescendants = (cladeName) => {
+            const descendants = [];
+            const children = cladeChildren[cladeName] || [];
+            for (const child of children) {
+                descendants.push(child);
+                descendants.push(...getDescendants(child));
+            }
+            return descendants;
+        };
+        
+        // Player ownership data for acquisition-based positioning (needed early for Y range calculation)
+        const ownedIds = new Set(player?.traits || []);
+        const acquisitions = player?.traitAcquisitions || {};
+        
+        // Compute which clades are "active" (visible as lanes) at each era
+        // A clade is active from its split era until it splits into children
+        const activeCladesByEra = {};
+        for (let era = 0; era < NUM_ERAS; era++) {
+            activeCladesByEra[era] = [];
+            for (const [cladeName, cladeData] of Object.entries(CLADES)) {
+                const splitEra = cladeData.era_split || 0;
+                // Clade becomes visible at its split era
+                if (era >= splitEra) {
+                    // Check if this clade has children that have split by this era
+                    const children = cladeChildren[cladeName] || [];
+                    const activeChildren = children.filter(c => (CLADES[c]?.era_split || 0) <= era);
+                    // If no children have split yet, this clade is a leaf at this era
+                    if (activeChildren.length === 0) {
+                        activeCladesByEra[era].push(cladeName);
+                    }
+                }
+            }
+            // Sort by row order
+            activeCladesByEra[era].sort((a, b) => (CLADES[a]?.row || 0) - (CLADES[b]?.row || 0));
+        }
+        
+        // Get clade color
+        const getCladeColor = (clade) => {
+            return CLADES[clade]?.color || '#8b949e';
+        };
+        
+        // Find the active clade for a trait at a given era
+        // (trait's clade or nearest ancestor that's active)
+        const getActiveClade = (traitClade, era) => {
+            let clade = traitClade;
+            while (clade) {
+                if (activeCladesByEra[era]?.includes(clade)) return clade;
+                clade = CLADES[clade]?.parent;
+            }
+            return activeCladesByEra[era]?.[0] || 'Bilateria';
+        };
+        
+        // Passthrough region height for arrow routing within each lane
+        const PASSTHROUGH_HEIGHT = 14;
+        // Clade header height - space for clade label at top of each lane
+        const CLADE_HEADER_HEIGHT = 16;
+        
+        // Compute Y ranges for each clade at each era
+        // Count traits that will actually be PLACED in each lane (using getActiveClade logic)
+        const cladeYRanges = {};  // era -> cladeName -> { startY, endY, passthroughY, traitsStartY }
+        
+        for (let era = 0; era < NUM_ERAS; era++) {
+            cladeYRanges[era] = {};
+            const activeClades = activeCladesByEra[era];
+            
+            // Count how many traits will be placed in each active clade lane
+            const laneTraitCounts = {};
+            for (const cladeName of activeClades) {
+                laneTraitCounts[cladeName] = 0;
+            }
+            
+            // For each trait at this era, find which active lane it maps to
+            for (const trait of traits) {
+                const tEra = ownedIds.has(trait.id) ? (acquisitions[trait.id] ?? trait.era_min) : trait.era_min;
+                if (tEra !== era) continue;
+                
+                const activeClade = getActiveClade(trait.clade, era);
+                if (laneTraitCounts[activeClade] !== undefined) {
+                    laneTraitCounts[activeClade]++;
+                }
+            }
+            
+            // Assign Y ranges based on: header + traits + passthrough
+            let currentY = MYA_HEADER_HEIGHT + PADDING;
+            for (const cladeName of activeClades) {
+                const traitCount = Math.max(1, laneTraitCounts[cladeName]);
+                const traitsHeight = traitCount * (NODE_HEIGHT + V_GAP);
+                const laneHeight = CLADE_HEADER_HEIGHT + traitsHeight + PASSTHROUGH_HEIGHT;
+                
+                cladeYRanges[era][cladeName] = {
+                    startY: currentY,
+                    endY: currentY + laneHeight,
+                    height: laneHeight,
+                    traitsStartY: currentY + CLADE_HEADER_HEIGHT,  // Where traits start (after header)
+                    traitsEndY: currentY + CLADE_HEADER_HEIGHT + traitsHeight,  // Where traits end
+                    passthroughY: currentY + CLADE_HEADER_HEIGHT + traitsHeight + PASSTHROUGH_HEIGHT / 2  // Center of passthrough
+                };
+                currentY += laneHeight + 4;  // Gap between lanes
+            }
+        }
+        
+        // Find terminal clades (clades with no children in CLADES)
+        const terminalClades = Object.keys(CLADES).filter(c => !cladeChildren[c] || cladeChildren[c].length === 0);
+        
+        // Build dependents map: for each trait, which traits depend on it (reverse of hard_prereqs)
+        const dependents = {};  // traitId -> [dependent trait ids]
+        for (const trait of traits) {
+            for (const prereqId of (trait.hard_prereqs || [])) {
+                if (!dependents[prereqId]) dependents[prereqId] = [];
+                dependents[prereqId].push(trait.id);
+            }
+        }
+        
+        // Compute which terminal clades each trait can reach through its dependents
+        const traitLineages = {};  // traitId -> Set of terminal clade names
+        const computeReachableClades = (traitId, visited = new Set()) => {
             if (traitLineages[traitId]) return traitLineages[traitId];
             if (visited.has(traitId)) return new Set();
             visited.add(traitId);
             
             const trait = traitDb[traitId];
+            if (!trait) return new Set();
+            
             const reachable = new Set();
             
-            // Check if this trait's clade belongs to any lineage
-            for (const lineage of LINEAGES) {
-                if (lineage.clades.includes(trait.clade)) {
-                    reachable.add(lineage.id);
-                }
+            // Add trait's own clade if it's terminal
+            if (terminalClades.includes(trait.clade)) {
+                reachable.add(trait.clade);
             }
             
-            // Follow dependents forward to find more reachable lineages
-            for (const depId of (dependents[traitId] || [])) {
-                const depLineages = computeReachableLineages(depId, visited);
-                for (const lin of depLineages) {
-                    reachable.add(lin);
-                }
+            // Add clades reachable through dependents
+            const deps = dependents[traitId] || [];
+            for (const depId of deps) {
+                const depClades = computeReachableClades(depId, new Set(visited));
+                for (const c of depClades) reachable.add(c);
+            }
+            
+            // If no terminal clades found, use the trait's own clade
+            if (reachable.size === 0) {
+                reachable.add(trait.clade);
             }
             
             traitLineages[traitId] = reachable;
@@ -2290,37 +2416,38 @@ export class Renderer {
         
         // Compute lineages for all traits
         for (const trait of traits) {
-            computeReachableLineages(trait.id);
+            computeReachableClades(trait.id);
         }
         
-        // Get lineage lane for a trait (returns lineage index, or -1 for foundation)
-        const getLineageLane = (trait) => {
-            // Virtual traits have explicit lineageId
-            if (trait.lineageId) {
-                const idx = LINEAGES.findIndex(l => l.id === trait.lineageId);
-                return idx >= 0 ? idx : -1;
-            }
-            // Non-virtual traits use computed lineages
-            const lineages = traitLineages[trait.realId || trait.id];
-            if (!lineages || lineages.size === 0) return -1;
-            for (let i = 0; i < LINEAGES.length; i++) {
-                if (lineages.has(LINEAGES[i].id)) return i;
-            }
-            return -1;
-        };
-        
-        // Player ownership data for acquisition-based positioning
-        const ownedIds = new Set(player?.traits || []);
-        const acquisitions = player?.traitAcquisitions || {};
-        
-        // Group traits by display era, duplicating across lineages
+        // Group traits by display era - DUPLICATE traits across clades they can reach
         const eraGroups = {};
         for (let i = 0; i < NUM_ERAS; i++) {
             eraGroups[i] = [];
         }
         
-        // Track virtual->real trait mapping
-        const virtualToReal = {};  // virtualId -> realTraitId
+        // Build same-era children lookup (for intra-era clade duplication)
+        const sameEraChildrenByEra = {};  // era -> traitId -> [childIds in that era]
+        for (const trait of traits) {
+            const displayEra = ownedIds.has(trait.id)
+                ? (acquisitions[trait.id] ?? trait.era_min)
+                : trait.era_min;
+            for (const prereqId of (trait.hard_prereqs || [])) {
+                const prereqTrait = traitDb[prereqId];
+                if (!prereqTrait) continue;
+                const prereqEra = ownedIds.has(prereqId)
+                    ? (acquisitions[prereqId] ?? prereqTrait.era_min)
+                    : prereqTrait.era_min;
+                if (prereqEra === displayEra) {
+                    if (!sameEraChildrenByEra[displayEra]) sameEraChildrenByEra[displayEra] = {};
+                    if (!sameEraChildrenByEra[displayEra][prereqId]) sameEraChildrenByEra[displayEra][prereqId] = [];
+                    sameEraChildrenByEra[displayEra][prereqId].push(trait.id);
+                }
+            }
+        }
+        
+        // Track virtual trait mappings: virtualId -> realId
+        const virtualToReal = {};
+        let virtualCounter = 0;
         
         for (const trait of traits) {
             const displayEra = ownedIds.has(trait.id)
@@ -2328,25 +2455,72 @@ export class Renderer {
                 : trait.era_min;
             if (displayEra < 0 || displayEra >= NUM_ERAS) continue;
             
-            const reachableLineages = traitLineages[trait.id];
+            // Filter orphan traits: no prereqs AND no dependents AND not owned
+            // Foundation traits (have dependents) are kept
+            // Owned traits are always shown
+            const hasPrereqs = (trait.hard_prereqs?.length > 0) || (trait.soft_prereqs?.length > 0);
+            const hasDependents = (dependents[trait.id]?.length > 0);
+            const isOwned = ownedIds.has(trait.id);
             
-            // If trait reaches multiple lineages, duplicate it in each lane
-            if (reachableLineages && reachableLineages.size > 1) {
-                for (const lineageId of reachableLineages) {
-                    const virtualId = `${trait.id}@${lineageId}`;
+            if (!hasPrereqs && !hasDependents && !isOwned) {
+                continue;  // Skip orphan traits
+            }
+            
+            const activeAtEra = activeCladesByEra[displayEra] || [];
+            
+            // Compute clades this trait should appear in:
+            // 1. Its own reachable clades (from lineage computation)
+            // 2. Clades of same-era children (for intra-era duplication)
+            const relevantClades = new Set();
+            
+            // Add clades from lineage computation
+            const reachableClades = traitLineages[trait.id] || new Set([trait.clade]);
+            for (const rc of reachableClades) {
+                // Find the active clade at this era for this reachable clade
+                let current = rc;
+                while (current) {
+                    if (activeAtEra.includes(current)) {
+                        relevantClades.add(current);
+                        break;
+                    }
+                    current = CLADES[current]?.parent;
+                }
+            }
+            
+            // Also check same-era children's clades
+            const sameEraChildren = sameEraChildrenByEra[displayEra]?.[trait.id] || [];
+            for (const childId of sameEraChildren) {
+                const childTrait = traitDb[childId];
+                if (!childTrait) continue;
+                const childActiveClade = getActiveClade(childTrait.clade, displayEra);
+                if (childActiveClade) relevantClades.add(childActiveClade);
+            }
+            
+            // If no relevant clades found, use the trait's own clade
+            if (relevantClades.size === 0) {
+                relevantClades.add(getActiveClade(trait.clade, displayEra));
+            }
+            
+            // Filter to only active clades at this era
+            const relevantActiveClades = [...relevantClades].filter(c => activeAtEra.includes(c));
+            
+            // If only one relevant clade, add trait normally
+            if (relevantActiveClades.length <= 1) {
+                eraGroups[displayEra].push(trait);
+            } else {
+                // Duplicate trait for each relevant active clade
+                for (const activeClade of relevantActiveClades) {
+                    const virtualId = `${trait.id}__${activeClade}__${virtualCounter++}`;
                     const virtualTrait = {
                         ...trait,
                         virtualId,
                         realId: trait.id,
-                        lineageId,
+                        assignedClade: activeClade,
                         isVirtual: true
                     };
                     virtualToReal[virtualId] = trait.id;
                     eraGroups[displayEra].push(virtualTrait);
                 }
-            } else {
-                // Single lineage or no lineage - just add normally
-                eraGroups[displayEra].push({ ...trait, realId: trait.id, isVirtual: false });
             }
         }
         
@@ -2411,63 +2585,206 @@ export class Renderer {
             computeChainDepth(trait.id);
         }
         
-        // Find the root of a same-era chain
-        const findChainRoot = (traitId) => {
-            let current = traitId;
-            while (sameEraPrereq[current]) {
-                current = sameEraPrereq[current];
+        // Build same-era children lookup (reverse of sameEraPrereq)
+        const sameEraChildren = {};  // parentId -> [childIds]
+        for (const [childId, parentId] of Object.entries(sameEraPrereq)) {
+            if (!sameEraChildren[parentId]) sameEraChildren[parentId] = [];
+            sameEraChildren[parentId].push(childId);
+        }
+        
+        // Depth-first traversal to order traits (parent directly above all its children)
+        const depthFirstOrder = (traitId, result, traitMap) => {
+            const trait = traitMap[traitId];
+            if (!trait) return;
+            result.push(trait);
+            const children = sameEraChildren[traitId] || [];
+            // Sort children by cost for consistent ordering
+            children.sort((a, b) => (traitMap[a]?.cost || 0) - (traitMap[b]?.cost || 0));
+            for (const childId of children) {
+                depthFirstOrder(childId, result, traitMap);
             }
-            return current;
         };
         
-        // Sort: lineage lane first, then owned status, then by chain root, then by chain depth
-        // This groups related evolutionary lineages together vertically
+        // Sort each era using depth-first tree traversal
+        // This ensures parents are always directly above their children
         for (const era in eraGroups) {
-            eraGroups[era].sort((a, b) => {
-                // Group by lineage lane first (keeps evolutionary lineages together)
-                const aLane = getLineageLane(a);
-                const bLane = getLineageLane(b);
-                if (aLane !== bLane) return aLane - bLane;
+            const eraInt = parseInt(era);
+            
+            // Build trait map for quick lookup - use virtualId for virtual traits
+            const traitMap = {};
+            for (const trait of eraGroups[era]) {
+                const key = trait.virtualId || trait.id;
+                traitMap[key] = trait;
+            }
+            
+            // Helper to get the effective clade for a trait (assigned clade for virtual, computed otherwise)
+            const getEffectiveClade = (trait) => {
+                if (trait.assignedClade) return trait.assignedClade;
+                return getActiveClade(trait.clade, eraInt);
+            };
+            
+            // Find root traits (no same-era parent, or parent not in this era's group)
+            const roots = eraGroups[era].filter(t => {
+                const realId = t.realId || t.id;
+                const parentId = sameEraPrereq[realId];
+                if (!parentId) return true;
+                // Check if parent exists in this group (could be virtual)
+                return !Object.values(traitMap).some(m => (m.realId || m.id) === parentId);
+            });
+            
+            // Sort roots by: clade row, then owned status, then cost
+            roots.sort((a, b) => {
+                const aActiveClade = getEffectiveClade(a);
+                const bActiveClade = getEffectiveClade(b);
+                const aRow = CLADES[aActiveClade]?.row ?? 0;
+                const bRow = CLADES[bActiveClade]?.row ?? 0;
+                if (aRow !== bRow) return aRow - bRow;
                 
-                // Within each lane, owned traits first (use realId for ownership check)
-                const aOwned = ownedIds.has(a.realId) ? 0 : 1;
-                const bOwned = ownedIds.has(b.realId) ? 0 : 1;
+                const aRealId = a.realId || a.id;
+                const bRealId = b.realId || b.id;
+                const aOwned = ownedIds.has(aRealId) ? 0 : 1;
+                const bOwned = ownedIds.has(bRealId) ? 0 : 1;
                 if (aOwned !== bOwned) return aOwned - bOwned;
-                
-                // Group by same-era chain root (keeps dependency chains together)
-                const aRoot = findChainRoot(a.realId);
-                const bRoot = findChainRoot(b.realId);
-                if (aRoot !== bRoot) return aRoot.localeCompare(bRoot);
-                
-                // Within a chain, sort by chain depth (prereqs first = above)
-                const aChainDepth = sameEraChainDepth[a.realId] || 0;
-                const bChainDepth = sameEraChainDepth[b.realId] || 0;
-                if (aChainDepth !== bChainDepth) return aChainDepth - bChainDepth;
                 
                 return a.cost - b.cost;
             });
+            
+            // Depth-first for virtual traits - use virtualId as key
+            const depthFirstOrderVirtual = (traitKey, result, tMap) => {
+                const trait = tMap[traitKey];
+                if (!trait) return;
+                result.push(trait);
+                const realId = trait.realId || trait.id;
+                const childRealIds = sameEraChildren[realId] || [];
+                // Find virtual traits in this map that match child real IDs
+                for (const childRealId of childRealIds) {
+                    const childTraits = Object.values(tMap).filter(t => (t.realId || t.id) === childRealId);
+                    for (const child of childTraits) {
+                        const childKey = child.virtualId || child.id;
+                        if (tMap[childKey]) {
+                            depthFirstOrderVirtual(childKey, result, tMap);
+                        }
+                    }
+                }
+            };
+            
+            // Build final order via depth-first traversal from each root
+            const ordered = [];
+            for (const root of roots) {
+                const rootKey = root.virtualId || root.id;
+                depthFirstOrderVirtual(rootKey, ordered, traitMap);
+            }
+            
+            eraGroups[era] = ordered;
         }
         
-        // Assign initial positions - left-align nodes to leave routing channel on right
+        // RECALCULATE clade Y ranges based on ACTUAL trait counts after depth-first sorting
+        for (let era = 0; era < NUM_ERAS; era++) {
+            const activeClades = activeCladesByEra[era];
+            
+            // Count actual traits per clade from eraGroups (after sorting may have dropped some)
+            const actualCounts = {};
+            for (const cladeName of activeClades) {
+                actualCounts[cladeName] = 0;
+            }
+            
+            for (const trait of eraGroups[era]) {
+                const activeClade = trait.assignedClade || getActiveClade(trait.clade, era);
+                if (actualCounts[activeClade] !== undefined) {
+                    actualCounts[activeClade]++;
+                }
+            }
+            
+            // Reassign Y ranges with actual counts
+            let currentY = MYA_HEADER_HEIGHT + PADDING;
+            for (const cladeName of activeClades) {
+                const traitCount = Math.max(1, actualCounts[cladeName]);
+                const traitsHeight = traitCount * (NODE_HEIGHT + V_GAP);
+                const laneHeight = CLADE_HEADER_HEIGHT + traitsHeight + PASSTHROUGH_HEIGHT;
+                
+                cladeYRanges[era][cladeName] = {
+                    startY: currentY,
+                    endY: currentY + laneHeight,
+                    height: laneHeight,
+                    traitsStartY: currentY + CLADE_HEADER_HEIGHT,
+                    traitsEndY: currentY + CLADE_HEADER_HEIGHT + traitsHeight,
+                    passthroughY: currentY + CLADE_HEADER_HEIGHT + traitsHeight + PASSTHROUGH_HEIGHT / 2
+                };
+                currentY += laneHeight + 4;
+            }
+        }
+        
+        // Track Y position within each clade lane per era
+        const cladeYOffsets = {};  // era -> cladeName -> currentY offset
+        for (let era = 0; era < NUM_ERAS; era++) {
+            cladeYOffsets[era] = {};
+            for (const cladeName of activeCladesByEra[era]) {
+                cladeYOffsets[era][cladeName] = 0;
+            }
+        }
+        
+        // Indent amount for same-era child traits
+        const INDENT_PER_LEVEL = 12;
+        
+        // Assign positions - traits positioned within their clade's Y range
+        // Traits with same-era prereqs are indented beneath their parent
         const assignPositions = () => {
             for (let era = 0; era < NUM_ERAS; era++) {
                 const group = eraGroups[era];
                 const eraX = PADDING + era * ERA_WIDTH;
-                const nodeStartX = eraX + 8;
-                for (let i = 0; i < group.length; i++) {
-                    const trait = group[i];
-                    const y = MYA_HEADER_HEIGHT + PADDING + i * (NODE_HEIGHT + V_GAP);
+                const nodeStartX = eraX + NODE_LEFT_MARGIN;  // Leave room for routing channel
+                
+                for (const trait of group) {
+                    // Use assigned clade for virtual traits, computed for regular
+                    const activeClade = trait.assignedClade || getActiveClade(trait.clade, era);
+                    const range = cladeYRanges[era]?.[activeClade];
+                    const offset = cladeYOffsets[era]?.[activeClade] || 0;
+                    
+                    // Calculate indent - ONLY indent if same-era parent is in SAME active clade
+                    const realId = trait.realId || trait.id;
+                    const parentRealId = sameEraPrereq[realId];
+                    let indent = 0;
+                    let effectiveChainDepth = 0;
+                    
+                    if (parentRealId) {
+                        // Find parent's position to check if it's in the same clade
+                        const parentPos = Object.values(positions).find(p => 
+                            (p.realId === parentRealId || p.realId === undefined) && 
+                            positions[parentRealId]?.era === era
+                        ) || positions[parentRealId];
+                        
+                        // Only indent if parent is in the same active clade
+                        if (parentPos && parentPos.activeClade === activeClade) {
+                            effectiveChainDepth = sameEraChainDepth[realId] || 0;
+                            indent = effectiveChainDepth * INDENT_PER_LEVEL;
+                        }
+                    }
+                    
+                    // Use traitsStartY to position after clade header
+                    const y = (range?.traitsStartY || MYA_HEADER_HEIGHT + PADDING) + offset;
+                    
+                    // Use virtualId as position key for virtual traits
                     const posKey = trait.virtualId || trait.id;
+                    
                     positions[posKey] = { 
-                        x: nodeStartX, 
+                        x: nodeStartX + indent, 
                         y, 
                         era, 
                         eraX, 
-                        slot: i,
-                        realId: trait.realId,
-                        isVirtual: trait.isVirtual,
-                        lineageId: trait.lineageId
+                        slot: offset / (NODE_HEIGHT + V_GAP),
+                        clade: trait.clade,
+                        activeClade,
+                        cladeColor: getCladeColor(trait.clade),
+                        chainDepth: effectiveChainDepth,
+                        sameEraParent: parentRealId && indent > 0 ? parentRealId : null,  // Only set if actually indenting
+                        realId,
+                        isVirtual: trait.isVirtual || false
                     };
+                    
+                    // Increment offset for next trait in this clade
+                    if (cladeYOffsets[era][activeClade] !== undefined) {
+                        cladeYOffsets[era][activeClade] += NODE_HEIGHT + V_GAP;
+                    }
                 }
             }
         };
@@ -2479,7 +2796,7 @@ export class Renderer {
             for (let era = 1; era < NUM_ERAS; era++) {
                 const group = eraGroups[era];
                 
-                // Compute barycenter for each trait (avg Y of prereqs in same lineage)
+                // Compute barycenter for each trait (avg Y of prereqs)
                 const barycenters = {};
                 for (const trait of group) {
                     const posKey = trait.virtualId || trait.id;
@@ -2490,9 +2807,9 @@ export class Renderer {
                     }
                     let sum = 0, count = 0;
                     for (const prereqId of prereqs) {
-                        // For virtual traits, look for prereq in same lineage first
-                        const prereqVirtualKey = trait.lineageId ? `${prereqId}@${trait.lineageId}` : prereqId;
-                        const prereqPos = positions[prereqVirtualKey] || positions[prereqId];
+                        // Look for prereq in any position (could be virtual)
+                        const prereqPos = positions[prereqId] || 
+                            Object.values(positions).find(p => p.realId === prereqId);
                         if (prereqPos) {
                             sum += prereqPos.y + NODE_HEIGHT / 2;
                             count++;
@@ -2501,34 +2818,82 @@ export class Renderer {
                     barycenters[posKey] = count > 0 ? sum / count : (positions[posKey]?.y ?? 0);
                 }
                 
-                // Sort by barycenter within lineage lanes
+                // Sort by barycenter within active clade
                 group.sort((a, b) => {
-                    // Lineage lanes first
-                    const aLane = getLineageLane(a);
-                    const bLane = getLineageLane(b);
-                    if (aLane !== bLane) return aLane - bLane;
+                    // Active clade rows first (use assigned clade for virtual)
+                    const aActiveClade = a.assignedClade || getActiveClade(a.clade, era);
+                    const bActiveClade = b.assignedClade || getActiveClade(b.clade, era);
+                    const aRow = CLADES[aActiveClade]?.row ?? 0;
+                    const bRow = CLADES[bActiveClade]?.row ?? 0;
+                    if (aRow !== bRow) return aRow - bRow;
                     
-                    // Within lane, owned first
-                    const aOwned = ownedIds.has(a.realId) ? 0 : 1;
-                    const bOwned = ownedIds.has(b.realId) ? 0 : 1;
+                    // Within clade, owned first (use realId for ownership check)
+                    const aRealId = a.realId || a.id;
+                    const bRealId = b.realId || b.id;
+                    const aOwned = ownedIds.has(aRealId) ? 0 : 1;
+                    const bOwned = ownedIds.has(bRealId) ? 0 : 1;
                     if (aOwned !== bOwned) return aOwned - bOwned;
                     
-                    const aKey = a.virtualId || a.id;
-                    const bKey = b.virtualId || b.id;
-                    return barycenters[aKey] - barycenters[bKey];
+                    const aPosKey = a.virtualId || a.id;
+                    const bPosKey = b.virtualId || b.id;
+                    return (barycenters[aPosKey] || 0) - (barycenters[bPosKey] || 0);
                 });
+            }
+            
+            // Reset offsets and reassign positions
+            for (let era = 0; era < NUM_ERAS; era++) {
+                for (const cladeName of activeCladesByEra[era]) {
+                    cladeYOffsets[era][cladeName] = 0;
+                }
             }
             assignPositions();
         }
         
-        // Find the max traits in any era (for height calculation)
-        let maxTraitsInEra = 0;
-        for (const era in eraGroups) {
-            maxTraitsInEra = Math.max(maxTraitsInEra, eraGroups[era].length);
+        // Compute total height from clade ranges
+        let maxY = MYA_HEADER_HEIGHT + PADDING;
+        for (let era = 0; era < NUM_ERAS; era++) {
+            for (const cladeName in cladeYRanges[era]) {
+                const range = cladeYRanges[era][cladeName];
+                maxY = Math.max(maxY, range.endY);
+            }
         }
         
         const totalWidth = PADDING * 2 + NUM_ERAS * ERA_WIDTH;
-        const totalHeight = MYA_HEADER_HEIGHT + PADDING * 2 + maxTraitsInEra * (NODE_HEIGHT + V_GAP);
+        const totalHeight = maxY + PADDING;
+        
+        // Build branch split points for rendering
+        // A split point occurs when a parent clade has children that split at this era
+        const branchSplits = [];  // { era, parentClade, childClades, parentY, childYs }
+        for (let era = 0; era < NUM_ERAS; era++) {
+            for (const [cladeName, cladeData] of Object.entries(CLADES)) {
+                const children = cladeChildren[cladeName] || [];
+                // Find children that split at exactly this era
+                const splittingChildren = children.filter(c => (CLADES[c]?.era_split || 0) === era);
+                if (splittingChildren.length > 0) {
+                    // Parent's Y range at previous era
+                    const prevEra = Math.max(0, era - 1);
+                    const parentRange = cladeYRanges[prevEra]?.[cladeName];
+                    const parentMidY = parentRange 
+                        ? (parentRange.startY + parentRange.endY) / 2 
+                        : MYA_HEADER_HEIGHT + PADDING;
+                    
+                    // Children's Y ranges at this era
+                    const childYs = splittingChildren.map(c => {
+                        const range = cladeYRanges[era]?.[c];
+                        return range ? (range.startY + range.endY) / 2 : parentMidY;
+                    });
+                    
+                    branchSplits.push({
+                        era,
+                        parentClade: cladeName,
+                        childClades: splittingChildren,
+                        parentY: parentMidY,
+                        childYs,
+                        color: cladeData.color
+                    });
+                }
+            }
+        }
         
         return { 
             positions, 
@@ -2542,9 +2907,15 @@ export class Renderer {
             PADDING,
             NUM_ERAS,
             CHANNEL_WIDTH,
-            LINEAGES,
-            traitLineages,
-            virtualToReal
+            NODE_LEFT_MARGIN,
+            INDENT_PER_LEVEL,
+            CLADES,
+            activeCladesByEra,
+            cladeYRanges,
+            branchSplits,
+            sameEraPrereq,
+            virtualToReal,
+            traitLineages
         };
     }
     
@@ -2554,58 +2925,64 @@ export class Renderer {
         return 75;
     }
     
-    // Compute orthogonal path that routes in dedicated channels between era columns
-    // Channels are on the right side of each era where nodes don't exist
+    // Compute orthogonal path that routes through clade HEADER area (above traits)
+    // Arrows use header for horizontal routing, left channel for vertical
     computeOrthogonalPath(from, to, obstacles, usedChannels, layout) {
-        const { NODE_WIDTH, NODE_HEIGHT, ERA_WIDTH, PADDING, CHANNEL_WIDTH, MYA_HEADER_HEIGHT, totalHeight } = layout;
+        const { NODE_WIDTH, NODE_HEIGHT, ERA_WIDTH, PADDING, NODE_LEFT_MARGIN, cladeYRanges } = layout;
         
-        const startX = from.x + NODE_WIDTH;
+        const startX = from.x + NODE_WIDTH;  // Exit from right side of source trait
         const startY = from.y + NODE_HEIGHT / 2;
-        const endX = to.x;
+        const endX = to.x;  // Enter left side of target trait
         const endY = to.y + NODE_HEIGHT / 2;
         
         const fromEra = from.era;
         const toEra = to.era;
         
-        // Same-era connections: route to the channel on the right side of the era
-        if (fromEra === toEra) {
-            // Use the channel at the right edge of this era
-            const channelX = PADDING + (fromEra + 1) * ERA_WIDTH - CHANNEL_WIDTH / 2;
-            return `M ${startX} ${startY} L ${channelX} ${startY} L ${channelX} ${endY} L ${endX} ${endY}`;
-        }
+        // Get the target clade's range for routing
+        const targetClade = to.activeClade || to.clade;
+        const targetRange = cladeYRanges?.[toEra]?.[targetClade];
         
-        // Cross-era: channel is at the era boundary before the target
-        const channelX = PADDING + toEra * ERA_WIDTH - CHANNEL_WIDTH / 2;
+        // Route through HEADER area (above traits) - use startY of the clade range
+        const headerY = targetRange?.startY ? targetRange.startY + 8 : startY;
+        
+        // Also get passthrough Y (bottom of clade) for alternative routing
+        const passthroughY = targetRange?.passthroughY || (startY + endY) / 2;
         
         // Track channel usage for parallel edge offset
-        const channelKey = `to-${toEra}`;
-        if (!usedChannels[channelKey]) usedChannels[channelKey] = [];
-        const slotIndex = usedChannels[channelKey].length;
-        const slotOffset = slotIndex * 3;
-        usedChannels[channelKey].push({ from: from.y, to: to.y });
+        const channelKey = `${targetClade}-${toEra}`;
+        if (!usedChannels[channelKey]) usedChannels[channelKey] = 0;
+        const slotOffset = usedChannels[channelKey] * 2;
+        usedChannels[channelKey]++;
         
-        const routeChannelX = channelX - slotOffset;
+        // Route Y is in the header area (top of clade) with slot offset
+        const routeY = headerY + slotOffset;
         
-        // Adjacent eras: simple elbow path through the channel
-        if (toEra === fromEra + 1) {
-            return `M ${startX} ${startY} L ${routeChannelX} ${startY} L ${routeChannelX} ${endY} L ${endX} ${endY}`;
+        // Entry channel is in the LEFT margin of target era (before trait boxes)
+        const entryChannelX = PADDING + toEra * ERA_WIDTH + NODE_LEFT_MARGIN / 2 - slotOffset;
+        
+        // Same-era connections: route through passthrough at bottom (within same clade)
+        if (fromEra === toEra) {
+            // Go right past the era, down to passthrough, back left through channel
+            const jogX = PADDING + (fromEra + 1) * ERA_WIDTH - 5;
+            return `M ${startX} ${startY} L ${jogX} ${startY} L ${jogX} ${passthroughY} L ${entryChannelX} ${passthroughY} L ${entryChannelX} ${endY} L ${endX} ${endY}`;
         }
         
-        // Multi-era span: route via top or bottom to avoid crossing intermediate era nodes
-        const routeViaTop = startY > (MYA_HEADER_HEIGHT + totalHeight) / 2;
-        const routeY = routeViaTop 
-            ? MYA_HEADER_HEIGHT + 4 + slotOffset  // Route above all nodes
-            : totalHeight - 4 - slotOffset;        // Route below all nodes
+        // Adjacent eras: exit right, go to header Y, then down to target
+        if (toEra === fromEra + 1) {
+            // Route through header for cleaner cross-era connections
+            return `M ${startX} ${startY} L ${entryChannelX} ${startY} L ${entryChannelX} ${routeY} L ${entryChannelX} ${endY} L ${endX} ${endY}`;
+        }
         
-        // Exit from source era to its right channel
-        const exitChannelX = PADDING + (fromEra + 1) * ERA_WIDTH - CHANNEL_WIDTH / 2 - slotOffset;
+        // Multi-era span: route through passthrough horizontally, then up through target's left channel
+        // Exit via right side of source era
+        const exitX = PADDING + (fromEra + 1) * ERA_WIDTH - 5;
         
-        // Path: horizontal to exit channel → vertical to routeY → horizontal to entry channel → vertical to target → horizontal to target
-        return `M ${startX} ${startY} L ${exitChannelX} ${startY} L ${exitChannelX} ${routeY} L ${routeChannelX} ${routeY} L ${routeChannelX} ${endY} L ${endX} ${endY}`;
+        // Path: exit source → down to passthrough → horizontal to entry channel → vertical to target
+        return `M ${startX} ${startY} L ${exitX} ${startY} L ${exitX} ${routeY} L ${entryChannelX} ${routeY} L ${entryChannelX} ${endY} L ${endX} ${endY}`;
     }
     
     // Render the full tech tree with MYA timeline header
-    renderTechTree(player, currentEra, traitDb, discardedEvents = []) {
+    renderTechTree(player, currentEra, traitDb, discardedEvents = [], eventDeck = []) {
         const svg = $('#tech-tree-svg');
         if (!svg) return;
         
@@ -2795,6 +3172,53 @@ export class Renderer {
                 
                 headerLayer.appendChild(eventGroup);
             }
+            
+            // Event card back for upcoming eras (shows extinction vs other type)
+            if (era >= currentEra && !discardedEvents[era]) {
+                const deckIndex = era - currentEra;
+                const upcomingEvent = eventDeck[deckIndex];
+                if (upcomingEvent) {
+                    const eventGroup = createSVGElement('g');
+                    eventGroup.classList.add('tech-tree-event-upcoming');
+                    
+                    const isExtinction = upcomingEvent.type === 'extinction';
+                    eventGroup.classList.add(isExtinction ? 'tech-tree-event-upcoming-extinction' : 'tech-tree-event-upcoming-other');
+                    
+                    if (isCurrentEra) {
+                        eventGroup.classList.add('tech-tree-event-upcoming-current');
+                    }
+                    
+                    // Card back indicator
+                    const iconSize = 10;
+                    const iconX = eraX + ERA_WIDTH / 2 - iconSize / 2;
+                    const iconY = 28;
+                    
+                    const iconRect = createSVGElement('rect');
+                    iconRect.setAttribute('x', iconX);
+                    iconRect.setAttribute('y', iconY);
+                    iconRect.setAttribute('width', iconSize);
+                    iconRect.setAttribute('height', iconSize);
+                    iconRect.setAttribute('rx', '2');
+                    eventGroup.appendChild(iconRect);
+                    
+                    // Symbol (skull outline for extinction, ? for other)
+                    const iconText = createSVGElement('text');
+                    iconText.setAttribute('x', iconX + iconSize / 2);
+                    iconText.setAttribute('y', iconY + iconSize - 2);
+                    iconText.setAttribute('text-anchor', 'middle');
+                    iconText.setAttribute('font-size', '7');
+                    iconText.classList.add('event-upcoming-symbol');
+                    iconText.textContent = isExtinction ? '☠' : '?';
+                    eventGroup.appendChild(iconText);
+                    
+                    // Tooltip
+                    const tooltip = createSVGElement('title');
+                    tooltip.textContent = isExtinction ? 'Extinction Event Incoming' : 'Event Incoming (Positive/Neutral)';
+                    eventGroup.appendChild(tooltip);
+                    
+                    headerLayer.appendChild(eventGroup);
+                }
+            }
         }
         
         // Bottom border for header
@@ -2809,6 +3233,139 @@ export class Renderer {
         
         svg.appendChild(headerLayer);
         
+        // Draw phylogenetic branch lines (clade splits)
+        const branchLayer = createSVGElement('g');
+        branchLayer.classList.add('phylo-branch-layer');
+        
+        const { branchSplits, cladeYRanges, activeCladesByEra, CLADES } = layout;
+        
+        // Draw lane backgrounds for each active clade at each era
+        // Also add clade labels at era 0
+        for (let era = 0; era < NUM_ERAS; era++) {
+            const eraX = PADDING + era * ERA_WIDTH;
+            const activeClades = activeCladesByEra[era] || [];
+            
+            for (const cladeName of activeClades) {
+                const range = cladeYRanges[era]?.[cladeName];
+                if (!range) continue;
+                
+                const cladeColor = CLADES[cladeName]?.color || '#8b949e';
+                
+                // Draw a subtle lane background
+                const laneBg = createSVGElement('rect');
+                laneBg.setAttribute('x', eraX);
+                laneBg.setAttribute('y', range.startY - 2);
+                laneBg.setAttribute('width', ERA_WIDTH);
+                laneBg.setAttribute('height', range.height + 4);
+                laneBg.setAttribute('fill', cladeColor);
+                laneBg.setAttribute('opacity', '0.05');
+                branchLayer.appendChild(laneBg);
+                
+                // Left edge lane indicator (vertical line)
+                const laneEdge = createSVGElement('line');
+                laneEdge.setAttribute('x1', eraX + 2);
+                laneEdge.setAttribute('y1', range.startY - 2);
+                laneEdge.setAttribute('x2', eraX + 2);
+                laneEdge.setAttribute('y2', range.startY + range.height + 2);
+                laneEdge.setAttribute('stroke', cladeColor);
+                laneEdge.setAttribute('stroke-width', '2');
+                laneEdge.setAttribute('opacity', '0.4');
+                branchLayer.appendChild(laneEdge);
+                
+                // Clade label in the header area (show at split era, abbreviated elsewhere)
+                const cladeSplitEra = CLADES[cladeName]?.era_split || 0;
+                const cladeLabel = createSVGElement('text');
+                cladeLabel.setAttribute('x', eraX + 6);
+                cladeLabel.setAttribute('y', range.startY + 12);  // In header area
+                cladeLabel.setAttribute('font-size', era === cladeSplitEra ? '10' : '8');
+                cladeLabel.setAttribute('font-weight', era === cladeSplitEra ? 'bold' : 'normal');
+                cladeLabel.setAttribute('fill', cladeColor);
+                cladeLabel.setAttribute('opacity', era === cladeSplitEra ? '0.9' : '0.5');
+                // Full name at split era, abbreviated otherwise
+                cladeLabel.textContent = era === cladeSplitEra ? cladeName : cladeName.substring(0, 4);
+                branchLayer.appendChild(cladeLabel);
+                
+                // Header separator line (below header, above traits)
+                if (range.traitsStartY) {
+                    const headerLine = createSVGElement('line');
+                    headerLine.setAttribute('x1', eraX);
+                    headerLine.setAttribute('y1', range.traitsStartY - 2);
+                    headerLine.setAttribute('x2', eraX + ERA_WIDTH);
+                    headerLine.setAttribute('y2', range.traitsStartY - 2);
+                    headerLine.setAttribute('stroke', cladeColor);
+                    headerLine.setAttribute('stroke-width', '1');
+                    headerLine.setAttribute('opacity', '0.15');
+                    branchLayer.appendChild(headerLine);
+                }
+                
+                // Passthrough region indicator (subtle dashed line at traitsEndY)
+                if (range.traitsEndY) {
+                    const passthroughLine = createSVGElement('line');
+                    passthroughLine.setAttribute('x1', eraX);
+                    passthroughLine.setAttribute('y1', range.traitsEndY);
+                    passthroughLine.setAttribute('x2', eraX + ERA_WIDTH);
+                    passthroughLine.setAttribute('y2', range.traitsEndY);
+                    passthroughLine.setAttribute('stroke', cladeColor);
+                    passthroughLine.setAttribute('stroke-width', '1');
+                    passthroughLine.setAttribute('stroke-dasharray', '2,2');
+                    passthroughLine.setAttribute('opacity', '0.2');
+                    branchLayer.appendChild(passthroughLine);
+                }
+            }
+        }
+        
+        // Draw branch split lines where clades fork
+        for (const split of branchSplits) {
+            const { era, parentClade, childClades, parentY, childYs, color } = split;
+            
+            // X position: in the left routing channel of this era
+            const splitX = PADDING + era * ERA_WIDTH + layout.NODE_LEFT_MARGIN / 2;
+            
+            // Vertical connector from parentY to the range of childYs
+            const minChildY = Math.min(...childYs);
+            const maxChildY = Math.max(...childYs);
+            
+            // Vertical trunk line
+            const trunk = createSVGElement('line');
+            trunk.setAttribute('x1', splitX);
+            trunk.setAttribute('y1', minChildY);
+            trunk.setAttribute('x2', splitX);
+            trunk.setAttribute('y2', maxChildY);
+            trunk.setAttribute('stroke', color);
+            trunk.setAttribute('stroke-width', '2');
+            trunk.setAttribute('opacity', '0.6');
+            branchLayer.appendChild(trunk);
+            
+            // Horizontal branches to each child
+            for (let i = 0; i < childClades.length; i++) {
+                const childY = childYs[i];
+                const childClade = childClades[i];
+                const childColor = CLADES[childClade]?.color || color;
+                
+                const branch = createSVGElement('line');
+                branch.setAttribute('x1', splitX);
+                branch.setAttribute('y1', childY);
+                branch.setAttribute('x2', splitX + 10);
+                branch.setAttribute('y2', childY);
+                branch.setAttribute('stroke', childColor);
+                branch.setAttribute('stroke-width', '2');
+                branch.setAttribute('opacity', '0.6');
+                branchLayer.appendChild(branch);
+                
+                // Clade label at split point
+                const label = createSVGElement('text');
+                label.setAttribute('x', splitX + 12);
+                label.setAttribute('y', childY + 3);
+                label.setAttribute('font-size', '8');
+                label.setAttribute('fill', childColor);
+                label.setAttribute('opacity', '0.8');
+                label.textContent = childClade.substring(0, 6);
+                branchLayer.appendChild(label);
+            }
+        }
+        
+        svg.appendChild(branchLayer);
+        
         // Build obstacles list from all positioned nodes
         const obstacles = Object.entries(positions).map(([id, pos]) => ({
             id,
@@ -2820,42 +3377,80 @@ export class Renderer {
         // Track used routing channels for parallel edge offset
         const usedChannels = {};
         
+        // Helper: check if fromClade is an ancestor of toClade (or same clade)
+        const isCladeAncestor = (fromClade, toClade) => {
+            let current = toClade;
+            while (current) {
+                if (current === fromClade) return true;
+                current = CLADES[current]?.parent;
+            }
+            return false;
+        };
+        
         // Draw edges (prerequisite arrows) with obstacle-aware routing
+        // For virtual traits, connect to prereqs with matching clade
         const edgeLayer = createSVGElement('g');
         edgeLayer.classList.add('tech-tree-edges');
         
-        // Iterate over positions (includes virtual duplicates)
+        const { virtualToReal } = layout;
+        
+        // Iterate over all positions (including virtual traits)
         for (const [posKey, toPos] of Object.entries(positions)) {
             const realTraitId = toPos.realId || posKey;
             const trait = traitDb[realTraitId];
             if (!trait) continue;
             
             for (const prereqId of (trait.hard_prereqs || [])) {
-                // For virtual traits, find prereq in same lineage first
-                let fromPosKey = prereqId;
-                if (toPos.lineageId) {
-                    const virtualPrereqKey = `${prereqId}@${toPos.lineageId}`;
-                    if (positions[virtualPrereqKey]) {
-                        fromPosKey = virtualPrereqKey;
+                // Find a prereq position - prefer one in same or ancestor clade
+                let fromPos = positions[prereqId];
+                
+                // If no direct match, look for a virtual prereq in a compatible clade
+                if (!fromPos) {
+                    const compatiblePrereqs = Object.entries(positions).filter(([k, p]) => 
+                        p.realId === prereqId && isCladeAncestor(p.activeClade, toPos.activeClade)
+                    );
+                    if (compatiblePrereqs.length > 0) {
+                        fromPos = compatiblePrereqs[0][1];
                     }
                 }
                 
-                const fromPos = positions[fromPosKey] || positions[prereqId];
                 if (!fromPos) continue;
                 
-                // Compute obstacle-aware path
-                const d = this.computeOrthogonalPath(
-                    { ...fromPos, id: fromPosKey },
-                    { ...toPos, id: posKey },
-                    obstacles,
-                    usedChannels,
-                    layout
-                );
+                // Only draw arrow if clades are in same lineage
+                const fromActiveClade = fromPos.activeClade || fromPos.clade;
+                const toActiveClade = toPos.activeClade || toPos.clade;
+                if (!isCladeAncestor(fromActiveClade, toActiveClade) && 
+                    !isCladeAncestor(toActiveClade, fromActiveClade)) {
+                    continue;
+                }
+                
+                let d;
+                const isSameEra = fromPos.era === toPos.era;
+                const fromRealId = fromPos.realId || prereqId;
+                
+                if (isSameEra && toPos.sameEraParent === fromRealId) {
+                    // Same-era parent-child: draw an L-shaped connector (down then right)
+                    const startX = fromPos.x + 8;
+                    const startY = fromPos.y + NODE_HEIGHT;
+                    const endX = toPos.x;
+                    const endY = toPos.y + NODE_HEIGHT / 2;
+                    const turnY = endY;
+                    d = `M ${startX} ${startY} L ${startX} ${turnY} L ${endX} ${endY}`;
+                } else {
+                    // Cross-era or non-direct: use normal routing
+                    d = this.computeOrthogonalPath(
+                        { ...fromPos, id: prereqId },
+                        { ...toPos, id: trait.id },
+                        obstacles,
+                        usedChannels,
+                        layout
+                    );
+                }
                 
                 const path = createSVGElement('path');
                 path.setAttribute('d', d);
                 path.setAttribute('fill', 'none');
-                path.setAttribute('stroke', '#484f58');
+                path.setAttribute('stroke', toPos.cladeColor || '#484f58');
                 path.setAttribute('stroke-width', '1');
                 path.setAttribute('marker-end', 'url(#tech-arrow)');
                 path.classList.add('tech-edge');
@@ -2869,7 +3464,7 @@ export class Renderer {
         const nodeLayer = createSVGElement('g');
         nodeLayer.classList.add('tech-tree-nodes');
         
-        // Iterate over positions (includes virtual duplicates)
+        // Iterate over positions (includes virtual traits)
         for (const [posKey, pos] of Object.entries(positions)) {
             const realTraitId = pos.realId || posKey;
             const trait = traitDb[realTraitId];
@@ -2881,8 +3476,9 @@ export class Renderer {
             const group = createSVGElement('g');
             group.classList.add('tech-node', `tech-node-${state}`);
             if (pos.isVirtual) group.classList.add('tech-node-virtual');
-            group.dataset.traitId = realTraitId;  // Always use real trait ID for clicks
+            group.dataset.traitId = realTraitId;
             group.dataset.posKey = posKey;
+            group.dataset.clade = pos.clade;
             
             // Node background - width based on era window
             const rect = createSVGElement('rect');
@@ -2909,8 +3505,8 @@ export class Renderer {
             group.appendChild(text);
             
             // Era acquisition badge for owned traits
-            if (state === 'owned' && acquisitionEras[realTraitId] !== undefined) {
-                const acqEra = acquisitionEras[realTraitId];
+            if (state === 'owned' && acquisitionEras[trait.id] !== undefined) {
+                const acqEra = acquisitionEras[trait.id];
                 const badgeX = pos.x + nodeWidth - 12;
                 const badgeY = pos.y - 4;
                 
@@ -2933,34 +3529,25 @@ export class Renderer {
                 group.appendChild(badgeText);
             }
             
-            // Lineage indicator for virtual (duplicated) traits
-            if (pos.isVirtual && pos.lineageId) {
-                const lineage = layout.LINEAGES.find(l => l.id === pos.lineageId);
-                if (lineage) {
-                    const linBadgeX = pos.x + 2;
-                    const linBadgeY = pos.y - 3;
-                    
-                    const linBadge = createSVGElement('text');
-                    linBadge.setAttribute('x', linBadgeX);
-                    linBadge.setAttribute('y', linBadgeY);
-                    linBadge.setAttribute('font-size', '5');
-                    linBadge.setAttribute('fill', '#8b949e');
-                    linBadge.classList.add('lineage-badge');
-                    linBadge.textContent = lineage.name.substring(0, 3).toUpperCase();
-                    group.appendChild(linBadge);
-                }
+            // Clade color indicator
+            if (pos.cladeColor) {
+                const cladeIndicator = createSVGElement('rect');
+                cladeIndicator.setAttribute('x', pos.x);
+                cladeIndicator.setAttribute('y', pos.y);
+                cladeIndicator.setAttribute('width', '3');
+                cladeIndicator.setAttribute('height', NODE_HEIGHT);
+                cladeIndicator.setAttribute('fill', pos.cladeColor);
+                cladeIndicator.setAttribute('rx', '1');
+                group.insertBefore(cladeIndicator, group.firstChild);
             }
             
             // Tooltip
             const title = createSVGElement('title');
             let tooltipText = `${trait.name}\nCost: ${trait.cost} | Era ${trait.era_min}-${trait.era_max}\n${trait.grants}`;
-            if (state === 'owned' && acquisitionEras[realTraitId] !== undefined) {
-                tooltipText += `\nAcquired: Era ${acquisitionEras[realTraitId]} (${ERA_NAMES[acquisitionEras[realTraitId]]})`;
+            if (state === 'owned' && acquisitionEras[trait.id] !== undefined) {
+                tooltipText += `\nAcquired: Era ${acquisitionEras[trait.id]} (${ERA_NAMES[acquisitionEras[trait.id]]})`;
             }
-            if (pos.isVirtual && pos.lineageId) {
-                const lineage = layout.LINEAGES.find(l => l.id === pos.lineageId);
-                if (lineage) tooltipText += `\nLineage: ${lineage.name}`;
-            }
+            tooltipText += `\nClade: ${pos.clade}`;
             title.textContent = tooltipText;
             group.appendChild(title);
             
