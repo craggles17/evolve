@@ -3,7 +3,7 @@
 import { 
     $, $$, createElement, createSVGElement,
     offsetToPixel, getHexCorners, cornersToPoints,
-    ERA_NAMES, ERA_COLORS, ERA_TEXT_COLORS, ERA_MYA, PLAYER_COLORS, STABILITY_INFO,
+    ERA_NAMES, ERA_COLORS, ERA_TEXT_COLORS, ERA_MYA, PLAYER_COLORS, STABILITY_INFO, TAG_EMOJI,
     HEX_SIZE, HEX_WIDTH, HEX_VERT_SPACING
 } from './utils.js';
 import { PHASE_NAMES, PHASE_HINTS } from './state.js';
@@ -314,6 +314,20 @@ export class Renderer {
         label.setAttribute('font-size', '8');
         label.textContent = tile.biomeData.name;
         group.appendChild(label);
+        
+        // Bonus tag emoji indicators
+        const bonusTags = tile.biomeData.bonus_tags || [];
+        if (bonusTags.length > 0) {
+            const tagEmoji = createSVGElement('text');
+            tagEmoji.setAttribute('x', x);
+            tagEmoji.setAttribute('y', y + 10);
+            tagEmoji.setAttribute('text-anchor', 'middle');
+            tagEmoji.setAttribute('font-size', '8');
+            tagEmoji.classList.add('tile-tag-emoji');
+            const emojiStr = bonusTags.map(t => TAG_EMOJI[t] || '').filter(Boolean).join('');
+            tagEmoji.textContent = emojiStr;
+            group.appendChild(tagEmoji);
+        }
         
         // Stability indicator (flip probability)
         const stability = STABILITY_INFO[tile.flipNumber];
@@ -2060,30 +2074,32 @@ export class Renderer {
             if (!pos) continue;
             
             const state = getTraitState(trait);
+            const nodeWidth = this.getTraitNodeWidth(trait, ERA_WIDTH, PADDING);
             
             const group = createSVGElement('g');
             group.classList.add('tech-node', `tech-node-${state}`);
             group.dataset.traitId = trait.id;
             
-            // Node background
+            // Node background - width based on era window
             const rect = createSVGElement('rect');
             rect.setAttribute('x', pos.x);
             rect.setAttribute('y', pos.y);
-            rect.setAttribute('width', NODE_WIDTH);
+            rect.setAttribute('width', nodeWidth);
             rect.setAttribute('height', NODE_HEIGHT);
             rect.setAttribute('rx', '3');
             group.appendChild(rect);
             
-            // Trait name (truncated to fit smaller nodes)
+            // Trait name (truncated to fit node width)
             const text = createSVGElement('text');
-            text.setAttribute('x', pos.x + NODE_WIDTH / 2);
+            text.setAttribute('x', pos.x + nodeWidth / 2);
             text.setAttribute('y', pos.y + NODE_HEIGHT / 2 + 3);
             text.setAttribute('text-anchor', 'middle');
             text.setAttribute('font-size', '7');
             text.setAttribute('pointer-events', 'none');
             
-            // Truncate name to fit
-            const maxChars = 10;
+            // Truncate name based on available width
+            const charsPerPixel = 0.15;
+            const maxChars = Math.max(6, Math.floor(nodeWidth * charsPerPixel));
             const displayName = trait.name.length > maxChars ? trait.name.substring(0, maxChars - 1) + '…' : trait.name;
             text.textContent = displayName;
             group.appendChild(text);
@@ -2091,7 +2107,7 @@ export class Renderer {
             // Era acquisition badge for owned traits
             if (state === 'owned' && acquisitionEras[trait.id] !== undefined) {
                 const acqEra = acquisitionEras[trait.id];
-                const badgeX = pos.x + NODE_WIDTH - 12;
+                const badgeX = pos.x + nodeWidth - 12;
                 const badgeY = pos.y - 4;
                 
                 // Badge background circle
@@ -2122,15 +2138,13 @@ export class Renderer {
             title.textContent = tooltipText;
             group.appendChild(title);
             
-            // Click handler for available and owned traits
-            if (state === 'available' || state === 'owned' || state === 'inhand') {
-                group.style.cursor = 'pointer';
-                group.addEventListener('click', () => {
-                    if (this.callbacks.onCardClick) {
-                        this.callbacks.onCardClick(trait, state === 'available');
-                    }
-                });
-            }
+            // Click handler - show trait details modal for all traits
+            group.style.cursor = 'pointer';
+            group.addEventListener('click', () => {
+                if (this.callbacks.onTechTreeClick) {
+                    this.callbacks.onTechTreeClick(trait, state);
+                }
+            });
             
             nodeLayer.appendChild(group);
         }

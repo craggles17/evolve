@@ -173,7 +173,7 @@
                     <button id="spectate-btn" class="btn-action">Watch as Spectator</button>
                 </div>
 
-                <div class="version-info">v2025.12.24.1 | b246ed5</div>
+                <div class="version-info">v2025.12.24.2 | 6c8afe1</div>
             </div>
         </div>
 
@@ -364,6 +364,29 @@
                     <button class="modal-close">&times;</button>
                     <div id="card-detail"></div>
                     <div id="card-actions"></div>
+                </div>
+            </div>
+            
+            <!-- Trait Detail Modal (Tech Tree) -->
+            <div id="trait-modal" class="modal hidden">
+                <div class="modal-content trait-modal-content">
+                    <button class="modal-close">&times;</button>
+                    <div class="trait-modal-header">
+                        <h2 id="trait-modal-name">Trait Name</h2>
+                        <div class="trait-modal-meta">
+                            <span id="trait-modal-cost" class="trait-cost">Cost: 2</span>
+                            <span id="trait-modal-era" class="trait-era">Era 0-11</span>
+                        </div>
+                    </div>
+                    <div class="trait-modal-body">
+                        <div id="trait-modal-tags" class="trait-tags"></div>
+                        <p id="trait-modal-grants" class="trait-grants"></p>
+                        <div id="trait-modal-prereqs" class="trait-prereqs"></div>
+                    </div>
+                    <div class="trait-modal-actions">
+                        <button id="btn-trait-play" class="btn-primary hidden">Evolve Trait</button>
+                        <button id="btn-trait-close" class="btn-secondary">Close</button>
+                    </div>
                 </div>
             </div>
             

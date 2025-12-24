@@ -37,6 +37,25 @@ export const STABILITY_INFO = {
     6: { label: 'Very Stable', percent: 17, color: '#44aa88' }
 };
 
+// Emoji indicators for tile bonus tags
+export const TAG_EMOJI = {
+    'Aquatic': '🌊',
+    'Terrestrial': '🦶',
+    'Marine-Only': '🐟',
+    'Cold-Resistant': '❄️',
+    'Shallow-Marine': '🐚',
+    'Deep-Sea': '🐙',
+    'Reef-Dependent': '🪸',
+    'Freshwater': '💧',
+    'Amphibian': '🐸',
+    'Arboreal': '🌳',
+    'Mobile': '🏃',
+    'Burrowing': '🕳️',
+    'Nocturnal': '🌙',
+    'Aerial': '🦅',
+    'Warm-Blooded': '🔥'
+};
+
 export function rollD6() {
     return Math.floor(Math.random() * 6) + 1;
 }
