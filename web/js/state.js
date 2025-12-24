@@ -93,10 +93,10 @@ export class GameState {
         // Create players
         this.players = playerNames.map((name, i) => new Player(i, name));
         
-        // Give each player starting trait
+        // Players start with no traits - must draft from Era 0 deck
         for (const player of this.players) {
-            player.traits = ['bilateral_symmetry'];
-            player.traitsByEra = { 0: ['bilateral_symmetry'] };
+            player.traits = [];
+            player.traitsByEra = {};
         }
         
         // Shuffle event deck
