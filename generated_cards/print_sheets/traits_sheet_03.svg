@@ -8,8 +8,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#1a237e"/>
-      <stop offset="100%" style="stop-color:#1a237e"/>
+      <stop offset="0%" style="stop-color:#F4B8D0"/>
+      <stop offset="100%" style="stop-color:#F4B8D0"/>
     </linearGradient>
   </defs>
   
@@ -17,7 +17,7 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 0-11 (Cam-Qua)</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 0-11 (Cam-Qua)</text>
   <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 1</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+1 CPX</text>
   
@@ -60,8 +60,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#1b5e20"/>
-      <stop offset="100%" style="stop-color:#1b5e20"/>
+      <stop offset="0%" style="stop-color:#67A599"/>
+      <stop offset="100%" style="stop-color:#67A599"/>
     </linearGradient>
   </defs>
   
@@ -69,8 +69,8 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 4-11 (Car-Qua)</text>
-  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 4</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 4-11 (Car-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 5</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+4 CPX</text>
   
   <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
@@ -112,8 +112,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#1b5e20"/>
-      <stop offset="100%" style="stop-color:#1b5e20"/>
+      <stop offset="0%" style="stop-color:#67A599"/>
+      <stop offset="100%" style="stop-color:#67A599"/>
     </linearGradient>
   </defs>
   
@@ -121,7 +121,7 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 4-11 (Car-Qua)</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 4-11 (Car-Qua)</text>
   <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 2</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+2 CPX</text>
   
@@ -164,8 +164,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#1a237e"/>
-      <stop offset="100%" style="stop-color:#1a237e"/>
+      <stop offset="0%" style="stop-color:#F4B8D0"/>
+      <stop offset="100%" style="stop-color:#F4B8D0"/>
     </linearGradient>
   </defs>
   
@@ -173,7 +173,7 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 0-11 (Cam-Qua)</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 0-11 (Cam-Qua)</text>
   <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 0</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+0 CPX</text>
   
@@ -216,8 +216,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#4e342e"/>
-      <stop offset="100%" style="stop-color:#4e342e"/>
+      <stop offset="0%" style="stop-color:#F04028"/>
+      <stop offset="100%" style="stop-color:#F04028"/>
     </linearGradient>
   </defs>
   
@@ -225,7 +225,7 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 5-11 (Per-Qua)</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">ERA 5-11 (Per-Qua)</text>
   <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 6</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+5 CPX</text>
   
@@ -268,8 +268,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#4e342e"/>
-      <stop offset="100%" style="stop-color:#4e342e"/>
+      <stop offset="0%" style="stop-color:#F04028"/>
+      <stop offset="100%" style="stop-color:#F04028"/>
     </linearGradient>
   </defs>
   
@@ -277,8 +277,8 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 5-11 (Per-Qua)</text>
-  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 3</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">ERA 5-11 (Per-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 4</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+2 CPX</text>
   
   <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
@@ -320,8 +320,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#e65100"/>
-      <stop offset="100%" style="stop-color:#e65100"/>
+      <stop offset="0%" style="stop-color:#812B92"/>
+      <stop offset="100%" style="stop-color:#812B92"/>
     </linearGradient>
   </defs>
   
@@ -329,8 +329,8 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 6-11 (Tri-Qua)</text>
-  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 6</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">ERA 6-11 (Tri-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 7</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+3 CPX</text>
   
   <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>
@@ -372,8 +372,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#e65100"/>
-      <stop offset="100%" style="stop-color:#e65100"/>
+      <stop offset="0%" style="stop-color:#812B92"/>
+      <stop offset="100%" style="stop-color:#812B92"/>
     </linearGradient>
   </defs>
   
@@ -381,7 +381,7 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 6-11 (Tri-Qua)</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#ffffff" text-anchor="middle" font-weight="bold">ERA 6-11 (Tri-Qua)</text>
   <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 5</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+3 CPX</text>
   
@@ -424,8 +424,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#4a148c"/>
-      <stop offset="100%" style="stop-color:#4a148c"/>
+      <stop offset="0%" style="stop-color:#7FC64E"/>
+      <stop offset="100%" style="stop-color:#7FC64E"/>
     </linearGradient>
   </defs>
   
@@ -433,8 +433,8 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 8-11 (Cre-Qua)</text>
-  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 5</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 8-11 (Cre-Qua)</text>
+  <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 6</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+3 CPX</text>
   
   <rect x="10" y="44" width="230" height="32" fill="#0f3460" rx="5"/>

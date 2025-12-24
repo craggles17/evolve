@@ -6,8 +6,8 @@
       <stop offset="100%" style="stop-color:#16213e"/>
     </linearGradient>
     <linearGradient id="eraGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#1b5e20"/>
-      <stop offset="100%" style="stop-color:#1b5e20"/>
+      <stop offset="0%" style="stop-color:#67A599"/>
+      <stop offset="100%" style="stop-color:#67A599"/>
     </linearGradient>
   </defs>
   
@@ -15,7 +15,7 @@
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#e94560" stroke-width="2" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="url(#eraGrad)" rx="8"/>
-  <text x="125" y="25" font-family="Arial" font-size="10" fill="#fff" text-anchor="middle" font-weight="bold">ERA 4-11 (Car-Qua)</text>
+  <text x="125" y="25" font-family="Arial" font-size="10" fill="#2d2d2d" text-anchor="middle" font-weight="bold">ERA 4-11 (Car-Qua)</text>
   <text x="30" y="35" font-family="Arial" font-size="8" fill="#f1c40f" font-weight="bold">COST: 3</text>
   <text x="220" y="35" font-family="Arial" font-size="8" fill="#9b59b6" text-anchor="end">+4 CPX</text>
   
