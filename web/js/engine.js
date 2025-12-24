@@ -247,21 +247,133 @@ export class GameEngine {
                 results.push({
                     player,
                     status: 'benefited',
-                    effect: event.effect
+                    message: event.effect,
+                    lostMarkers: 0
                 });
             }
-        } else {
-            // Neutral event
+        } else if (event.type === 'neutral') {
+            // Dispatch neutral events by ID
+            if (event.id === 'continental_drift') {
+                return this.resolveContinentalDrift(event);
+            }
+            // Fallback for unimplemented neutral events
             for (const player of this.state.players) {
                 results.push({
                     player,
                     status: 'neutral',
-                    effect: event.effect
+                    message: event.effect,
+                    lostMarkers: 0
+                });
+            }
+        } else {
+            // Unknown event type fallback
+            for (const player of this.state.players) {
+                results.push({
+                    player,
+                    status: 'neutral',
+                    message: event.effect,
+                    lostMarkers: 0
                 });
             }
         }
         
         this.emit('eventResolved', { event, results });
+        return results;
+    }
+    
+    // Continental Drift: shuffle 3 tiles, move 2 markers per player
+    resolveContinentalDrift(event) {
+        const results = [];
+        const shuffledTiles = [];
+        
+        // Pick 3 random tiles to shuffle
+        const tiles = [...this.state.boardTiles];
+        const selected = [];
+        for (let i = 0; i < 3 && tiles.length > 0; i++) {
+            const idx = Math.floor(Math.random() * tiles.length);
+            selected.push(tiles.splice(idx, 1)[0]);
+        }
+        
+        // Rotate biomes cyclically: A->B, B->C, C->A
+        if (selected.length === 3) {
+            const biomes = selected.map(t => ({ biome: t.biome, biomeData: t.biomeData }));
+            selected[0].biome = biomes[2].biome;
+            selected[0].biomeData = biomes[2].biomeData;
+            selected[1].biome = biomes[0].biome;
+            selected[1].biomeData = biomes[0].biomeData;
+            selected[2].biome = biomes[1].biome;
+            selected[2].biomeData = biomes[1].biomeData;
+            
+            shuffledTiles.push(
+                { tile: selected[0], oldBiome: biomes[0].biome, newBiome: biomes[2].biome },
+                { tile: selected[1], oldBiome: biomes[1].biome, newBiome: biomes[0].biome },
+                { tile: selected[2], oldBiome: biomes[2].biome, newBiome: biomes[1].biome }
+            );
+        }
+        
+        // Check if markers on shuffled tiles can stay
+        for (const { tile } of shuffledTiles) {
+            const markers = this.state.tileMarkers[tile.id];
+            const requiredTags = tile.biomeData.required_tags || [];
+            
+            for (const [playerId, count] of Object.entries(markers)) {
+                if (count > 0) {
+                    const player = this.state.players[parseInt(playerId)];
+                    const tags = player.getTags(this.state.traitDb);
+                    const canStay = requiredTags.every(t => tags.has(t));
+                    
+                    if (!canStay) {
+                        this.state.tileMarkers[tile.id][playerId] = 0;
+                        player.markersOnBoard -= count;
+                    }
+                }
+            }
+        }
+        
+        // Auto-relocate up to 2 markers per player
+        for (const player of this.state.players) {
+            let moved = 0;
+            const tags = player.getTags(this.state.traitDb);
+            
+            for (const tile of this.state.boardTiles) {
+                if (moved >= 2) break;
+                
+                const markerCount = this.state.tileMarkers[tile.id][player.id] || 0;
+                if (markerCount === 0) continue;
+                
+                // Find valid adjacent tile to move to
+                const neighbors = getHexNeighbors(tile.q, tile.r);
+                for (const n of neighbors) {
+                    if (moved >= 2) break;
+                    
+                    const destTile = this.state.boardTiles.find(t => t.q === n.q && t.r === n.r);
+                    if (!destTile) continue;
+                    
+                    const destReqs = destTile.biomeData.required_tags || [];
+                    const canMove = destReqs.every(t => tags.has(t));
+                    
+                    if (canMove) {
+                        // Move one marker
+                        this.state.tileMarkers[tile.id][player.id]--;
+                        if (!this.state.tileMarkers[destTile.id][player.id]) {
+                            this.state.tileMarkers[destTile.id][player.id] = 0;
+                        }
+                        this.state.tileMarkers[destTile.id][player.id]++;
+                        moved++;
+                    }
+                }
+            }
+            
+            const tileNames = shuffledTiles.map(s => `${s.oldBiome}→${s.newBiome}`).join(', ');
+            results.push({
+                player,
+                status: 'neutral',
+                message: `Tiles shifted: ${tileNames}. Moved ${moved} marker${moved !== 1 ? 's' : ''}.`,
+                lostMarkers: 0
+            });
+        }
+        
+        this.emit('eventResolved', { event: { id: 'continental_drift', type: 'neutral' }, results });
         return results;
     }
     
