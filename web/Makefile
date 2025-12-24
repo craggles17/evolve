@@ -37,13 +37,26 @@ cards:
 	cd .. && python3 tools/card_generator.py --sheets
 	@echo "Cards generated in ../generated_cards/"
 
-# Update version info in index.html with current git commit
+# Update version info in index.html with date-based version
 version:
-	@COMMIT=$$(git rev-parse --short HEAD 2>/dev/null || echo "unknown"); \
-	DATE=$$(date +%Y%m%d); \
-	sed -i '' "s/build [0-9]*/build $$DATE/" index.html; \
-	sed -i '' "s/| [a-f0-9]\{7\}$$/| $$COMMIT/" index.html; \
-	echo "Updated version: build $$DATE | $$COMMIT"
+	@TODAY=$$(date +%Y.%m.%d); \
+	COMMIT=$$(git rev-parse --short HEAD 2>/dev/null || echo "unknown"); \
+	CURRENT=$$(grep -oE 'v[0-9]{4}\.[0-9]{2}\.[0-9]{2}\.[0-9]+' index.html | head -1); \
+	if [ -n "$$CURRENT" ]; then \
+	  CURRENT_DATE=$$(echo $$CURRENT | sed 's/v\([0-9.]*\)\.[0-9]*$$/\1/'); \
+	  CURRENT_BUILD=$$(echo $$CURRENT | sed 's/.*\.//'); \
+	  if [ "$$CURRENT_DATE" = "$$TODAY" ]; then \
+	    BUILD=$$((CURRENT_BUILD + 1)); \
+	  else \
+	    BUILD=1; \
+	  fi; \
+	else \
+	  BUILD=1; \
+	fi; \
+	VERSION="v$$TODAY.$$BUILD"; \
+	sed -i '' "s/v[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*/$$VERSION/" index.html; \
+	sed -i '' "s/| [a-f0-9]*<\/div>/| $$COMMIT<\/div>/" index.html; \
+	echo "Version: $$VERSION | $$COMMIT"
 
 # Clean generated files
 clean:
