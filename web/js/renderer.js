@@ -1803,5 +1803,231 @@ export class Renderer {
         // Remove transition labels
         $$('.flip-transition-label').forEach(el => el.remove());
     }
+    
+    // ==================== TECH TREE ====================
+    
+    // Compute DAG layout for all traits
+    computeTechTreeLayout(traitDb) {
+        const traits = Object.values(traitDb);
+        const depthMap = {};
+        const positions = {};
+        
+        // Compute depth for each trait (topological sort with depth tracking)
+        const computeDepth = (traitId, visited = new Set()) => {
+            if (depthMap[traitId] !== undefined) return depthMap[traitId];
+            if (visited.has(traitId)) return 0; // Cycle protection
+            visited.add(traitId);
+            
+            const trait = traitDb[traitId];
+            if (!trait) return 0;
+            
+            const prereqs = trait.hard_prereqs || [];
+            if (prereqs.length === 0) {
+                depthMap[traitId] = 0;
+                return 0;
+            }
+            
+            const maxPrereqDepth = Math.max(...prereqs.map(p => computeDepth(p, visited)));
+            depthMap[traitId] = maxPrereqDepth + 1;
+            return depthMap[traitId];
+        };
+        
+        // Compute depth for all traits
+        for (const trait of traits) {
+            computeDepth(trait.id);
+        }
+        
+        // Group traits by depth
+        const depthGroups = {};
+        for (const trait of traits) {
+            const depth = depthMap[trait.id] || 0;
+            if (!depthGroups[depth]) depthGroups[depth] = [];
+            depthGroups[depth].push(trait);
+        }
+        
+        // Sort each depth group by era_min for better organization
+        for (const depth in depthGroups) {
+            depthGroups[depth].sort((a, b) => a.era_min - b.era_min);
+        }
+        
+        // Layout constants
+        const NODE_WIDTH = 90;
+        const NODE_HEIGHT = 28;
+        const H_GAP = 30;
+        const V_GAP = 12;
+        const PADDING = 15;
+        
+        // Compute positions
+        const maxDepth = Math.max(...Object.keys(depthGroups).map(Number));
+        let totalHeight = 0;
+        
+        for (let depth = 0; depth <= maxDepth; depth++) {
+            const group = depthGroups[depth] || [];
+            const x = PADDING + depth * (NODE_WIDTH + H_GAP);
+            
+            for (let i = 0; i < group.length; i++) {
+                const y = PADDING + i * (NODE_HEIGHT + V_GAP);
+                positions[group[i].id] = { x, y, depth };
+                totalHeight = Math.max(totalHeight, y + NODE_HEIGHT);
+            }
+        }
+        
+        const totalWidth = PADDING * 2 + (maxDepth + 1) * (NODE_WIDTH + H_GAP) - H_GAP;
+        
+        return { positions, depthMap, totalWidth, totalHeight: totalHeight + PADDING, NODE_WIDTH, NODE_HEIGHT };
+    }
+    
+    // Render the full tech tree
+    renderTechTree(player, currentEra, traitDb) {
+        const svg = $('#tech-tree-svg');
+        if (!svg) return;
+        
+        svg.innerHTML = '';
+        
+        // Compute layout
+        const layout = this.computeTechTreeLayout(traitDb);
+        const { positions, totalWidth, totalHeight, NODE_WIDTH, NODE_HEIGHT } = layout;
+        
+        // Set viewBox
+        svg.setAttribute('viewBox', `0 0 ${totalWidth} ${totalHeight}`);
+        svg.style.width = `${totalWidth}px`;
+        svg.style.height = `${totalHeight}px`;
+        
+        // Determine trait states
+        const handIds = new Set(player.hand.map(t => t.id));
+        const ownedIds = new Set(player.traits);
+        
+        const getTraitState = (trait) => {
+            if (ownedIds.has(trait.id)) return 'owned';
+            
+            const inHand = handIds.has(trait.id);
+            const prereqsMet = (trait.hard_prereqs || []).every(p => ownedIds.has(p));
+            const eraValid = currentEra >= trait.era_min && currentEra <= trait.era_max;
+            const noIncompat = !(trait.incompatible_with || []).some(i => ownedIds.has(i));
+            
+            if (inHand && prereqsMet && eraValid && noIncompat) return 'available';
+            if (inHand) return 'inhand';
+            return 'locked';
+        };
+        
+        // Create defs for markers
+        const defs = createSVGElement('defs');
+        
+        // Arrow marker for edges
+        const marker = createSVGElement('marker');
+        marker.setAttribute('id', 'tech-arrow');
+        marker.setAttribute('markerWidth', '6');
+        marker.setAttribute('markerHeight', '6');
+        marker.setAttribute('refX', '5');
+        marker.setAttribute('refY', '3');
+        marker.setAttribute('orient', 'auto');
+        const arrowPath = createSVGElement('polygon');
+        arrowPath.setAttribute('points', '0 0, 6 3, 0 6');
+        arrowPath.setAttribute('fill', '#484f58');
+        marker.appendChild(arrowPath);
+        defs.appendChild(marker);
+        
+        svg.appendChild(defs);
+        
+        // Draw edges first (so they're behind nodes)
+        const edgeLayer = createSVGElement('g');
+        edgeLayer.classList.add('tech-tree-edges');
+        
+        for (const trait of Object.values(traitDb)) {
+            const toPos = positions[trait.id];
+            if (!toPos) continue;
+            
+            for (const prereqId of (trait.hard_prereqs || [])) {
+                const fromPos = positions[prereqId];
+                if (!fromPos) continue;
+                
+                const path = createSVGElement('path');
+                const startX = fromPos.x + NODE_WIDTH;
+                const startY = fromPos.y + NODE_HEIGHT / 2;
+                const endX = toPos.x;
+                const endY = toPos.y + NODE_HEIGHT / 2;
+                
+                // Bezier curve for smooth edges
+                const ctrlOffset = Math.min(30, Math.abs(endX - startX) / 3);
+                const d = `M ${startX} ${startY} C ${startX + ctrlOffset} ${startY}, ${endX - ctrlOffset} ${endY}, ${endX} ${endY}`;
+                
+                path.setAttribute('d', d);
+                path.setAttribute('fill', 'none');
+                path.setAttribute('stroke', '#484f58');
+                path.setAttribute('stroke-width', '1.5');
+                path.setAttribute('marker-end', 'url(#tech-arrow)');
+                path.classList.add('tech-edge');
+                
+                edgeLayer.appendChild(path);
+            }
+        }
+        svg.appendChild(edgeLayer);
+        
+        // Draw nodes
+        const nodeLayer = createSVGElement('g');
+        nodeLayer.classList.add('tech-tree-nodes');
+        
+        for (const trait of Object.values(traitDb)) {
+            const pos = positions[trait.id];
+            if (!pos) continue;
+            
+            const state = getTraitState(trait);
+            
+            const group = createSVGElement('g');
+            group.classList.add('tech-node', `tech-node-${state}`);
+            group.dataset.traitId = trait.id;
+            
+            // Node background
+            const rect = createSVGElement('rect');
+            rect.setAttribute('x', pos.x);
+            rect.setAttribute('y', pos.y);
+            rect.setAttribute('width', NODE_WIDTH);
+            rect.setAttribute('height', NODE_HEIGHT);
+            rect.setAttribute('rx', '4');
+            group.appendChild(rect);
+            
+            // Trait name (truncated)
+            const text = createSVGElement('text');
+            text.setAttribute('x', pos.x + NODE_WIDTH / 2);
+            text.setAttribute('y', pos.y + NODE_HEIGHT / 2 + 4);
+            text.setAttribute('text-anchor', 'middle');
+            text.setAttribute('font-size', '9');
+            text.setAttribute('pointer-events', 'none');
+            
+            // Truncate name to fit
+            const displayName = trait.name.length > 12 ? trait.name.substring(0, 11) + '…' : trait.name;
+            text.textContent = displayName;
+            group.appendChild(text);
+            
+            // Era indicator (small badge)
+            const eraBadge = createSVGElement('text');
+            eraBadge.setAttribute('x', pos.x + NODE_WIDTH - 4);
+            eraBadge.setAttribute('y', pos.y + 10);
+            eraBadge.setAttribute('text-anchor', 'end');
+            eraBadge.setAttribute('font-size', '7');
+            eraBadge.setAttribute('fill', '#8b949e');
+            eraBadge.setAttribute('pointer-events', 'none');
+            eraBadge.textContent = `E${trait.era_min}`;
+            group.appendChild(eraBadge);
+            
+            // Tooltip
+            const title = createSVGElement('title');
+            title.textContent = `${trait.name}\nCost: ${trait.cost} | Era ${trait.era_min}-${trait.era_max}\n${trait.grants}`;
+            group.appendChild(title);
+            
+            // Click handler for available and owned traits
+            if (state === 'available' || state === 'owned' || state === 'inhand') {
+                group.style.cursor = 'pointer';
+                group.addEventListener('click', () => {
+                    if (this.callbacks.onCardClick) {
+                        this.callbacks.onCardClick(trait, state === 'available');
+                    }
+                });
+            }
+            
+            nodeLayer.appendChild(group);
+        }
+        svg.appendChild(nodeLayer);
+    }
 }
 
