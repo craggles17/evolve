@@ -270,24 +270,39 @@ export class Renderer {
     }
     
     renderClimateBandLabels() {
-        // Climate zones with background bands
+        // Climate zones with full-coverage background bands (old-world map aesthetic)
         // Row layout: 0=polar, 1-2=temperate, 3=equatorial, 4-5=temperate, 6=polar
         const boardWidth = BOARD_COLS * HEX_WIDTH + HEX_WIDTH / 2 + BOARD_PADDING * 2;
+        const totalHeight = BOARD_ROWS * HEX_VERT_SPACING + HEX_SIZE + BOARD_PADDING * 2;
         const rowHeight = HEX_VERT_SPACING;
         const baseY = BOARD_PADDING + HEX_SIZE - rowHeight / 2;
         
+        // Extended zones to cover full board height (no black gaps)
         const zones = [
-            { startRow: 0, rowSpan: 1, label: 'POLAR', color: '#b0e0e6', bgAlpha: 0.18 },
-            { startRow: 1, rowSpan: 2, label: 'TEMPERATE', color: '#9acd32', bgAlpha: 0.15 },
-            { startRow: 3, rowSpan: 1, label: 'EQUATORIAL', color: '#3498db', bgAlpha: 0.2 },
-            { startRow: 4, rowSpan: 2, label: 'TEMPERATE', color: '#9acd32', bgAlpha: 0.15 },
-            { startRow: 6, rowSpan: 1, label: 'POLAR', color: '#b0e0e6', bgAlpha: 0.18 }
+            { startY: 0, endRow: 1, label: 'Here Be Ice', color: '#b0e0e6', bgAlpha: 0.25 },
+            { startRow: 1, rowSpan: 2, label: 'Temperate Seas', color: '#9acd32', bgAlpha: 0.2 },
+            { startRow: 3, rowSpan: 1, label: 'Equatorial Waters', color: '#3498db', bgAlpha: 0.25 },
+            { startRow: 4, rowSpan: 2, label: 'Temperate Seas', color: '#9acd32', bgAlpha: 0.2 },
+            { startRow: 6, endY: totalHeight, label: 'Here Be Ice', color: '#b0e0e6', bgAlpha: 0.25 }
         ];
         
-        // Render background bands (behind tiles)
+        // Render full-coverage background bands
         for (const zone of zones) {
-            const y = baseY + zone.startRow * rowHeight;
-            const height = zone.rowSpan * rowHeight;
+            let y, height;
+            
+            if (zone.startY !== undefined) {
+                // Top zone: extends from 0 to row boundary
+                y = zone.startY;
+                height = baseY + zone.endRow * rowHeight - y;
+            } else if (zone.endY !== undefined) {
+                // Bottom zone: extends from row to totalHeight
+                y = baseY + zone.startRow * rowHeight;
+                height = zone.endY - y;
+            } else {
+                // Middle zones: normal row-based positioning
+                y = baseY + zone.startRow * rowHeight;
+                height = zone.rowSpan * rowHeight;
+            }
             
             const rect = createSVGElement('rect');
             rect.setAttribute('x', 0);
@@ -300,68 +315,91 @@ export class Renderer {
             this.boardContent.appendChild(rect);
         }
         
-        // Render latitude lines (equator and tropics)
+        // Render latitude lines (equator and tropics) - within play area only
+        const playAreaLeft = BOARD_PADDING + 10;
+        const playAreaRight = boardWidth - BOARD_PADDING - 10;
+        
         const latitudeLines = [
-            { row: 3, label: 'Tropic of Cancer', color: '#f0a500', dash: '6,4', width: 1.5 },
-            { row: 3.5, label: 'Equator', color: '#ff6b6b', dash: null, width: 2 },
-            { row: 4, label: 'Tropic of Capricorn', color: '#f0a500', dash: '6,4', width: 1.5 }
+            { row: 3, label: 'Tropic of Cancer', color: '#c9a227', dash: '8,4', width: 1.5 },
+            { row: 3.5, label: 'The Equator', color: '#d35400', dash: null, width: 2.5 },
+            { row: 4, label: 'Tropic of Capricorn', color: '#c9a227', dash: '8,4', width: 1.5 }
         ];
         
         for (const lat of latitudeLines) {
             const y = baseY + lat.row * rowHeight;
             
             const line = createSVGElement('line');
-            line.setAttribute('x1', BOARD_PADDING);
+            line.setAttribute('x1', playAreaLeft);
             line.setAttribute('y1', y);
-            line.setAttribute('x2', boardWidth - BOARD_PADDING);
+            line.setAttribute('x2', playAreaRight);
             line.setAttribute('y2', y);
             line.setAttribute('stroke', lat.color);
             line.setAttribute('stroke-width', lat.width);
-            line.setAttribute('opacity', '0.7');
+            line.setAttribute('opacity', '0.6');
             if (lat.dash) {
                 line.setAttribute('stroke-dasharray', lat.dash);
             }
             line.classList.add('latitude-line');
             this.boardContent.appendChild(line);
+        }
+        
+        // Render cartographic zone labels in margins (Pirata One font)
+        const labelMargin = 6;
+        const uniqueLabels = [
+            { y: baseY + 0.5 * rowHeight, label: 'Here Be Ice', color: '#7fb3c4' },
+            { y: baseY + 2 * rowHeight, label: 'Temperate Seas', color: '#7aab32' },
+            { y: baseY + 3.5 * rowHeight, label: 'Equatorial Waters', color: '#2980b9' },
+            { y: baseY + 5 * rowHeight, label: 'Temperate Seas', color: '#7aab32' },
+            { y: baseY + 6.5 * rowHeight, label: 'Here Be Ice', color: '#7fb3c4' }
+        ];
+        
+        for (const zone of uniqueLabels) {
+            // Left label (rotated vertically)
+            const leftLabel = createSVGElement('text');
+            leftLabel.setAttribute('x', labelMargin);
+            leftLabel.setAttribute('y', zone.y);
+            leftLabel.setAttribute('font-size', '14');
+            leftLabel.setAttribute('font-family', "'Pirata One', cursive");
+            leftLabel.setAttribute('fill', zone.color);
+            leftLabel.setAttribute('opacity', '0.9');
+            leftLabel.setAttribute('writing-mode', 'vertical-rl');
+            leftLabel.setAttribute('text-anchor', 'middle');
+            leftLabel.textContent = zone.label;
+            this.boardContent.appendChild(leftLabel);
             
-            // Label on right side
+            // Right label (rotated vertically)
+            const rightLabel = createSVGElement('text');
+            rightLabel.setAttribute('x', boardWidth - labelMargin);
+            rightLabel.setAttribute('y', zone.y);
+            rightLabel.setAttribute('font-size', '14');
+            rightLabel.setAttribute('font-family', "'Pirata One', cursive");
+            rightLabel.setAttribute('fill', zone.color);
+            rightLabel.setAttribute('opacity', '0.9');
+            rightLabel.setAttribute('writing-mode', 'vertical-lr');
+            rightLabel.setAttribute('text-anchor', 'middle');
+            rightLabel.textContent = zone.label;
+            this.boardContent.appendChild(rightLabel);
+        }
+        
+        // Latitude line labels in bottom margin
+        const latLabelY = totalHeight - 8;
+        const latLabels = [
+            { x: playAreaLeft + 60, label: '23.5°N', color: '#c9a227' },
+            { x: boardWidth / 2, label: '0° Equator', color: '#d35400' },
+            { x: playAreaRight - 60, label: '23.5°S', color: '#c9a227' }
+        ];
+        
+        for (const lat of latLabels) {
             const label = createSVGElement('text');
-            label.setAttribute('x', boardWidth - BOARD_PADDING + 4);
-            label.setAttribute('y', y + 4);
-            label.setAttribute('font-size', '9');
-            label.setAttribute('font-style', 'italic');
+            label.setAttribute('x', lat.x);
+            label.setAttribute('y', latLabelY);
+            label.setAttribute('text-anchor', 'middle');
+            label.setAttribute('font-size', '11');
+            label.setAttribute('font-family', "'Pirata One', cursive");
             label.setAttribute('fill', lat.color);
             label.setAttribute('opacity', '0.85');
             label.textContent = lat.label;
             this.boardContent.appendChild(label);
-        }
-        
-        // Render labels on both edges
-        for (const zone of zones) {
-            const labelY = baseY + zone.startRow * rowHeight + (zone.rowSpan * rowHeight) / 2 + 5;
-            
-            // Left label
-            const leftLabel = createSVGElement('text');
-            leftLabel.setAttribute('x', 12);
-            leftLabel.setAttribute('y', labelY);
-            leftLabel.setAttribute('font-size', '13');
-            leftLabel.setAttribute('font-weight', '600');
-            leftLabel.setAttribute('fill', zone.color);
-            leftLabel.setAttribute('opacity', '0.9');
-            leftLabel.textContent = zone.label;
-            this.boardContent.appendChild(leftLabel);
-            
-            // Right label
-            const rightLabel = createSVGElement('text');
-            rightLabel.setAttribute('x', boardWidth - 12);
-            rightLabel.setAttribute('y', labelY);
-            rightLabel.setAttribute('text-anchor', 'end');
-            rightLabel.setAttribute('font-size', '13');
-            rightLabel.setAttribute('font-weight', '600');
-            rightLabel.setAttribute('fill', zone.color);
-            rightLabel.setAttribute('opacity', '0.9');
-            rightLabel.textContent = zone.label;
-            this.boardContent.appendChild(rightLabel);
         }
     }
     
