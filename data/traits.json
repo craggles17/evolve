@@ -346,7 +346,7 @@
       "tags": ["Terrestrial", "Armored", "Reptile"],
       "hard_prereqs": ["amniotic_egg"],
       "soft_prereqs": [],
-      "incompatible_with": ["moist_skin"],
+      "incompatible_with": ["moist_skin", "fur"],
       "grants": "TILES: +1 on Desert (water retention). COMPETITION: +1 vs unarmored terrestrial.",
       "fecundity_bonus": 0,
       "clade": "Reptilia",
@@ -503,6 +503,22 @@
       "fecundity_bonus": 0,
       "clade": "Archosauria",
       "science": "Legs under body rather than sprawled - enables sustained running"
+    },
+    {
+      "id": "therapsid_gait",
+      "name": "Therapsid Gait",
+      "era_min": 5,
+      "era_max": 11,
+      "cost": 4,
+      "complexity": 4,
+      "base_pairs": 340,
+      "tags": ["Therapsid", "Mobile"],
+      "hard_prereqs": ["synapsid_skull"],
+      "soft_prereqs": ["endothermy"],
+      "grants": "TILES: Move 2 tiles per turn. COMPETITION: +1 from efficient locomotion. FOUNDATION: Mammal path.",
+      "fecundity_bonus": 0,
+      "clade": "Therapsida",
+      "science": "Legs repositioned under body - enabled sustained activity and pursuit predation"
     },
     {
       "id": "osteoderms",

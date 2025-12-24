@@ -157,6 +157,7 @@
       "traits": [
         {"trait_id": "endothermy", "copies": 2, "rarity": "rare"},
         {"trait_id": "archosaur_posture", "copies": 2, "rarity": "rare"},
+        {"trait_id": "therapsid_gait", "copies": 2, "rarity": "rare"},
         {"trait_id": "synapsid_skull", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "diapsid_skull", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "scales_reptilian", "copies": 2, "rarity": "common"},
@@ -184,6 +185,7 @@
         {"trait_id": "mammary_glands", "copies": 2, "rarity": "rare"},
         {"trait_id": "crocodilian_form", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "archosaur_posture", "copies": 2, "rarity": "uncommon"},
+        {"trait_id": "therapsid_gait", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "live_birth", "copies": 1, "rarity": "rare"},
         {"trait_id": "endothermy", "copies": 2, "rarity": "uncommon"},
         {"trait_id": "small_size", "copies": 2, "rarity": "common"},
