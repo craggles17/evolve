@@ -13,16 +13,16 @@
   <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
   <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players with [Pollinator] or [Social] tags gain </text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Symbiotic relationships flourish. Cooperation provides advan</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Cooperation pays dividends. Symbiotic relationships intensif</text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Angiosperm-insect coevolution (~100 MYA)</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Mycorrhizal networks (~450 MYA) - Plants + fu</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Angiosperm-insect coevolution (~130-100 MYA) </text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Mycorrhizal revolution (~450 MYA) - Fungi ena</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Coevolution between species creates mutual benefits. Po</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">llination, gut microbiomes, and cleaning symbioses enha</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Mutualism is an evolutionary innovation that increases </text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">fitness for all parties. The most successful organisms </text>
 </svg>

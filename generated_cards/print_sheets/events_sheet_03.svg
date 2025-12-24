@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 790 1090" width="790" height="1090">
+  <rect width="790" height="1090" fill="#ffffff"/>
+<g transform="translate(10, 10)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#27ae60" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ POSITIVE ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#27ae60" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">FOREST CANOPY BOOM</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players with [Arboreal] or [Terrestrial] tags ga</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Forests surge skyward. Warming climate and abundant CO2 driv</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Carboniferous forests (~350-300 MYA) - First </text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Paleocene-Eocene rainforests (~55 MYA) - Trop</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Forest canopies add vertical dimension to ecosystems. A</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> single rainforest tree can host 1,000+ species. Canopy</text>
+</g>
+<g transform="translate(270, 10)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#27ae60" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ POSITIVE ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#27ae60" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">ISLAND ARCHIPELAGO</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Add 2 Coast tiles to the board. First player to </text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Volcanoes breach the waves. A chain of new islands offers is</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Hawaiian Islands (~5 MYA to present) - 1,000+</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Galápagos (~5 MYA) - Darwin's finches: 18 spe</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Island biogeography shows that isolation + area determi</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">ne species richness. Founder effects and genetic drift </text>
+</g>
+<g transform="translate(530, 10)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">CONTINENTAL DRIFT</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Shuffle 3 random tiles and replace with new tile</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">The ground moves. Tectonic plates shift continents across la</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Pangaea breakup (~200-150 MYA) - Atlantic Oce</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Great American Interchange (~3 MYA) - Panama </text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Plates move 2-15 cm/year—about as fast as fingernails g</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">row. Over 100 million years, that's 2,000+ km. Continen</text>
+</g>
+<g transform="translate(10, 370)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">CLIMATE SHIFT</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Flip 2 tiles to new biome types. Affected player</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Weather patterns rewrite themselves. Ocean currents reorgani</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Eocene-Oligocene transition (~34 MYA) - Antar</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Mid-Miocene Climatic Optimum (~17-14 MYA) - W</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Climate zones can shift 100-500 km per 1°C global tempe</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">rature change. Species must migrate, adapt, or die. Mos</text>
+</g>
+<g transform="translate(270, 370)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">BIOME TRANSITION</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Convert 2 Forest tiles to Grassland OR vice vers</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">The landscape transforms. One ecosystem type gradually yield</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Miocene grassland expansion (~20-10 MYA) - C4</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Sahara pump (~10,000 year cycle) - Green Saha</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Biome boundaries are set by temperature, precipitation,</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> and CO2. When these change, biomes migrate. The rise o</text>
+</g>
+<g transform="translate(530, 370)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">ARMS RACE</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">All [Predator] and [Armored] traits cost -1 alle</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Predators and prey lock into evolutionary combat. Each adapt</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Mesozoic Marine Revolution (~200-65 MYA) - Sh</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Cambrian arms race (~540-520 MYA) - Eyes, jaw</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">The Red Queen hypothesis: species must constantly evolv</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">e just to maintain relative fitness. Predator-prey arms</text>
+</g>
+<g transform="translate(10, 730)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">NICHE PARTITIONING</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players with 3+ unique tags gain +2 alleles. All</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Competition breeds specialization. Rather than fight for the</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Darwin's finches - Beak shapes partition seed</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• African grazers - Zebras eat tall grass; wild</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Competitive exclusion principle: two species cannot ind</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">efinitely occupy the same niche. The result is characte</text>
+</g>
+<g transform="translate(270, 730)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">GLACIAL RETREAT</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Convert 1 Ice tile to Grassland. All players may</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Ice gives way. Glaciers pull back from their maximum extent,</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• End of last Ice Age (~11,700 ya) - Ice retrea</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Ordovician deglaciation (~445-444 MYA) - Rapi</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Deglaciation exposes land at ~100-500m/year. Pioneer sp</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">ecies (lichens, grasses) arrive within decades. Full fo</text>
+</g>
+<g transform="translate(530, 730)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">MONSOON SHIFT</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Swap 2 random Forest and Desert tiles. Players w</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">The rains move. Seasonal wind patterns reorganize, bringing </text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• African Humid Period (~15,000-5,000 ya) - Sah</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Indian monsoon intensification (~8 MYA) - Him</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Monsoons are driven by land-sea temperature contrasts. </text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">Changes in continental position, ocean currents, or ice</text>
+</g></svg>

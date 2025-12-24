@@ -23,10 +23,10 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Siberian Traps (~252 MYA) - The Great Dying, </text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Deccan Traps (~66 MYA) - Contributed to K-Pg </text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Siberian Traps (~252 MYA) - The Great Dying: </text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Deccan Traps (~66 MYA) - Million-year eruptio</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Large Igneous Provinces (LIPs) release sulfur aerosols </text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">blocking sunlight, plus CO2 causing long-term warming a</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Large Igneous Provinces erupt for hundreds of thousands</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> of years. Sulfuric acid rain devastates vegetation. Th</text>
 </svg>

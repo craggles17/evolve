@@ -7,22 +7,22 @@
   <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
   
   <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
-  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">CONTINENTAL DRIFT</text>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">GLACIAL RETREAT</text>
   
   
   <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
   <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
-  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Shuffle 3 random tiles and replace with new tile</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">The ground moves. Tectonic plates shift continents across la</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Convert 1 Ice tile to Grassland. All players may</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Ice gives way. Glaciers pull back from their maximum extent,</text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Pangaea breakup (~200-150 MYA) - Atlantic Oce</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Great American Interchange (~3 MYA) - Panama </text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• End of last Ice Age (~11,700 ya) - Ice retrea</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Ordovician deglaciation (~445-444 MYA) - Rapi</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Plates move 2-15 cm/year—about as fast as fingernails g</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">row. Over 100 million years, that's 2,000+ km. Continen</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Deglaciation exposes land at ~100-500m/year. Pioneer sp</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">ecies (lichens, grasses) arrive within decades. Full fo</text>
 </svg>

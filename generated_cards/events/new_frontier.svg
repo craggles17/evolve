@@ -13,16 +13,16 @@
   <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
   <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Add 2 new tiles of player's choice. First to cla</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">A new habitat type becomes available for colonization.</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Terra incognita emerges. Whether newly formed land, freshly </text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Land colonization (~470 MYA) - Plants, then a</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Canopy niche (~100 MYA) - Angiosperm forests</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Silurian-Devonian land colonization (~420 MYA</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Hawaiian Islands (~5 MYA to present) - Each n</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Ecological opportunity drives adaptive radiation. Empty</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> niches reward early colonizers with reduced competitio</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Ecological opportunity is evolution's accelerant. With </text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">no competitors or predators, colonizers can radiate fre</text>
 </svg>

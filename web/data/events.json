@@ -1,277 +1,428 @@
 {
   "meta": {
-    "version": "2.0",
-    "description": "Generic event cards - shuffled deck, one revealed per era. Events are archetypes with real historical examples."
+    "version": "3.0",
+    "description": "Generic event cards - shuffled deck, one revealed per era. Events are archetypes with real historical examples.",
+    "card_count": 28
   },
   "events": [
     {
       "id": "ice_age",
       "name": "Ice Age",
       "type": "extinction",
-      "description": "Global cooling causes glaciation. Sea levels drop dramatically, habitats shrink.",
+      "description": "Glaciers grind southward as Earth's orbit wobbles. Sea levels plummet 100 meters, locking water into continent-spanning ice sheets. Tropical zones contract toward the equator; shallow seas drain away.",
       "effect": "Binary extinction check",
       "safe_tags": ["Freshwater", "Deep-Sea", "Warm-Blooded", "Burrowing"],
       "doomed_tags": ["Tropical", "Shallow-Marine", "Cold-Vulnerable"],
       "neutral_roll": 4,
-      "science": "Ice ages occur when orbital cycles (Milankovitch) reduce solar heating. Glaciers lock up water, dropping sea levels 50-100m.",
+      "science": "Milankovitch cycles alter Earth's tilt and orbit over 100,000-year periods. When ice sheets grow, they reflect sunlight, amplifying cooling. Glacial maxima lock up 3% of all ocean water.",
       "real_examples": [
-        "End-Ordovician (~445 MYA) - 85% marine species lost",
-        "Pleistocene (~2.6 MYA) - Megafauna extinction"
+        "End-Ordovician (~445 MYA) - Gondwana glaciation killed 85% of marine species",
+        "Pleistocene Ice Ages (~2.6 MYA - 11,700 ya) - Mammoths, ground sloths, and sabertooths vanish"
       ]
     },
     {
       "id": "volcanic_winter",
       "name": "Volcanic Winter",
       "type": "extinction",
-      "description": "Massive volcanic eruptions block sunlight. Global temperatures plummet.",
+      "description": "The sky turns to ash. Flood basalts pour across millions of square kilometers, ejecting sulfur dioxide that blocks the sun. Temperatures crash, then swing into greenhouse overdrive as CO2 accumulates.",
       "effect": "Binary extinction check",
       "safe_tags": ["Burrowing", "Small", "Deep-Sea", "Detritivore"],
       "doomed_tags": ["Large", "Photosynthesis-Dependent", "Tropical"],
       "neutral_roll": 4,
-      "science": "Large Igneous Provinces (LIPs) release sulfur aerosols blocking sunlight, plus CO2 causing long-term warming after initial cooling.",
+      "science": "Large Igneous Provinces erupt for hundreds of thousands of years. Sulfuric acid rain devastates vegetation. The initial freeze gives way to CO2-driven warming that can persist for millennia.",
       "real_examples": [
-        "Siberian Traps (~252 MYA) - The Great Dying, 96% species lost",
-        "Deccan Traps (~66 MYA) - Contributed to K-Pg extinction"
+        "Siberian Traps (~252 MYA) - The Great Dying: 96% of species exterminated",
+        "Deccan Traps (~66 MYA) - Million-year eruption stressed ecosystems before the asteroid"
       ]
     },
     {
       "id": "asteroid_impact",
       "name": "Asteroid Impact",
       "type": "extinction",
-      "description": "Bolide strike causes impact winter. Debris blocks sunlight for years.",
+      "description": "A mountain-sized rock screams through the atmosphere at 20 km/s. The impact liquefies bedrock, launches debris worldwide, and ignites continental wildfires. Earth plunges into years of darkness as photosynthesis halts.",
       "effect": "Binary extinction check",
       "safe_tags": ["Burrowing", "Small", "Aquatic", "Nocturnal"],
       "doomed_tags": ["Large", "Aerial", "Photosynthesis-Dependent"],
       "neutral_roll": 4,
-      "science": "Impacts >10km diameter cause global catastrophe. Ejecta reenters atmosphere, igniting forests. Dust blocks photosynthesis.",
+      "science": "A 10km impactor releases energy equivalent to billions of nuclear bombs. Ejecta reentering the atmosphere heats it like an oven. Soot and dust block sunlight for 2-10 years.",
       "real_examples": [
-        "Chicxulub (~66 MYA) - K-Pg extinction, end of dinosaurs",
-        "Late Heavy Bombardment (~4 BYA) - Sterilized early Earth"
+        "Chicxulub Impact (~66 MYA) - 180km crater in Yucatan ended the dinosaurs' reign",
+        "Sudbury Impact (~1.85 BYA) - 250km crater, one of Earth's largest confirmed impacts"
       ]
     },
     {
       "id": "ocean_anoxia",
       "name": "Ocean Anoxia",
       "type": "extinction",
-      "description": "Ocean oxygen levels crash. Hydrogen sulfide builds up, poisoning marine life.",
+      "description": "The oceans suffocate. Warming waters hold less oxygen; stagnant circulation lets dead zones expand. Hydrogen sulfide rises from the deep, poisoning marine life and staining the seas purple.",
       "effect": "Binary extinction check",
       "safe_tags": ["Terrestrial", "Freshwater", "Deep-Sea", "Air-Breathing"],
       "doomed_tags": ["Marine-Only", "Reef-Dependent", "Shallow-Marine"],
       "neutral_roll": 4,
-      "science": "Anoxic events occur when ocean circulation stalls. Bacteria produce toxic H2S. Purple/green sulfur bacteria dominate.",
+      "science": "Oceanic Anoxic Events occur when circulation stalls. Sulfate-reducing bacteria thrive in oxygen-depleted waters, producing toxic H2S that can escape into the atmosphere.",
       "real_examples": [
-        "Late Devonian (~372 MYA) - 75% species eliminated",
-        "End-Permian (~252 MYA) - Euxinic oceans"
+        "Late Devonian Kellwasser Event (~372 MYA) - Eliminated 75% of species over 2 million years",
+        "Toarcian OAE (~183 MYA) - Black shales record global oxygen crash"
       ]
     },
     {
       "id": "global_warming",
       "name": "Global Warming",
       "type": "extinction",
-      "description": "Runaway greenhouse effect. Oceans acidify, heat stress kills.",
+      "description": "Runaway greenhouse gases push temperatures beyond tolerance limits. Oceans acidify as they absorb CO2, dissolving shells. Heat stress becomes inescapable; equatorial regions become uninhabitable dead zones.",
       "effect": "Binary extinction check",
       "safe_tags": ["Small", "Burrowing", "Aquatic", "Cold-Resistant"],
       "doomed_tags": ["Large", "Tropical", "Reef-Dependent", "Specialized"],
       "neutral_roll": 4,
-      "science": "CO2 and methane trap heat. Ocean pH drops (acidification), dissolving shells. Thermal stress exceeds organism tolerance.",
+      "science": "Every 1°C warming shifts climate zones ~150km poleward. Ocean pH dropping 0.1 units represents a 30% increase in acidity. Most organisms cannot adapt fast enough.",
       "real_examples": [
-        "PETM (~56 MYA) - 5°C warming, ocean acidification",
-        "End-Permian (~252 MYA) - 10°C warming"
+        "Paleocene-Eocene Thermal Maximum (~56 MYA) - 5-8°C warming in 20,000 years",
+        "End-Permian hothouse (~252 MYA) - Equatorial temperatures hit 40°C; ocean temps reached 35°C"
       ]
     },
     {
       "id": "sea_level_collapse",
       "name": "Sea Level Collapse",
       "type": "extinction",
-      "description": "Rapid marine regression exposes continental shelves. Coastal habitats destroyed.",
+      "description": "The seas retreat. Continental shelves—teeming with life—lie exposed as vast mudflats. Shallow epicontinental seas drain completely. Coastal ecosystems spanning millions of square kilometers simply vanish.",
       "effect": "Binary extinction check",
       "safe_tags": ["Terrestrial", "Deep-Sea", "Mobile", "Freshwater"],
       "doomed_tags": ["Shallow-Marine", "Reef-Dependent", "Sessile"],
       "neutral_roll": 4,
-      "science": "Sea level drops when water locks in glaciers or tectonic changes alter ocean basin volume. Epicontinental seas drain.",
+      "science": "Marine regression can drop sea levels 50-100+ meters. Causes include glaciation, tectonic uplift, or supercontinent formation reducing ocean basin volume.",
       "real_examples": [
-        "End-Ordovician (~445 MYA) - 50-100m drop",
-        "End-Permian (~252 MYA) - Pangaea assembly drained seas"
+        "End-Ordovician regression (~445 MYA) - Glaciation drained shallow seas",
+        "End-Permian (~252 MYA) - Pangaea assembly destroyed 90% of continental shelf habitat"
       ]
     },
     {
       "id": "reef_collapse",
       "name": "Reef Collapse",
       "type": "extinction",
-      "description": "Coral reef ecosystems fail. Carbonate production crashes, biodiversity hotspots lost.",
+      "description": "The rainforests of the sea crumble. Coral bleaching cascades across tropical waters. Carbonate production halts; the intricate architecture that housed 25% of marine species dissolves into rubble.",
       "effect": "Binary extinction check",
       "safe_tags": ["Terrestrial", "Deep-Sea", "Freshwater", "Pelagic"],
       "doomed_tags": ["Reef-Dependent", "Shallow-Marine", "Tropical"],
       "neutral_roll": 4,
-      "science": "Reefs are sensitive to temperature, pH, and sediment. Reef gaps in fossil record last 5-10 million years after collapse.",
+      "science": "Reef-building organisms require narrow temperature, pH, and light conditions. After collapse events, 'reef gaps' lasting 5-10 million years appear in the fossil record.",
       "real_examples": [
-        "Late Devonian (~372 MYA) - Reef gap of 100 MY",
-        "End-Triassic (~201 MYA) - Scleractinian crisis"
+        "Late Devonian (~372 MYA) - Stromatoporoid-coral reefs vanished for 100 million years",
+        "End-Triassic (~201 MYA) - First scleractinian corals nearly wiped out"
+      ]
+    },
+    {
+      "id": "gamma_ray_burst",
+      "name": "Gamma Ray Burst",
+      "type": "extinction",
+      "description": "A dying star screams across the cosmos. Invisible radiation bathes Earth for ten seconds—long enough to strip away half the ozone layer. UV radiation surges; the food chain collapses from the top down.",
+      "effect": "Binary extinction check",
+      "safe_tags": ["Aquatic", "Burrowing", "Nocturnal", "Deep-Sea"],
+      "doomed_tags": ["Terrestrial", "Aerial", "Shallow-Marine"],
+      "neutral_roll": 4,
+      "science": "A GRB within 6,000 light-years could halve Earth's ozone. Nitrogen oxides from atmospheric ionization would create acid rain. UV-B increases 3-5x for years afterward.",
+      "real_examples": [
+        "End-Ordovician (~445 MYA) - Hypothesized GRB contribution to glaciation",
+        "WR 104 (present) - Wolf-Rayet star 8,000 ly away could produce a GRB aimed at Earth"
+      ]
+    },
+    {
+      "id": "methane_pulse",
+      "name": "Methane Pulse",
+      "type": "extinction",
+      "description": "Frozen methane buried in seafloor sediments awakens. Clathrates destabilize and erupt, flooding the atmosphere with greenhouse gas 80x more potent than CO2. Oceans warm and acidify in decades.",
+      "effect": "Binary extinction check",
+      "safe_tags": ["Deep-Sea", "Freshwater", "Cold-Resistant", "Burrowing"],
+      "doomed_tags": ["Reef-Dependent", "Marine-Only", "Tropical"],
+      "neutral_roll": 4,
+      "science": "Methane clathrates store 10,000+ gigatons of carbon. Warming oceans can trigger runaway release. Methane oxidizes to CO2 over decades, prolonging warming.",
+      "real_examples": [
+        "PETM (~56 MYA) - Carbon isotope spike suggests massive methane release",
+        "End-Permian (~252 MYA) - Siberian volcanism may have destabilized Arctic clathrates"
+      ]
+    },
+    {
+      "id": "supercontinent_drought",
+      "name": "Supercontinent Drought",
+      "type": "extinction",
+      "description": "Continents collide into a single landmass. Interior regions lie thousands of kilometers from any ocean; monsoons cannot penetrate. Hyper-arid deserts expand across half the globe.",
+      "effect": "Binary extinction check",
+      "safe_tags": ["Burrowing", "Aquatic", "Small", "Nocturnal"],
+      "doomed_tags": ["Large", "Terrestrial", "Arboreal"],
+      "neutral_roll": 4,
+      "science": "Supercontinent interiors experience extreme continentality: seasonal temperature swings of 50°C+ and near-zero precipitation. Only coast-huggers and burrowers survive.",
+      "real_examples": [
+        "Permian Pangaea (~280-250 MYA) - Central deserts larger than modern Sahara",
+        "Rodinia interior (~1 BYA) - Extreme aridity before snowball Earth"
       ]
     },
     {
       "id": "oxygen_surge",
       "name": "Oxygen Surge",
       "type": "positive",
-      "description": "Atmospheric oxygen rises dramatically. Larger body sizes become possible.",
+      "description": "Photosynthesis wins. Atmospheric oxygen climbs past 25%, then 30%. Metabolic fires burn hotter; gigantism becomes possible. Dragonflies grow to the size of hawks; amphibians reach crocodile proportions.",
       "effect": "All players gain +2 alleles. [Insect] and [Amphibian] may place +2 markers.",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "Oxygen levels control maximum body size, especially for organisms using tracheal breathing. Higher O2 = bigger insects.",
+      "science": "Oxygen sets the upper limit on body size for tracheal breathers (insects) and influences metabolic efficiency for all aerobic life. Peak O2 enables maximum body plans.",
       "real_examples": [
-        "Cambrian Explosion (~540 MYA) - O2 reached 15%",
-        "Carboniferous (~300 MYA) - O2 peaked at 35%"
+        "Carboniferous oxygen peak (~300 MYA) - O2 reached 35%; Meganeura had 70cm wingspans",
+        "Cambrian oxygenation (~540 MYA) - O2 crossed 15%, triggering animal radiation"
       ]
     },
     {
       "id": "new_frontier",
       "name": "New Frontier",
       "type": "positive",
-      "description": "A new habitat type becomes available for colonization.",
+      "description": "Terra incognita emerges. Whether newly formed land, freshly thawed tundra, or previously toxic environments rendered habitable—empty niches await colonizers bold enough to claim them.",
       "effect": "Add 2 new tiles of player's choice. First to claim gets +3 alleles.",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "Ecological opportunity drives adaptive radiation. Empty niches reward early colonizers with reduced competition.",
+      "science": "Ecological opportunity is evolution's accelerant. With no competitors or predators, colonizers can radiate freely. Early arrivals gain first-mover advantages that persist for millions of years.",
       "real_examples": [
-        "Land colonization (~470 MYA) - Plants, then arthropods",
-        "Canopy niche (~100 MYA) - Angiosperm forests"
+        "Silurian-Devonian land colonization (~420 MYA) - Empty continents awaited pioneers",
+        "Hawaiian Islands (~5 MYA to present) - Each new island spawns endemic radiations"
       ]
     },
     {
       "id": "adaptive_radiation",
       "name": "Adaptive Radiation",
       "type": "positive",
-      "description": "Vacant ecological niches allow rapid diversification.",
+      "description": "Nature abhors a vacuum. Following extinction or the opening of new habitat, survivors explode into diverse forms. Lineages that were marginal yesterday become dominant tomorrow.",
       "effect": "All players may evolve one trait at half cost (round down).",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "After extinctions, survivors radiate into empty niches. Example: mammals after dinosaurs evolved from shrew to whale size in 20 MY.",
+      "science": "Radiation events compress millions of years of evolution into geological instants. Released from competition, survivors diversify into body forms never seen before.",
       "real_examples": [
-        "Mammalian radiation (~66 MYA) - Post-K-Pg",
-        "Cambrian Explosion (~540 MYA) - Body plan diversity"
+        "Post-K-Pg mammal radiation (~66-50 MYA) - Shrew-sized ancestors became whales, bats, primates",
+        "Cambrian Explosion (~540-520 MYA) - Most animal phyla appear within 20 million years"
       ]
     },
     {
       "id": "ozone_shield",
       "name": "Ozone Shield",
       "type": "positive",
-      "description": "UV protection strengthens. Land becomes safer for colonization.",
+      "description": "The sky becomes a shield. Oxygen builds an ozone layer that blocks DNA-shredding ultraviolet radiation. For the first time, life can venture onto land without instant sunburn death.",
       "effect": "Players with [Terrestrial] traits gain +2 alleles. Land tiles give +1 marker.",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "Ozone (O3) absorbs UV-C radiation. Without it, DNA damage prevents land colonization. Photosynthesis created the ozone layer.",
+      "science": "UV-C radiation destroys DNA in seconds of direct exposure. The ozone layer absorbs 97-99% of harmful UV. Without it, only underwater or underground life is possible.",
       "real_examples": [
-        "Silurian (~420 MYA) - First land plants",
-        "Devonian (~400 MYA) - First tetrapods emerge"
+        "Great Oxygenation Event (~2.4 BYA) - Ozone layer first forms",
+        "Silurian-Devonian (~420 MYA) - UV levels drop enough for land colonization"
       ]
     },
     {
       "id": "predator_decline",
       "name": "Predator Decline",
       "type": "positive",
-      "description": "Top predators reduced in number. Prey populations boom.",
+      "description": "The wolves are gone. Apex predators collapse, and trophic cascades ripple down the food web. Herbivore and detrivore populations explode. For once, the meek inherit the Earth.",
       "effect": "Players without [Predator] tag gain +3 alleles and +1 marker.",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "Trophic cascades occur when apex predators decline. Mesopredator release and prey population explosions follow.",
+      "science": "Removing top predators triggers mesopredator release and prey population booms. Without predation pressure, prey can invest energy in reproduction rather than defense.",
       "real_examples": [
-        "Post-K-Pg (~65 MYA) - No large predators for 10 MY",
-        "End-Permian recovery - Predator guilds collapsed"
+        "Post-K-Pg (~66 MYA) - No large terrestrial predators for 10 million years",
+        "Early Triassic (~252-247 MYA) - Predator guilds took 5 MY to recover from Great Dying"
       ]
     },
     {
       "id": "mutualism_boom",
       "name": "Mutualism Boom",
       "type": "positive",
-      "description": "Symbiotic relationships flourish. Cooperation provides advantages.",
+      "description": "Cooperation pays dividends. Symbiotic relationships intensify: pollinators and flowers coevolve, gut microbiomes become essential, and cleaning stations become social hubs. Together, everyone thrives.",
       "effect": "Players with [Pollinator] or [Social] tags gain +4 alleles.",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "Coevolution between species creates mutual benefits. Pollination, gut microbiomes, and cleaning symbioses enhance fitness.",
+      "science": "Mutualism is an evolutionary innovation that increases fitness for all parties. The most successful organisms often owe their dominance to their symbiotic partners.",
       "real_examples": [
-        "Angiosperm-insect coevolution (~100 MYA)",
-        "Mycorrhizal networks (~450 MYA) - Plants + fungi"
+        "Angiosperm-insect coevolution (~130-100 MYA) - Flowers and pollinators radiate together",
+        "Mycorrhizal revolution (~450 MYA) - Fungi enable plant colonization of land"
+      ]
+    },
+    {
+      "id": "flowering_revolution",
+      "name": "Flowering Revolution",
+      "type": "positive",
+      "description": "Petals unfurl across the planet. Angiosperms transform landscapes, offering nectar, fruit, and shelter. Pollinators diversify explosively; new forest structures create vertical niches.",
+      "effect": "Players with [Pollinator] or [Arboreal] traits may evolve one trait at -2 cost. All such players gain +3 alleles.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Angiosperms evolved ~140 MYA and dominate today with 300,000+ species. Their fast reproduction and coevolution with pollinators drove the Cretaceous Terrestrial Revolution.",
+      "real_examples": [
+        "Cretaceous Terrestrial Revolution (~100 MYA) - Angiosperms overtake gymnosperms",
+        "Eocene fruit forests (~50 MYA) - Primates radiate alongside fruiting trees"
+      ]
+    },
+    {
+      "id": "nutrient_upwelling",
+      "name": "Nutrient Upwelling",
+      "type": "positive",
+      "description": "The deep ocean gives back. Cold, nutrient-rich currents surge toward the surface, triggering massive plankton blooms. Fish schools darken the water; whales converge from across the globe.",
+      "effect": "Players with [Aquatic] tags gain +3 alleles and may place +2 markers on ocean/sea tiles.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Upwelling zones cover <1% of ocean area but produce 50% of global fish catch. Nutrient-rich water supports food chains from phytoplankton to apex predators.",
+      "real_examples": [
+        "Humboldt Current (ongoing) - Peru's anchovy fishery, world's largest",
+        "Monterey Bay (~15 MYA to present) - Upwelling drives extraordinary marine biodiversity"
+      ]
+    },
+    {
+      "id": "forest_canopy_boom",
+      "name": "Forest Canopy Boom",
+      "type": "positive",
+      "description": "Forests surge skyward. Warming climate and abundant CO2 drive explosive tree growth. Multi-layered canopies create new ecological theaters; arboreal niches multiply.",
+      "effect": "Players with [Arboreal] or [Terrestrial] tags gain +2 alleles. Forest tiles produce double control bonus this era.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Forest canopies add vertical dimension to ecosystems. A single rainforest tree can host 1,000+ species. Canopy specialists evolve unique adaptations found nowhere else.",
+      "real_examples": [
+        "Carboniferous forests (~350-300 MYA) - First true forests, trees 50m tall",
+        "Paleocene-Eocene rainforests (~55 MYA) - Tropical forests reached polar latitudes"
+      ]
+    },
+    {
+      "id": "island_archipelago",
+      "name": "Island Archipelago",
+      "type": "positive",
+      "description": "Volcanoes breach the waves. A chain of new islands offers isolation laboratories for evolution. Each island becomes its own experiment; endemic species proliferate.",
+      "effect": "Add 2 Coast tiles to the board. First player to occupy each gains +2 alleles and +1 marker.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Island biogeography shows that isolation + area determine species richness. Founder effects and genetic drift accelerate divergence from mainland ancestors.",
+      "real_examples": [
+        "Hawaiian Islands (~5 MYA to present) - 1,000+ endemic species from handful of colonizers",
+        "Galápagos (~5 MYA) - Darwin's finches: 18 species from one ancestor"
       ]
     },
     {
       "id": "continental_drift",
       "name": "Continental Drift",
       "type": "neutral",
-      "description": "Landmasses shift position. Populations become isolated or connected.",
-      "effect": "Shuffle 3 random tiles and replace. Players may move 2 markers for free.",
+      "description": "The ground moves. Tectonic plates shift continents across latitudes, connecting or sundering populations. Seaways open and close; migration routes appear and vanish over millions of years.",
+      "effect": "Shuffle 3 random tiles and replace with new tiles. All players may move 2 markers for free.",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "Continental drift at ~2-10 cm/year creates and destroys habitats over millions of years. Isolation drives speciation.",
+      "science": "Plates move 2-15 cm/year—about as fast as fingernails grow. Over 100 million years, that's 2,000+ km. Continental configuration drives ocean currents, climate, and biogeography.",
       "real_examples": [
-        "Pangaea breakup (~200 MYA) - Created Atlantic Ocean",
-        "India-Asia collision (~50 MYA) - Himalayas formed"
+        "Pangaea breakup (~200-150 MYA) - Atlantic Ocean opens; dinosaur provinces diverge",
+        "Great American Interchange (~3 MYA) - Panama land bridge connects two continents"
       ]
     },
     {
       "id": "climate_shift",
       "name": "Climate Shift",
       "type": "neutral",
-      "description": "Global temperature and precipitation patterns change significantly.",
-      "effect": "Flip 2 tiles to new biome types. Affected players may relocate markers.",
+      "description": "Weather patterns rewrite themselves. Ocean currents reorganize; prevailing winds shift; rainfall redistributes. Forests march poleward while deserts expand. Old habitats fade; new ones crystallize.",
+      "effect": "Flip 2 tiles to new biome types. Affected players may relocate markers to adjacent tiles.",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "Climate shifts driven by orbital cycles, tectonics, and ocean currents redistribute habitats across latitudes.",
+      "science": "Climate zones can shift 100-500 km per 1°C global temperature change. Species must migrate, adapt, or die. Most climate shifts are gradual; some are geologically instantaneous.",
       "real_examples": [
-        "Eocene-Oligocene cooling (~34 MYA)",
-        "Mid-Miocene Climatic Optimum (~15 MYA)"
+        "Eocene-Oligocene transition (~34 MYA) - Antarctica freezes; global cooling begins",
+        "Mid-Miocene Climatic Optimum (~17-14 MYA) - Warmest period in last 35 million years"
       ]
     },
     {
       "id": "biome_transition",
       "name": "Biome Transition",
       "type": "neutral",
-      "description": "One ecosystem type gradually replaces another across large areas.",
-      "effect": "Convert 2 Forest tiles to Grassland OR vice versa. Matching traits gain +2.",
+      "description": "The landscape transforms. One ecosystem type gradually yields to another—forests to grasslands, wetlands to deserts. Generalists adapt; specialists scramble or perish.",
+      "effect": "Convert 2 Forest tiles to Grassland OR vice versa. Players with matching traits gain +2 alleles.",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "Biome shifts occur when climate changes or new dominant species evolve. Grasslands replaced forests as CO2 dropped.",
+      "science": "Biome boundaries are set by temperature, precipitation, and CO2. When these change, biomes migrate. The rise of C4 grasses revolutionized terrestrial ecosystems.",
       "real_examples": [
-        "Grassland expansion (~15 MYA) - Miocene drying",
-        "Rainforest spread (~55 MYA) - PETM warmth"
+        "Miocene grassland expansion (~20-10 MYA) - C4 grasses enabled savanna ecosystems",
+        "Sahara pump (~10,000 year cycle) - Green Sahara and desert phases alternate"
       ]
     },
     {
       "id": "arms_race",
       "name": "Arms Race",
       "type": "neutral",
-      "description": "Predator-prey competition intensifies. Evolutionary pressure increases.",
+      "description": "Predators and prey lock into evolutionary combat. Each adaptation spawns a counter-adaptation. Shells thicken; jaws strengthen; venom becomes deadlier; speed increases. The Red Queen runs faster.",
       "effect": "All [Predator] and [Armored] traits cost -1 allele this era.",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "Red Queen hypothesis: species must constantly evolve to maintain relative fitness. Predators drive prey defenses and vice versa.",
+      "science": "The Red Queen hypothesis: species must constantly evolve just to maintain relative fitness. Predator-prey arms races drive some of evolution's most dramatic innovations.",
       "real_examples": [
-        "Mesozoic Marine Revolution (~200 MYA)",
-        "Cambrian arms race - Shells vs jaws"
+        "Mesozoic Marine Revolution (~200-65 MYA) - Shell-crushing predators drove prey to burrow, armor, flee",
+        "Cambrian arms race (~540-520 MYA) - Eyes, jaws, and shells evolve rapidly"
       ]
     },
     {
       "id": "niche_partitioning",
       "name": "Niche Partitioning",
       "type": "neutral",
-      "description": "Resources divided among competitors. Specialization rewarded.",
-      "effect": "Players with 3+ unique tags gain +2 alleles. Generalists gain +1.",
+      "description": "Competition breeds specialization. Rather than fight for the same resources, species divide the pie. Some feed by day, others by night; some eat leaves, others fruit; some climb, others dig.",
+      "effect": "Players with 3+ unique tags gain +2 alleles. All other players gain +1 allele.",
       "safe_tags": [],
       "doomed_tags": [],
       "neutral_roll": null,
-      "science": "Competitive exclusion principle: species partition resources to coexist. Time, space, and diet differentiation reduces overlap.",
+      "science": "Competitive exclusion principle: two species cannot indefinitely occupy the same niche. The result is character displacement and resource partitioning.",
       "real_examples": [
-        "Darwin's finches - Beak specialization",
-        "African ungulates - Grazer height partitioning"
+        "Darwin's finches - Beak shapes partition seeds by size",
+        "African grazers - Zebras eat tall grass; wildebeest eat medium; gazelles eat short"
+      ]
+    },
+    {
+      "id": "glacial_retreat",
+      "name": "Glacial Retreat",
+      "type": "neutral",
+      "description": "Ice gives way. Glaciers pull back from their maximum extent, revealing scoured rock and fresh soil. Meltwater lakes form; pioneer species race northward. New territories open for colonization.",
+      "effect": "Convert 1 Ice tile to Grassland. All players may move 2 markers for free.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Deglaciation exposes land at ~100-500m/year. Pioneer species (lichens, grasses) arrive within decades. Full forest succession takes centuries to millennia.",
+      "real_examples": [
+        "End of last Ice Age (~11,700 ya) - Ice retreated from Chicago to Hudson Bay in 5,000 years",
+        "Ordovician deglaciation (~445-444 MYA) - Rapid warming triggered post-glacial radiation"
+      ]
+    },
+    {
+      "id": "monsoon_shift",
+      "name": "Monsoon Shift",
+      "type": "neutral",
+      "description": "The rains move. Seasonal wind patterns reorganize, bringing floods to some regions and drought to others. River systems shift course; ecosystems depending on predictable rainfall must adapt or migrate.",
+      "effect": "Swap 2 random Forest and Desert tiles. Players with markers on affected tiles may relocate them.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Monsoons are driven by land-sea temperature contrasts. Changes in continental position, ocean currents, or ice coverage can strengthen, weaken, or redirect monsoon systems.",
+      "real_examples": [
+        "African Humid Period (~15,000-5,000 ya) - Sahara was green with lakes and rivers",
+        "Indian monsoon intensification (~8 MYA) - Himalayan uplift strengthened seasonal rains"
+      ]
+    },
+    {
+      "id": "predator_boom",
+      "name": "Predator Boom",
+      "type": "neutral",
+      "description": "Hunters ascend. Conditions favor predators: prey is abundant, competition is low, and new hunting strategies prove devastatingly effective. The top of the food chain gets crowded.",
+      "effect": "All [Predator] traits cost -1 allele this era. Players with [Predator] tag gain +2 alleles.",
+      "safe_tags": [],
+      "doomed_tags": [],
+      "neutral_roll": null,
+      "science": "Predator diversity peaks when prey populations support multiple hunting guilds. Competition drives niche partitioning: ambush vs pursuit, diurnal vs nocturnal, aquatic vs terrestrial.",
+      "real_examples": [
+        "Eocene predator peak (~50-40 MYA) - Creodonts, mesonychids, and early carnivorans competed",
+        "Cretaceous marine predators (~100-66 MYA) - Mosasaurs, plesiosaurs, sharks coexisted"
       ]
     }
   ]

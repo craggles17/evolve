@@ -7,22 +7,22 @@
   <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ POSITIVE ✦</text>
   
   <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#27ae60" rx="5"/>
-  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">OZONE SHIELD</text>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">ISLAND ARCHIPELAGO</text>
   
   
   <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
-  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players with [Terrestrial] traits gain +2 allele</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">The sky becomes a shield. Oxygen builds an ozone layer that </text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Add 2 Coast tiles to the board. First player to </text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Volcanoes breach the waves. A chain of new islands offers is</text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Great Oxygenation Event (~2.4 BYA) - Ozone la</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Silurian-Devonian (~420 MYA) - UV levels drop</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Hawaiian Islands (~5 MYA to present) - 1,000+</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Galápagos (~5 MYA) - Darwin's finches: 18 spe</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">UV-C radiation destroys DNA in seconds of direct exposu</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">re. The ozone layer absorbs 97-99% of harmful UV. Witho</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Island biogeography shows that isolation + area determi</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">ne species richness. Founder effects and genetic drift </text>
 </svg>

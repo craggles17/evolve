@@ -13,16 +13,16 @@
   <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
   <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players without [Predator] tag gain +3 alleles a</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Top predators reduced in number. Prey populations boom.</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">The wolves are gone. Apex predators collapse, and trophic ca</text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Post-K-Pg (~65 MYA) - No large predators for </text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian recovery - Predator guilds collap</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Post-K-Pg (~66 MYA) - No large terrestrial pr</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Early Triassic (~252-247 MYA) - Predator guil</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Trophic cascades occur when apex predators decline. Mes</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">opredator release and prey population explosions follow</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Removing top predators triggers mesopredator release an</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">d prey population booms. Without predation pressure, pr</text>
 </svg>

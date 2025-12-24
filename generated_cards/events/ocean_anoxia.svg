@@ -23,10 +23,10 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Late Devonian (~372 MYA) - 75% species elimin</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian (~252 MYA) - Euxinic oceans</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Late Devonian Kellwasser Event (~372 MYA) - E</text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Toarcian OAE (~183 MYA) - Black shales record</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Anoxic events occur when ocean circulation stalls. Bact</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">eria produce toxic H2S. Purple/green sulfur bacteria do</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Oceanic Anoxic Events occur when circulation stalls. Su</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">lfate-reducing bacteria thrive in oxygen-depleted water</text>
 </svg>

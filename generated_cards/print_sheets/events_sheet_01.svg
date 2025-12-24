@@ -25,12 +25,12 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• End-Ordovician (~445 MYA) - 85% marine specie</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Pleistocene (~2.6 MYA) - Megafauna extinction</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• End-Ordovician (~445 MYA) - Gondwana glaciati</text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Pleistocene Ice Ages (~2.6 MYA - 11,700 ya) -</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Ice ages occur when orbital cycles (Milankovitch) reduc</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">e solar heating. Glaciers lock up water, dropping sea l</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Milankovitch cycles alter Earth's tilt and orbit over 1</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">00,000-year periods. When ice sheets grow, they reflect</text>
 </g>
 <g transform="translate(270, 10)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
@@ -56,12 +56,12 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Siberian Traps (~252 MYA) - The Great Dying, </text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Deccan Traps (~66 MYA) - Contributed to K-Pg </text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Siberian Traps (~252 MYA) - The Great Dying: </text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Deccan Traps (~66 MYA) - Million-year eruptio</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Large Igneous Provinces (LIPs) release sulfur aerosols </text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">blocking sunlight, plus CO2 causing long-term warming a</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Large Igneous Provinces erupt for hundreds of thousands</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> of years. Sulfuric acid rain devastates vegetation. Th</text>
 </g>
 <g transform="translate(530, 10)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
@@ -87,12 +87,12 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Chicxulub (~66 MYA) - K-Pg extinction, end of</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Late Heavy Bombardment (~4 BYA) - Sterilized </text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Chicxulub Impact (~66 MYA) - 180km crater in </text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Sudbury Impact (~1.85 BYA) - 250km crater, on</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Impacts >10km diameter cause global catastrophe. Ejecta</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> reenters atmosphere, igniting forests. Dust blocks pho</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">A 10km impactor releases energy equivalent to billions </text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">of nuclear bombs. Ejecta reentering the atmosphere heat</text>
 </g>
 <g transform="translate(10, 370)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
@@ -118,12 +118,12 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Late Devonian (~372 MYA) - 75% species elimin</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian (~252 MYA) - Euxinic oceans</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Late Devonian Kellwasser Event (~372 MYA) - E</text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Toarcian OAE (~183 MYA) - Black shales record</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Anoxic events occur when ocean circulation stalls. Bact</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">eria produce toxic H2S. Purple/green sulfur bacteria do</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Oceanic Anoxic Events occur when circulation stalls. Su</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">lfate-reducing bacteria thrive in oxygen-depleted water</text>
 </g>
 <g transform="translate(270, 370)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
@@ -149,12 +149,12 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• PETM (~56 MYA) - 5°C warming, ocean acidifica</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian (~252 MYA) - 10°C warming</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Paleocene-Eocene Thermal Maximum (~56 MYA) - </text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian hothouse (~252 MYA) - Equatorial </text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">CO2 and methane trap heat. Ocean pH drops (acidificatio</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">n), dissolving shells. Thermal stress exceeds organism </text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Every 1°C warming shifts climate zones ~150km poleward.</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> Ocean pH dropping 0.1 units represents a 30% increase </text>
 </g>
 <g transform="translate(530, 370)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
@@ -180,12 +180,12 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• End-Ordovician (~445 MYA) - 50-100m drop</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian (~252 MYA) - Pangaea assembly dra</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• End-Ordovician regression (~445 MYA) - Glacia</text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian (~252 MYA) - Pangaea assembly des</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Sea level drops when water locks in glaciers or tectoni</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">c changes alter ocean basin volume. Epicontinental seas</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Marine regression can drop sea levels 50-100+ meters. C</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">auses include glaciation, tectonic uplift, or supercont</text>
 </g>
 <g transform="translate(10, 730)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
@@ -211,64 +211,72 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Late Devonian (~372 MYA) - Reef gap of 100 MY</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Triassic (~201 MYA) - Scleractinian crisi</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Late Devonian (~372 MYA) - Stromatoporoid-cor</text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Triassic (~201 MYA) - First scleractinian</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Reefs are sensitive to temperature, pH, and sediment. R</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">eef gaps in fossil record last 5-10 million years after</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Reef-building organisms require narrow temperature, pH,</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> and light conditions. After collapse events, 'reef gap</text>
 </g>
 <g transform="translate(270, 730)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
-  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#c0392b" stroke-width="3" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="30" fill="#27ae60" rx="8"/>
-  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ POSITIVE ✦</text>
+  <rect x="10" y="10" width="230" height="30" fill="#c0392b" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">★ EXTINCTION ★</text>
   
-  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#27ae60" rx="5"/>
-  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">OXYGEN SURGE</text>
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#c0392b" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">GAMMA RAY BURST</text>
   
   
-  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
-  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">All players gain +2 alleles. [Insect] and [Amphi</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Atmospheric oxygen rises dramatically. Larger body sizes bec</text>
+  <rect x="10" y="100" width="230" height="50" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
+  <text x="125" y="115" font-family="Arial" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive)</text>
+  <text x="125" y="132" font-family="Arial" font-size="7" fill="#27ae60" text-anchor="middle">[Aquatic] [Burrowing] [Nocturnal] [Deep-Sea]</text>
   
-  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  <rect x="10" y="155" width="230" height="50" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="125" y="170" font-family="Arial" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half)</text>
+  <text x="125" y="187" font-family="Arial" font-size="7" fill="#c0392b" text-anchor="middle">[Terrestrial] [Aerial] [Shallow-Marine]</text>
   
-  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
-  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Cambrian Explosion (~540 MYA) - O2 reached 15</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Carboniferous (~300 MYA) - O2 peaked at 35%</text>
+  <rect x="10" y="210" width="230" height="25" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
+  <text x="125" y="227" font-family="Arial" font-size="9" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need 4+</text>
+  
+  <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• End-Ordovician (~445 MYA) - Hypothesized GRB </text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• WR 104 (present) - Wolf-Rayet star 8,000 ly a</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Oxygen levels control maximum body size, especially for</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> organisms using tracheal breathing. Higher O2 = bigger</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">A GRB within 6,000 light-years could halve Earth's ozon</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">e. Nitrogen oxides from atmospheric ionization would cr</text>
 </g>
 <g transform="translate(530, 730)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
-  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#c0392b" stroke-width="3" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="30" fill="#27ae60" rx="8"/>
-  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ POSITIVE ✦</text>
+  <rect x="10" y="10" width="230" height="30" fill="#c0392b" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">★ EXTINCTION ★</text>
   
-  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#27ae60" rx="5"/>
-  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">NEW FRONTIER</text>
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#c0392b" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">METHANE PULSE</text>
   
   
-  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
-  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
-  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Add 2 new tiles of player's choice. First to cla</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">A new habitat type becomes available for colonization.</text>
+  <rect x="10" y="100" width="230" height="50" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
+  <text x="125" y="115" font-family="Arial" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive)</text>
+  <text x="125" y="132" font-family="Arial" font-size="7" fill="#27ae60" text-anchor="middle">[Deep-Sea] [Freshwater] [Cold-Resistant] [Burrowing]</text>
   
-  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  <rect x="10" y="155" width="230" height="50" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="125" y="170" font-family="Arial" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half)</text>
+  <text x="125" y="187" font-family="Arial" font-size="7" fill="#c0392b" text-anchor="middle">[Reef-Dependent] [Marine-Only] [Tropical]</text>
   
-  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
-  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Land colonization (~470 MYA) - Plants, then a</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Canopy niche (~100 MYA) - Angiosperm forests</text>
+  <rect x="10" y="210" width="230" height="25" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
+  <text x="125" y="227" font-family="Arial" font-size="9" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need 4+</text>
+  
+  <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• PETM (~56 MYA) - Carbon isotope spike suggest</text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian (~252 MYA) - Siberian volcanism m</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Ecological opportunity drives adaptive radiation. Empty</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> niches reward early colonizers with reduced competitio</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Methane clathrates store 10,000+ gigatons of carbon. Wa</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">rming oceans can trigger runaway release. Methane oxidi</text>
 </g></svg>

@@ -23,10 +23,10 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• End-Ordovician (~445 MYA) - 50-100m drop</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian (~252 MYA) - Pangaea assembly dra</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• End-Ordovician regression (~445 MYA) - Glacia</text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian (~252 MYA) - Pangaea assembly des</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Sea level drops when water locks in glaciers or tectoni</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">c changes alter ocean basin volume. Epicontinental seas</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Marine regression can drop sea levels 50-100+ meters. C</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">auses include glaciation, tectonic uplift, or supercont</text>
 </svg>

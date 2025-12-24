@@ -23,10 +23,10 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• PETM (~56 MYA) - 5°C warming, ocean acidifica</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian (~252 MYA) - 10°C warming</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Paleocene-Eocene Thermal Maximum (~56 MYA) - </text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian hothouse (~252 MYA) - Equatorial </text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">CO2 and methane trap heat. Ocean pH drops (acidificatio</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">n), dissolving shells. Thermal stress exceeds organism </text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Every 1°C warming shifts climate zones ~150km poleward.</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> Ocean pH dropping 0.1 units represents a 30% increase </text>
 </svg>

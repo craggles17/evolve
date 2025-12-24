@@ -23,10 +23,10 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Chicxulub (~66 MYA) - K-Pg extinction, end of</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Late Heavy Bombardment (~4 BYA) - Sterilized </text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Chicxulub Impact (~66 MYA) - 180km crater in </text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Sudbury Impact (~1.85 BYA) - 250km crater, on</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Impacts >10km diameter cause global catastrophe. Ejecta</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> reenters atmosphere, igniting forests. Dust blocks pho</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">A 10km impactor releases energy equivalent to billions </text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">of nuclear bombs. Ejecta reentering the atmosphere heat</text>
 </svg>

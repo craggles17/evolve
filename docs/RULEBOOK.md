@@ -15,7 +15,7 @@
 ### Shared
 - 1 Central Era Board
 - 12 Era Trait Decks (color-coded, ~10 cards per player per deck, 63 unique traits)
-- 18 Event Cards (shuffled deck with visible backs)
+- 28 Event Cards (shuffled deck with visible backs)
 - 70 Hexagonal Biome Tiles
 - 2 Standard d6 dice
 
@@ -27,7 +27,7 @@
 2. **Arrange Hex Tiles** in the starting layout (see Era Board for configuration)
 3. **Sort Era Decks** by color and place face-down near the board
 4. **Shuffle Event Deck:**
-   - Shuffle all 18 event cards face-down
+   - Shuffle all 28 event cards face-down
    - Place the deck where all players can see the BACKS
    - **RED BACK (skull)** = Extinction event - danger ahead!
    - **GREEN BACK (question mark)** = Positive or neutral event

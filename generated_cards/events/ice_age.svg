@@ -23,10 +23,10 @@
   
   <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• End-Ordovician (~445 MYA) - 85% marine specie</text>
-  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Pleistocene (~2.6 MYA) - Megafauna extinction</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• End-Ordovician (~445 MYA) - Gondwana glaciati</text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Pleistocene Ice Ages (~2.6 MYA - 11,700 ya) -</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Ice ages occur when orbital cycles (Milankovitch) reduc</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">e solar heating. Glaciers lock up water, dropping sea l</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Milankovitch cycles alter Earth's tilt and orbit over 1</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">00,000-year periods. When ice sheets grow, they reflect</text>
 </svg>

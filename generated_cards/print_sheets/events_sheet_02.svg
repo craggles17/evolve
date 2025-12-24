@@ -3,6 +3,91 @@
   <rect width="790" height="1090" fill="#ffffff"/>
 <g transform="translate(10, 10)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#c0392b" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#c0392b" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">★ EXTINCTION ★</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#c0392b" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">SUPERCONTINENT DROUGHT</text>
+  
+  
+  <rect x="10" y="100" width="230" height="50" fill="#0a1a0a" stroke="#27ae60" stroke-width="2" rx="5"/>
+  <text x="125" y="115" font-family="Arial" font-size="9" fill="#27ae60" text-anchor="middle" font-weight="bold">SAFE (survive)</text>
+  <text x="125" y="132" font-family="Arial" font-size="7" fill="#27ae60" text-anchor="middle">[Burrowing] [Aquatic] [Small] [Nocturnal]</text>
+  
+  <rect x="10" y="155" width="230" height="50" fill="#1a0a0a" stroke="#c0392b" stroke-width="2" rx="5"/>
+  <text x="125" y="170" font-family="Arial" font-size="9" fill="#c0392b" text-anchor="middle" font-weight="bold">DOOMED (lose half)</text>
+  <text x="125" y="187" font-family="Arial" font-size="7" fill="#c0392b" text-anchor="middle">[Large] [Terrestrial] [Arboreal]</text>
+  
+  <rect x="10" y="210" width="230" height="25" fill="#1a1a0a" stroke="#f1c40f" rx="5"/>
+  <text x="125" y="227" font-family="Arial" font-size="9" fill="#f1c40f" text-anchor="middle" font-weight="bold">NEUTRAL: Roll d6, need 4+</text>
+  
+  <rect x="10" y="245" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="260" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="275" font-family="Arial" font-size="7" fill="#bb88dd">• Permian Pangaea (~280-250 MYA) - Central dese</text>
+  <text x="20" y="287" font-family="Arial" font-size="7" fill="#bb88dd">• Rodinia interior (~1 BYA) - Extreme aridity b</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Supercontinent interiors experience extreme continental</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">ity: seasonal temperature swings of 50°C+ and near-zero</text>
+</g>
+<g transform="translate(270, 10)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#27ae60" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ POSITIVE ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#27ae60" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">OXYGEN SURGE</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">All players gain +2 alleles. [Insect] and [Amphi</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Photosynthesis wins. Atmospheric oxygen climbs past 25%, the</text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Carboniferous oxygen peak (~300 MYA) - O2 rea</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Cambrian oxygenation (~540 MYA) - O2 crossed </text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Oxygen sets the upper limit on body size for tracheal b</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">reathers (insects) and influences metabolic efficiency </text>
+</g>
+<g transform="translate(530, 10)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
+  
+  <rect x="10" y="10" width="230" height="30" fill="#27ae60" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ POSITIVE ✦</text>
+  
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#27ae60" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">NEW FRONTIER</text>
+  
+  
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Add 2 new tiles of player's choice. First to cla</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Terra incognita emerges. Whether newly formed land, freshly </text>
+  
+  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
+  
+  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
+  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Silurian-Devonian land colonization (~420 MYA</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Hawaiian Islands (~5 MYA to present) - Each n</text>
+  
+  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Ecological opportunity is evolution's accelerant. With </text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">no competitors or predators, colonizers can radiate fre</text>
+</g>
+<g transform="translate(10, 370)">
+  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
   
   <rect x="10" y="10" width="230" height="30" fill="#27ae60" rx="8"/>
@@ -15,20 +100,20 @@
   <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
   <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">All players may evolve one trait at half cost (r</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Vacant ecological niches allow rapid diversification.</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Nature abhors a vacuum. Following extinction or the opening </text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Mammalian radiation (~66 MYA) - Post-K-Pg</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Cambrian Explosion (~540 MYA) - Body plan div</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Post-K-Pg mammal radiation (~66-50 MYA) - Shr</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Cambrian Explosion (~540-520 MYA) - Most anim</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">After extinctions, survivors radiate into empty niches.</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> Example: mammals after dinosaurs evolved from shrew to</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Radiation events compress millions of years of evolutio</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">n into geological instants. Released from competition, </text>
 </g>
-<g transform="translate(270, 10)">
+<g transform="translate(270, 370)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
   
@@ -42,20 +127,20 @@
   <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
   <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players with [Terrestrial] traits gain +2 allele</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">UV protection strengthens. Land becomes safer for colonizati</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">The sky becomes a shield. Oxygen builds an ozone layer that </text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Silurian (~420 MYA) - First land plants</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Devonian (~400 MYA) - First tetrapods emerge</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Great Oxygenation Event (~2.4 BYA) - Ozone la</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Silurian-Devonian (~420 MYA) - UV levels drop</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Ozone (O3) absorbs UV-C radiation. Without it, DNA dama</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">ge prevents land colonization. Photosynthesis created t</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">UV-C radiation destroys DNA in seconds of direct exposu</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">re. The ozone layer absorbs 97-99% of harmful UV. Witho</text>
 </g>
-<g transform="translate(530, 10)">
+<g transform="translate(530, 370)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
   
@@ -69,20 +154,20 @@
   <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
   <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players without [Predator] tag gain +3 alleles a</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Top predators reduced in number. Prey populations boom.</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">The wolves are gone. Apex predators collapse, and trophic ca</text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Post-K-Pg (~65 MYA) - No large predators for </text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• End-Permian recovery - Predator guilds collap</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Post-K-Pg (~66 MYA) - No large terrestrial pr</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Early Triassic (~252-247 MYA) - Predator guil</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Trophic cascades occur when apex predators decline. Mes</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">opredator release and prey population explosions follow</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Removing top predators triggers mesopredator release an</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">d prey population booms. Without predation pressure, pr</text>
 </g>
-<g transform="translate(10, 370)">
+<g transform="translate(10, 730)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
   <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
   
@@ -96,151 +181,70 @@
   <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
   <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
   <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players with [Pollinator] or [Social] tags gain </text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Symbiotic relationships flourish. Cooperation provides advan</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Cooperation pays dividends. Symbiotic relationships intensif</text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Angiosperm-insect coevolution (~100 MYA)</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Mycorrhizal networks (~450 MYA) - Plants + fu</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Angiosperm-insect coevolution (~130-100 MYA) </text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Mycorrhizal revolution (~450 MYA) - Fungi ena</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Coevolution between species creates mutual benefits. Po</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">llination, gut microbiomes, and cleaning symbioses enha</text>
-</g>
-<g transform="translate(270, 370)">
-  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
-  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
-  
-  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
-  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
-  
-  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
-  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">CONTINENTAL DRIFT</text>
-  
-  
-  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
-  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
-  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Shuffle 3 random tiles and replace. Players may </text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Landmasses shift position. Populations become isolated or co</text>
-  
-  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
-  
-  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
-  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Pangaea breakup (~200 MYA) - Created Atlantic</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• India-Asia collision (~50 MYA) - Himalayas fo</text>
-  
-  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Continental drift at ~2-10 cm/year creates and destroys</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> habitats over millions of years. Isolation drives spec</text>
-</g>
-<g transform="translate(530, 370)">
-  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
-  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
-  
-  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
-  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
-  
-  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
-  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">CLIMATE SHIFT</text>
-  
-  
-  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
-  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
-  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Flip 2 tiles to new biome types. Affected player</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Global temperature and precipitation patterns change signifi</text>
-  
-  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
-  
-  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
-  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Eocene-Oligocene cooling (~34 MYA)</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Mid-Miocene Climatic Optimum (~15 MYA)</text>
-  
-  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Climate shifts driven by orbital cycles, tectonics, and</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> ocean currents redistribute habitats across latitudes.</text>
-</g>
-<g transform="translate(10, 730)">
-  <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
-  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
-  
-  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
-  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
-  
-  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
-  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">BIOME TRANSITION</text>
-  
-  
-  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
-  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
-  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Convert 2 Forest tiles to Grassland OR vice vers</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">One ecosystem type gradually replaces another across large a</text>
-  
-  <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
-  
-  <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
-  <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Grassland expansion (~15 MYA) - Miocene dryin</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Rainforest spread (~55 MYA) - PETM warmth</text>
-  
-  <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Biome shifts occur when climate changes or new dominant</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> species evolve. Grasslands replaced forests as CO2 dro</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Mutualism is an evolutionary innovation that increases </text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">fitness for all parties. The most successful organisms </text>
 </g>
 <g transform="translate(270, 730)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
-  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
-  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
+  <rect x="10" y="10" width="230" height="30" fill="#27ae60" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ POSITIVE ✦</text>
   
-  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
-  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">ARMS RACE</text>
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#27ae60" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">FLOWERING REVOLUTION</text>
   
   
-  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
-  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
-  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">All [Predator] and [Armored] traits cost -1 alle</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Predator-prey competition intensifies. Evolutionary pressure</text>
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players with [Pollinator] or [Arboreal] traits m</text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Petals unfurl across the planet. Angiosperms transform lands</text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Mesozoic Marine Revolution (~200 MYA)</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Cambrian arms race - Shells vs jaws</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Cretaceous Terrestrial Revolution (~100 MYA) </text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Eocene fruit forests (~50 MYA) - Primates rad</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Red Queen hypothesis: species must constantly evolve to</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> maintain relative fitness. Predators drive prey defens</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Angiosperms evolved ~140 MYA and dominate today with 30</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">0,000+ species. Their fast reproduction and coevolution</text>
 </g>
 <g transform="translate(530, 730)">
   <rect width="250" height="350" fill="#1a0a0a" rx="15"/>
-  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#3498db" stroke-width="3" rx="12"/>
+  <rect x="5" y="5" width="240" height="340" fill="none" stroke="#27ae60" stroke-width="3" rx="12"/>
   
-  <rect x="10" y="10" width="230" height="30" fill="#3498db" rx="8"/>
-  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ NEUTRAL ✦</text>
+  <rect x="10" y="10" width="230" height="30" fill="#27ae60" rx="8"/>
+  <text x="125" y="30" font-family="Arial" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">✦ POSITIVE ✦</text>
   
-  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#3498db" rx="5"/>
-  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">NICHE PARTITIONING</text>
+  <rect x="10" y="45" width="230" height="50" fill="#1a0505" stroke="#27ae60" rx="5"/>
+  <text x="125" y="75" font-family="Georgia" font-size="14" fill="#fff" text-anchor="middle" font-weight="bold">NUTRIENT UPWELLING</text>
   
   
-  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#3498db" rx="5"/>
-  <text x="125" y="118" font-family="Arial" font-size="10" fill="#3498db" text-anchor="middle" font-weight="bold">EFFECT:</text>
-  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players with 3+ unique tags gain +2 alleles. Gen</text>
-  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">Resources divided among competitors. Specialization rewarded</text>
+  <rect x="10" y="100" width="230" height="65" fill="#0a0a15" stroke="#27ae60" rx="5"/>
+  <text x="125" y="118" font-family="Arial" font-size="10" fill="#27ae60" text-anchor="middle" font-weight="bold">EFFECT:</text>
+  <text x="125" y="136" font-family="Arial" font-size="8" fill="#ccc" text-anchor="middle">Players with [Aquatic] tags gain +3 alleles and </text>
+  <text x="125" y="152" font-family="Arial" font-size="7" fill="#888" text-anchor="middle" font-style="italic">The deep ocean gives back. Cold, nutrient-rich currents surg</text>
   
   <rect x="10" y="170" width="230" height="65" fill="#0a0505" stroke="#555" rx="5"/>
   
   <rect x="10" y="185" width="230" height="55" fill="#0a0a1a" stroke="#9b59b6" rx="5"/>
   <text x="125" y="200" font-family="Arial" font-size="9" fill="#9b59b6" text-anchor="middle" font-weight="bold">REAL EXAMPLES:</text>
-  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Darwin's finches - Beak specialization</text>
-  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• African ungulates - Grazer height partitionin</text>
+  <text x="20" y="215" font-family="Arial" font-size="7" fill="#bb88dd">• Humboldt Current (ongoing) - Peru's anchovy f</text>
+  <text x="20" y="227" font-family="Arial" font-size="7" fill="#bb88dd">• Monterey Bay (~15 MYA to present) - Upwelling</text>
   
   <rect x="10" y="305" width="230" height="35" fill="#050505" stroke="#444" rx="5"/>
-  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Competitive exclusion principle: species partition reso</text>
-  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555">urces to coexist. Time, space, and diet differentiation</text>
+  <text x="20" y="320" font-family="Arial" font-size="6" fill="#555">Upwelling zones cover <1% of ocean area but produce 50%</text>
+  <text x="20" y="330" font-family="Arial" font-size="6" fill="#555"> of global fish catch. Nutrient-rich water supports foo</text>
 </g></svg>
