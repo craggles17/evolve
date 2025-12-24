@@ -10,7 +10,8 @@ const MESSAGE_TYPES = {
     SLOT_CLAIM: 'slot_claim',
     SLOT_UPDATE: 'slot_update',
     WELCOME: 'welcome',
-    ERROR: 'error'
+    ERROR: 'error',
+    SHOW_EVENT: 'show_event'
 };
 
 // Generate a short room code from peer ID
@@ -241,6 +242,21 @@ export class MultiplayerHost {
         });
     }
 
+    broadcastEvent(event, results) {
+        this.broadcast({
+            type: MESSAGE_TYPES.SHOW_EVENT,
+            event: event,
+            results: results.map(r => ({
+                playerId: r.player.id,
+                playerName: r.player.name,
+                playerColor: r.player.color,
+                status: r.status,
+                message: r.message,
+                lostMarkers: r.lostMarkers || 0
+            }))
+        });
+    }
+
     broadcastSlotUpdate() {
         this.broadcast({
             type: MESSAGE_TYPES.SLOT_UPDATE,
@@ -427,6 +443,12 @@ export class MultiplayerClient {
             case MESSAGE_TYPES.ERROR:
                 if (this.callbacks.onError) {
                     this.callbacks.onError(data.message);
+                }
+                break;
+
+            case MESSAGE_TYPES.SHOW_EVENT:
+                if (this.callbacks.onShowEvent) {
+                    this.callbacks.onShowEvent(data.event, data.results);
                 }
                 break;
         }
