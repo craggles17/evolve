@@ -47,7 +47,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">, and mammals - universal...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various (convergent)]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -99,7 +99,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ching, disruptive pattern...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -151,7 +151,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">angerous ones - evolution...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -203,7 +203,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">s - dedifferentiation of ...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -255,7 +255,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">, starfish all use this s...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -359,7 +359,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666"> nicotinic receptors bloc...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -411,7 +411,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">endent of solar energy</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Vestimentifera/Bathymodiolus]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -463,7 +463,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ng growth - found in Arct...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Nototheniidae/Insecta]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Actinopterygii]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>

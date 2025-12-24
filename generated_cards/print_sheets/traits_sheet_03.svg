@@ -47,7 +47,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ut huge numbers</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various marine]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Chordata]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -151,7 +151,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">d environments</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Reptilia]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Sauropsida]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -203,7 +203,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666"> limits activity in cold</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Default]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -255,7 +255,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">bles constant activity</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Synapsida/Aves]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Amniota]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -411,7 +411,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ng number</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Theria]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Mammalia]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -463,7 +463,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666"> born more developed</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Eutheria]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Mammalia]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>

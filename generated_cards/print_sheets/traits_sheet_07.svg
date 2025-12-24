@@ -47,7 +47,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ble environments</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -99,7 +99,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">able environments</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -151,7 +151,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">arent resources</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -203,7 +203,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">t are vulnerable to cooli...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -255,7 +255,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">e to sea level fluctuatio...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various marine]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Chordata]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -307,7 +307,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">e seafloor or coast</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various marine]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Chordata]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -359,7 +359,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ient but immobile</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -411,7 +411,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">listic symbiosis</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Cnidaria/Mollusca]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Mollusca]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -463,7 +463,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">osystem role</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>

@@ -45,7 +45,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ts but are vulnerable to ...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>

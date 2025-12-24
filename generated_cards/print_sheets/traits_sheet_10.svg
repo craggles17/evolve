@@ -47,7 +47,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">tion - social carnivory</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Canidae/Hyaenidae]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Mammalia]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -99,7 +99,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">000 km - hardwired naviga...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bilateria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -151,7 +151,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">s with group size</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Bovidae/Equidae]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Mammalia]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -203,7 +203,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666"> grinding fibrous plants</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Ungulata]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Mammalia]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -255,7 +255,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">down cellulose humans can...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Ruminantia]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Mammalia]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -307,7 +307,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">7 vertebrae as humans, ju...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Sauropoda/Giraffidae]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Archosauria]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -359,7 +359,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">ey heartbeats - evolved 6...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Gymnotiformes/Torpediniformes]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Actinopterygii]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
@@ -411,7 +411,7 @@
   <text x="20" y="268" font-family="Arial" font-size="7" fill="#666">lved 50+ times independen...</text>
   
   <rect x="10" y="291" width="230" height="20" fill="#0f3460" rx="5"/>
-  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Various marine]</text>
+  <text x="125" y="305" font-family="Arial" font-size="9" fill="#888" text-anchor="middle">[Chordata]</text>
   
   <rect x="10" y="315" width="230" height="25" fill="#0a0a15" stroke="#444" rx="5"/>
   <text x="20" y="330" font-family="Arial" font-size="7" fill="#555">◀ Hard req  ◁ Soft req (cost-1)</text>
